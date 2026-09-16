@@ -1,5 +1,4 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
+import { describe, expect, test } from 'vitest';
 
 import {
   EvidenceRepository,
@@ -91,68 +90,68 @@ const bundle: EvidenceBundle = {
   ],
 };
 
-test('validates a well-formed evidence bundle', () => {
-  assert.doesNotThrow(() => assertValidEvidenceBundle(bundle));
-  assert.deepEqual(validateEvidenceBundle(bundle), []);
-});
-
-test('detects a missing exact source version', () => {
-  const invalid = structuredClone(bundle);
-  invalid.atoms[0].source.version = 99;
-  const issues = validateEvidenceBundle(invalid);
-  assert.ok(issues.some((issue) => issue.code === 'UNKNOWN_SOURCE_REFERENCE'));
-});
-
-test('repository retrieves exact historical versions', () => {
-  const repository = new EvidenceRepository(bundle);
-  const atom = repository.getAtom({ id: 'ev_synthetic_001', version: 1 });
-  assert.equal(atom?.claim, 'Synthetic source supports a fictional workflow option.');
-  assert.equal(repository.getAtom({ id: 'ev_synthetic_001', version: 2 }), undefined);
-});
-
-test('repository query is deterministic and applicability-aware', () => {
-  const repository = new EvidenceRepository(bundle);
-  const results = repository.queryAtoms({
-    medicationIds: ['med_synthetic_a'],
-    procedureCodes: ['COLONOSCOPY'],
-    lifecycle: ['REVIEWED'],
+describe('evidence knowledge system', () => {
+  test('validates a well-formed evidence bundle', () => {
+    expect(() => assertValidEvidenceBundle(bundle)).not.toThrow();
+    expect(validateEvidenceBundle(bundle)).toEqual([]);
   });
-  assert.deepEqual(results.map((item) => item.id), ['ev_synthetic_001', 'ev_synthetic_002']);
-});
 
-test('detects explicit opposing evidence inside one conflict group', () => {
-  const conflicts = detectEvidenceConflicts(bundle.atoms);
-  assert.equal(conflicts.length, 1);
-  assert.equal(conflicts[0].reason, 'OPPOSING_STANCE');
-  assert.equal(conflicts[0].conflictGroup, 'synthetic-workflow-choice');
-});
+  test('detects a missing exact source version', () => {
+    const invalid = structuredClone(bundle);
+    invalid.atoms[0].source.version = 99;
+    const issues = validateEvidenceBundle(invalid);
+    expect(issues.some((issue) => issue.code === 'UNKNOWN_SOURCE_REFERENCE')).toBe(true);
+  });
 
-test('builds retrieval documents with exact source provenance', () => {
-  const docs = buildRetrievalDocuments(bundle.atoms, bundle.sources);
-  assert.equal(docs.length, 2);
-  assert.deepEqual(docs[0].sourceRef, { id: 'src_synthetic_guideline', version: 1 });
-  assert.match(docs[0].body, /Synthetic/);
-});
+  test('repository retrieves exact historical versions', () => {
+    const repository = new EvidenceRepository(bundle);
+    const atom = repository.getAtom({ id: 'ev_synthetic_001', version: 1 });
+    expect(atom?.claim).toBe('Synthetic source supports a fictional workflow option.');
+    expect(repository.getAtom({ id: 'ev_synthetic_001', version: 2 })).toBeUndefined();
+  });
 
-test('automation cannot promote evidence to reviewed/current', () => {
-  assert.equal(
-    canTransitionEvidence('DRAFT', 'REVIEWED', { actorId: 'bot', role: 'AUTOMATION' }),
-    false,
-  );
-  assert.equal(
-    canTransitionEvidence('REVIEWED', 'CURRENT', { actorId: 'bot', role: 'AUTOMATION' }),
-    false,
-  );
-});
+  test('repository query is deterministic and applicability-aware', () => {
+    const repository = new EvidenceRepository(bundle);
+    const results = repository.queryAtoms({
+      medicationIds: ['med_synthetic_a'],
+      procedureCodes: ['COLONOSCOPY'],
+      lifecycle: ['REVIEWED'],
+    });
+    expect(results.map((item) => item.id)).toEqual(['ev_synthetic_001', 'ev_synthetic_002']);
+  });
 
-test('clinical governance may promote reviewed evidence to current', () => {
-  const reviewed = bundle.atoms[0];
-  const current = transitionAtom(
-    reviewed,
-    'CURRENT',
-    { actorId: 'clinician-1', role: 'CLINICAL_GOVERNANCE' },
-    '2026-09-16T01:00:00Z',
-  );
-  assert.equal(current.lifecycle, 'CURRENT');
-  assert.equal(current.reviewedBy, 'clinician-1');
+  test('detects explicit opposing evidence inside one conflict group', () => {
+    const conflicts = detectEvidenceConflicts(bundle.atoms);
+    expect(conflicts).toHaveLength(1);
+    expect(conflicts[0].reason).toBe('OPPOSING_STANCE');
+    expect(conflicts[0].conflictGroup).toBe('synthetic-workflow-choice');
+  });
+
+  test('builds retrieval documents with exact source provenance', () => {
+    const docs = buildRetrievalDocuments(bundle.atoms, bundle.sources);
+    expect(docs).toHaveLength(2);
+    expect(docs[0].sourceRef).toEqual({ id: 'src_synthetic_guideline', version: 1 });
+    expect(docs[0].body).toMatch(/Synthetic/);
+  });
+
+  test('automation cannot promote evidence to reviewed/current', () => {
+    expect(
+      canTransitionEvidence('DRAFT', 'REVIEWED', { actorId: 'bot', role: 'AUTOMATION' }),
+    ).toBe(false);
+    expect(
+      canTransitionEvidence('REVIEWED', 'CURRENT', { actorId: 'bot', role: 'AUTOMATION' }),
+    ).toBe(false);
+  });
+
+  test('clinical governance may promote reviewed evidence to current', () => {
+    const reviewed = bundle.atoms[0];
+    const current = transitionAtom(
+      reviewed,
+      'CURRENT',
+      { actorId: 'clinician-1', role: 'CLINICAL_GOVERNANCE' },
+      '2026-09-16T01:00:00Z',
+    );
+    expect(current.lifecycle).toBe('CURRENT');
+    expect(current.reviewedBy).toBe('clinician-1');
+  });
 });
