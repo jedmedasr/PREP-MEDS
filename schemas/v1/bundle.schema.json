@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prep-meds.local/schemas/v1/bundle.schema.json",
+  "title": "PREP-MEDS Knowledge Bundle v1",
+  "type": "object",
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "medications": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/Medication"}},
+    "ingredients": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/Ingredient"}},
+    "drug_classes": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/DrugClass"}},
+    "procedures": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/Procedure"}},
+    "modifier_definitions": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/ModifierDefinition"}},
+    "evidence_atoms": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/EvidenceAtom"}},
+    "clinical_rules": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/ClinicalRule"}},
+    "organization_policies": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/OrganizationPolicy"}},
+    "test_cases": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/TestCase"}},
+    "decision_events": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/DecisionEvent"}},
+    "overrides": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/Override"}},
+    "procedure_outcomes": {"type": "array", "items": {"$ref": "prep-meds.schema.json#/$defs/ProcedureOutcome"}}
+  },
+  "additionalProperties": false
+}
