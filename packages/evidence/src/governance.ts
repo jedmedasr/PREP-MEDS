@@ -40,12 +40,20 @@ export function transitionAtom(
     throw new Error(`Transition ${atom.lifecycle} -> ${to} is not permitted for role ${actor.role}.`);
   }
 
-  return {
+  const next: EvidenceAtom = {
     ...structuredClone(atom),
     lifecycle: to,
-    reviewedAt: to === 'REVIEWED' || to === 'CURRENT' ? timestamp : atom.reviewedAt,
-    reviewedBy: to === 'REVIEWED' || to === 'CURRENT' ? actor.actorId : atom.reviewedBy,
   };
+
+  if (to === 'REVIEWED' || to === 'CURRENT') {
+    return {
+      ...next,
+      reviewedAt: timestamp,
+      reviewedBy: actor.actorId,
+    };
+  }
+
+  return next;
 }
 
 export function transitionSource(
