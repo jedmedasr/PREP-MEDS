@@ -295,7 +295,7 @@ describe('auditability and artifact validation', () => {
 
   it('flags malformed clinical artifacts before activation', () => {
     const invalidRule = rule({ evidenceRefs: [], priority: -1 });
-    const invalidPolicy = policy({ scopeLevel: 'SITE', siteId: undefined });
+    const invalidPolicy = policy({ scopeLevel: 'SITE' });
     const issues = validateEngineArtifacts([invalidRule], [invalidPolicy]);
     expect(issues.map((issue) => issue.code)).toContain('RULE_WITHOUT_EVIDENCE');
     expect(issues.map((issue) => issue.code)).toContain('INVALID_RULE_PRIORITY');
