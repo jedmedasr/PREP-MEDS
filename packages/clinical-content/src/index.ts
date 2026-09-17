@@ -5,6 +5,7 @@ export {
   antithromboticEvidence,
   antithromboticReleaseMetadata,
 } from './antithrombotics.js';
+export { antithromboticShadowRules } from './antithrombotic-shadow.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
