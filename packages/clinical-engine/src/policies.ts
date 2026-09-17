@@ -59,7 +59,7 @@ function comparePrecedence(left: RankedPolicy, right: RankedPolicy): number {
 
 function stableStringify(value: unknown): string {
   if (value === undefined) return 'undefined';
-  if (value === null || typeof value !== 'object') return JSON.stringify(value);
+  if (value === null || typeof value !== 'object') return JSON.stringify(value) ?? String(value);
   if (Array.isArray(value)) return `[${value.map(stableStringify).join(',')}]`;
   const record = value as Record<string, unknown>;
   return `{${Object.keys(record)
