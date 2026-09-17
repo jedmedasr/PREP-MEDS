@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { evaluateDecision, type ModifierValue, type ProcedureCode } from '@prep-meds/clinical-engine';
 import { TerminologyIndex } from '@prep-meds/terminology';
 import { activePolicies, activeRules, terminologyDataset } from '@/lib/content';
+import { renderPatientInstruction } from '@/lib/workflow';
 
 const index = new TerminologyIndex(terminologyDataset);
 const procedures = new Set<ProcedureCode>(['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY']);
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     execution,
+    patientInstruction: renderPatientInstruction(execution.event),
     clinicalContentState: activeRules.length === 0 ? 'NO_ACTIVE_CLINICAL_RULES' : 'ACTIVE_RULES_AVAILABLE',
   });
 }
