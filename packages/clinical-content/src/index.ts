@@ -10,10 +10,14 @@ export {
   antithromboticShadowRules as antithromboticCandidateRules,
 } from './antithrombotic-shadow.js';
 export {
-  diabetesCoreCandidateRules,
+  diabetesCoreCandidateRules as diabetesCoreBaseCandidateRules,
   diabetesCoreEvidence,
   diabetesCoreReleaseMetadata,
 } from './diabetes-core.js';
+export {
+  diabetesCoreShadowRules,
+  diabetesCoreShadowRules as diabetesCoreCandidateRules,
+} from './diabetes-core-shadow.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
