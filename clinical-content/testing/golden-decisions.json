@@ -1,0 +1,36 @@
+{
+  "description": "Synthetic software-only golden cases. These are not clinical recommendations.",
+  "cases": [
+    {
+      "id": "GOLD-001",
+      "procedureCode": "COLONOSCOPY",
+      "recentEventState": "KNOWN",
+      "recentEventValue": false,
+      "expectedDisposition": "CONTINUE",
+      "expectedReasonCodes": []
+    },
+    {
+      "id": "GOLD-002",
+      "procedureCode": "COLONOSCOPY",
+      "recentEventState": "UNKNOWN",
+      "expectedDisposition": "INSUFFICIENT_INFORMATION",
+      "expectedReasonCodes": ["REQUIRED_INPUT_UNRESOLVED"]
+    },
+    {
+      "id": "GOLD-003",
+      "procedureCode": "COLONOSCOPY",
+      "recentEventState": "KNOWN",
+      "recentEventValue": true,
+      "expectedDisposition": "CLINICIAN_REVIEW_REQUIRED",
+      "expectedReasonCodes": ["SYNTHETIC_RECENT_EVENT"]
+    },
+    {
+      "id": "GOLD-004",
+      "procedureCode": "EGD",
+      "recentEventState": "KNOWN",
+      "recentEventValue": false,
+      "expectedDisposition": "OUT_OF_SCOPE",
+      "expectedReasonCodes": ["NO_APPLICABLE_RULE"]
+    }
+  ]
+}

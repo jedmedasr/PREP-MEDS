@@ -5,6 +5,13 @@
   "packageManager": "pnpm@9.15.0",
   "scripts": {
     "test": "pnpm -r test",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "schema:validate": "node tools/quality/validate-schemas.mjs",
+    "governance:check": "node tools/quality/check-clinical-governance.mjs",
+    "quality": "pnpm typecheck && pnpm test && pnpm schema:validate && pnpm governance:check"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
   }
 }

@@ -96,17 +96,16 @@ function evaluateResolvedComparison(condition: Extract<Condition, { field: strin
 }
 
 export function evaluateCondition(condition: Condition, context: DecisionContext): ConditionEvaluation {
-  if (condition.op === 'ALL') {
+  if (condition.op === 'ALL' || condition.op === 'ANY') {
     const evaluations = condition.conditions.map((item) => evaluateCondition(item, context));
     const unresolved = evaluations.flatMap((item) => item.unresolvedFields);
-    if (evaluations.some((item) => item.state === 'FALSE')) return result('FALSE', unresolved);
-    if (evaluations.some((item) => item.state === 'UNKNOWN')) return result('UNKNOWN', unresolved);
-    return result('TRUE', unresolved);
-  }
 
-  if (condition.op === 'ANY') {
-    const evaluations = condition.conditions.map((item) => evaluateCondition(item, context));
-    const unresolved = evaluations.flatMap((item) => item.unresolvedFields);
+    if (condition.op === 'ALL') {
+      if (evaluations.some((item) => item.state === 'FALSE')) return result('FALSE', unresolved);
+      if (evaluations.some((item) => item.state === 'UNKNOWN')) return result('UNKNOWN', unresolved);
+      return result('TRUE', unresolved);
+    }
+
     if (evaluations.some((item) => item.state === 'TRUE')) return result('TRUE', unresolved);
     if (evaluations.some((item) => item.state === 'UNKNOWN')) return result('UNKNOWN', unresolved);
     return result('FALSE', unresolved);

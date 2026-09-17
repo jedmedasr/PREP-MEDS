@@ -20,11 +20,7 @@ export function canTransitionEvidence(
 ): boolean {
   if (!ALLOWED_TRANSITIONS[from].has(to)) return false;
 
-  // Automation may prepare draft content but cannot promote evidence into
-  // reviewed/current authority states.
   if (actor.role === 'AUTOMATION' && (to === 'REVIEWED' || to === 'CURRENT')) return false;
-
-  // Only clinical governance can declare an evidence atom/source CURRENT.
   if (to === 'CURRENT' && actor.role !== 'CLINICAL_GOVERNANCE') return false;
 
   return true;
@@ -40,11 +36,19 @@ export function transitionAtom(
     throw new Error(`Transition ${atom.lifecycle} -> ${to} is not permitted for role ${actor.role}.`);
   }
 
+  const clone = structuredClone(atom);
+  if (to === 'REVIEWED' || to === 'CURRENT') {
+    return {
+      ...clone,
+      lifecycle: to,
+      reviewedAt: timestamp,
+      reviewedBy: actor.actorId,
+    };
+  }
+
   return {
-    ...structuredClone(atom),
+    ...clone,
     lifecycle: to,
-    reviewedAt: to === 'REVIEWED' || to === 'CURRENT' ? timestamp : atom.reviewedAt,
-    reviewedBy: to === 'REVIEWED' || to === 'CURRENT' ? actor.actorId : atom.reviewedBy,
   };
 }
 

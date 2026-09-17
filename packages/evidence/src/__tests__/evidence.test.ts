@@ -98,7 +98,7 @@ describe('evidence knowledge system', () => {
 
   test('detects a missing exact source version', () => {
     const invalid = structuredClone(bundle);
-    invalid.atoms[0].source.version = 99;
+    invalid.atoms[0]!.source.version = 99;
     const issues = validateEvidenceBundle(invalid);
     expect(issues.some((issue) => issue.code === 'UNKNOWN_SOURCE_REFERENCE')).toBe(true);
   });
@@ -123,15 +123,15 @@ describe('evidence knowledge system', () => {
   test('detects explicit opposing evidence inside one conflict group', () => {
     const conflicts = detectEvidenceConflicts(bundle.atoms);
     expect(conflicts).toHaveLength(1);
-    expect(conflicts[0].reason).toBe('OPPOSING_STANCE');
-    expect(conflicts[0].conflictGroup).toBe('synthetic-workflow-choice');
+    expect(conflicts[0]!.reason).toBe('OPPOSING_STANCE');
+    expect(conflicts[0]!.conflictGroup).toBe('synthetic-workflow-choice');
   });
 
   test('builds retrieval documents with exact source provenance', () => {
     const docs = buildRetrievalDocuments(bundle.atoms, bundle.sources);
     expect(docs).toHaveLength(2);
-    expect(docs[0].sourceRef).toEqual({ id: 'src_synthetic_guideline', version: 1 });
-    expect(docs[0].body).toMatch(/Synthetic/);
+    expect(docs[0]!.sourceRef).toEqual({ id: 'src_synthetic_guideline', version: 1 });
+    expect(docs[0]!.body).toMatch(/Synthetic/);
   });
 
   test('automation cannot promote evidence to reviewed/current', () => {
@@ -144,7 +144,7 @@ describe('evidence knowledge system', () => {
   });
 
   test('clinical governance may promote reviewed evidence to current', () => {
-    const reviewed = bundle.atoms[0];
+    const reviewed = bundle.atoms[0]!;
     const current = transitionAtom(
       reviewed,
       'CURRENT',
