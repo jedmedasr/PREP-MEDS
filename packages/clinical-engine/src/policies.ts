@@ -47,7 +47,7 @@ function specificity(policy: PolicyOverlay): number {
 }
 
 function precedence(policy: RankedPolicy): [number, number] {
-  return [policy.specificity, -(policy.priority ?? 100)];
+  return [policy.specificity, -policy.priority];
 }
 
 function comparePrecedence(left: RankedPolicy, right: RankedPolicy): number {
@@ -73,7 +73,7 @@ function chooseField<T>(
   nextValue: T | undefined,
   nextSource: RankedPolicy,
 ): { selected?: { value: T; source: RankedPolicy }; conflict: boolean } {
-  if (nextValue === undefined) return { selected: current, conflict: false };
+  if (nextValue === undefined) return current ? { selected: current, conflict: false } : { conflict: false };
   if (!current) return { selected: { value: nextValue, source: nextSource }, conflict: false };
 
   const comparison = comparePrecedence(nextSource, current.source);
@@ -102,7 +102,11 @@ export function resolvePolicies(
   });
 
   for (const policy of ordered) {
-    const rank = { policy, specificity: specificity(policy), priority: policy.priority ?? 100 };
+    const rank: RankedPolicy = {
+      policy,
+      specificity: specificity(policy),
+      priority: policy.priority ?? 100,
+    };
     const baseTrace = {
       policyRef: policyRef(policy),
       priority: rank.priority,
@@ -217,16 +221,18 @@ export function resolvePolicies(
       : entry,
   );
 
+  const effect: ResolvedPolicyEffect = {
+    policyRefs: selectedRefs,
+    ...(disposition !== undefined ? { dispositionOverride: disposition.value } : {}),
+    ...(timing !== undefined ? { timingRule: timing.value } : {}),
+    ...(restart !== undefined ? { restartOwner: restart.value } : {}),
+    ...(reasonCodes.size > 0 ? { reasonCodes: [...reasonCodes].sort() } : {}),
+    ...(requiredModifierIds.size > 0 ? { requiredModifierIds: [...requiredModifierIds].sort() } : {}),
+  };
+
   return {
     kind: 'RESOLVED',
-    effect: {
-      dispositionOverride: disposition?.value,
-      timingRule: timing?.value,
-      restartOwner: restart?.value,
-      reasonCodes: [...reasonCodes].sort(),
-      requiredModifierIds: [...requiredModifierIds].sort(),
-      policyRefs: selectedRefs,
-    },
+    effect,
     trace: finalizedTrace,
   };
 }
