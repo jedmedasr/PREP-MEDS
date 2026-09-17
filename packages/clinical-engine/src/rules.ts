@@ -134,5 +134,5 @@ export function selectRule(
     return { kind: 'AMBIGUOUS', competing: top, trace };
   }
 
-  return { kind: 'SELECTED', selected: top[0], trace };
+  return { kind: 'SELECTED', selected: top[0]!, trace };
 }
