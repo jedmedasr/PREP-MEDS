@@ -29,7 +29,29 @@ The current evidence hierarchy was re-checked against current authoritative sour
 
 Checkpoint A is complete for the re-audit workflow. The existing evidence corpus is directionally appropriate, but later checkpoints must specifically verify that the deterministic rule layer encodes the high-thromboembolic-risk defer/escalation concept and the mechanical-valve bridging conflict without collapsing either into a routine timing rule.
 
-The next checkpoint is **B — terminology audit**. Existing green CI does not substitute for that audit.
+## Checkpoint B — terminology audit
+
+**Audit status:** completed  
+**Audit date:** 2026-09-17  
+**Commit:** `451fff87225ca12f1853582fadfe4465e7e87214`
+
+The antithrombotic terminology layer was reviewed for exact identity, class ambiguity, ingredient decomposition, and external-code safety.
+
+### Terminology findings
+
+1. **Exact generic and brand identity remains the deterministic resolution path.** Common current/historical patient-reported names are represented, including Eliquis, Xarelto, Savaysa, Pradaxa, Lovenox, Fragmin, Arixtra, Plavix, Effient, Brilinta, Ticlid, Persantine, Pletal, Coumadin, Jantoven, and Aggrenox where applicable.
+2. **Salt/prodrug names are searchable where clinically relevant.** The dataset now recognizes terms such as dabigatran etexilate/mesylate, enoxaparin sodium, dalteparin sodium, heparin sodium, and fondaparinux sodium without creating separate PREP-MEDS clinical identities for salts that share the same management pathway.
+3. **Class-level aliases are intentionally ambiguous.** Terms such as `blood thinner`, `DOAC`, `LMWH`, `P2Y12 inhibitor`, and `antiplatelet` are attached to multiple candidate medications. The search layer must not convert those class-only phrases into one medication identity without an exact or otherwise unambiguous match.
+4. **Aspirin/extended-release dipyridamole remains a combination identity and decomposes to both ingredients.** Aggrenox and common aspirin/ER-dipyridamole phrasings map to `MED-aspirin-dipyridamole`, which references both `ING-aspirin` and `ING-dipyridamole`.
+5. **No RxNorm identifier was invented or inferred.** Batch 01 continues to omit RxCUI values unless they are ingested and verified through the governed RxNorm terminology pipeline. Brand/generic verification does not authorize guessing external terminology identifiers.
+6. **Systemic heparin identity is distinct from future line-flush/device-use handling.** `MED-heparin` represents systemic unfractionated heparin review logic. A heparin lock/flush formulation must not silently resolve into the systemic anticoagulation pathway; that formulation distinction remains future terminology work if encountered in outpatient medication reconciliation.
+7. **Historical brand aliases are recognition aids, not claims of current commercial availability.** Patients may still report older brand names such as Coumadin, Ticlid, Persantine, or Pletal. PREP-MEDS may recognize those strings while keeping product-market status separate from clinical identity.
+
+### Terminology-audit disposition
+
+Checkpoint B is complete. No external terminology code has been asserted without verification, combination decomposition is preserved, and ambiguous class terms remain non-authoritative search inputs.
+
+The next checkpoint is **C — deterministic rule audit**.
 
 ## Scope
 
