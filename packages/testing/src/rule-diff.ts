@@ -23,7 +23,14 @@ export function diffBehavior(
       if (!equal(left.policyRefs, right.policyRefs)) changedFields.push('policyRefs');
     }
     const safetyRelevant = changedFields.some((f) => ['case_presence', 'disposition', 'reasonCodes'].includes(f));
-    return { caseId, changed: changedFields.length > 0, before: left, after: right, changedFields, safetyRelevant };
+    return {
+      caseId,
+      changed: changedFields.length > 0,
+      ...(left ? { before: left } : {}),
+      ...(right ? { after: right } : {}),
+      changedFields,
+      safetyRelevant,
+    };
   });
 }
 
