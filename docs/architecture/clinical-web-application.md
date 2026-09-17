@@ -25,6 +25,7 @@ Browser
   |
   `-- POST /api/decision
           -> normalized medication record
+          -> typed modifier normalization
           -> Stage 5 engine in PRODUCTION mode
           -> ACTIVE rules + ACTIVE tenant policies only
           -> immutable structured DecisionEvent + trace
@@ -39,8 +40,9 @@ The browser never invents a disposition, timing interval, restart plan, or evide
 3. Select one normalized medication identity.
 4. Fetch only rule-required questions for that medication/procedure context.
 5. Submit explicit modifier values and provenance.
-6. Execute the deterministic engine on the server.
-7. Display separate staff, clinician, evidence, and patient views.
+6. Normalize typed modifier values server-side; malformed typed values fail closed to `UNKNOWN`.
+7. Execute the deterministic engine on the server.
+8. Display separate staff, clinician, evidence, and patient views.
 
 ## View contracts
 
@@ -66,13 +68,16 @@ When approved clinical content is later released, the UI does not require a new 
 - ambiguous/unknown medication identity must not be converted into a decision request;
 - clinical evaluation occurs server-side in `PRODUCTION` mode;
 - production mode only executes `ACTIVE` rules/policies;
+- typed numeric/boolean modifier values are normalized server-side before rule evaluation and malformed values fail closed;
 - UI prose cannot override the structured engine event;
 - no patient instruction is rendered for non-actionable outcomes;
 - no real PHI is committed to the repository;
 - the current default organization identifier is a non-production placeholder and must be replaced by authenticated tenant context in the enterprise stage.
 
 ## Quality gates
-Stage 8 adds `pnpm build:web` to the root `quality` command and GitHub Actions workflow. A pull request must therefore satisfy schema validation, strict typechecking, tests, and a production Next.js build.
+Stage 8 adds `pnpm build:web` to the root `quality` command and GitHub Actions workflow. The Stage 8 acceptance run completed schema validation, strict TypeScript typechecking, all unit/regression tests, and the production Next.js build successfully.
+
+The stricter end-to-end quality run also exposed and corrected latent `exactOptionalPropertyTypes` / `noUncheckedIndexedAccess` issues in the earlier evidence, clinical-engine, and testing packages without weakening compiler settings or changing clinical rule semantics.
 
 ## Known limitations
 - no authentication/RBAC yet;
@@ -81,7 +86,7 @@ Stage 8 adds `pnpm build:web` to the root `quality` command and GitHub Actions w
 - no browser E2E suite yet;
 - no full evidence-document viewer yet;
 - no approved clinical rules are activated yet;
-- numeric modifier normalization remains intentionally conservative and must be validated against typed modifier definitions before real clinical rules requiring numeric comparisons are released;
+- validated clinical calculator modules and patient-specific date/timing arithmetic are not yet implemented;
 - no FHIR/EHR context ingestion yet.
 
 These are addressed by later enterprise, interoperability, and production-hardening stages.
