@@ -40,6 +40,47 @@ export function deriveRequiredQuestions(args: {
     .map((definition) => ({ ...definition, required: true as const }));
 }
 
+export function normalizeModifierValues(
+  modifiers: ModifierValue[],
+  definitions: Record<string, UiModifierDefinition>,
+): ModifierValue[] {
+  return modifiers.map((modifier) => {
+    if (modifier.state !== 'KNOWN') return modifier;
+    const definition = definitions[modifier.modifierId];
+    if (!definition) return modifier;
+
+    if (definition.inputType === 'number') {
+      const parsed = typeof modifier.value === 'number' ? modifier.value : Number(modifier.value);
+      if (!Number.isFinite(parsed)) {
+        return {
+          ...modifier,
+          state: 'UNKNOWN',
+          value: undefined,
+          provenance: modifier.provenance
+            ? { ...modifier.provenance, confirmationStatus: 'UNCONFIRMED' }
+            : undefined,
+        } as ModifierValue;
+      }
+      return { ...modifier, value: parsed };
+    }
+
+    if (definition.inputType === 'boolean' && typeof modifier.value === 'string') {
+      if (modifier.value === 'true') return { ...modifier, value: true };
+      if (modifier.value === 'false') return { ...modifier, value: false };
+      return {
+        ...modifier,
+        state: 'UNKNOWN',
+        value: undefined,
+        provenance: modifier.provenance
+          ? { ...modifier.provenance, confirmationStatus: 'UNCONFIRMED' }
+          : undefined,
+      } as ModifierValue;
+    }
+
+    return modifier;
+  });
+}
+
 export function isActionableDisposition(disposition: DecisionEvent['disposition']): boolean {
   return disposition === 'CONTINUE' || disposition === 'HOLD_STANDARD' || disposition === 'CONDITIONAL';
 }
@@ -51,7 +92,7 @@ export interface PatientInstructionView {
   reason?: string;
 }
 
-export function renderPatientInstruction(event: DecisionEvent): PatientInstructionView {
+export function renderPatientInstruction(event: Readonly<DecisionEvent>): PatientInstructionView {
   if (!isActionableDisposition(event.disposition)) {
     return {
       allowed: false,
