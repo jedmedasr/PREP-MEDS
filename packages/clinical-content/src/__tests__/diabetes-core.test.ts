@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { evaluateDecision, type MedicationContext, type ModifierValue } from '@prep-meds/clinical-engine';
 import { validateEvidenceBundle } from '@prep-meds/evidence';
-import { diabetesCoreCandidateRules, diabetesCoreEvidence, diabetesCoreReleaseMetadata } from '../diabetes-core.js';
+import { diabetesCoreEvidence, diabetesCoreReleaseMetadata } from '../diabetes-core.js';
+import { diabetesCoreShadowRules } from '../diabetes-core-shadow.js';
 
 const recordedAt = '2026-09-17T03:00:00Z';
 
@@ -31,7 +32,7 @@ function evaluate(med: MedicationContext, modifiers: ModifierValue[]) {
       medication: med,
       modifiers,
     },
-    rules: diabetesCoreCandidateRules,
+    rules: diabetesCoreShadowRules,
     policies: [],
   });
 }
@@ -43,9 +44,9 @@ describe('diabetes core evidence governance', () => {
     expect(diabetesCoreEvidence.atoms.every((atom) => atom.lifecycle === 'DRAFT')).toBe(true);
   });
 
-  it('resolves every rule evidence reference and activates nothing', () => {
+  it('resolves every shadow-rule evidence reference and activates nothing', () => {
     const refs = new Set(diabetesCoreEvidence.atoms.map((atom) => `${atom.id}@${atom.version}`));
-    for (const rule of diabetesCoreCandidateRules) {
+    for (const rule of diabetesCoreShadowRules) {
       for (const evidenceRef of rule.evidenceRefs) {
         expect(refs.has(`${evidenceRef.id}@${evidenceRef.version}`)).toBe(true);
       }
@@ -58,11 +59,13 @@ describe('diabetes core evidence governance', () => {
 describe('oral glucose-lowering pathways', () => {
   const diabetesIndication = [known('MOD-diabetes-medication-indication', 'DIABETES')];
 
-  it('encodes only a procedure-day hold for metformin and does not invent a multi-day hold', () => {
+  it('encodes only a procedure-day hold for metformin and does not invent preprocedure or restart timing', () => {
     const result = evaluate(medication('MED-metformin', 'CLS-metformin'), diabetesIndication);
     expect(result.event.disposition).toBe('HOLD_STANDARD');
     expect(result.event.outputSnapshot.timingRule?.procedureDay).toEqual({ takeMedication: false });
     expect(result.event.outputSnapshot.timingRule?.preProcedure).toBeUndefined();
+    expect(result.event.outputSnapshot.timingRule?.restart).toBeUndefined();
+    expect(result.event.outputSnapshot.restartOwner).toBe('CLINICIAN_REVIEW');
   });
 
   it('applies the procedure-day pathway across core oral glucose-lowering classes', () => {
@@ -81,9 +84,7 @@ describe('oral glucose-lowering pathways', () => {
   });
 
   it('fails closed when the medication indication is not confirmed as diabetes', () => {
-    const result = evaluate(medication('MED-metformin', 'CLS-metformin'), [
-      known('MOD-diabetes-medication-indication', 'OTHER'),
-    ]);
+    const result = evaluate(medication('MED-metformin', 'CLS-metformin'), [known('MOD-diabetes-medication-indication', 'OTHER')]);
     expect(result.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
     expect(result.event.reasonCodes).toContain('NON_DIABETES_INDICATION_REQUIRES_CLINICIAN_REVIEW');
   });
