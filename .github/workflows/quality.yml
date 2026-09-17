@@ -17,12 +17,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'pnpm'
 
       - name: Enable Corepack
         run: corepack enable
@@ -30,11 +31,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Unit and integration tests
-        run: pnpm test
-
-      - name: Validate schemas and fixtures
-        run: pnpm schema:validate
+      - name: Run release-gating quality suite
+        run: pnpm quality
