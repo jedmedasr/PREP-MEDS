@@ -288,7 +288,10 @@ export function evaluateDecision(request: EngineRequest): DecisionExecution {
   const selectedPolicyRefsSorted = dedupeRefs(selectedPolicyRefs);
   const policyEvidenceRefs = selectedPolicyEvidenceRefs(selectedPolicyRefsSorted, request.policies ?? []);
 
-  if (selectedPolicyRefsSorted.length === 1) trace.selectedPolicyRef = selectedPolicyRefsSorted[0];
+  const selectedPolicyRef = selectedPolicyRefsSorted[0];
+  if (selectedPolicyRefsSorted.length === 1 && selectedPolicyRef) {
+    trace.selectedPolicyRef = selectedPolicyRef;
+  }
 
   const policyRequiredModifiers = policyEffect?.requiredModifierIds ?? [];
   if (policyRequiredModifiers.length > 0) {
