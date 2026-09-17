@@ -137,9 +137,14 @@ export function evaluateCondition(condition: Condition, context: DecisionContext
     return result(resolved.state === 'RESOLVED' ? 'TRUE' : 'FALSE');
   }
 
-  const resolved = resolveField(condition.field, context);
-  if (resolved.state !== 'RESOLVED') return result('UNKNOWN', [condition.field]);
+  if (!('field' in condition)) {
+    return result('UNKNOWN');
+  }
 
-  const state = evaluateResolvedComparison(condition, resolved.value);
-  return state === 'UNKNOWN' ? result('UNKNOWN', [condition.field]) : result(state);
+  const fieldCondition = condition as Extract<Condition, { field: string }>;
+  const resolved = resolveField(fieldCondition.field, context);
+  if (resolved.state !== 'RESOLVED') return result('UNKNOWN', [fieldCondition.field]);
+
+  const state = evaluateResolvedComparison(fieldCondition, resolved.value);
+  return state === 'UNKNOWN' ? result('UNKNOWN', [fieldCondition.field]) : result(state);
 }
