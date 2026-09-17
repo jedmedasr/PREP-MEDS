@@ -62,7 +62,7 @@ describe('antithrombotic evidence governance', () => {
     expect(antithromboticEvidence.conflicts?.some((conflict) => conflict.conflictGroup === 'CONFLICT-ENDOSCOPY-ANTITHROMBOTIC-TIMING')).toBe(true);
   });
 
-  it('resolves every rule evidence reference exactly and activates nothing', () => {
+  it('resolves every shadow-rule evidence reference exactly and activates nothing', () => {
     const refs = new Set(antithromboticEvidence.atoms.map((atom) => `${atom.id}@${atom.version}`));
     for (const rule of antithromboticShadowRules) {
       for (const evidenceRef of rule.evidenceRefs) {
@@ -71,6 +71,20 @@ describe('antithrombotic evidence governance', () => {
       expect(['APPROVED', 'ACTIVE']).not.toContain(rule.status);
     }
     expect(antithromboticReleaseMetadata.status).toBe('CLINICAL_REVIEW_REQUIRED');
+  });
+
+  it('does not reuse P2Y12 or DOAC-bridging evidence as direct support for unrelated review pathways', () => {
+    const byMedication = new Map(
+      antithromboticShadowRules.flatMap((rule) =>
+        (rule.scope.medicationIds ?? []).map((medicationId) => [medicationId, rule] as const),
+      ),
+    );
+
+    for (const medicationId of ['MED-heparin', 'MED-fondaparinux', 'MED-dipyridamole']) {
+      const rule = byMedication.get(medicationId);
+      expect(rule).toBeDefined();
+      expect(rule?.evidenceRefs).toEqual([{ id: 'EVD-B1-BSG-LOW-HIGH-RISK-ENDOSCOPY', version: 1 }]);
+    }
   });
 });
 
@@ -84,11 +98,12 @@ describe('oral anticoagulant shadow pathways', () => {
     expect(result.event.missingModifierIds).toContain('MOD-anticoagulation-indication');
   });
 
-  it('routes apixaban, rivaroxaban, and edoxaban to clinician review rather than an autonomous hold interval', () => {
+  it('routes factor-Xa DOACs to clinician review without an autonomous hold or restart interval', () => {
     for (const id of ['MED-apixaban', 'MED-rivaroxaban', 'MED-edoxaban']) {
       const result = evaluate(medication(id, 'CLS-doac-factor-xa'), anticoagContext);
       expect(result.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
       expect(result.event.outputSnapshot.timingRule).toBeUndefined();
+      expect(result.event.outputSnapshot.restartOwner).toBe('CLINICIAN_REVIEW');
     }
   });
 
@@ -100,6 +115,7 @@ describe('oral anticoagulant shadow pathways', () => {
 
     const complete = evaluate(med, [...anticoagContext, known('MOD-verified-crcl-band', 'GE_50')]);
     expect(complete.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(complete.event.outputSnapshot.restartOwner).toBe('CLINICIAN_REVIEW');
   });
 
   it('surfaces recent thrombosis as a hard-stop reason', () => {
@@ -118,19 +134,51 @@ describe('oral anticoagulant shadow pathways', () => {
 
     const complete = evaluate(med, [...anticoagContext, known('MOD-mechanical-heart-valve', false)]);
     expect(complete.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(complete.event.outputSnapshot.restartOwner).toBe('CLINICIAN_REVIEW');
+  });
+
+  it('flags a mechanical-valve indication even when the separate boolean is inconsistent', () => {
+    const med = medication('MED-warfarin', 'CLS-vitamin-k-antagonist');
+    const result = evaluate(med, [
+      known('MOD-anticoagulation-indication', 'MECHANICAL_HEART_VALVE'),
+      known('MOD-recent-thrombotic-event', false),
+      known('MOD-concomitant-antithrombotic', false),
+      known('MOD-mechanical-heart-valve', false),
+    ]);
+    expect(result.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(result.event.reasonCodes).toContain('MECHANICAL_HEART_VALVE_INDICATION_REQUIRES_CLINICIAN_REVIEW');
   });
 });
 
 describe('injectable anticoagulant shadow pathways', () => {
-  it('distinguishes therapeutic, prophylactic, and bridging intent before review', () => {
-    const common = [
-      known('MOD-anticoagulation-indication', 'VTE'),
-      known('MOD-anticoagulant-intent', 'THERAPEUTIC'),
-      known('MOD-recent-thrombotic-event', false),
-      known('MOD-verified-crcl-band', 'GE_50'),
-    ];
-    expect(evaluate(medication('MED-enoxaparin', 'CLS-lmwh'), common).event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
-    expect(evaluate(medication('MED-dalteparin', 'CLS-lmwh'), common).event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+  const injectableContext = [
+    known('MOD-anticoagulation-indication', 'VTE'),
+    known('MOD-anticoagulant-intent', 'THERAPEUTIC'),
+    known('MOD-recent-thrombotic-event', false),
+    known('MOD-verified-crcl-band', 'GE_50'),
+    known('MOD-concomitant-antithrombotic', false),
+  ];
+
+  it('requires whole-list antithrombotic context before review', () => {
+    const incomplete = injectableContext.filter((modifier) => modifier.modifierId !== 'MOD-concomitant-antithrombotic');
+    const result = evaluate(medication('MED-enoxaparin', 'CLS-lmwh'), incomplete);
+    expect(result.event.disposition).toBe('INSUFFICIENT_INFORMATION');
+    expect(result.event.missingModifierIds).toContain('MOD-concomitant-antithrombotic');
+  });
+
+  it('distinguishes injectable anticoagulant intent and remains clinician-reviewed', () => {
+    expect(evaluate(medication('MED-enoxaparin', 'CLS-lmwh'), injectableContext).event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(evaluate(medication('MED-dalteparin', 'CLS-lmwh'), injectableContext).event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+  });
+
+  it('surfaces recent thrombosis for injectable anticoagulants', () => {
+    const recent = injectableContext.map((modifier) =>
+      modifier.modifierId === 'MOD-recent-thrombotic-event'
+        ? known('MOD-recent-thrombotic-event', true)
+        : modifier,
+    );
+    const result = evaluate(medication('MED-enoxaparin', 'CLS-lmwh'), recent);
+    expect(result.event.reasonCodes).toContain('RECENT_THROMBOTIC_EVENT_REQUIRES_CLINICIAN_REVIEW');
   });
 });
 
@@ -158,7 +206,9 @@ describe('antiplatelet shadow pathways', () => {
 
   it('routes all encoded P2Y12 agents to clinician review and surfaces recent stent/ACS', () => {
     for (const id of ['MED-clopidogrel', 'MED-prasugrel', 'MED-ticagrelor', 'MED-ticlopidine']) {
-      expect(evaluate(medication(id, 'CLS-p2y12-inhibitor'), p2y12Context).event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+      const result = evaluate(medication(id, 'CLS-p2y12-inhibitor'), p2y12Context);
+      expect(result.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+      expect(result.event.outputSnapshot.restartOwner).toBe('CLINICIAN_REVIEW');
     }
 
     const recentStent = p2y12Context.map((modifier) =>
@@ -168,6 +218,16 @@ describe('antiplatelet shadow pathways', () => {
     );
     const result = evaluate(medication('MED-clopidogrel', 'CLS-p2y12-inhibitor'), recentStent);
     expect(result.event.reasonCodes).toContain('RECENT_STENT_OR_ACS_REQUIRES_CLINICIAN_REVIEW');
+  });
+
+  it('surfaces DAPT as an explicit component/stent-risk review reason', () => {
+    const dapt = p2y12Context.map((modifier) =>
+      modifier.modifierId === 'MOD-dual-antiplatelet-therapy'
+        ? known('MOD-dual-antiplatelet-therapy', true)
+        : modifier,
+    );
+    const result = evaluate(medication('MED-ticagrelor', 'CLS-p2y12-inhibitor'), dapt);
+    expect(result.event.reasonCodes).toContain('DAPT_REQUIRES_COMPONENT_AND_STENT_RISK_REVIEW');
   });
 
   it('keeps aspirin/dipyridamole combination therapy clinician-reviewed', () => {
@@ -181,5 +241,6 @@ describe('antiplatelet shadow pathways', () => {
       known('MOD-concomitant-antithrombotic', false),
     ]);
     expect(result.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(result.event.outputSnapshot.restartOwner).toBe('CLINICIAN_REVIEW');
   });
 });
