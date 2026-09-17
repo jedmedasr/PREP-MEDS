@@ -29,3 +29,5 @@ jobs:
         run: pnpm typecheck
       - name: Unit and regression tests
         run: pnpm test
+      - name: Build clinical web application
+        run: pnpm build:web
