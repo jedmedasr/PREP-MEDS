@@ -1,0 +1,48 @@
+{
+  "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
+  "branch": "med-batch-01-antithrombotics",
+  "pullRequest": 11,
+  "updatedAt": "2026-09-17T10:46:00Z",
+  "checkpoints": {
+    "A_EVIDENCE_AUDIT": {
+      "status": "COMPLETE",
+      "commits": ["8cee6c4947650f2067e51a43b2d782831c1a5be5"],
+      "notes": "Current GI/perioperative evidence re-audited; mechanical-valve bridging disagreement and procedure-risk/timing conflicts preserved explicitly."
+    },
+    "B_TERMINOLOGY_AUDIT": {
+      "status": "COMPLETE",
+      "commits": [
+        "451fff87225ca12f1853582fadfe4465e7e87214",
+        "1aa0d3b31b7659d41074499d8d1934a6cc0f455b"
+      ],
+      "notes": "Generic/brand/salt/prodrug aliases audited; class-only terms intentionally remain ambiguous; aspirin/ER-dipyridamole decomposes to both ingredients; no unverified RxNorm identifiers asserted."
+    },
+    "C_RULE_AUDIT": {
+      "status": "COMPLETE",
+      "commits": ["e9577bde43fc2dae8c8df1d41c09f48639bbb60f"],
+      "notes": "Misleading evidence links corrected in shadow rules; restart ownership hardened to clinician review; mechanical-valve, DAPT, recent-thrombosis, and concomitant-antithrombotic safety reasons made explicit."
+    },
+    "D_TEST_AUDIT": {
+      "status": "COMPLETE_PENDING_CI",
+      "commits": ["9ee3ec5c0b831f7898154c623f21c67f8b51916e"],
+      "notes": "Regression coverage expanded for evidence-reference integrity, restart ownership, mechanical-valve inconsistency, injectable whole-list context, DAPT, recent thrombosis, and no-autonomous timing behavior."
+    },
+    "E_INTEGRATION_AUDIT": {
+      "status": "COMPLETE",
+      "commits": [],
+      "notes": "Audited apps/web content/question/decision boundaries: production uses ACTIVE rules only; review candidates are exposed only in shadow mode; shadow decisions cannot generate patient instructions."
+    },
+    "F_CI_REPAIR": {
+      "status": "PENDING",
+      "commits": [],
+      "notes": "Run/inspect schema validation, strict TypeScript typecheck, unit/regression tests, and production web build for the audited head. Any failure blocks new content and must be repaired before PR finalization."
+    },
+    "G_PR_FINALIZATION": {
+      "status": "PENDING",
+      "commits": [],
+      "notes": "Update PR #11 with checkpoint audit results and final green CI status."
+    }
+  },
+  "nextCheckpoint": "F_CI_REPAIR",
+  "productionActivationAllowed": false
+}
