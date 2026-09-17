@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { ClinicalRule, DecisionEvent, MedicationContext } from '@prep-meds/clinical-engine';
-import { deriveRequiredQuestions, renderPatientInstruction } from '../workflow';
+import type { ClinicalRule, DecisionEvent, MedicationContext, ModifierValue } from '@prep-meds/clinical-engine';
+import { deriveRequiredQuestions, normalizeModifierValues, renderPatientInstruction } from '../workflow';
 
 const medication: MedicationContext = {
   medicationId: 'MED-synthetic',
@@ -52,6 +52,42 @@ describe('progressive question discovery', () => {
     });
 
     expect(questions.map((question) => question.id)).toEqual(['MOD-synthetic']);
+  });
+});
+
+describe('modifier normalization', () => {
+  it('converts a numeric form value to a finite number before engine evaluation', () => {
+    const modifier: ModifierValue = {
+      modifierId: 'MOD-number',
+      state: 'KNOWN',
+      value: '12.5',
+      provenance: {
+        sourceType: 'USER_ENTERED',
+        recordedAt: '2026-09-16T00:00:00Z',
+        confirmationStatus: 'CONFIRMED',
+      },
+    };
+    const [normalized] = normalizeModifierValues([modifier], {
+      'MOD-number': { id: 'MOD-number', label: 'Synthetic number', inputType: 'number' },
+    });
+    expect(normalized?.value).toBe(12.5);
+  });
+
+  it('fails a malformed numeric value closed to UNKNOWN', () => {
+    const modifier: ModifierValue = {
+      modifierId: 'MOD-number',
+      state: 'KNOWN',
+      value: 'not-a-number',
+      provenance: {
+        sourceType: 'USER_ENTERED',
+        recordedAt: '2026-09-16T00:00:00Z',
+        confirmationStatus: 'CONFIRMED',
+      },
+    };
+    const [normalized] = normalizeModifierValues([modifier], {
+      'MOD-number': { id: 'MOD-number', label: 'Synthetic number', inputType: 'number' },
+    });
+    expect(normalized?.state).toBe('UNKNOWN');
   });
 });
 
