@@ -31,12 +31,16 @@ export function detectEvidenceConflicts(atoms: EvidenceAtom[]): EvidenceConflict
     let conditional = false;
 
     for (let i = 0; i < members.length; i += 1) {
+      const left = members[i];
+      if (!left) continue;
       for (let j = i + 1; j < members.length; j += 1) {
-        const pair = stancePair(members[i].stance, members[j].stance);
+        const right = members[j];
+        if (!right) continue;
+        const pair = stancePair(left.stance, right.stance);
         if (OPPOSING.has(pair)) opposing = true;
         if (
-          members[i].stance !== members[j].stance &&
-          (members[i].stance === 'CONDITIONAL' || members[j].stance === 'CONDITIONAL')
+          left.stance !== right.stance &&
+          (left.stance === 'CONDITIONAL' || right.stance === 'CONDITIONAL')
         ) {
           conditional = true;
         }
