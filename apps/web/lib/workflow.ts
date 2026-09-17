@@ -18,6 +18,7 @@ export function deriveRequiredQuestions(args: {
   procedureCode: ProcedureCode;
   definitions: Record<string, UiModifierDefinition>;
   existingModifiers?: ModifierValue[];
+  includeReviewCandidates?: boolean;
 }): WorkflowQuestion[] {
   const context = {
     organizationId: 'question-discovery',
@@ -28,7 +29,10 @@ export function deriveRequiredQuestions(args: {
 
   const requiredIds = new Set<string>();
   for (const rule of args.rules) {
-    if (rule.status !== 'ACTIVE') continue;
+    const eligibleStatus = args.includeReviewCandidates
+      ? !['SUPERSEDED', 'RETIRED'].includes(rule.status)
+      : rule.status === 'ACTIVE';
+    if (!eligibleStatus) continue;
     if (!scopeMatches(rule.scope, context)) continue;
     rule.requiredModifierIds.forEach((id) => requiredIds.add(id));
   }
@@ -90,6 +94,15 @@ export interface PatientInstructionView {
   heading: string;
   body: string;
   reason?: string;
+}
+
+export function blockedShadowPatientInstruction(): PatientInstructionView {
+  return {
+    allowed: false,
+    heading: 'Patient instruction disabled in shadow mode',
+    body: 'This result comes from clinical-review candidate content and must not be used as a finalized patient medication instruction.',
+    reason: 'SHADOW_CONTENT_NOT_CLINICALLY_APPROVED',
+  };
 }
 
 export function renderPatientInstruction(event: Readonly<DecisionEvent>): PatientInstructionView {
