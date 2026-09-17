@@ -5,14 +5,17 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const schemaDir = path.join(root, 'schemas/v1');
 
 async function loadJson(relativePath) {
   const fullPath = path.join(root, relativePath);
   return JSON.parse(await readFile(fullPath, 'utf8'));
 }
 
-const ajv = new Ajv2020({ allErrors: true, strict: true });
+const ajv = new Ajv2020({
+  allErrors: true,
+  strict: true,
+  allowUnionTypes: true,
+});
 addFormats(ajv);
 
 const prepMedsSchema = await loadJson('schemas/v1/prep-meds.schema.json');
