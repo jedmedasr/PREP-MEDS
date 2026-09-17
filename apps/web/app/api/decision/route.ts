@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { evaluateDecision, type ModifierValue, type ProcedureCode } from '@prep-meds/clinical-engine';
 import { TerminologyIndex } from '@prep-meds/terminology';
-import { activePolicies, activeRules, terminologyDataset } from '@/lib/content';
-import { renderPatientInstruction } from '@/lib/workflow';
+import { activePolicies, activeRules, modifierDefinitions, terminologyDataset } from '@/lib/content';
+import { normalizeModifierValues, renderPatientInstruction } from '@/lib/workflow';
 
 const index = new TerminologyIndex(terminologyDataset);
 const procedures = new Set<ProcedureCode>(['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY']);
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         ingredientIds: medication.ingredientIds,
         drugClassIds: medication.drugClassIds ?? [],
       },
-      modifiers: body.modifiers ?? [],
+      modifiers: normalizeModifierValues(body.modifiers ?? [], modifierDefinitions),
     },
     rules: activeRules,
     policies: activePolicies,
