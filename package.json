@@ -7,7 +7,8 @@
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "schema:validate": "node tools/quality/validate-schemas.mjs",
-    "quality": "pnpm typecheck && pnpm test && pnpm schema:validate"
+    "governance:check": "node tools/quality/check-clinical-governance.mjs",
+    "quality": "pnpm typecheck && pnpm test && pnpm schema:validate && pnpm governance:check"
   },
   "devDependencies": {
     "ajv": "^8.17.1",
