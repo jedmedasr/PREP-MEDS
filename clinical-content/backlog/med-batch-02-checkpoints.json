@@ -1,0 +1,91 @@
+{
+  "batchId": "MED-BATCH-02-DIABETES-CORE",
+  "status": "IN_PROGRESS",
+  "branch": "med-batch-02-diabetes-core",
+  "pullRequest": 12,
+  "updatedAt": "2026-09-18T01:24:33Z",
+  "lastWorkTrigger": "LIVE_CHAT",
+  "dependency": {
+    "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
+    "verifiedHeadSha": "dc5768f9f8e2755db9a3757b89cd7eae180b1177",
+    "preservedDiabetesHeadSha": "a2e201f13906fc9cb3f8c3106fe685fa36e636ee",
+    "recoveryMergeSha": "89684071bee79eddb0cb9e13d57e14e97a36ec1b",
+    "notes": "Path-disjoint histories reconciled with a two-parent merge; all five prior diabetes files preserved at recovery. No force push or main-branch merge."
+  },
+  "checkpoints": {
+    "A_EVIDENCE_AUDIT": {
+      "status": "IN_PROGRESS",
+      "commits": ["838b6c6f65a9cbf802c1cac99bdfa8438a930629", "5b2582da7ddfe83d03b740c6afe0c3b0426a1202"],
+      "notes": "Eight evidence v2 revisions and four source v2 revisions now have selected verified primary-source passages, locators and explicit limitations. Original versions retained. Narrative passages no longer receive unverified GRADE certainty labels. No source is clinically approved.",
+      "remaining": [
+        "Pin an exact glipizide label SETID/version and locator for its hypoglycemia claim.",
+        "Complete the exact USMSTF recommendation locator and applicability, without treating bowel-preparation guidance as a complete drug-timing protocol.",
+        "Audit class-level inheritance against drug-specific sources and distinguish supported instructions from local-policy decisions.",
+        "Complete the intended prep-day and recovery evidence coverage or document explicit scoped review-only exclusions."
+      ]
+    },
+    "B_TERMINOLOGY_AUDIT": {
+      "status": "IN_PROGRESS",
+      "commits": ["73cfe447a8815a47974ee44396fea24444229516", "11f13e72e20f20d91bdb547dc451b991b22cde76", "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68"],
+      "notes": "31 medication/formulation concepts integrated with catalog validation. The empty-ingredient pump fixture is excluded; device use is context on actual insulin. Shared exact aliases remain ambiguous even when the display limit is one. No RxNorm codes fabricated.",
+      "remaining": [
+        "Separate clinically material insulin concentrations and formulations rather than implying interchangeability.",
+        "Represent protamine/formulation components of premixed analog insulins appropriately.",
+        "Resolve bromocriptine formulation ambiguity and verify non-diabetes indication handling.",
+        "Verify all product aliases and legacy-market metadata against primary terminology/label sources."
+      ]
+    },
+    "C_RULE_AUDIT": {
+      "status": "IN_PROGRESS",
+      "commits": ["0f62ce5ecc1476e1bd20d6958a1cabcddce11a5d", "403c9ec9a15607a8b9562c549331289ca40d7ef3"],
+      "notes": "Guarded workflow rules use separate IDs and version 2 evidence references. Procedure-day oral candidates require phase and plan confirmation. Prep/recovery, unconfirmed insulin formulation/plan and pump use route to review. Insulin dosing and restart arithmetic are not generated.",
+      "remaining": [
+        "Reconcile final applicability and drug-specific exceptions after evidence and formulation audits.",
+        "Retain source-boundary limitations; a clinician-plan confirmation checkbox is not clinical approval of PREP-MEDS."
+      ]
+    },
+    "D_TEST_AUDIT": {
+      "status": "IN_PROGRESS",
+      "commits": ["e536aada6fde63bfd2313f9d06e717bda35b6932", "11505f6597fac5e5f377f699e44fe0ec6916a36a", "28c593bc2ba9c7b19e413d92c0fcae34d8c5022a", "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68"],
+      "notes": "Four new test suites pass. Includes all required-question coverage across 31 medication entries and 3 procedures, serialization, source/version integrity, shared aliases, phase/regimen guards and production isolation.",
+      "remaining": [
+        "Add formulation-specific and drug-label applicability cases as the corresponding audits close.",
+        "Expand malformed/conflicting-input and whole-regimen scenarios; synthetic tests do not substitute for clinical adjudication."
+      ]
+    },
+    "E_INTEGRATION_AUDIT": {
+      "status": "COMPLETE",
+      "commits": ["73cfe447a8815a47974ee44396fea24444229516", "0cd28d2b0f5c3b907581346930acd47e3079d2c4", "11505f6597fac5e5f377f699e44fe0ec6916a36a"],
+      "notes": "Complete for the bounded shadow release only: medications are searchable; eight question definitions are wired; the old glargine seed is replaced only in the assembled shadow release. Production rules and policies remain empty; finalized shadow patient instructions remain blocked. Recheck after subsequent content changes."
+    },
+    "F_CI_REPAIR": {
+      "status": "COMPLETE",
+      "commits": ["4c867eb90b9edae7f83747b8f59e8364ceb805b4", "e536aada6fde63bfd2313f9d06e717bda35b6932"],
+      "notes": "Initial optional instructionCode TS2322 repaired without relaxing compiler flags. All quality gates subsequently passed for the exact code head in the CI receipt below. This status is not evidence that future commits pass; inspect the current head before advancing."
+    },
+    "G_PR_FINALIZATION": {
+      "status": "IN_PROGRESS",
+      "commits": ["b02a78ff82c7f5346b8669fbc1dc89ec1fb7d68d"],
+      "notes": "Draft PR #12 and governance documentation exist. Keep the PR draft and do not mark the batch complete until remaining evidence/formulation/rule/test audits and final-head verification are complete."
+    }
+  },
+  "ci": {
+    "status": "SUCCESS",
+    "verifiedHeadSha": "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68",
+    "workflowRunId": 35294997275,
+    "jobId": 105445614830,
+    "completedAt": "2026-09-18T01:22:38Z",
+    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/35294997275",
+    "gates": {
+      "schemaValidation": "SUCCESS",
+      "strictTypecheck": "SUCCESS",
+      "unitAndRegressionTests": "SUCCESS",
+      "productionWebBuild": "SUCCESS"
+    },
+    "scopeNote": "This receipt applies only to the exact verified code head. Later documentation/checkpoint commits require their own CI inspection. Record the final head receipt in the PR conversation to avoid an endless receipt-commit cycle."
+  },
+  "nextCheckpoint": "A_EVIDENCE_AUDIT",
+  "nextWorkItem": "Pin the glipizide label/version and exact hypoglycemia locator, then close USMSTF provenance and class-inheritance gaps. If current-head CI is failing, repair it first. Do not redo recovery, the optional-field fix or completed integration unless new changes invalidate them.",
+  "advanceToNextBatchAllowed": false,
+  "productionActivationAllowed": false
+}
