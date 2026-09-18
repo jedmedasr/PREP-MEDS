@@ -18,6 +18,7 @@ export {
   diabetesCoreShadowRules,
   diabetesCoreShadowRules as diabetesCoreCandidateRules,
 } from './diabetes-core-shadow.js';
+export { diabetesWorkflowRules, diabetesWorkflowMetadata } from './diabetes-workflow.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
