@@ -20,10 +20,11 @@ export {
 } from './diabetes-core-shadow.js';
 export { diabetesWorkflowRules, diabetesWorkflowMetadata } from './diabetes-workflow.js';
 export {
-  diabetesWorkflowEvidence,
-  diabetesWorkflowEvidence as diabetesCoreEvidence,
-  diabetesEvidenceAuditStatus,
-} from './diabetes-evidence-provenance.js';
+  diabetesAuditedEvidence,
+  diabetesAuditedEvidence as diabetesWorkflowEvidence,
+  diabetesAuditedEvidence as diabetesCoreEvidence,
+  diabetesScopedEvidenceAudit as diabetesEvidenceAuditStatus,
+} from './diabetes-evidence-audit.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
