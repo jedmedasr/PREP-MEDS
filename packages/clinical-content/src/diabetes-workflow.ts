@@ -15,11 +15,11 @@ function reviewUnless(reasonCode: string, modifierId: string, expected: string |
 }
 
 /**
- * Version 3 uses an explicit, audited draft evidence set. A product label is not
- * direct support for other members of a class or a different release formulation.
- * These are shadow candidates, not approved patient medication instructions.
+ * Version 4 separates bromocriptine formulations as well as evidence applicability.
+ * Product-identity evidence is not a dosing, conversion or interruption protocol.
+ * All outputs remain non-production shadow candidates pending accountable approval.
  */
-export const diabetesWorkflowRules: ClinicalRule[] = diabetesCoreShadowRules
+const classWorkflowRules: ClinicalRule[] = diabetesCoreShadowRules
   .filter((rule) => rule.id !== 'RULE-B2-INSULIN-PUMP-AID-POLICY')
   .map((rule): ClinicalRule => {
     const requiredModifierIds = new Set(rule.requiredModifierIds);
@@ -41,6 +41,12 @@ export const diabetesWorkflowRules: ClinicalRule[] = diabetesCoreShadowRules
       );
     }
 
+    if (classes.has('CLS-dopamine-agonist-diabetes')) {
+      requiredModifierIds.add('MOD-bromocriptine-formulation');
+      hardStops.push(reviewUnless('BROMOCRIPTINE_DIABETES_FORMULATION_NOT_CONFIRMED', 'MOD-bromocriptine-formulation', 'CYCLOSET_QR'));
+      evidenceRefs.push({ id: 'EVD-B2-FORM-CYCLOSET-IDENTITY', version: 1 });
+    }
+
     if (isInsulin) {
       requiredModifierIds.add('MOD-insulin-formulation-confirmed');
       requiredModifierIds.add('MOD-pump-aid-system-type');
@@ -57,7 +63,7 @@ export const diabetesWorkflowRules: ClinicalRule[] = diabetesCoreShadowRules
     return {
       ...rule,
       id: `${rule.id}-WORKFLOW`,
-      version: 3,
+      version: 4,
       name: `${rule.name} (guarded shadow workflow)`,
       requiredModifierIds: [...requiredModifierIds],
       hardStops,
@@ -66,15 +72,38 @@ export const diabetesWorkflowRules: ClinicalRule[] = diabetesCoreShadowRules
     };
   });
 
+export const diabetesWorkflowRules: ClinicalRule[] = [
+  ...classWorkflowRules,
+  {
+    id: 'RULE-B2-BROMOCRIPTINE-PRODUCT-REVIEW-WORKFLOW',
+    version: 4,
+    name: 'Unresolved or non-diabetes bromocriptine product requires clinician review',
+    scope: {
+      medicationIds: ['MED-bromocriptine-unspecified', 'MED-bromocriptine-parlodel'],
+      procedureCodes: ['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY'],
+    },
+    requiredModifierIds: ['MOD-diabetes-medication-indication', 'MOD-diabetes-care-phase'],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [
+      { id: 'EVD-B2-FORM-CYCLOSET-IDENTITY', version: 1 },
+      { id: 'EVD-B2-FORM-PARLODEL-IDENTITY', version: 1 },
+    ],
+    status: 'CLINICAL_REVIEW',
+    priority: 30,
+  },
+];
+
 export const diabetesWorkflowMetadata = {
   releaseId: 'PREP-MEDS-BATCH-02-GUARDED-WORKFLOW',
-  version: 3,
+  version: 4,
   status: 'CLINICAL_REVIEW_REQUIRED',
   intendedUse: 'SHADOW_VALIDATION_ONLY',
   limitations: [
     'Oral-agent action is limited to a confirmed procedure-day plan; preparation and recovery remain review-only.',
     'The descriptive sulfonylurea-class safety warning is not a shared product dosing or interruption schedule.',
     'Generic metformin and meglitinide rules do not inherit product-specific ER or repaglinide labeling.',
+    'Cycloset identity and diabetes indication must be confirmed independently; other bromocriptine products do not inherit the diabetes hold pathway.',
     'Insulin identity does not authorize dosing; formulation and individualized-plan review remain mandatory.',
     'Pump compatibility, rates, backup therapy and local policy require review.',
     'Clinical approval, complete contraindication/interaction checking and full prep/restart protocols are not provided.',
