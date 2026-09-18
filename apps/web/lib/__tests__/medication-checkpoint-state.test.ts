@@ -1,11 +1,24 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+
+function checkpointPath(): string {
+  // Works when Vitest starts from either the repository root or its web workspace.
+  let directory = resolve(process.cwd());
+  for (;;) {
+    if (existsSync(join(directory, 'pnpm-workspace.yaml'))) {
+      return join(directory, 'clinical-content/backlog/med-batch-02-checkpoints.json');
+    }
+    const parent = dirname(directory);
+    if (parent === directory) throw new Error('PREP-MEDS workspace root not found');
+    directory = parent;
+  }
+}
 
 // A green clinical build must not conceal an unreadable automation resume file.
 describe('medication batch durable state', () => {
   it('retains a complete parseable Batch 02 checkpoint with safe continuation boundaries', () => {
-    const url = new URL('../../../../clinical-content/backlog/med-batch-02-checkpoints.json', import.meta.url);
-    const state = JSON.parse(readFileSync(url, 'utf8')) as Record<string, unknown>;
+    const state = JSON.parse(readFileSync(checkpointPath(), 'utf8')) as Record<string, unknown>;
     expect(state.batchId).toBe('MED-BATCH-02-DIABETES-CORE');
     expect(state.branch).toBe('med-batch-02-diabetes-core');
     expect(state.pullRequest).toBe(12);
