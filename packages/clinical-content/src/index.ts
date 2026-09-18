@@ -1,5 +1,14 @@
 export { firstClinicalContentEvidence } from './evidence.js';
 export { firstReleaseCandidateRules } from './rules.js';
+export {
+  antithromboticCandidateRules as antithromboticBaseCandidateRules,
+  antithromboticEvidence,
+  antithromboticReleaseMetadata,
+} from './antithrombotics.js';
+export {
+  antithromboticShadowRules,
+  antithromboticShadowRules as antithromboticCandidateRules,
+} from './antithrombotic-shadow.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',

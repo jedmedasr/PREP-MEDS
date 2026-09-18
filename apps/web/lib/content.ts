@@ -1,6 +1,14 @@
 import type { ClinicalRule, PolicyOverlay } from '@prep-meds/clinical-engine';
-import { firstClinicalContentEvidence, firstReleaseCandidateRules, firstReleaseMetadata } from '@prep-meds/clinical-content';
+import {
+  antithromboticCandidateRules,
+  antithromboticEvidence,
+  antithromboticReleaseMetadata,
+  firstClinicalContentEvidence,
+  firstReleaseCandidateRules,
+  firstReleaseMetadata,
+} from '@prep-meds/clinical-content';
 import type { TerminologyDataset } from '@prep-meds/terminology';
+import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
 
 export interface UiModifierDefinition {
   id: string;
@@ -17,13 +25,14 @@ export type ClinicalContentState =
   | 'SHADOW_REVIEW_RULES';
 
 export const terminologyDataset: TerminologyDataset = {
-  version: 'stage-08.5-seed-1',
-  generatedAt: '2026-09-17T01:00:00Z',
+  version: 'med-batch-01-antithrombotics-1',
+  generatedAt: '2026-09-17T02:00:00Z',
   ingredients: [
-    { id: 'ING-apixaban', canonicalName: 'Apixaban' },
-    { id: 'ING-warfarin', canonicalName: 'Warfarin' },
-    { id: 'ING-clopidogrel', canonicalName: 'Clopidogrel' },
-    { id: 'ING-aspirin', canonicalName: 'Aspirin' },
+    { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
+    { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
+    { id: 'ING-clopidogrel', canonicalName: 'Clopidogrel', aliases: ['plavix'] },
+    { id: 'ING-aspirin', canonicalName: 'Aspirin', aliases: ['ASA', 'acetylsalicylic acid'] },
+    ...antithromboticIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -32,10 +41,42 @@ export const terminologyDataset: TerminologyDataset = {
     { id: 'ING-atorvastatin', canonicalName: 'Atorvastatin' },
   ],
   medications: [
-    { id: 'MED-apixaban', canonicalName: 'Apixaban', ingredientIds: ['ING-apixaban'], drugClassIds: ['CLS-doac-factor-xa'] },
-    { id: 'MED-warfarin', canonicalName: 'Warfarin', ingredientIds: ['ING-warfarin'], drugClassIds: ['CLS-vitamin-k-antagonist'] },
-    { id: 'MED-clopidogrel', canonicalName: 'Clopidogrel', ingredientIds: ['ING-clopidogrel'], drugClassIds: ['CLS-p2y12-inhibitor'] },
-    { id: 'MED-aspirin', canonicalName: 'Aspirin', ingredientIds: ['ING-aspirin'], drugClassIds: ['CLS-antiplatelet'] },
+    {
+      id: 'MED-apixaban',
+      canonicalName: 'Apixaban',
+      genericName: 'apixaban',
+      brandNames: ['Eliquis'],
+      aliases: ['factor Xa inhibitor', 'blood thinner'],
+      ingredientIds: ['ING-apixaban'],
+      drugClassIds: ['CLS-doac-factor-xa'],
+    },
+    {
+      id: 'MED-warfarin',
+      canonicalName: 'Warfarin',
+      genericName: 'warfarin',
+      brandNames: ['Coumadin', 'Jantoven'],
+      aliases: ['vitamin K antagonist', 'VKA', 'blood thinner'],
+      ingredientIds: ['ING-warfarin'],
+      drugClassIds: ['CLS-vitamin-k-antagonist'],
+    },
+    {
+      id: 'MED-clopidogrel',
+      canonicalName: 'Clopidogrel',
+      genericName: 'clopidogrel',
+      brandNames: ['Plavix'],
+      aliases: ['P2Y12 inhibitor', 'antiplatelet'],
+      ingredientIds: ['ING-clopidogrel'],
+      drugClassIds: ['CLS-p2y12-inhibitor'],
+    },
+    {
+      id: 'MED-aspirin',
+      canonicalName: 'Aspirin',
+      genericName: 'aspirin',
+      aliases: ['ASA', 'acetylsalicylic acid', 'antiplatelet'],
+      ingredientIds: ['ING-aspirin'],
+      drugClassIds: ['CLS-antiplatelet'],
+    },
+    ...antithromboticMedications,
     { id: 'MED-empagliflozin', canonicalName: 'Empagliflozin', ingredientIds: ['ING-empagliflozin'], drugClassIds: ['CLS-sglt2-inhibitor'] },
     { id: 'MED-semaglutide', canonicalName: 'Semaglutide', ingredientIds: ['ING-semaglutide'], drugClassIds: ['CLS-glp1-receptor-agonist'] },
     { id: 'MED-insulin-glargine', canonicalName: 'Insulin glargine', ingredientIds: ['ING-insulin-glargine'], drugClassIds: ['CLS-basal-insulin'] },
@@ -49,10 +90,13 @@ export const terminologyDataset: TerminologyDataset = {
 export const activeRules: ClinicalRule[] = [];
 export const activePolicies: PolicyOverlay[] = [];
 
-// These rules are available only when the server is explicitly configured for shadow validation.
-export const clinicalReviewRules: ClinicalRule[] = firstReleaseCandidateRules;
-export const clinicalReviewEvidence = firstClinicalContentEvidence;
-export const clinicalReviewReleaseMetadata = firstReleaseMetadata;
+// Review candidates are available only when the server is explicitly configured for shadow validation.
+export const clinicalReviewRules: ClinicalRule[] = [
+  ...firstReleaseCandidateRules,
+  ...antithromboticCandidateRules,
+];
+export const clinicalReviewEvidenceBundles = [firstClinicalContentEvidence, antithromboticEvidence] as const;
+export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata] as const;
 
 export function isShadowContentMode(): boolean {
   return process.env.PREP_MEDS_CONTENT_MODE === 'shadow';
@@ -74,11 +118,70 @@ export const modifierDefinitions: Record<string, UiModifierDefinition> = {
     description: 'Why the patient takes this medication.',
     inputType: 'text',
   },
+  'MOD-anticoagulation-indication': {
+    id: 'MOD-anticoagulation-indication',
+    label: 'Anticoagulation indication',
+    description: 'Primary reason for chronic anticoagulation.',
+    inputType: 'select',
+    options: [
+      { value: 'ATRIAL_FIBRILLATION', label: 'Atrial fibrillation/flutter' },
+      { value: 'VTE', label: 'Venous thromboembolism (DVT/PE)' },
+      { value: 'MECHANICAL_HEART_VALVE', label: 'Mechanical heart valve' },
+      { value: 'OTHER_UNCLEAR', label: 'Other / unclear' },
+    ],
+  },
+  'MOD-antiplatelet-indication': {
+    id: 'MOD-antiplatelet-indication',
+    label: 'Antiplatelet indication',
+    description: 'Primary reason for P2Y12 or other antiplatelet therapy.',
+    inputType: 'select',
+    options: [
+      { value: 'CORONARY_STENT_OR_ACS', label: 'Coronary stent / acute coronary syndrome' },
+      { value: 'PRIOR_MI_OR_CAD', label: 'Prior MI / coronary artery disease' },
+      { value: 'CEREBROVASCULAR', label: 'Stroke / TIA / cerebrovascular disease' },
+      { value: 'PAD', label: 'Peripheral arterial disease' },
+      { value: 'OTHER_UNCLEAR', label: 'Other / unclear' },
+    ],
+  },
   'MOD-recent-thrombotic-event': {
     id: 'MOD-recent-thrombotic-event',
     label: 'Recent thrombotic event',
-    description: 'Recent VTE, stroke, TIA, or other thrombotic event relevant to interruption risk.',
+    description: 'Recent VTE, stroke, TIA, systemic embolism, or other event that may increase interruption risk.',
     inputType: 'boolean',
+  },
+  'MOD-concomitant-antithrombotic': {
+    id: 'MOD-concomitant-antithrombotic',
+    label: 'Other anticoagulant or antiplatelet medication',
+    description: 'Is the patient taking another medication that affects thrombosis/hemostasis, such as aspirin, a P2Y12 inhibitor, or another anticoagulant?',
+    inputType: 'boolean',
+  },
+  'MOD-mechanical-heart-valve': {
+    id: 'MOD-mechanical-heart-valve',
+    label: 'Mechanical heart valve',
+    description: 'Confirm whether the patient has a mechanical prosthetic heart valve.',
+    inputType: 'boolean',
+  },
+  'MOD-anticoagulant-intent': {
+    id: 'MOD-anticoagulant-intent',
+    label: 'Anticoagulant treatment intent',
+    description: 'Clarify whether injectable anticoagulant use is therapeutic treatment, prophylaxis, or bridging.',
+    inputType: 'select',
+    options: [
+      { value: 'THERAPEUTIC', label: 'Therapeutic anticoagulation' },
+      { value: 'PROPHYLAXIS', label: 'VTE prophylaxis' },
+      { value: 'BRIDGING', label: 'Periprocedural bridging' },
+      { value: 'OTHER_UNCLEAR', label: 'Other / unclear' },
+    ],
+  },
+  'MOD-verified-crcl-band': {
+    id: 'MOD-verified-crcl-band',
+    label: 'Verified creatinine-clearance band',
+    description: 'Use a validated calculator/verified clinical value; do not infer CrCl from serum creatinine alone.',
+    inputType: 'select',
+    options: [
+      { value: 'GE_50', label: 'CrCl ≥50 mL/min' },
+      { value: 'LT_50', label: 'CrCl <50 mL/min' },
+    ],
   },
   'MOD-diabetes-type': {
     id: 'MOD-diabetes-type',

@@ -1,0 +1,85 @@
+{
+  "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
+  "branch": "med-batch-01-antithrombotics",
+  "pullRequest": 11,
+  "updatedAt": "2026-09-18T00:58:45Z",
+  "engineeringStatus": "COMPLETE",
+  "clinicalStatus": "HUMAN_REVIEW_REQUIRED",
+  "completionMeaning": "Engineering checkpoint completion for draft shadow content, not clinical approval or a complete drug-specific timing protocol.",
+  "checkpoints": {
+    "A_EVIDENCE_AUDIT": {
+      "status": "COMPLETE",
+      "commits": ["8cee6c4947650f2067e51a43b2d782831c1a5be5"],
+      "notes": "Prior automated evidence audit recorded; clinical source-by-source verification, locators, label versions, applicability and policy reconciliation remain required before adoption."
+    },
+    "B_TERMINOLOGY_AUDIT": {
+      "status": "COMPLETE",
+      "commits": [
+        "451fff87225ca12f1853582fadfe4465e7e87214",
+        "1aa0d3b31b7659d41074499d8d1934a6cc0f455b"
+      ],
+      "notes": "Generic/brand/salt/prodrug aliases audited; class-only terms intentionally remain ambiguous; aspirin/ER-dipyridamole decomposes to both ingredients; no unverified RxNorm identifiers asserted."
+    },
+    "C_RULE_AUDIT": {
+      "status": "COMPLETE",
+      "commits": ["e9577bde43fc2dae8c8df1d41c09f48639bbb60f"],
+      "notes": "Shadow-rule evidence links and restart ownership hardened; explicit mechanical-valve, DAPT, recent-thrombosis and concurrent-antithrombotic reasons added. Review-only broad framework references do not establish drug-specific timing support."
+    },
+    "D_TEST_AUDIT": {
+      "status": "COMPLETE",
+      "commits": [
+        "9ee3ec5c0b831f7898154c623f21c67f8b51916e",
+        "98f9aba934fbcbbf52cb556439e6b17e3e498b4c"
+      ],
+      "notes": "Existing regression suite plus five added shadow-contract tests passed in quality run 35293303042. Tests cover optional-property serialization, restart ownership, source non-mutation, unchanged dispositions and non-activation."
+    },
+    "E_INTEGRATION_AUDIT": {
+      "status": "COMPLETE",
+      "commits": [],
+      "notes": "Prior audit of web content/question/decision boundaries retained: production uses ACTIVE rules only; review candidates are exposed only in shadow mode; shadow decisions cannot generate patient instructions."
+    },
+    "F_CI_REPAIR": {
+      "status": "COMPLETE",
+      "commits": [
+        "afd875df1509d5568c8c52bf78c3636f4c200256",
+        "98f9aba934fbcbbf52cb556439e6b17e3e498b4c"
+      ],
+      "notes": "Fixed TS2322 caused by an explicitly undefined optional restartOwner without weakening exactOptionalPropertyTypes. Schema validation, strict typecheck, unit/regression tests and production web build all passed on the verified code head."
+    },
+    "G_PR_FINALIZATION": {
+      "status": "COMPLETE",
+      "commits": [],
+      "notes": "PR #11 updated with repair details, verified workflow, scope, clinical limitations and Batch 02 handoff. PR remains open and unmerged; no clinical activation. Metadata-only PR updates do not create a Git commit."
+    }
+  },
+  "ci": {
+    "status": "SUCCESS",
+    "verifiedHeadSha": "98f9aba934fbcbbf52cb556439e6b17e3e498b4c",
+    "workflowRunId": 35293303042,
+    "jobId": 105440578136,
+    "completedAt": "2026-09-18T00:57:55Z",
+    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/35293303042",
+    "gates": {
+      "schemaValidation": "SUCCESS",
+      "strictTypecheck": "SUCCESS",
+      "unitAndRegressionTests": "SUCCESS",
+      "productionWebBuild": "SUCCESS"
+    },
+    "scopeNote": "Receipt applies to the exact verified code head. This subsequent checkpoint-only commit must also have its own CI result inspected before advancement. Never infer green CI for a newer head from this receipt."
+  },
+  "lastWorkTrigger": "LIVE_CHAT",
+  "nextCheckpoint": null,
+  "nextBatch": {
+    "batchId": "MED-BATCH-02-DIABETES-CORE",
+    "branch": "med-batch-02-diabetes-core",
+    "action": "Inspect and preserve existing partial work, reconcile the audited Batch 01 dependency without overwriting changes, establish Batch 02 checkpoints, and prioritize any failing CI."
+  },
+  "clinicalReviewDependencies": [
+    "Primary-source locators, label versions and evidence applicability still require accountable clinical verification.",
+    "Broad endoscopy risk-framework references in review-only pathways are not drug-specific interruption evidence.",
+    "Exact interruption timing, renal-function interpretation, recent-event exclusions and mechanical-valve bridging require clinical/policy reconciliation.",
+    "P2Y12 monotherapy, combined antithrombotic use and postprocedure restart remain context dependent.",
+    "Engineering CI does not substitute for physician-adjudicated clinical validation or signed activation."
+  ],
+  "productionActivationAllowed": false
+}
