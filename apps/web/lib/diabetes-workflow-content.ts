@@ -1,9 +1,9 @@
 import type { UiModifierDefinition } from './content';
-import { diabetesCoreIngredients, diabetesCoreMedications } from './diabetes-core-terminology';
+import { diabetesFormulationMedications } from './diabetes-formulations';
 
-// A delivery device is not an active ingredient. Preserve the legacy fixture but do not index it as a drug.
-export const diabetesSearchMedications = diabetesCoreMedications.filter((medication) => medication.id !== 'MED-insulin-pump-aid');
-export { diabetesCoreIngredients };
+// Device use remains context on insulin; no empty-ingredient pump record is indexed as a drug.
+export const diabetesSearchMedications = diabetesFormulationMedications;
+export { diabetesCoreIngredients } from './diabetes-core-terminology';
 
 export const diabetesModifierDefinitions: Record<string, UiModifierDefinition> = {
   'MOD-diabetes-medication-indication': {
@@ -25,13 +25,22 @@ export const diabetesModifierDefinitions: Record<string, UiModifierDefinition> =
     id: 'MOD-diabetes-medication-plan-confirmed', label: 'Clinician medication plan confirmed?', inputType: 'boolean',
     description: 'Confirm a documented plan covering fasting/bowel preparation and this medication. This does not approve PREP-MEDS content.',
   },
+  'MOD-bromocriptine-formulation': {
+    id: 'MOD-bromocriptine-formulation', label: 'Verified bromocriptine product', inputType: 'select',
+    description: 'Verify the actual prescription. A search selection or diabetes diagnosis does not establish Cycloset formulation.',
+    options: [
+      { value: 'CYCLOSET_QR', label: 'Cycloset / bromocriptine-QR formulation confirmed' },
+      { value: 'PARLODEL', label: 'Parlodel / other bromocriptine formulation' },
+      { value: 'OTHER', label: 'Other / product not confirmed' },
+    ],
+  },
   'MOD-current-insulin-plan-confirmed': {
     id: 'MOD-current-insulin-plan-confirmed', label: 'Individualized insulin plan confirmed?', inputType: 'boolean',
     description: 'Confirm a clinician-reviewed regimen, monitoring and contingency plan. PREP-MEDS does not calculate insulin doses.',
   },
   'MOD-insulin-formulation-confirmed': {
     id: 'MOD-insulin-formulation-confirmed', label: 'Exact insulin formulation and concentration confirmed?', inputType: 'boolean',
-    description: 'Verify the product, concentration, mixture and schedule from the actual prescription. An ingredient-level search match does not establish these.',
+    description: 'Verify the product, concentration, mixture and schedule from the actual prescription. A catalog label or ingredient match is not regimen confirmation.',
   },
   'MOD-mealtime-insulin-use': {
     id: 'MOD-mealtime-insulin-use', label: 'Also using mealtime insulin?', inputType: 'boolean',
