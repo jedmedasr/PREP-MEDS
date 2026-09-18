@@ -41,7 +41,7 @@ describe('historical diabetes source verification boundaries', () => {
       'EVD-B2-ADA-CONCENTRATED-PREMIX-CAUTION', 'EVD-B2-FDA-PRAMLINTIDE-INSULIN-CONTEXT',
     ]);
     for (const rule of diabetesWorkflowRules) {
-      expect(rule.version).toBe(3);
+      expect(rule.version).toBe(4);
       for (const ref of rule.evidenceRefs) if (unchangedIds.has(ref.id)) expect(ref.version).toBe(2);
     }
   });
