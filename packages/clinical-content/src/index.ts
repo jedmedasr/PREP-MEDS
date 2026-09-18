@@ -11,7 +11,7 @@ export {
 } from './antithrombotic-shadow.js';
 export {
   diabetesCoreCandidateRules as diabetesCoreBaseCandidateRules,
-  diabetesCoreEvidence,
+  diabetesCoreEvidence as diabetesCoreBaseEvidence,
   diabetesCoreReleaseMetadata,
 } from './diabetes-core.js';
 export {
@@ -19,6 +19,11 @@ export {
   diabetesCoreShadowRules as diabetesCoreCandidateRules,
 } from './diabetes-core-shadow.js';
 export { diabetesWorkflowRules, diabetesWorkflowMetadata } from './diabetes-workflow.js';
+export {
+  diabetesWorkflowEvidence,
+  diabetesWorkflowEvidence as diabetesCoreEvidence,
+  diabetesEvidenceAuditStatus,
+} from './diabetes-evidence-provenance.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
