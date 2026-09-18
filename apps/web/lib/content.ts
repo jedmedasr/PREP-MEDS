@@ -6,9 +6,14 @@ import {
   firstClinicalContentEvidence,
   firstReleaseCandidateRules,
   firstReleaseMetadata,
+  diabetesCoreEvidence,
+  diabetesCoreReleaseMetadata,
+  diabetesWorkflowRules,
+  diabetesWorkflowMetadata,
 } from '@prep-meds/clinical-content';
-import type { TerminologyDataset } from '@prep-meds/terminology';
+import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
+import { diabetesCoreIngredients, diabetesSearchMedications, diabetesModifierDefinitions } from './diabetes-workflow-content';
 
 export interface UiModifierDefinition {
   id: string;
@@ -24,15 +29,17 @@ export type ClinicalContentState =
   | 'ACTIVE_RULES_AVAILABLE'
   | 'SHADOW_REVIEW_RULES';
 
-export const terminologyDataset: TerminologyDataset = {
-  version: 'med-batch-01-antithrombotics-1',
-  generatedAt: '2026-09-17T02:00:00Z',
+// Validate identity integrity at assembly rather than allowing a broken catalog into the API.
+export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
+  version: 'med-batch-02-diabetes-integration-1',
+  generatedAt: '2026-09-18T01:15:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
     { id: 'ING-clopidogrel', canonicalName: 'Clopidogrel', aliases: ['plavix'] },
     { id: 'ING-aspirin', canonicalName: 'Aspirin', aliases: ['ASA', 'acetylsalicylic acid'] },
     ...antithromboticIngredients,
+    ...diabetesCoreIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -77,26 +84,28 @@ export const terminologyDataset: TerminologyDataset = {
       drugClassIds: ['CLS-antiplatelet'],
     },
     ...antithromboticMedications,
+    ...diabetesSearchMedications,
     { id: 'MED-empagliflozin', canonicalName: 'Empagliflozin', ingredientIds: ['ING-empagliflozin'], drugClassIds: ['CLS-sglt2-inhibitor'] },
     { id: 'MED-semaglutide', canonicalName: 'Semaglutide', ingredientIds: ['ING-semaglutide'], drugClassIds: ['CLS-glp1-receptor-agonist'] },
-    { id: 'MED-insulin-glargine', canonicalName: 'Insulin glargine', ingredientIds: ['ING-insulin-glargine'], drugClassIds: ['CLS-basal-insulin'] },
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-metoprolol', canonicalName: 'Metoprolol', ingredientIds: ['ING-metoprolol'], drugClassIds: ['CLS-beta-blocker'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
-};
+});
 
 // Production remains fail-closed until accountable clinical governance promotes content to ACTIVE.
 export const activeRules: ClinicalRule[] = [];
 export const activePolicies: PolicyOverlay[] = [];
 
-// Review candidates are available only when the server is explicitly configured for shadow validation.
+// Replace only the superseded first-release glargine candidate in the assembled shadow release.
+// The historical source record remains unchanged. Other first-release and Batch 01 content is retained.
 export const clinicalReviewRules: ClinicalRule[] = [
-  ...firstReleaseCandidateRules,
+  ...firstReleaseCandidateRules.filter((rule) => !rule.scope.medicationIds?.includes('MED-insulin-glargine')),
   ...antithromboticCandidateRules,
+  ...diabetesWorkflowRules,
 ];
-export const clinicalReviewEvidenceBundles = [firstClinicalContentEvidence, antithromboticEvidence] as const;
-export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata] as const;
+export const clinicalReviewEvidenceBundles = [firstClinicalContentEvidence, antithromboticEvidence, diabetesCoreEvidence] as const;
+export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
 export function isShadowContentMode(): boolean {
   return process.env.PREP_MEDS_CONTENT_MODE === 'shadow';
@@ -112,6 +121,7 @@ export function clinicalContentState(): ClinicalContentState {
 }
 
 export const modifierDefinitions: Record<string, UiModifierDefinition> = {
+  ...diabetesModifierDefinitions,
   'MOD-indication': {
     id: 'MOD-indication',
     label: 'Medication indication',
