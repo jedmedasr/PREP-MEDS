@@ -45,13 +45,13 @@ afterEach(() => vi.unstubAllEnvs());
 describe('diabetes catalog integration', () => {
   it('assembles a valid nonduplicated catalog and does not fabricate a pump ingredient', () => {
     expect(validateTerminologyDataset(terminologyDataset)).toEqual([]);
-    expect(diabetesSearchMedications).toHaveLength(45);
+    expect(diabetesSearchMedications).toHaveLength(52);
     expect(terminologyDataset.medications.filter((med) => med.id === 'MED-insulin-glargine')).toHaveLength(1);
     expect(index.getMedicationById('MED-insulin-pump-aid')).toBeNull();
   });
   it.each([
     ['Glucophage', 'MED-metformin'], ['Januvia', 'MED-sitagliptin'], ['Symlin', 'MED-pramlintide'],
-    ['Lantus', 'MED-insulin-glargine-u100'], ['Humulin R U-500', 'MED-regular-insulin-u500'],
+    ['Lantus', 'MED-insulin-glargine-u100'], ['Humulin R U-500', 'MED-insulin-regular-humulin-u500'],
     ['Humalog Mix 75/25', 'MED-insulin-lispro-75-25'], ['Afrezza', 'MED-inhaled-insulin'],
   ])('finds %s without guessing a dosing plan', (query, medicationId) => {
     expect(index.search(query)[0]?.medicationId).toBe(medicationId);

@@ -28,14 +28,21 @@ export {
   diabetesFormulationAtoms,
 } from './diabetes-formulation-evidence.js';
 export {
-  diabetesInsulinProductEvidence as diabetesWorkflowEvidence,
-  diabetesInsulinProductEvidence as diabetesCoreEvidence,
   diabetesInsulinProductEvidence,
   diabetesInsulinProductSources,
   diabetesInsulinProductAtoms,
   diabetesInsulinProductDefinitions,
 } from './diabetes-insulin-product-evidence.js';
 export type { InsulinProductDefinition } from './diabetes-insulin-product-evidence.js';
+export {
+  diabetesHumanInsulinEvidence as diabetesWorkflowEvidence,
+  diabetesHumanInsulinEvidence as diabetesCoreEvidence,
+  diabetesHumanInsulinEvidence,
+  humanInsulinProductDefinitions,
+  humanInsulinSources,
+  humanInsulinAtoms,
+} from './diabetes-human-insulin-evidence.js';
+export type { HumanInsulinProductDefinition } from './diabetes-human-insulin-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',

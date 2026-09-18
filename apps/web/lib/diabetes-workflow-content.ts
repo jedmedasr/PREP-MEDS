@@ -1,8 +1,8 @@
 import type { UiModifierDefinition } from './content';
-import { diabetesProductMedications } from './diabetes-insulin-products';
+import { diabetesHumanInsulinMedications } from './diabetes-human-insulin';
 
 // Device use remains context on insulin; no empty-ingredient pump record is indexed as a drug.
-export const diabetesSearchMedications = diabetesProductMedications;
+export const diabetesSearchMedications = diabetesHumanInsulinMedications;
 export { diabetesCoreIngredients } from './diabetes-core-terminology';
 
 export const diabetesModifierDefinitions: Record<string, UiModifierDefinition> = {
