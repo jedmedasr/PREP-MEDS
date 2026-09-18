@@ -81,10 +81,10 @@ function auditedEvidenceRefs(rule: ClinicalRule): ClinicalRule['evidenceRefs'] {
 
 /**
  * Shadow-validation rules intentionally remove unresolved policy dependencies from execution.
- * The candidate remains non-actionable and clinician-review only; this lets reviewers see the
- * patient-specific safety stop before governance chooses an operational timing policy.
+ * Review-only pathways retain clinician review; the aspirin continuation candidate remains
+ * shadow-only. Final patient instructions are blocked by the application's shadow-mode gate.
  */
-export const antithromboticShadowRules: ClinicalRule[] = antithromboticCandidateRules.map((rule) => {
+export const antithromboticShadowRules: ClinicalRule[] = antithromboticCandidateRules.map((rule): ClinicalRule => {
   const extraStops: HardStop[] = [];
   const requiredModifierIds = [...rule.requiredModifierIds];
 
@@ -127,15 +127,19 @@ export const antithromboticShadowRules: ClinicalRule[] = antithromboticCandidate
     || containsMedication(rule, p2y12Agents)
     || containsMedication(rule, otherAntiplatelets);
 
-  return {
+  const auditedRule: ClinicalRule = {
     ...reviewRule,
     requiredModifierIds,
     evidenceRefs: auditedEvidenceRefs(rule),
     hardStops: [...(rule.hardStops ?? []), ...extraStops],
     disposition: rule.disposition,
-    restartOwner: forceClinicianRestart && rule.disposition !== 'CONTINUE'
-      ? 'CLINICIAN_REVIEW'
-      : rule.restartOwner,
     status: 'CLINICAL_REVIEW',
   };
+
+  // Preserve absence of optional fields instead of explicitly assigning undefined.
+  // This satisfies exactOptionalPropertyTypes without inventing a fallback owner.
+  if (forceClinicianRestart && rule.disposition !== 'CONTINUE') {
+    auditedRule.restartOwner = 'CLINICIAN_REVIEW';
+  }
+  return auditedRule;
 });
