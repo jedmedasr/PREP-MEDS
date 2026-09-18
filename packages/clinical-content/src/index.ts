@@ -24,11 +24,18 @@ export {
   diabetesScopedEvidenceAudit as diabetesEvidenceAuditStatus,
 } from './diabetes-evidence-audit.js';
 export {
-  diabetesFormulationEvidence as diabetesWorkflowEvidence,
-  diabetesFormulationEvidence as diabetesCoreEvidence,
   diabetesFormulationSources,
   diabetesFormulationAtoms,
 } from './diabetes-formulation-evidence.js';
+export {
+  diabetesInsulinProductEvidence as diabetesWorkflowEvidence,
+  diabetesInsulinProductEvidence as diabetesCoreEvidence,
+  diabetesInsulinProductEvidence,
+  diabetesInsulinProductSources,
+  diabetesInsulinProductAtoms,
+  diabetesInsulinProductDefinitions,
+} from './diabetes-insulin-product-evidence.js';
+export type { InsulinProductDefinition } from './diabetes-insulin-product-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',

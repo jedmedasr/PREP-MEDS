@@ -45,7 +45,7 @@ afterEach(() => vi.unstubAllEnvs());
 describe('diabetes catalog integration', () => {
   it('assembles a valid nonduplicated catalog and does not fabricate a pump ingredient', () => {
     expect(validateTerminologyDataset(terminologyDataset)).toEqual([]);
-    expect(diabetesSearchMedications).toHaveLength(39);
+    expect(diabetesSearchMedications).toHaveLength(45);
     expect(terminologyDataset.medications.filter((med) => med.id === 'MED-insulin-glargine')).toHaveLength(1);
     expect(index.getMedicationById('MED-insulin-pump-aid')).toBeNull();
   });

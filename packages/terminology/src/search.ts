@@ -151,6 +151,10 @@ export class TerminologyIndex {
       };
     }
 
+    // A prefix/fuzzy match cannot verify numeric dose, strength, mixture or identifier details.
+    // Keep suggestions for explicit reconciliation instead of silently discarding those details.
+    if (/\d/.test(normalizedQuery)) return ambiguous();
+
     const second = allCandidates[1];
     const hasConfidenceMargin = top.score >= 760 && (!second || top.score - second.score >= 75);
     if (hasConfidenceMargin) {
