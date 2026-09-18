@@ -1,5 +1,6 @@
 import type { ClinicalRule, HardStop } from '@prep-meds/clinical-engine';
 import { diabetesCoreShadowRules } from './diabetes-core-shadow.js';
+import { diabetesWorkflowEvidenceRef } from './diabetes-evidence-provenance.js';
 
 const insulinClasses = new Set([
   'CLS-basal-insulin', 'CLS-prandial-insulin', 'CLS-premixed-insulin', 'CLS-concentrated-insulin',
@@ -14,9 +15,10 @@ function reviewUnless(reasonCode: string, modifierId: string, expected: string |
 }
 
 /**
- * New IDs distinguish the guarded workflow from the historical v1 candidates.
+ * New IDs distinguish the guarded workflow from the historical candidates.
  * Guards express scope/confirmation boundaries, not new dosing recommendations.
  * The legacy standalone pump fixture is not a medication; device use is context on insulin.
+ * Workflow v2 references the audited evidence versions; v1 remains recoverable in Git history.
  */
 export const diabetesWorkflowRules: ClinicalRule[] = diabetesCoreShadowRules
   .filter((rule) => rule.id !== 'RULE-B2-INSULIN-PUMP-AID-POLICY')
@@ -51,18 +53,18 @@ export const diabetesWorkflowRules: ClinicalRule[] = diabetesCoreShadowRules
     return {
       ...rule,
       id: `${rule.id}-WORKFLOW`,
-      version: 1,
+      version: 2,
       name: `${rule.name} (guarded shadow workflow)`,
       requiredModifierIds: [...requiredModifierIds],
       hardStops,
-      evidenceRefs,
+      evidenceRefs: evidenceRefs.map(diabetesWorkflowEvidenceRef),
       status: 'CLINICAL_REVIEW',
     };
   });
 
 export const diabetesWorkflowMetadata = {
   releaseId: 'PREP-MEDS-BATCH-02-GUARDED-WORKFLOW',
-  version: 1,
+  version: 2,
   status: 'CLINICAL_REVIEW_REQUIRED',
   intendedUse: 'SHADOW_VALIDATION_ONLY',
   limitations: [
