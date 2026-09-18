@@ -3,8 +3,8 @@
   "status": "IN_PROGRESS",
   "branch": "med-batch-02-diabetes-core",
   "pullRequest": 12,
-  "updatedAt": "2026-09-18T17:47:14Z",
-  "updatedAtBasis": "Product-audit source retrieval timestamp; exact commit time remains in Git",
+  "updatedAt": "2026-09-18T17:57:31Z",
+  "updatedAtBasis": "Latest verified execution receipt supporting this checkpoint update",
   "lastWorkTrigger": "LIVE_CHAT",
   "dependency": {
     "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
@@ -24,14 +24,16 @@
     },
     "B_TERMINOLOGY_AUDIT": {
       "status": "IN_PROGRESS",
-      "commits": ["73cfe447a8815a47974ee44396fea24444229516", "11f13e72e20f20d91bdb547dc451b991b22cde76", "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68", "4b835986bcd4c8e68f324e7ca2ee8346ff0e22aa", "37fa8a71aedc95ceca2a6ab175e66e55e4a827b8"],
-      "notes": "The new named-product increment adds six entries across Lyumjev, Admelog, Fiasp, Basaglar and Semglee, extending 39 concepts to 45 and 11 source-linked identities to 17. Five draft label sources/atoms are appended. Existing 39-concept and evidence records remain unchanged. CI for this change set is pending.",
+      "commits": ["73cfe447a8815a47974ee44396fea24444229516", "11f13e72e20f20d91bdb547dc451b991b22cde76", "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68", "4b835986bcd4c8e68f324e7ca2ee8346ff0e22aa", "37fa8a71aedc95ceca2a6ab175e66e55e4a827b8", "90e0d81762e357736d713af35bf723695300bbbf"],
+      "notes": "The named-product increment is technically verified: six entries across Lyumjev, Admelog, Fiasp, Basaglar and Semglee extend 39 concepts to 45 and 11 source-linked identities to 17. Five draft label sources/atoms are appended. Existing 39-concept and evidence records remain unchanged. This is not complete-batch or clinical approval.",
       "workItems": {
         "INSULIN_NAMED_PRODUCTS_01": {
-          "status": "COMPLETE_PENDING_CI",
+          "status": "COMPLETE",
           "families": ["LYUMJEV", "ADMELOG", "FIASP", "BASAGLAR", "SEMGLEE"],
           "productCount": 6,
           "sourceCount": 5,
+          "verifiedCommit": "90e0d81762e357736d713af35bf723695300bbbf",
+          "workflowRunId": 35377269685,
           "files": ["packages/clinical-content/src/diabetes-insulin-product-evidence.ts", "apps/web/lib/diabetes-insulin-products.ts", "apps/web/lib/__tests__/diabetes-insulin-products.test.ts"],
           "notes": "Source-linked product/concentration identity only. No availability, substitution, complete-presentation or authenticated-prescription claims."
         }
@@ -42,50 +44,55 @@
         "Verify oral immediate-/extended-release variants and remaining original aliases.",
         "Verify or explicitly exclude commercial-availability and presentation metadata."
       ],
-      "nextAtomicWorkItem": "After current-head CI is green, verify human NPH and regular-insulin product identity. Do not repeat the five named-product families."
+      "nextAtomicWorkItem": "Verify human NPH and regular-insulin product identity. Do not repeat the five named-product families unless a new finding invalidates their scoped audit."
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
       "commits": ["0f62ce5ecc1476e1bd20d6958a1cabcddce11a5d", "403c9ec9a15607a8b9562c549331289ca40d7ef3", "a119602e6d1bbfbb9daae6ad9046ae5e9fa86f29"],
-      "notes": "Workflow v4 remains unchanged. Product identity evidence does not become medication-action evidence. Numeric non-exact terminology queries now require reconciliation rather than discarding dose/strength details.",
+      "notes": "Workflow v4 remains unchanged. Product identity evidence does not become medication-action evidence. Numeric non-exact terminology queries now require reconciliation rather than discarding dose/strength details; corresponding safety tests pass.",
       "remaining": ["Reconcile remaining product findings after B.", "Complete clinical/local-policy and whole-regimen review; confirmation checkboxes are not approval."]
     },
     "D_TEST_AUDIT": {
       "status": "IN_PROGRESS",
-      "commits": ["e536aada6fde63bfd2313f9d06e717bda35b6932", "11505f6597fac5e5f377f699e44fe0ec6916a36a", "28c593bc2ba9c7b19e413d92c0fcae34d8c5022a", "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68", "d0a8ea2898eb21fafbda88274626abc88c9935d9", "83799dacf9d3ccd48501aa1a4fa3ce7e35dd1a63", "d8e37134df02be6c5a7a8ac7f23882cc7f2f3f8d"],
-      "notes": "Added product identity/provenance and unsupported-numeric-resolution tests plus all-three-procedure insulin safeguards. Existing progressive-question coverage now expects 45 entries; execution pending.",
-      "remaining": ["Verify current-head CI.", "Add tests for remaining product/formulation items and whole-regimen/malformed-input review."]
+      "commits": ["e536aada6fde63bfd2313f9d06e717bda35b6932", "11505f6597fac5e5f377f699e44fe0ec6916a36a", "28c593bc2ba9c7b19e413d92c0fcae34d8c5022a", "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68", "d0a8ea2898eb21fafbda88274626abc88c9935d9", "83799dacf9d3ccd48501aa1a4fa3ce7e35dd1a63", "d8e37134df02be6c5a7a8ac7f23882cc7f2f3f8d", "90e0d81762e357736d713af35bf723695300bbbf"],
+      "notes": "Product identity/provenance, unsupported-numeric-resolution and all-three-procedure insulin safeguards passed in quality run 87. Existing progressive-question coverage now passes for 45 entries. Historical suites were retained; synthetic tests do not substitute for physician adjudication.",
+      "remaining": ["Add tests for remaining product/formulation items and whole-regimen/malformed-input review."]
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "COMPLETE_PENDING_CI",
-      "commits": ["73cfe447a8815a47974ee44396fea24444229516", "0cd28d2b0f5c3b907581346930acd47e3079d2c4", "11505f6597fac5e5f377f699e44fe0ec6916a36a", "454da8ef034734bc1f8c19b8ac4c3079f35ffdc3", "83799dacf9d3ccd48501aa1a4fa3ce7e35dd1a63"],
-      "notes": "Assembled catalog and evidence exports now include the six new identities. Nine diabetes questions and the shadow patient-output block are unchanged. Must verify current-head tests/build."
+      "status": "COMPLETE",
+      "commits": ["73cfe447a8815a47974ee44396fea24444229516", "0cd28d2b0f5c3b907581346930acd47e3079d2c4", "11505f6597fac5e5f377f699e44fe0ec6916a36a", "454da8ef034734bc1f8c19b8ac4c3079f35ffdc3", "83799dacf9d3ccd48501aa1a4fa3ce7e35dd1a63", "90e0d81762e357736d713af35bf723695300bbbf"],
+      "notes": "Revalidated for the bounded 45-concept catalog. Assembled evidence includes the five new sources. Nine diabetes questions and the shadow patient-output block remain intact. Production rules/policies are untouched. Recheck after future changes."
     },
     "F_CI_REPAIR": {
-      "status": "IN_PROGRESS",
-      "commits": ["4c867eb90b9edae7f83747b8f59e8364ceb805b4", "e536aada6fde63bfd2313f9d06e717bda35b6932", "b70bdeba92c313df924d14ace3becd5a07876f71"],
-      "notes": "Inspect quality for the new exact head; repair failures before starting more content. No compiler flags, assertions or clinical gates may be bypassed."
+      "status": "COMPLETE",
+      "commits": ["4c867eb90b9edae7f83747b8f59e8364ceb805b4", "e536aada6fde63bfd2313f9d06e717bda35b6932", "b70bdeba92c313df924d14ace3becd5a07876f71", "90e0d81762e357736d713af35bf723695300bbbf"],
+      "notes": "All four gates passed for the exact code head below without a repair cycle. Compiler flags, assertions and clinical gates were not bypassed. Future head failures take precedence."
     },
     "G_PR_FINALIZATION": {
       "status": "IN_PROGRESS",
-      "commits": ["b02a78ff82c7f5346b8669fbc1dc89ec1fb7d68d", "0b953442bd1737c2d3f9c0ca8a9ce2107fe65498"],
-      "notes": "Keep PR #12 draft. Final batch completion still requires remaining B/C/D work; this is a bounded product increment only."
+      "commits": ["b02a78ff82c7f5346b8669fbc1dc89ec1fb7d68d", "0b953442bd1737c2d3f9c0ca8a9ce2107fe65498", "90e0d81762e357736d713af35bf723695300bbbf"],
+      "notes": "Keep PR #12 draft. Final batch completion still requires remaining B/C/D work; this is a completed bounded product increment only. The checkpoint-only final-head CI receipt belongs in the PR conversation."
     }
   },
   "ci": {
-    "status": "PENDING",
-    "previousVerification": {
-      "verifiedHeadSha": "1ae937d70e9bb94973b27dc5d88d44e73ef8c20a",
-      "workflowRunId": 35296969519,
-      "jobId": 105451419787,
-      "status": "SUCCESS"
+    "status": "SUCCESS",
+    "verifiedHeadSha": "90e0d81762e357736d713af35bf723695300bbbf",
+    "workflowRunId": 35377269685,
+    "jobId": 105704788776,
+    "completedAt": "2026-09-18T17:57:31Z",
+    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/35377269685",
+    "gates": {
+      "schemaValidation": "SUCCESS",
+      "strictTypecheck": "SUCCESS",
+      "unitAndRegressionTests": "SUCCESS",
+      "productionWebBuild": "SUCCESS"
     },
-    "scopeNote": "Prior green receipts do not apply to the new product increment. Inspect the actual branch head."
+    "scopeNote": "This receipt applies only to the exact verified code head. Check the later checkpoint-only head independently and record its receipt in the PR conversation, avoiding an endless receipt-commit cycle."
   },
   "auditReport": "docs/clinical-governance/med-batch-02-evidence-formulations.md",
   "latestIncrementReport": "docs/clinical-governance/med-batch-02-insulin-products.md",
-  "nextCheckpoint": "F_CI_REPAIR",
-  "nextWorkItem": "Verify the named-insulin product increment and numeric-query safeguard at the current head. After green CI, mark this work item complete and resume B at human NPH/regular insulin; do not repeat the five product families.",
+  "nextCheckpoint": "B_TERMINOLOGY_AUDIT",
+  "nextWorkItem": "Verify human NPH and regular-insulin product identity. Inspect current-head CI before editing; repair failures first. Do not redo the five named insulin families, completed scoped evidence audit, Batch 01 or dependency recovery unless a new finding explicitly invalidates them.",
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false
 }
