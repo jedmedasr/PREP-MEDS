@@ -68,7 +68,14 @@ describe('Afrezza identity, cartridge strength and prescribed dose are separate'
     'does not manufacture one cartridge product from %s', (query) => {
       for (const limit of [1, 10]) {
         const result = index.resolve(query, { limit });
-        expect(result.status).toBe('AMBIGUOUS');
+        const diagnostic = JSON.stringify({
+          query, limit, result,
+          allCandidates: index.search(query, { limit: terminologyDataset.medications.length }),
+          generic: index.getMedicationById('MED-inhaled-insulin'),
+          branded: index.getMedicationById('MED-afrezza-strength-unspecified'),
+          freshResult: new TerminologyIndex(terminologyDataset).resolve(query, { limit }),
+        });
+        expect(result.status, diagnostic).toBe('AMBIGUOUS');
         expect(result.medication).toBeUndefined();
         expect(result.ingredientIds).toEqual([]);
       }
