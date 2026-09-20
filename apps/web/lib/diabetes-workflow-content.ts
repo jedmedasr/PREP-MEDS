@@ -1,8 +1,8 @@
 import type { UiModifierDefinition } from './content';
-import { diabetesHumanInsulinMedications } from './diabetes-human-insulin';
+import { diabetesAfrezzaMedications } from './diabetes-afrezza';
 
 // Device use remains context on insulin; no empty-ingredient pump record is indexed as a drug.
-export const diabetesSearchMedications = diabetesHumanInsulinMedications;
+export const diabetesSearchMedications = diabetesAfrezzaMedications;
 export { diabetesCoreIngredients } from './diabetes-core-terminology';
 
 export const diabetesModifierDefinitions: Record<string, UiModifierDefinition> = {
@@ -39,8 +39,8 @@ export const diabetesModifierDefinitions: Record<string, UiModifierDefinition> =
     description: 'Confirm a clinician-reviewed regimen, monitoring and contingency plan. PREP-MEDS does not calculate insulin doses.',
   },
   'MOD-insulin-formulation-confirmed': {
-    id: 'MOD-insulin-formulation-confirmed', label: 'Exact insulin formulation and concentration confirmed?', inputType: 'boolean',
-    description: 'Verify the product, concentration, mixture and schedule from the actual prescription. A catalog label or ingredient match is not regimen confirmation.',
+    id: 'MOD-insulin-formulation-confirmed', label: 'Exact insulin product and strength/concentration confirmed?', inputType: 'boolean',
+    description: 'Verify the product, route, concentration or cartridge label strength, mixture and schedule from the actual prescription. Afrezza cartridge strength is not the prescribed dose or a units/mL concentration. Catalog identity is not regimen confirmation.',
   },
   'MOD-mealtime-insulin-use': {
     id: 'MOD-mealtime-insulin-use', label: 'Also using mealtime insulin?', inputType: 'boolean',
@@ -55,8 +55,8 @@ export const diabetesModifierDefinitions: Record<string, UiModifierDefinition> =
     ],
   },
   'MOD-pump-aid-system-type': {
-    id: 'MOD-pump-aid-system-type', label: 'Insulin delivery method', inputType: 'select',
-    description: 'Pump/AID use requires review of local policy, monitoring and backup therapy; this selection does not establish device compatibility.',
+    id: 'MOD-pump-aid-system-type', label: 'Insulin pump use in the regimen', inputType: 'select',
+    description: 'Pump/AID use requires local-policy, monitoring and backup-therapy review. For inhaled insulin, this refers to pump use elsewhere in the regimen, not putting inhaled powder into a pump. No selection authorizes device compatibility.',
     options: [
       { value: 'NOT_USING_PUMP', label: 'Not using an insulin pump' },
       { value: 'MANUAL_PUMP', label: 'Insulin pump, manual mode' },

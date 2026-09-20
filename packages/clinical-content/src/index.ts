@@ -35,14 +35,22 @@ export {
 } from './diabetes-insulin-product-evidence.js';
 export type { InsulinProductDefinition } from './diabetes-insulin-product-evidence.js';
 export {
-  diabetesHumanInsulinEvidence as diabetesWorkflowEvidence,
-  diabetesHumanInsulinEvidence as diabetesCoreEvidence,
   diabetesHumanInsulinEvidence,
   humanInsulinProductDefinitions,
   humanInsulinSources,
   humanInsulinAtoms,
 } from './diabetes-human-insulin-evidence.js';
 export type { HumanInsulinProductDefinition } from './diabetes-human-insulin-evidence.js';
+export {
+  diabetesAfrezzaEvidence as diabetesWorkflowEvidence,
+  diabetesAfrezzaEvidence as diabetesCoreEvidence,
+  diabetesAfrezzaEvidence,
+  afrezzaLabelReference,
+  afrezzaProductDefinitions,
+  afrezzaSources,
+  afrezzaAtoms,
+} from './diabetes-afrezza-evidence.js';
+export type { AfrezzaProductDefinition } from './diabetes-afrezza-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
