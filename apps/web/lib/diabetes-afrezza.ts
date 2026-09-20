@@ -5,8 +5,9 @@ import {
   type HumanInsulinIdentity,
 } from './diabetes-human-insulin';
 
+const genericInhaledInsulinName = 'insulin human inhalation powder';
 const genericStrengthAliases = [4, 8, 12].flatMap((units) => [
-  `insulin human inhalation powder ${units} units per cartridge`,
+  `${genericInhaledInsulinName} ${units} units per cartridge`,
   `inhaled insulin ${units} units per cartridge`,
 ]);
 
@@ -16,8 +17,8 @@ export const afrezzaMedications: MedicationRecord[] = afrezzaProductDefinitions.
     ? 'Afrezza (cartridge strength unspecified)'
     : `Afrezza ${product.labelledCartridgeUnits} unit cartridge`,
   genericName: product.labelledCartridgeUnits === undefined
-    ? 'insulin human inhalation powder'
-    : `insulin human inhalation powder ${product.labelledCartridgeUnits} units per cartridge`,
+    ? genericInhaledInsulinName
+    : `${genericInhaledInsulinName} ${product.labelledCartridgeUnits} units per cartridge`,
   // A bare brand must not choose a cartridge or prescribe a mealtime dose.
   brandNames: [product.brand],
   aliases: [
@@ -32,7 +33,10 @@ export const diabetesAfrezzaMedications: MedicationRecord[] = [
   ...diabetesHumanInsulinMedications.map((medication): MedicationRecord => medication.id === 'MED-inhaled-insulin'
     ? {
       ...medication, canonicalName: 'Inhaled human insulin (product/strength unspecified)',
-      brandNames: [], aliases: ['inhaled insulin', 'insulin human inhalation powder', ...genericStrengthAliases],
+      // Share the generic name explicitly; generic wording cannot authenticate a branded product.
+      genericName: genericInhaledInsulinName,
+      brandNames: [],
+      aliases: ['inhaled insulin', 'inhaled human insulin', genericInhaledInsulinName, ...genericStrengthAliases],
     }
     : { ...medication }),
   ...afrezzaMedications,
