@@ -32,7 +32,7 @@ export const diabetesAfrezzaMedications: MedicationRecord[] = [
   ...diabetesHumanInsulinMedications.map((medication): MedicationRecord => medication.id === 'MED-inhaled-insulin'
     ? {
       ...medication, canonicalName: 'Inhaled human insulin (product/strength unspecified)',
-      brandNames: [], aliases: ['inhaled insulin', ...genericStrengthAliases],
+      brandNames: [], aliases: ['inhaled insulin', 'insulin human inhalation powder', ...genericStrengthAliases],
     }
     : { ...medication }),
   ...afrezzaMedications,
