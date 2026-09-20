@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { evaluateDecision, type ModifierValue, type ProcedureCode } from '@prep-meds/clinical-engine';
 import {
   afrezzaProductDefinitions, afrezzaSources, afrezzaAtoms,
@@ -10,7 +10,14 @@ import { clinicalReviewRules, modifierDefinitions, terminologyDataset } from '..
 import { diabetesHumanInsulinMedications } from '../diabetes-human-insulin';
 import { diabetesAfrezzaAudit, diabetesAfrezzaIdentities, diabetesAfrezzaMedications } from '../diabetes-afrezza';
 
-const index = new TerminologyIndex(terminologyDataset);
+let index: TerminologyIndex;
+// Each case evaluates the assembled release, not a retained index from an earlier catalog snapshot.
+// The independent generic-identity suite also tests a module-level index and repeated searches.
+beforeEach(() => {
+  index = new TerminologyIndex(terminologyDataset);
+  expect(index.getMedicationById('MED-inhaled-insulin')?.genericName).toBe('insulin human inhalation powder');
+  expect(index.getMedicationById('MED-afrezza-strength-unspecified')?.genericName).toBe('insulin human inhalation powder');
+});
 const known = (modifierId: string, value: unknown): ModifierValue => ({ modifierId, state: 'KNOWN', value });
 const procedures: ProcedureCode[] = ['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY'];
 function evaluate(id: string, procedureCode: ProcedureCode, overrides: ModifierValue[] = []) {
