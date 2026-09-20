@@ -5,6 +5,23 @@ import { terminologyDataset } from '../content';
 const query = 'insulin human inhalation powder';
 const genericId = 'MED-inhaled-insulin';
 const brandedFamilyId = 'MED-afrezza-strength-unspecified';
+const moduleIndex = new TerminologyIndex(terminologyDataset);
+
+function assertGenericAmbiguity(index: TerminologyIndex, enableFuzzy?: boolean) {
+  const fuzzyOptions = enableFuzzy === undefined ? {} : { enableFuzzy };
+  const hits = index.search(query, { ...fuzzyOptions, limit: terminologyDataset.medications.length });
+  const exactIds = hits.filter((hit) => hit.matchKind === 'EXACT').map((hit) => hit.medicationId);
+  const diagnostic = JSON.stringify({ query, enableFuzzy, hits, generic: index.getMedicationById(genericId), branded: index.getMedicationById(brandedFamilyId) });
+  expect(new Set(exactIds), diagnostic).toEqual(new Set([genericId, brandedFamilyId]));
+  for (const limit of [1, 10]) {
+    const result = index.resolve(query, { ...fuzzyOptions, limit });
+    expect(result.status, diagnostic).toBe('AMBIGUOUS');
+    expect(result.reason).toBe('MULTIPLE_PLAUSIBLE_MATCHES');
+    expect(result.medication).toBeUndefined();
+    expect(result.ingredientIds).toEqual([]);
+  }
+  expect(index.resolve('Afrezza 4 unit cartridge').medication?.id).toBe('MED-afrezza-4-unit-cartridge');
+}
 
 describe('generic inhalation wording preserves product uncertainty end to end', () => {
   it('indexes the same generic name on unspecified and branded-family records', () => {
@@ -20,18 +37,20 @@ describe('generic inhalation wording preserves product uncertainty end to end', 
     const medications = [...terminologyDataset.medications];
     if (reverse) medications.reverse();
     const index = new TerminologyIndex({ ...terminologyDataset, medications });
-    const exactIds = index.search(query, { limit: medications.length, enableFuzzy: false })
-      .filter((hit) => hit.matchKind === 'EXACT')
-      .map((hit) => hit.medicationId);
-    expect(new Set(exactIds)).toEqual(new Set([genericId, brandedFamilyId]));
-    for (const limit of [1, 10]) {
-      const result = index.resolve(query, { limit, enableFuzzy: false });
-      expect(result.status).toBe('AMBIGUOUS');
-      expect(result.reason).toBe('MULTIPLE_PLAUSIBLE_MATCHES');
-      expect(result.medication).toBeUndefined();
-      expect(result.ingredientIds).toEqual([]);
+    assertGenericAmbiguity(index);
+    assertGenericAmbiguity(index, false);
+    assertGenericAmbiguity(index, true);
+  });
+
+  it('preserves a module-level index after repeated preceding cartridge searches', () => {
+    for (const units of [4, 8, 12]) {
+      for (const name of [`Afrezza ${units} unit cartridge`, `Afrezza ${units} units per cartridge`, `Afrezza ${units} units/cartridge`]) {
+        expect(moduleIndex.resolve(name).medication?.id).toBe(`MED-afrezza-${units}-unit-cartridge`);
+      }
     }
-    // Product-qualified wording remains usable; this is not a blanket search shutdown.
-    expect(index.resolve('Afrezza 4 unit cartridge').medication?.id).toBe('MED-afrezza-4-unit-cartridge');
+    expect(moduleIndex.resolve('Afrezza', { limit: 1 }).status).toBe('AMBIGUOUS');
+    assertGenericAmbiguity(moduleIndex);
+    assertGenericAmbiguity(moduleIndex, false);
+    assertGenericAmbiguity(moduleIndex, true);
   });
 });
