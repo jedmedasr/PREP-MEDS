@@ -111,8 +111,11 @@ describe('human-insulin evidence boundaries', () => {
     for (const atom of diabetesInsulinProductEvidence.atoms) {
       expect(diabetesHumanInsulinEvidence.atoms.find((item) => item.id === atom.id && item.version === atom.version)).toEqual(atom);
     }
+    expect(validateEvidenceBundle(diabetesHumanInsulinEvidence)).toEqual([]);
     expect(validateEvidenceBundle(diabetesWorkflowEvidence)).toEqual([]);
-    expect(diabetesWorkflowEvidence).toBe(diabetesHumanInsulinEvidence);
+    expect(diabetesWorkflowEvidence).not.toBe(diabetesHumanInsulinEvidence);
+    expect(diabetesWorkflowEvidence.sources.slice(0, diabetesHumanInsulinEvidence.sources.length)).toEqual(diabetesHumanInsulinEvidence.sources);
+    expect(diabetesWorkflowEvidence.atoms.slice(0, diabetesHumanInsulinEvidence.atoms.length)).toEqual(diabetesHumanInsulinEvidence.atoms);
   });
   it.each([
     ['HUMULIN-N', 'f6edd793-440b-40c2-96b5-c16133b7a921', 50, '2025-12-19'],
