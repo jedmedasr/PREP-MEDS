@@ -3,8 +3,8 @@
   "status": "IN_PROGRESS",
   "branch": "med-batch-02-diabetes-core",
   "pullRequest": 12,
-  "updatedAt": "2026-09-20T21:43:40Z",
-  "updatedAtBasis": "Latest inspected failed CI receipt; diagnostic follow-up requires separate exact-head verification",
+  "updatedAt": "2026-09-21T15:24:21Z",
+  "updatedAtBasis": "Exact-head quality run #100 completed successfully for the CI-repair implementation; final checkpoint-metadata head requires its own receipt in the PR conversation.",
   "lastWorkTrigger": "LIVE_CHAT",
   "dependency": {
     "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
@@ -17,96 +17,204 @@
     "A_EVIDENCE_AUDIT": {
       "status": "COMPLETE",
       "scope": "Existing bounded procedure-day oral-agent shadow candidates and review-only insulin/pramlintide pathways, not a full preparation/recovery or insulin-dosing protocol",
-      "commits": ["838b6c6f65a9cbf802c1cac99bdfa8438a930629", "5b2582da7ddfe83d03b740c6afe0c3b0426a1202", "d0a8ea2898eb21fafbda88274626abc88c9935d9"],
+      "commits": [
+        "838b6c6f65a9cbf802c1cac99bdfa8438a930629",
+        "5b2582da7ddfe83d03b740c6afe0c3b0426a1202",
+        "d0a8ea2898eb21fafbda88274626abc88c9935d9"
+      ],
       "notes": "Exact GLUCOTROL XL and GIE USMSTF provenance pinned; unsupported cross-product label inheritance removed. Identity evidence is added under checkpoint B without clinically approving A.",
       "remaining": [],
-      "scopeExclusions": ["Preparation and recovery require clinician review.", "No insulin doses, conversions, infusion settings or device compatibility authorization.", "Clinical review and local-policy reconciliation remain mandatory before activation."]
+      "scopeExclusions": [
+        "Preparation and recovery require clinician review.",
+        "No insulin doses, conversions, infusion settings or device compatibility authorization.",
+        "Clinical review and local-policy reconciliation remain mandatory before activation."
+      ]
     },
     "B_TERMINOLOGY_AUDIT": {
       "status": "IN_PROGRESS",
-      "commits": ["73cfe447a8815a47974ee44396fea24444229516", "11f13e72e20f20d91bdb547dc451b991b22cde76", "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68", "4b835986bcd4c8e68f324e7ca2ee8346ff0e22aa", "37fa8a71aedc95ceca2a6ab175e66e55e4a827b8", "90e0d81762e357736d713af35bf723695300bbbf", "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401", "b45fc5475fbd4eb1d93e1621216262562749f23d", "14df71456faa4f363d2a050ec01980be2730a1d5", "768e80ae161372fde85c7219930381579173eb38", "164757f9c0c5f09ea63410ac0bb912c175b481ed"],
-      "notes": "Earlier named-product and human-insulin increments remain verified. The Afrezza increment adds four concepts to the assembled catalog (56 total, 28 source-linked identities), one DRAFT source and three descriptive atoms, but it is NOT complete while its regression gate fails. Product identity is not an approved medication instruction.",
+      "commits": [
+        "73cfe447a8815a47974ee44396fea24444229516",
+        "11f13e72e20f20d91bdb547dc451b991b22cde76",
+        "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68",
+        "4b835986bcd4c8e68f324e7ca2ee8346ff0e22aa",
+        "37fa8a71aedc95ceca2a6ab175e66e55e4a827b8",
+        "90e0d81762e357736d713af35bf723695300bbbf",
+        "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401",
+        "b45fc5475fbd4eb1d93e1621216262562749f23d",
+        "14df71456faa4f363d2a050ec01980be2730a1d5",
+        "768e80ae161372fde85c7219930381579173eb38",
+        "164757f9c0c5f09ea63410ac0bb912c175b481ed",
+        "3464bcd6a446bc4a415399d6efab1eff2fc93130"
+      ],
+      "notes": "Earlier named-product and human-insulin increments remain verified. The Afrezza increment adds four concepts to the assembled catalog (56 total, 28 source-linked identities), one DRAFT source and three descriptive atoms. Its engineering gates passed on exact implementation head 3464bcd6a446bc4a415399d6efab1eff2fc93130 in quality run #100 (35618599928). Product identity remains review-only and is not an approved medication instruction.",
       "workItems": {
         "INSULIN_NAMED_PRODUCTS_01": {
           "status": "COMPLETE",
-          "families": ["LYUMJEV", "ADMELOG", "FIASP", "BASAGLAR", "SEMGLEE"],
+          "families": [
+            "LYUMJEV",
+            "ADMELOG",
+            "FIASP",
+            "BASAGLAR",
+            "SEMGLEE"
+          ],
           "productCount": 6,
           "sourceCount": 5,
           "verifiedCommit": "90e0d81762e357736d713af35bf723695300bbbf",
           "workflowRunId": 35377269685,
-          "files": ["packages/clinical-content/src/diabetes-insulin-product-evidence.ts", "apps/web/lib/diabetes-insulin-products.ts", "apps/web/lib/__tests__/diabetes-insulin-products.test.ts"],
+          "files": [
+            "packages/clinical-content/src/diabetes-insulin-product-evidence.ts",
+            "apps/web/lib/diabetes-insulin-products.ts",
+            "apps/web/lib/__tests__/diabetes-insulin-products.test.ts"
+          ],
           "notes": "Source-linked product/concentration identity only. No availability, substitution, complete-presentation or authenticated-prescription claims."
         },
         "B_HUMAN_INSULIN_PRODUCTS_01": {
           "status": "COMPLETE",
-          "families": ["HUMULIN_N_U100", "NOVOLIN_N_U100", "HUMULIN_R_U100", "NOVOLIN_R_U100", "HUMULIN_R_U500", "HUMULIN_70_30_U100", "NOVOLIN_70_30_U100"],
+          "families": [
+            "HUMULIN_N_U100",
+            "NOVOLIN_N_U100",
+            "HUMULIN_R_U100",
+            "NOVOLIN_R_U100",
+            "HUMULIN_R_U500",
+            "HUMULIN_70_30_U100",
+            "NOVOLIN_70_30_U100"
+          ],
           "productCount": 7,
           "sourceCount": 7,
           "verifiedCommit": "b45fc5475fbd4eb1d93e1621216262562749f23d",
           "workflowRunId": 35403173597,
-          "files": ["packages/clinical-content/src/diabetes-human-insulin-evidence.ts", "apps/web/lib/diabetes-human-insulin.ts", "apps/web/lib/__tests__/diabetes-human-insulin.test.ts"],
+          "files": [
+            "packages/clinical-content/src/diabetes-human-insulin-evidence.ts",
+            "apps/web/lib/diabetes-human-insulin.ts",
+            "apps/web/lib/__tests__/diabetes-human-insulin.test.ts"
+          ],
           "notes": "Humulin R, unqualified 70/30, concentrated insulin and ReliOn cannot silently select one formulation. U-500 retains concentrated-insulin review. Component fractions remain metadata, not patient-dose calculations."
         },
         "B_AFREZZA_PRODUCT_IDENTITY_01": {
-          "status": "IN_PROGRESS",
-          "families": ["AFREZZA"],
+          "status": "COMPLETE",
+          "families": [
+            "AFREZZA"
+          ],
           "conceptCount": 4,
           "sourceCount": 1,
           "evidenceAtomCount": 3,
           "implementationCommit": "14df71456faa4f363d2a050ec01980be2730a1d5",
-          "latestInspectedHead": "355c9d0709c9e489cad57af9c8e719da578b8a1f",
-          "workflowRunId": 35539542751,
-          "files": ["packages/clinical-content/src/diabetes-afrezza-evidence.ts", "apps/web/lib/diabetes-afrezza.ts", "apps/web/lib/__tests__/diabetes-afrezza.test.ts", "apps/web/lib/__tests__/diabetes-afrezza-generic-identity.test.ts"],
-          "notes": "SPL 17 effective 2026-05-30 supports an unspecified-strength family and explicit 4/8/12-unit cartridge identities. Cartridge label strength is not units/mL or a prescribed dose. No hold, restart, conversion, cartridge-selection or substitution instructions are encoded.",
-          "blockers": ["Original Afrezza suite reports generic-name resolution as RESOLVED; independent exact-candidate, reversed-order and module-index tests pass. Failure diagnostics contain an earlier generic record while a fresh index returns AMBIGUOUS. Retrieved latest test source and log line locations are inconsistent; root cause is not established. Record source hashes and compare isolated/full-suite runs rather than weakening the assertion."]
+          "latestInspectedHead": "3464bcd6a446bc4a415399d6efab1eff2fc93130",
+          "workflowRunId": 35618599928,
+          "files": [
+            "packages/clinical-content/src/diabetes-afrezza-evidence.ts",
+            "apps/web/lib/diabetes-afrezza.ts",
+            "apps/web/lib/__tests__/diabetes-afrezza.test.ts",
+            "apps/web/lib/__tests__/diabetes-afrezza-generic-identity.test.ts"
+          ],
+          "notes": "SPL 17 effective 2026-05-30 supports an unspecified-strength family and explicit 4/8/12-unit cartridge identities. Cartridge label strength is not units/mL or a prescribed dose. No hold, restart, conversion, cartridge-selection or substitution instructions are encoded. Exact-head engineering verification passed schema validation, strict TypeScript, isolated Afrezza regressions, full unit/regression tests and the production web build.",
+          "blockers": [],
+          "verifiedCommit": "3464bcd6a446bc4a415399d6efab1eff2fc93130",
+          "jobId": 106395652152
         }
       },
       "remaining": [
-        "Resolve Afrezza generic-name regression and verify all current-head gates before completing the Afrezza work item.",
         "Finish remaining glulisine, detemir and NovoLog product verification, without asserting unverified market availability.",
         "Reconcile Humalog manufacturer SETID c8ecbd7a-0e22-4fc7-a503-faa58c1b6f3f, SPL 86, effective 2026-01-09, without silently replacing prior evidence.",
         "Verify oral immediate-/extended-release variants and remaining original aliases.",
         "Verify or explicitly exclude commercial-availability and complete-presentation metadata."
       ],
-      "nextAtomicWorkItem": "CI repair for the existing Afrezza increment. Do not restart source research or add another medication until the current head passes."
+      "nextAtomicWorkItem": "Verify glulisine/Apidra product and formulation identity from current authoritative manufacturer labeling, preserving review-only status and without asserting unverified market availability."
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
-      "commits": ["0f62ce5ecc1476e1bd20d6958a1cabcddce11a5d", "403c9ec9a15607a8b9562c549331289ca40d7ef3", "a119602e6d1bbfbb9daae6ad9046ae5e9fa86f29"],
+      "commits": [
+        "0f62ce5ecc1476e1bd20d6958a1cabcddce11a5d",
+        "403c9ec9a15607a8b9562c549331289ca40d7ef3",
+        "a119602e6d1bbfbb9daae6ad9046ae5e9fa86f29"
+      ],
       "notes": "Workflow v4 is unchanged. Afrezza identity and safety-context atoms are descriptive, not medication-action rules. Insulin remains review-only with no hold, restart, dose, conversion or device instruction.",
-      "remaining": ["Reconcile remaining product findings after B.", "Complete clinical/local-policy and whole-regimen review; confirmation checkboxes are not approval."]
+      "remaining": [
+        "Reconcile remaining product findings after B.",
+        "Complete clinical/local-policy and whole-regimen review; confirmation checkboxes are not approval."
+      ]
     },
     "D_TEST_AUDIT": {
       "status": "IN_PROGRESS",
-      "commits": ["e536aada6fde63bfd2313f9d06e717bda35b6932", "11505f6597fac5e5f377f699e44fe0ec6916a36a", "28c593bc2ba9c7b19e413d92c0fcae34d8c5022a", "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68", "d0a8ea2898eb21fafbda88274626abc88c9935d9", "83799dacf9d3ccd48501aa1a4fa3ce7e35dd1a63", "d8e37134df02be6c5a7a8ac7f23882cc7f2f3f8d", "90e0d81762e357736d713af35bf723695300bbbf", "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401", "b45fc5475fbd4eb1d93e1621216262562749f23d", "14df71456faa4f363d2a050ec01980be2730a1d5", "86facfdd5379d4369d138191185be4e073c8d66e", "99c755a90dfbabc7c7c753aa30356fed65061cce", "7123a17237c844b5af772a90147273b6f4668894", "355c9d0709c9e489cad57af9c8e719da578b8a1f"],
-      "notes": "Afrezza tests cover cartridge identity, ambiguous brands, unsupported numeric/route text, exact sources, historical preservation and review-only behavior in all three procedures. One generic-name assertion remains unresolved in the original suite; independent shared-index and reversed-order checks pass. Tests are not bypassed and synthetic tests are not physician adjudication.",
-      "remaining": ["Resolve the current regression.", "Add tests for remaining product/formulation items and whole-regimen/malformed-input review."]
+      "commits": [
+        "e536aada6fde63bfd2313f9d06e717bda35b6932",
+        "11505f6597fac5e5f377f699e44fe0ec6916a36a",
+        "28c593bc2ba9c7b19e413d92c0fcae34d8c5022a",
+        "ed2c9f2bb012f106b57e7e63d2ebd1d25f029b68",
+        "d0a8ea2898eb21fafbda88274626abc88c9935d9",
+        "83799dacf9d3ccd48501aa1a4fa3ce7e35dd1a63",
+        "d8e37134df02be6c5a7a8ac7f23882cc7f2f3f8d",
+        "90e0d81762e357736d713af35bf723695300bbbf",
+        "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401",
+        "b45fc5475fbd4eb1d93e1621216262562749f23d",
+        "14df71456faa4f363d2a050ec01980be2730a1d5",
+        "86facfdd5379d4369d138191185be4e073c8d66e",
+        "99c755a90dfbabc7c7c753aa30356fed65061cce",
+        "7123a17237c844b5af772a90147273b6f4668894",
+        "355c9d0709c9e489cad57af9c8e719da578b8a1f",
+        "3464bcd6a446bc4a415399d6efab1eff2fc93130"
+      ],
+      "notes": "Afrezza tests cover cartridge identity, ambiguous brands, unsupported numeric/route text, exact sources, historical preservation and review-only behavior in all three procedures. The actual current-head regression was a stale object-identity assertion in the historical human-insulin evidence test after diabetesWorkflowEvidence advanced to the append-only Afrezza bundle; ambiguity tests remained green. The repaired test verifies both bundles and the historical source/atom prefix without weakening safety assertions.",
+      "remaining": [
+        "Add tests for remaining product/formulation items and whole-regimen/malformed-input review."
+      ]
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "COMPLETE_PENDING_CI",
-      "commits": ["73cfe447a8815a47974ee44396fea24444229516", "0cd28d2b0f5c3b907581346930acd47e3079d2c4", "11505f6597fac5e5f377f699e44fe0ec6916a36a", "454da8ef034734bc1f8c19b8ac4c3079f35ffdc3", "83799dacf9d3ccd48501aa1a4fa3ce7e35dd1a63", "90e0d81762e357736d713af35bf723695300bbbf", "b45fc5475fbd4eb1d93e1621216262562749f23d", "14df71456faa4f363d2a050ec01980be2730a1d5"],
-      "notes": "The 56-concept assembly and expanded wording are implemented. Full-catalog question and production-isolation tests pass in the inspected run, but final integration completion requires a green full run and web build. Nine questions remain; production rules/policies and the finalized patient-output block are untouched."
+      "status": "COMPLETE",
+      "commits": [
+        "73cfe447a8815a47974ee44396fea24444229516",
+        "0cd28d2b0f5c3b907581346930acd47e3079d2c4",
+        "11505f6597fac5e5f377f699e44fe0ec6916a36a",
+        "454da8ef034734bc1f8c19b8ac4c3079f35ffdc3",
+        "83799dacf9d3ccd48501aa1a4fa3ce7e35dd1a63",
+        "90e0d81762e357736d713af35bf723695300bbbf",
+        "b45fc5475fbd4eb1d93e1621216262562749f23d",
+        "14df71456faa4f363d2a050ec01980be2730a1d5",
+        "3464bcd6a446bc4a415399d6efab1eff2fc93130"
+      ],
+      "notes": "The 56-concept assembly and expanded wording are implemented. Exact implementation head 3464bcd6a446bc4a415399d6efab1eff2fc93130 passed the full test suite and production web build in quality run #100. Nine questions remain; production rules/policies and the finalized patient-output block are untouched."
     },
     "F_CI_REPAIR": {
-      "status": "IN_PROGRESS",
-      "commits": ["4c867eb90b9edae7f83747b8f59e8364ceb805b4", "e536aada6fde63bfd2313f9d06e717bda35b6932", "b70bdeba92c313df924d14ace3becd5a07876f71", "90e0d81762e357736d713af35bf723695300bbbf", "b45fc5475fbd4eb1d93e1621216262562749f23d", "768e80ae161372fde85c7219930381579173eb38", "164757f9c0c5f09ea63410ac0bb912c175b481ed", "355c9d0709c9e489cad57af9c8e719da578b8a1f"],
-      "notes": "Current regression overrides previous green receipts. Add exact source hashes and isolated/full-suite comparisons; do not infer success from earlier heads or label the discrepancy a confirmed cache defect. Schema/typecheck pass; the web build is skipped because one test fails."
+      "status": "COMPLETE",
+      "commits": [
+        "4c867eb90b9edae7f83747b8f59e8364ceb805b4",
+        "e536aada6fde63bfd2313f9d06e717bda35b6932",
+        "b70bdeba92c313df924d14ace3becd5a07876f71",
+        "90e0d81762e357736d713af35bf723695300bbbf",
+        "b45fc5475fbd4eb1d93e1621216262562749f23d",
+        "768e80ae161372fde85c7219930381579173eb38",
+        "164757f9c0c5f09ea63410ac0bb912c175b481ed",
+        "355c9d0709c9e489cad57af9c8e719da578b8a1f",
+        "3464bcd6a446bc4a415399d6efab1eff2fc93130"
+      ],
+      "notes": "Exact run #99 (35539937396) showed the actual failure in apps/web/lib/__tests__/diabetes-human-insulin.test.ts: a stale Object.is assertion required diabetesWorkflowEvidence to be the same object as diabetesHumanInsulinEvidence after the workflow export advanced to the append-only Afrezza evidence bundle. Afrezza ambiguity suites were green. Commit 3464bcd6a446bc4a415399d6efab1eff2fc93130 replaces only that stale identity expectation with validation of both bundles plus append-only source/atom prefix preservation. Quality run #100 passed every gate."
     },
     "G_PR_FINALIZATION": {
       "status": "IN_PROGRESS",
-      "commits": ["b02a78ff82c7f5346b8669fbc1dc89ec1fb7d68d", "0b953442bd1737c2d3f9c0ca8a9ce2107fe65498", "90e0d81762e357736d713af35bf723695300bbbf", "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401", "14df71456faa4f363d2a050ec01980be2730a1d5"],
+      "commits": [
+        "b02a78ff82c7f5346b8669fbc1dc89ec1fb7d68d",
+        "0b953442bd1737c2d3f9c0ca8a9ce2107fe65498",
+        "90e0d81762e357736d713af35bf723695300bbbf",
+        "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401",
+        "14df71456faa4f363d2a050ec01980be2730a1d5"
+      ],
       "notes": "Keep PR #12 draft and explicitly report the Afrezza increment as pending CI. Final batch completion still requires remaining B/C/D work. Put final-head verification receipts in the PR conversation instead of an endless receipt-commit cycle."
     }
   },
   "ci": {
-    "status": "FAILURE",
-    "testedHeadSha": "355c9d0709c9e489cad57af9c8e719da578b8a1f",
-    "workflowRunId": 35539542751,
-    "jobId": 106154601919,
-    "completedAt": "2026-09-20T21:43:40Z",
-    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/35539542751",
-    "gates": { "schemaValidation": "SUCCESS", "strictTypecheck": "SUCCESS", "unitAndRegressionTests": "FAILURE", "productionWebBuild": "SKIPPED" },
-    "scopeNote": "Receipt applies only to the tested head; diagnostic and checkpoint follow-up commits require their own verification. No current green claim is made.",
+    "status": "SUCCESS",
+    "testedHeadSha": "3464bcd6a446bc4a415399d6efab1eff2fc93130",
+    "workflowRunId": 35618599928,
+    "jobId": 106395652152,
+    "completedAt": "2026-09-21T15:24:21Z",
+    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/35618599928",
+    "gates": {
+      "schemaValidation": "SUCCESS",
+      "strictTypecheck": "SUCCESS",
+      "unitAndRegressionTests": "SUCCESS",
+      "productionWebBuild": "SUCCESS"
+    },
+    "scopeNote": "Receipt applies to the CI-repair implementation head. This checkpoint metadata commit must be verified separately; its final-head receipt belongs in the PR conversation to avoid receipt-only commit chaining.",
     "lastSuccessfulReceipt": {
       "verifiedHeadSha": "fd5a48a8565815e218375fcd8a6467ba9fe43188",
       "workflowRunId": 35403325149,
@@ -117,8 +225,8 @@
   },
   "auditReport": "docs/clinical-governance/med-batch-02-evidence-formulations.md",
   "latestIncrementReport": "docs/clinical-governance/med-batch-02-afrezza.md",
-  "nextCheckpoint": "F_CI_REPAIR",
-  "nextWorkItem": "Resolve the Afrezza generic-name regression using exact CI source receipts and isolated/full-suite comparison. Preserve all ambiguity assertions and clinical gates. After actual green verification, finish this work item and resume glulisine/NovoLog/detemir identities; do not repeat completed product or source audits.",
+  "nextCheckpoint": "B_TERMINOLOGY_AUDIT",
+  "nextWorkItem": "Verify glulisine/Apidra product and formulation identity as the next bounded terminology item. Do not restart completed Afrezza research. Preserve review-only status, deterministic clinical authority, historical evidence versions, and all activation/clinical-review gates.",
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false
 }
