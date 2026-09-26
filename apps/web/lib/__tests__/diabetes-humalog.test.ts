@@ -55,6 +55,15 @@ describe('Humalog evidence provenance and append-only history',()=>{
 });
 
 describe('Humalog retains insulin review safeguards',()=>{
- it.each(humalogProductDefinitions.map(p=>p.medicationId))('keeps review-only behavior for %s',(id)=>{for(const procedure of procedures){const routine=evaluate(id,procedure);expect(routine.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');expect(routine.outputSnapshot.timingRule).toBeUndefined();const typeOne=evaluate(id,procedure,[known('MOD-diabetes-type','TYPE_1')]);expect(typeOne.reasonCodes).toContain('TYPE_1_DIABETES_REQUIRES_BASAL_INSULIN_COVERAGE');const pump=evaluate(id,procedure,[known('MOD-pump-aid-system-type','AID')]);expect(pump.reasonCodes).toContain('PUMP_THERAPY_REQUIRES_DEVICE_AND_BACKUP_PLAN_REVIEW');}});
+ it.each(humalogProductDefinitions.map(p=>p.medicationId))('keeps review-only behavior for %s',(id)=>{
+   for(const procedure of procedures){
+     const routine=evaluate(id,procedure);
+     expect(routine.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+     expect(routine.outputSnapshot.timingRule).toBeUndefined();
+     const typeOne=evaluate(id,procedure,[known('MOD-diabetes-type','TYPE_1')]);
+     expect(typeOne.reasonCodes).toContain('TYPE_1_DIABETES_REQUIRES_BASAL_INSULIN_COVERAGE');
+     const pump=evaluate(id,procedure,[known('MOD-pump-aid-system-type','AID')]);
+     expect(pump.reasonCodes).toContain('PUMP_THERAPY_REQUIRES_DEVICE_AND_BACKUP_PLAN_REVIEW');
+   }
  });
 });
