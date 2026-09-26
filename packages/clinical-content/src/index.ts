@@ -78,7 +78,6 @@ export {
 export type { NovoLogProductDefinition, NovoLogPresentationMarketingStatus } from './diabetes-novolog-evidence.js';
 export {
   diabetesHumalogEvidence as diabetesWorkflowEvidence,
-  diabetesHumalogEvidence as diabetesCoreEvidence,
   diabetesHumalogEvidence,
   humalogLabelReference,
   humalogU100MarketingStatusReference,
@@ -89,6 +88,19 @@ export {
   humalogAtoms,
 } from './diabetes-humalog-evidence.js';
 export type { HumalogProductDefinition, HumalogPresentationMarketingStatus } from './diabetes-humalog-evidence.js';
+export {
+  diabetesOralReleaseEvidence as diabetesCoreEvidence,
+  diabetesOralReleaseEvidence,
+  metforminImmediateReleaseReference,
+  metforminExtendedReleaseReference,
+  glipizideImmediateReleaseReference,
+  glipizideExtendedReleaseReference,
+  glucotrolXlReference,
+  oralReleaseProductDefinitions,
+  oralReleaseSources,
+  oralReleaseAtoms,
+} from './diabetes-oral-release-evidence.js';
+export type { OralReleaseProductDefinition } from './diabetes-oral-release-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',

@@ -5,7 +5,7 @@ import { terminologyDataset } from '../content';
 const index = new TerminologyIndex(terminologyDataset);
 
 describe('medication identity collision safety', () => {
-  it.each(['basal insulin', 'rapid acting insulin', 'premixed insulin', 'blood thinner'])(
+  it.each(['basal insulin', 'rapid acting insulin', 'premixed insulin', 'blood thinner', 'metformin', 'glipizide'])(
     'requires a specific drug when %s matches multiple exact aliases', (query) => {
       const result = index.resolve(query);
       expect(result.status).toBe('AMBIGUOUS');
@@ -20,8 +20,10 @@ describe('medication identity collision safety', () => {
     expect(result.status).toBe('AMBIGUOUS');
     expect(result.medication).toBeUndefined();
   });
-  it('still resolves a unique brand or ingredient identity', () => {
+  it('still resolves unique brands and explicit release identities', () => {
     expect(index.resolve('Januvia').medication?.id).toBe('MED-sitagliptin');
-    expect(index.resolve('metformin').medication?.id).toBe('MED-metformin');
+    expect(index.resolve('Glucophage').medication?.id).toBe('MED-metformin');
+    expect(index.resolve('metformin ER').medication?.id).toBe('MED-metformin-er');
+    expect(index.resolve('Glucotrol XL').medication?.id).toBe('MED-glipizide-er');
   });
 });
