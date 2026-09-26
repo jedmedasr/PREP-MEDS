@@ -1,0 +1,45 @@
+{
+  "auditId": "MED-BATCH-02-PRESENTATION-METADATA-01",
+  "basedOnHeadSha": "eed0c1162b4df23df6d2a5b17e5b41e56b578901",
+  "status": "ENGINEERING_AUDIT_COMPLETE",
+  "catalogLayers": {
+    "formulations": {
+      "availabilityFlag": false
+    },
+    "namedInsulinProducts": {
+      "availabilityFlag": false,
+      "presentationConfirmed": false
+    },
+    "humanInsulin": {
+      "availabilityFlag": false,
+      "presentationConfirmed": false
+    },
+    "afrezza": {
+      "availabilityFlag": false,
+      "presentationConfirmed": false
+    },
+    "apidra": {
+      "availabilityFlag": false,
+      "presentationConfirmed": false
+    },
+    "levemir": {
+      "availabilityFlag": false,
+      "presentationConfirmed": false
+    },
+    "novolog": {
+      "availabilityFlag": false,
+      "presentationConfirmed": false,
+      "regulatoryPresentationMetadata": true
+    },
+    "humalog": {
+      "availabilityFlag": false,
+      "presentationConfirmed": false,
+      "regulatoryPresentationMetadata": true
+    },
+    "oralRelease": {
+      "availabilityFlag": false
+    }
+  },
+  "conclusion": "The assembled Batch 02 catalog does not contain a product-wide availability assertion. Presentation-level regulatory metadata remains separate where present.",
+  "canonicalCheckpointReconciliationPending": true
+}
