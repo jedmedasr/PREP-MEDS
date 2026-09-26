@@ -3,8 +3,8 @@
   "status": "IN_PROGRESS",
   "branch": "med-batch-02-diabetes-core",
   "pullRequest": 12,
-  "updatedAt": "2026-09-26T03:08:48Z",
-  "updatedAtBasis": "Exact-head quality run #108 completed successfully for the NovoLog presentation-aware identity increment after scalar-metadata type repair; this checkpoint metadata commit requires its own exact-head receipt.",
+  "updatedAt": "2026-09-26T12:39:31Z",
+  "updatedAtBasis": "Exact-head quality run #118 passed all required gates for the Humalog current-source reconciliation after syntax/type/catalog-duplication and stale historical-evidence test repairs; this checkpoint metadata commit requires its own exact-head receipt.",
   "lastWorkTrigger": "LIVE_CHAT",
   "dependency": {
     "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
@@ -49,9 +49,15 @@
         "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
         "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
         "911333e4fd29a9c1c33a2248affcb959c4925740",
-        "c527d1faf6a2db8fdab368d1548e87f01c10506e"
+        "c527d1faf6a2db8fdab368d1548e87f01c10506e",
+        "5baa1ea821a8cb21fb766094de346fb340687731",
+        "b3e0f503ce4b2c5f4fa01a8ea390feb234d415d9",
+        "adf9256ce93616509a53b28ec5606177d32c34ec",
+        "f53236fc0cd8153764ff1ef4774c48bcbe75fbc2",
+        "8715e72fb742b6decef60c996644243304eaaff3",
+        "8c5891c99a1a9784967efd1ab167173c660e35a2"
       ],
-      "notes": "Earlier named-product, human-insulin and Afrezza increments remain verified. The Apidra increment adds one source-linked insulin glulisine U-100 identity to the assembled catalog (57 total, 29 source-linked identities) while preserving generic glulisine as non-branded/unspecified. Exact-head engineering verification passed all required gates in quality run #103. Product identity remains review-only and is not an approved medication instruction.",
+      "notes": "Named-product, human-insulin, Afrezza, Apidra, Levemir, NovoLog and Humalog product/formulation identity increments are now engineering-verified. Humalog reconciles the two pre-existing U-100/U-200 catalog concepts to current Lilly SPL 87 plus separate FDA Purple Book presentation-level status without increasing the 59-concept catalog. All product identity remains review-only and is not an approved medication instruction.",
       "workItems": {
         "INSULIN_NAMED_PRODUCTS_01": {
           "status": "COMPLETE",
@@ -186,14 +192,38 @@
           ],
           "notes": "Novo Nordisk/DailyMed manufacturer labeling supports NOVOLOG insulin aspart U-100 branded identity/presentation reconciliation. FDA Purple Book BLA 020986 (database updated 2026-09-11) lists product 001 vial, 002 cartridge and 003 autoinjector as Rx and autoinjectors 004-005 as Disc. Mixed presentation-level status is preserved rather than collapsed into a product-wide availability flag. Generic insulin aspart is de-branded in the current assembled layer because other aspart products/biosimilars exist. No dose, conversion, substitution, transition, device authorization, hold/restart or pharmacy-inventory claim is encoded.",
           "blockers": []
+        },
+        "B_HUMALOG_PRODUCT_IDENTITY_01": {
+          "status": "COMPLETE",
+          "families": [
+            "HUMALOG_U100",
+            "HUMALOG_U200"
+          ],
+          "conceptCount": 2,
+          "sourceCount": 3,
+          "evidenceAtomCount": 3,
+          "implementationCommit": "5baa1ea821a8cb21fb766094de346fb340687731",
+          "repairCommit": "8c5891c99a1a9784967efd1ab167173c660e35a2",
+          "verifiedCommit": "8c5891c99a1a9784967efd1ab167173c660e35a2",
+          "workflowRunId": 36242550887,
+          "jobId": 108405658186,
+          "files": [
+            "packages/clinical-content/src/diabetes-humalog-evidence.ts",
+            "apps/web/lib/diabetes-humalog.ts",
+            "apps/web/lib/__tests__/diabetes-humalog.test.ts",
+            "apps/web/lib/__tests__/diabetes-novolog.test.ts",
+            "apps/web/lib/__tests__/diabetes-integration.test.ts",
+            "docs/clinical-governance/med-batch-02-humalog.md"
+          ],
+          "notes": "Current Lilly/DailyMed SETID c8ecbd7a-0e22-4fc7-a503-faa58c1b6f3f, SPL 87, effective 2026-06-16 supports distinct HUMALOG insulin lispro U-100 and U-200 identities. FDA Purple Book database state dated 2026-09-11 is retained at presentation/product-number level: U-100 has mixed Rx/Disc status and U-200 listed presentations are Rx. Existing Humalog catalog rows were reconciled in place rather than duplicated; generic insulin lispro remains non-branded. No dose, conversion, substitution, device authorization, hold/restart or pharmacy-inventory claim is encoded.",
+          "blockers": []
         }
       },
       "remaining": [
-        "Reconcile Humalog manufacturer evidence against the current label rather than the stale expected SPL 86; current retrieval indicates a newer SPL 87/effective 2026-06-16 state plus FDA Purple Book U-100/U-200 presentation status.",
         "Verify oral immediate-/extended-release variants and remaining original aliases.",
         "Verify or explicitly exclude remaining commercial-availability and complete-presentation metadata."
       ],
-      "nextAtomicWorkItem": "Reconcile Humalog/insulin lispro product identities against current authoritative labeling and FDA Purple Book status. Split U-100 and U-200 source-linked identities, preserve presentation-level mixed Rx/Disc status, and keep generic insulin lispro non-branded because Admelog/Lyumjev and other lispro products exist. Do not treat stale SPL 86 as current if SPL 87 is verified."
+      "nextAtomicWorkItem": "Audit oral immediate-/extended-release formulation variants and remaining aliases in the existing diabetes catalog. Preserve formulation ambiguity when the release form is not explicit; do not infer a branded product, dose, or peri-procedural instruction from an unqualified generic name."
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
@@ -205,11 +235,13 @@
         "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
         "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
         "911333e4fd29a9c1c33a2248affcb959c4925740",
-        "c527d1faf6a2db8fdab368d1548e87f01c10506e"
+        "c527d1faf6a2db8fdab368d1548e87f01c10506e",
+        "5baa1ea821a8cb21fb766094de346fb340687731",
+        "8c5891c99a1a9784967efd1ab167173c660e35a2"
       ],
-      "notes": "Workflow v4 remains unchanged. Afrezza, Apidra, Levemir and NovoLog identity/market-status atoms remain descriptive and outside medication-action rules. NovoLog presentation Rx/Disc metadata cannot trigger substitution, transition, device, dose or peri-procedural actions.",
+      "notes": "Workflow v4 remains unchanged. Afrezza, Apidra, Levemir, NovoLog and Humalog identity/market-status atoms are descriptive and outside medication-action rules. Humalog current-source reconciliation preserves review-only behavior; Purple Book presentation status cannot trigger substitution, transition, device, dose or peri-procedural actions.",
       "remaining": [
-        "Reconcile remaining product findings after B.",
+        "Reconcile oral release-variant/product findings after B.",
         "Complete clinical/local-policy and whole-regimen review; confirmation checkboxes are not approval."
       ]
     },
@@ -236,11 +268,18 @@
         "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
         "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
         "911333e4fd29a9c1c33a2248affcb959c4925740",
-        "c527d1faf6a2db8fdab368d1548e87f01c10506e"
+        "c527d1faf6a2db8fdab368d1548e87f01c10506e",
+        "5baa1ea821a8cb21fb766094de346fb340687731",
+        "b3e0f503ce4b2c5f4fa01a8ea390feb234d415d9",
+        "adf9256ce93616509a53b28ec5606177d32c34ec",
+        "f53236fc0cd8153764ff1ef4774c48bcbe75fbc2",
+        "8715e72fb742b6decef60c996644243304eaaff3",
+        "8c5891c99a1a9784967efd1ab167173c660e35a2"
       ],
-      "notes": "NovoLog regressions verify append-only evidence, branded-vs-generic insulin-aspart separation, unsupported concentrations, exact mixed Purple Book presentation statuses, no inventory inference, no external-code invention, and existing type-1/pump/missing-input review-only safeguards. Run #107 failed strict TypeScript only because a structured status array had been placed in scalar-only evidence metadata; repair c527d1faf6a2db8fdab368d1548e87f01c10506e serialized the metadata summary while preserving the typed exported status array. Quality run #108 passed all gates.",
+      "notes": "Humalog regressions verify current SPL 87 provenance, U-100/U-200 separation, generic-lispro de-branding, unsupported-concentration rejection, exact presentation-level Purple Book status, append-only evidence history, and existing type-1/pump review safeguards. Intermediate runs exposed test syntax, type-shape inheritance, duplicate pre-existing Humalog IDs, and a stale NovoLog Object.is expectation; these were repaired without weakening safety behavior. Exact-head quality run #118 passed all required gates.",
       "remaining": [
-        "Add tests for Humalog U-100/U-200 and mixed presentation status, oral variants, and whole-regimen/malformed-input review."
+        "Add tests for oral immediate-/extended-release variants and remaining aliases.",
+        "Complete whole-regimen/malformed-input review."
       ]
     },
     "E_INTEGRATION_AUDIT": {
@@ -259,9 +298,11 @@
         "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
         "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
         "911333e4fd29a9c1c33a2248affcb959c4925740",
-        "c527d1faf6a2db8fdab368d1548e87f01c10506e"
+        "c527d1faf6a2db8fdab368d1548e87f01c10506e",
+        "5baa1ea821a8cb21fb766094de346fb340687731",
+        "8c5891c99a1a9784967efd1ab167173c660e35a2"
       ],
-      "notes": "The assembled diabetes catalog now contains 59 concepts including review-only NovoLog U-100 identity with separately sourced presentation-level FDA Purple Book status. Exact head c527d1faf6a2db8fdab368d1548e87f01c10506e passed schema validation, strict TypeScript, source identity, isolated inhaled-insulin regressions, full tests and production web build in quality run #108."
+      "notes": "The assembled diabetes catalog remains 59 concepts. Existing Humalog U-100/U-200 rows are reconciled in place to current source-linked identity and presentation-level FDA Purple Book status; no duplicate IDs are introduced. Exact head 8c5891c99a1a9784967efd1ab167173c660e35a2 passed schema validation, strict TypeScript, source identity, isolated inhaled-insulin regressions, full tests and production web build in quality run #118."
     },
     "F_CI_REPAIR": {
       "status": "COMPLETE",
@@ -279,9 +320,15 @@
         "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
         "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
         "911333e4fd29a9c1c33a2248affcb959c4925740",
-        "c527d1faf6a2db8fdab368d1548e87f01c10506e"
+        "c527d1faf6a2db8fdab368d1548e87f01c10506e",
+        "5baa1ea821a8cb21fb766094de346fb340687731",
+        "b3e0f503ce4b2c5f4fa01a8ea390feb234d415d9",
+        "adf9256ce93616509a53b28ec5606177d32c34ec",
+        "f53236fc0cd8153764ff1ef4774c48bcbe75fbc2",
+        "8715e72fb742b6decef60c996644243304eaaff3",
+        "8c5891c99a1a9784967efd1ab167173c660e35a2"
       ],
-      "notes": "Exact run #99 (35539937396) showed the actual failure in apps/web/lib/__tests__/diabetes-human-insulin.test.ts: a stale Object.is assertion required diabetesWorkflowEvidence to be the same object as diabetesHumanInsulinEvidence after the workflow export advanced to the append-only Afrezza evidence bundle. Afrezza ambiguity suites were green. Commit 3464bcd6a446bc4a415399d6efab1eff2fc93130 replaces only that stale identity expectation with validation of both bundles plus append-only source/atom prefix preservation. Quality run #100 passed every gate. Apidra implementation run #102 later failed only new test expectations/stale integration count; repair commit 072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407 preserved manufacturer uncertainty and passed all gates in quality run #103. Levemir implementation commit 0e92ed4e248306d158bdafce29ec7a3d3fb1ef00 passed all required gates without repair in quality run #105. NovoLog implementation 911333e4fd29a9c1c33a2248affcb959c4925740 failed run #107 only at strict TypeScript because evidence metadata accepted scalar values, not an object array. Repair c527d1faf6a2db8fdab368d1548e87f01c10506e retained the typed status array outside metadata and passed all gates in quality run #108."
+      "notes": "Exact run #99 (35539937396) showed the actual failure in apps/web/lib/__tests__/diabetes-human-insulin.test.ts: a stale Object.is assertion required diabetesWorkflowEvidence to be the same object as diabetesHumanInsulinEvidence after the workflow export advanced to the append-only Afrezza evidence bundle. Afrezza ambiguity suites were green. Commit 3464bcd6a446bc4a415399d6efab1eff2fc93130 replaces only that stale identity expectation with validation of both bundles plus append-only source/atom prefix preservation. Quality run #100 passed every gate. Apidra implementation run #102 later failed only new test expectations/stale integration count; repair commit 072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407 preserved manufacturer uncertainty and passed all gates in quality run #103. Levemir implementation commit 0e92ed4e248306d158bdafce29ec7a3d3fb1ef00 passed all required gates without repair in quality run #105. NovoLog implementation 911333e4fd29a9c1c33a2248affcb959c4925740 failed run #107 only at strict TypeScript because evidence metadata accepted scalar values, not an object array. Repair c527d1faf6a2db8fdab368d1548e87f01c10506e retained the typed status array outside metadata and passed all gates in quality run #108. Humalog implementation 5baa1ea821a8cb21fb766094de346fb340687731 progressed through several exact-head CI failures that identified test-suite syntax, Humalog/NovoLog status-type incompatibility, duplicate Humalog catalog IDs from the pre-existing formulation layer, and a stale NovoLog workflow-evidence Object.is expectation. The final repair 8c5891c99a1a9784967efd1ab167173c660e35a2 reconciles existing Humalog rows in place and preserves append-only historical evidence; quality run #118 passed every required gate."
     },
     "G_PR_FINALIZATION": {
       "status": "IN_PROGRESS",
@@ -292,16 +339,16 @@
         "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401",
         "14df71456faa4f363d2a050ec01980be2730a1d5"
       ],
-      "notes": "Keep PR #12 draft. Apidra, Levemir and NovoLog engineering verification are green, but Batch 02 still requires Humalog current-source reconciliation, oral release variants, remaining rule/test audits and accountable clinical/local-policy review. Do not merge or activate clinical content."
+      "notes": "Keep PR #12 draft. Apidra, Levemir, NovoLog and Humalog engineering verification are green, but Batch 02 still requires oral release-variant/alias audit, remaining product-availability/presentation audit, whole-regimen/malformed-input review, and accountable clinical/local-policy review. Do not merge or activate clinical content."
     }
   },
   "ci": {
     "status": "SUCCESS",
-    "testedHeadSha": "c527d1faf6a2db8fdab368d1548e87f01c10506e",
-    "workflowRunId": 36213839249,
-    "jobId": 108325729024,
-    "completedAt": "2026-09-26T03:08:48Z",
-    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/36213839249",
+    "testedHeadSha": "8c5891c99a1a9784967efd1ab167173c660e35a2",
+    "workflowRunId": 36242550887,
+    "jobId": 108405658186,
+    "completedAt": "2026-09-26T12:39:31Z",
+    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/36242550887",
     "gates": {
       "schemaValidation": "SUCCESS",
       "strictTypecheck": "SUCCESS",
@@ -310,19 +357,19 @@
       "unitAndRegressionTests": "SUCCESS",
       "productionWebBuild": "SUCCESS"
     },
-    "scopeNote": "Receipt applies to the verified NovoLog implementation/repair head. This checkpoint metadata commit requires its own exact-head CI receipt before later writes.",
+    "scopeNote": "Receipt applies to the verified Humalog current-source reconciliation head. This checkpoint metadata commit requires its own exact-head CI receipt before later writes.",
     "lastSuccessfulReceipt": {
-      "verifiedHeadSha": "c527d1faf6a2db8fdab368d1548e87f01c10506e",
-      "workflowRunId": 36213839249,
-      "jobId": 108325729024,
-      "completedAt": "2026-09-26T03:08:48Z",
-      "scope": "NovoLog insulin aspart U-100 identity with presentation-level mixed FDA Purple Book status"
+      "verifiedHeadSha": "8c5891c99a1a9784967efd1ab167173c660e35a2",
+      "workflowRunId": 36242550887,
+      "jobId": 108405658186,
+      "completedAt": "2026-09-26T12:39:31Z",
+      "scope": "Humalog insulin lispro U-100/U-200 current label identity plus presentation-level FDA Purple Book status, reconciled in place"
     }
   },
   "auditReport": "docs/clinical-governance/med-batch-02-evidence-formulations.md",
-  "latestIncrementReport": "docs/clinical-governance/med-batch-02-novolog.md",
+  "latestIncrementReport": "docs/clinical-governance/med-batch-02-humalog.md",
   "nextCheckpoint": "B_TERMINOLOGY_AUDIT",
-  "nextWorkItem": "Reconcile Humalog/insulin lispro current product identity. Verify the latest manufacturer label state first (current retrieval indicates SPL 87/effective 2026-06-16 rather than stale SPL 86), create separate U-100 and U-200 source-linked identities, preserve presentation-level FDA Purple Book Rx/Disc status, and keep generic insulin lispro non-branded.",
+  "nextWorkItem": "Audit oral immediate-/extended-release formulation variants and remaining aliases in the existing diabetes catalog. Preserve formulation ambiguity unless release form is explicit; do not infer branded identity, dose, or peri-procedural action.",
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false
 }
