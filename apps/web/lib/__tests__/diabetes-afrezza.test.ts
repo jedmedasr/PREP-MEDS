@@ -135,7 +135,10 @@ describe('Afrezza provenance and clinical-review boundary', () => {
     expect(source?.metadata?.labelRevision).toBe('2026-05');
     expect(source?.lifecycle).toBe('DRAFT');
     expect(validateEvidenceBundle(diabetesAfrezzaEvidence)).toEqual([]);
-    expect(diabetesWorkflowEvidence).toBe(diabetesAfrezzaEvidence);
+    expect(validateEvidenceBundle(diabetesWorkflowEvidence)).toEqual([]);
+    expect(diabetesWorkflowEvidence).not.toBe(diabetesAfrezzaEvidence);
+    expect(diabetesWorkflowEvidence.sources.slice(0, diabetesAfrezzaEvidence.sources.length)).toEqual(diabetesAfrezzaEvidence.sources);
+    expect(diabetesWorkflowEvidence.atoms.slice(0, diabetesAfrezzaEvidence.atoms.length)).toEqual(diabetesAfrezzaEvidence.atoms);
   });
   it('preserves historical records and keeps label identity outside medication-action rules', () => {
     expect(diabetesAfrezzaEvidence.sources.slice(0, diabetesHumanInsulinEvidence.sources.length)).toEqual(diabetesHumanInsulinEvidence.sources);

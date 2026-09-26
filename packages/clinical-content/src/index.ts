@@ -42,8 +42,6 @@ export {
 } from './diabetes-human-insulin-evidence.js';
 export type { HumanInsulinProductDefinition } from './diabetes-human-insulin-evidence.js';
 export {
-  diabetesAfrezzaEvidence as diabetesWorkflowEvidence,
-  diabetesAfrezzaEvidence as diabetesCoreEvidence,
   diabetesAfrezzaEvidence,
   afrezzaLabelReference,
   afrezzaProductDefinitions,
@@ -51,6 +49,16 @@ export {
   afrezzaAtoms,
 } from './diabetes-afrezza-evidence.js';
 export type { AfrezzaProductDefinition } from './diabetes-afrezza-evidence.js';
+export {
+  diabetesApidraEvidence as diabetesWorkflowEvidence,
+  diabetesApidraEvidence as diabetesCoreEvidence,
+  diabetesApidraEvidence,
+  apidraLabelReference,
+  apidraProductDefinitions,
+  apidraSources,
+  apidraAtoms,
+} from './diabetes-apidra-evidence.js';
+export type { ApidraProductDefinition } from './diabetes-apidra-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
