@@ -127,7 +127,10 @@ describe('Apidra source provenance and append-only evidence', () => {
   it('appends to Afrezza without mutating the historical evidence bundle', () => {
     expect(validateEvidenceBundle(diabetesAfrezzaEvidence)).toEqual([]);
     expect(validateEvidenceBundle(diabetesApidraEvidence)).toEqual([]);
-    expect(diabetesWorkflowEvidence).toBe(diabetesApidraEvidence);
+    expect(validateEvidenceBundle(diabetesWorkflowEvidence)).toEqual([]);
+    expect(diabetesWorkflowEvidence).not.toBe(diabetesApidraEvidence);
+    expect(diabetesWorkflowEvidence.sources.slice(0, diabetesApidraEvidence.sources.length)).toEqual(diabetesApidraEvidence.sources);
+    expect(diabetesWorkflowEvidence.atoms.slice(0, diabetesApidraEvidence.atoms.length)).toEqual(diabetesApidraEvidence.atoms);
     expect(diabetesApidraEvidence.sources.slice(0, diabetesAfrezzaEvidence.sources.length)).toEqual(diabetesAfrezzaEvidence.sources);
     expect(diabetesApidraEvidence.atoms.slice(0, diabetesAfrezzaEvidence.atoms.length)).toEqual(diabetesAfrezzaEvidence.atoms);
     expect(diabetesApidraEvidence.sources).toHaveLength(diabetesAfrezzaEvidence.sources.length + 1);
