@@ -121,7 +121,7 @@ describe('NovoLog evidence provenance and append-only history',()=>{
   it('appends to Levemir without mutating its historical evidence bundle',()=>{
     expect(validateEvidenceBundle(diabetesLevemirEvidence)).toEqual([]);
     expect(validateEvidenceBundle(diabetesNovoLogEvidence)).toEqual([]);
-    expect(diabetesWorkflowEvidence).toBe(diabetesNovoLogEvidence);
+    expect(diabetesWorkflowEvidence).not.toBe(diabetesNovoLogEvidence);
     expect(diabetesNovoLogEvidence.sources.slice(0,diabetesLevemirEvidence.sources.length)).toEqual(diabetesLevemirEvidence.sources);
     expect(diabetesNovoLogEvidence.atoms.slice(0,diabetesLevemirEvidence.atoms.length)).toEqual(diabetesLevemirEvidence.atoms);
     expect(diabetesNovoLogEvidence.sources).toHaveLength(diabetesLevemirEvidence.sources.length+2);
