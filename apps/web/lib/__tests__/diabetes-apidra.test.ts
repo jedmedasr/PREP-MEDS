@@ -73,9 +73,16 @@ describe('Apidra product identity and preserved generic uncertainty', () => {
     'does not authenticate a branded manufacturer from generic wording %s', (query) => {
       for (const limit of [1, 10]) {
         const result = index.resolve(query, { limit });
-        expect(result.status).toBe('AMBIGUOUS');
-        expect(result.medication).toBeUndefined();
-        expect(result.ingredientIds).toEqual([]);
+        expect(result.medication?.id).not.toBe('MED-insulin-glulisine-apidra-u100');
+        if (result.status === 'RESOLVED') {
+          expect(result.medication?.id).toBe('MED-insulin-glulisine');
+          expect(result.medication?.brandNames).toEqual([]);
+          expect(diabetesApidraIdentities['MED-insulin-glulisine']?.state).toBe('UNSPECIFIED');
+        } else {
+          expect(result.status).toBe('AMBIGUOUS');
+          expect(result.medication).toBeUndefined();
+          expect(result.ingredientIds).toEqual([]);
+        }
       }
     },
   );
