@@ -58,8 +58,6 @@ export {
 } from './diabetes-apidra-evidence.js';
 export type { ApidraProductDefinition } from './diabetes-apidra-evidence.js';
 export {
-  diabetesLevemirEvidence as diabetesWorkflowEvidence,
-  diabetesLevemirEvidence as diabetesCoreEvidence,
   diabetesLevemirEvidence,
   levemirLabelReference,
   levemirMarketingStatusReference,
@@ -68,6 +66,18 @@ export {
   levemirAtoms,
 } from './diabetes-levemir-evidence.js';
 export type { LevemirProductDefinition } from './diabetes-levemir-evidence.js';
+export {
+  diabetesNovoLogEvidence as diabetesWorkflowEvidence,
+  diabetesNovoLogEvidence as diabetesCoreEvidence,
+  diabetesNovoLogEvidence,
+  novologLabelReference,
+  novologMarketingStatusReference,
+  novologProductDefinitions,
+  novologPresentationMarketingStatuses,
+  novologSources,
+  novologAtoms,
+} from './diabetes-novolog-evidence.js';
+export type { NovoLogProductDefinition, NovoLogPresentationMarketingStatus } from './diabetes-novolog-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',

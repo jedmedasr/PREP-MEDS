@@ -124,7 +124,10 @@ describe('Levemir evidence provenance and append-only history', () => {
   it('appends to Apidra without mutating its historical evidence bundle', () => {
     expect(validateEvidenceBundle(diabetesApidraEvidence)).toEqual([]);
     expect(validateEvidenceBundle(diabetesLevemirEvidence)).toEqual([]);
-    expect(diabetesWorkflowEvidence).toBe(diabetesLevemirEvidence);
+    expect(validateEvidenceBundle(diabetesWorkflowEvidence)).toEqual([]);
+    expect(diabetesWorkflowEvidence).not.toBe(diabetesLevemirEvidence);
+    expect(diabetesWorkflowEvidence.sources.slice(0, diabetesLevemirEvidence.sources.length)).toEqual(diabetesLevemirEvidence.sources);
+    expect(diabetesWorkflowEvidence.atoms.slice(0, diabetesLevemirEvidence.atoms.length)).toEqual(diabetesLevemirEvidence.atoms);
     expect(diabetesLevemirEvidence.sources.slice(0, diabetesApidraEvidence.sources.length)).toEqual(diabetesApidraEvidence.sources);
     expect(diabetesLevemirEvidence.atoms.slice(0, diabetesApidraEvidence.atoms.length)).toEqual(diabetesApidraEvidence.atoms);
     expect(diabetesLevemirEvidence.sources).toHaveLength(diabetesApidraEvidence.sources.length + 2);
