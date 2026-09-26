@@ -87,7 +87,7 @@ export const novologSources: SourceDocument[] = [
       applicationNumber: 'BLA 020986',
       databaseLastUpdated: '2026-09-11',
       listedProductCount: 5,
-      presentationStatuses: novologPresentationMarketingStatuses,
+      presentationStatusSummary: '001:MULTI_DOSE_VIAL:Rx; 002:MULTI_DOSE_CARTRIDGE:Rx; 003:AUTOINJECTOR:Rx; 004:AUTOINJECTOR:Disc; 005:AUTOINJECTOR:Disc',
       verificationScope: 'FDA Purple Book product-number presentation and marketing-status fields only; no pharmacy inventory claim',
       clinicalApprovalGranted: false,
     },
