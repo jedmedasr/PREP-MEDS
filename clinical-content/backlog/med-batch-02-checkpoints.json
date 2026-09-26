@@ -3,8 +3,8 @@
   "status": "IN_PROGRESS",
   "branch": "med-batch-02-diabetes-core",
   "pullRequest": 12,
-  "updatedAt": "2026-09-26T02:56:44Z",
-  "updatedAtBasis": "Exact-head quality run #103 completed successfully for the Apidra implementation and regression repair; this checkpoint-metadata commit requires its own exact-head receipt.",
+  "updatedAt": "2026-09-26T03:02:50Z",
+  "updatedAtBasis": "Exact-head quality run #105 completed successfully for the Levemir identity/marketing-status increment; this checkpoint metadata commit requires its own exact-head receipt.",
   "lastWorkTrigger": "LIVE_CHAT",
   "dependency": {
     "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
@@ -46,7 +46,8 @@
         "164757f9c0c5f09ea63410ac0bb912c175b481ed",
         "3464bcd6a446bc4a415399d6efab1eff2fc93130",
         "d801c8424f39d33c06c34ff566f3fdeecbaa566e",
-        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407"
+        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
+        "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00"
       ],
       "notes": "Earlier named-product, human-insulin and Afrezza increments remain verified. The Apidra increment adds one source-linked insulin glulisine U-100 identity to the assembled catalog (57 total, 29 source-linked identities) while preserving generic glulisine as non-branded/unspecified. Exact-head engineering verification passed all required gates in quality run #103. Product identity remains review-only and is not an approved medication instruction.",
       "workItems": {
@@ -136,15 +137,38 @@
           ],
           "notes": "Current Sanofi/DailyMed SPL 28 (effective 2025-11-25; PI revision May 2025 recorded separately) supports APIDRA insulin glulisine U-100 product identity and labelled vial/SoloStar presentations. Generic glulisine wording cannot authenticate the branded manufacturer. No dose, conversion, substitution, device authorization, hold/restart instruction or current-market-availability claim is encoded.",
           "blockers": []
+        },
+        "B_LEVEMIR_PRODUCT_IDENTITY_01": {
+          "status": "COMPLETE",
+          "families": [
+            "LEVEMIR"
+          ],
+          "conceptCount": 1,
+          "sourceCount": 2,
+          "evidenceAtomCount": 2,
+          "implementationCommit": "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
+          "verifiedCommit": "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
+          "workflowRunId": 36213528886,
+          "jobId": 108324824131,
+          "files": [
+            "packages/clinical-content/src/diabetes-levemir-evidence.ts",
+            "apps/web/lib/diabetes-levemir.ts",
+            "apps/web/lib/__tests__/diabetes-levemir.test.ts",
+            "apps/web/lib/__tests__/diabetes-apidra.test.ts",
+            "apps/web/lib/__tests__/diabetes-integration.test.ts",
+            "docs/clinical-governance/med-batch-02-levemir.md"
+          ],
+          "notes": "Novo Nordisk/DailyMed manufacturer labeling supports LEVEMIR insulin detemir U-100 historical branded identity/presentation reconciliation. FDA Purple Book (database updated 2026-09-11) lists Levemir product numbers 001-005 with marketing status Disc. Identity and regulatory marketing status are encoded separately; Disc does not assert absence of residual/repackaged inventory and does not authorize substitution, transition, dose, device or peri-procedural actions.",
+          "blockers": []
         }
       },
       "remaining": [
-        "Finish remaining detemir and NovoLog product verification, without asserting unverified market availability.",
+        "Finish NovoLog/aspart product and presentation-level market-status verification.",
         "Reconcile Humalog manufacturer SETID c8ecbd7a-0e22-4fc7-a503-faa58c1b6f3f, SPL 86, effective 2026-01-09, without silently replacing prior evidence.",
         "Verify oral immediate-/extended-release variants and remaining original aliases.",
-        "Verify or explicitly exclude commercial-availability and complete-presentation metadata."
+        "Verify or explicitly exclude remaining commercial-availability and complete-presentation metadata."
       ],
-      "nextAtomicWorkItem": "Verify insulin detemir/Levemir product and formulation identity from current authoritative sources, including any current US availability/discontinuation status only if directly verified; preserve historical identity separately from market-status metadata."
+      "nextAtomicWorkItem": "Verify NovoLog/insulin aspart U-100 product identity and presentation-level FDA Purple Book marketing status. Preserve generic insulin aspart separately because other aspart products/biosimilars exist; do not collapse mixed Rx/Disc presentation status into one product-wide availability flag."
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
@@ -153,9 +177,10 @@
         "403c9ec9a15607a8b9562c549331289ca40d7ef3",
         "a119602e6d1bbfbb9daae6ad9046ae5e9fa86f29",
         "d801c8424f39d33c06c34ff566f3fdeecbaa566e",
-        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407"
+        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
+        "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00"
       ],
-      "notes": "Workflow v4 is unchanged. Afrezza and Apidra identity atoms are descriptive and remain outside medication-action rules. Insulin remains review-only with no hold, restart, dose, conversion, substitution or device instruction.",
+      "notes": "Workflow v4 remains unchanged. Afrezza, Apidra and Levemir identity/marketing-status atoms are descriptive and outside medication-action rules. Levemir Disc status cannot trigger substitution, transition, hold/restart or dose changes.",
       "remaining": [
         "Reconcile remaining product findings after B.",
         "Complete clinical/local-policy and whole-regimen review; confirmation checkboxes are not approval."
@@ -181,11 +206,12 @@
         "355c9d0709c9e489cad57af9c8e719da578b8a1f",
         "3464bcd6a446bc4a415399d6efab1eff2fc93130",
         "d801c8424f39d33c06c34ff566f3fdeecbaa566e",
-        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407"
+        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
+        "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00"
       ],
-      "notes": "Apidra regressions verify source provenance, append-only evidence history, explicit branded U-100 identity, generic manufacturer uncertainty, unsupported concentration handling, production isolation and existing insulin review/type-1/pump/missing-input safeguards. Run #102 exposed two over-strict generic-resolution expectations plus a stale catalog-count fixture; commit 072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407 corrected those tests without allowing generic wording to authenticate Apidra. Quality run #103 passed the full suite.",
+      "notes": "Levemir regressions verify append-only evidence, branded-vs-generic separation, unsupported concentrations, distinct FDA Purple Book marketing status, no inventory inference, no external-code invention, and existing type-1/pump/missing-input review-only safeguards. Quality run #105 passed the full suite.",
       "remaining": [
-        "Add tests for remaining product/formulation items and whole-regimen/malformed-input review."
+        "Add tests for NovoLog mixed presentation status, remaining product/formulation items, and whole-regimen/malformed-input review."
       ]
     },
     "E_INTEGRATION_AUDIT": {
@@ -201,9 +227,10 @@
         "14df71456faa4f363d2a050ec01980be2730a1d5",
         "3464bcd6a446bc4a415399d6efab1eff2fc93130",
         "d801c8424f39d33c06c34ff566f3fdeecbaa566e",
-        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407"
+        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
+        "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00"
       ],
-      "notes": "The assembled diabetes catalog now contains 57 concepts including the review-only Apidra U-100 product identity. Exact head 072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407 passed schema validation, strict TypeScript, isolated inhaled-insulin regressions, the full test suite and production web build in quality run #103. Production rules/policies and finalized patient-output blocks remain untouched."
+      "notes": "The assembled diabetes catalog now contains 58 concepts including historical review-only Levemir U-100 identity with separately sourced discontinued regulatory status. Exact head 0e92ed4e248306d158bdafce29ec7a3d3fb1ef00 passed schema validation, strict TypeScript, isolated inhaled-insulin regressions, full tests and production web build in quality run #105."
     },
     "F_CI_REPAIR": {
       "status": "COMPLETE",
@@ -218,9 +245,10 @@
         "355c9d0709c9e489cad57af9c8e719da578b8a1f",
         "3464bcd6a446bc4a415399d6efab1eff2fc93130",
         "d801c8424f39d33c06c34ff566f3fdeecbaa566e",
-        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407"
+        "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
+        "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00"
       ],
-      "notes": "Exact run #99 (35539937396) showed the actual failure in apps/web/lib/__tests__/diabetes-human-insulin.test.ts: a stale Object.is assertion required diabetesWorkflowEvidence to be the same object as diabetesHumanInsulinEvidence after the workflow export advanced to the append-only Afrezza evidence bundle. Afrezza ambiguity suites were green. Commit 3464bcd6a446bc4a415399d6efab1eff2fc93130 replaces only that stale identity expectation with validation of both bundles plus append-only source/atom prefix preservation. Quality run #100 passed every gate. Apidra implementation run #102 later failed only new test expectations/stale integration count; repair commit 072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407 preserved manufacturer uncertainty and passed all gates in quality run #103."
+      "notes": "Exact run #99 (35539937396) showed the actual failure in apps/web/lib/__tests__/diabetes-human-insulin.test.ts: a stale Object.is assertion required diabetesWorkflowEvidence to be the same object as diabetesHumanInsulinEvidence after the workflow export advanced to the append-only Afrezza evidence bundle. Afrezza ambiguity suites were green. Commit 3464bcd6a446bc4a415399d6efab1eff2fc93130 replaces only that stale identity expectation with validation of both bundles plus append-only source/atom prefix preservation. Quality run #100 passed every gate. Apidra implementation run #102 later failed only new test expectations/stale integration count; repair commit 072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407 preserved manufacturer uncertainty and passed all gates in quality run #103. Levemir implementation commit 0e92ed4e248306d158bdafce29ec7a3d3fb1ef00 passed all required gates without repair in quality run #105."
     },
     "G_PR_FINALIZATION": {
       "status": "IN_PROGRESS",
@@ -231,16 +259,16 @@
         "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401",
         "14df71456faa4f363d2a050ec01980be2730a1d5"
       ],
-      "notes": "Keep PR #12 draft. Apidra engineering verification is green, but final batch completion still requires remaining terminology, rule/test audits and accountable clinical/local-policy review. Final-head receipts belong in the PR conversation; do not merge or activate clinical content."
+      "notes": "Keep PR #12 draft. Apidra and Levemir engineering verification are green, but Batch 02 still requires NovoLog/aspart, Humalog reconciliation, oral variants, remaining rule/test audits and accountable clinical/local-policy review. Do not merge or activate clinical content."
     }
   },
   "ci": {
     "status": "SUCCESS",
-    "testedHeadSha": "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
-    "workflowRunId": 36213205381,
-    "jobId": 108323892350,
-    "completedAt": "2026-09-26T02:56:44Z",
-    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/36213205381",
+    "testedHeadSha": "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
+    "workflowRunId": 36213528886,
+    "jobId": 108324824131,
+    "completedAt": "2026-09-26T03:02:50Z",
+    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/36213528886",
     "gates": {
       "schemaValidation": "SUCCESS",
       "strictTypecheck": "SUCCESS",
@@ -249,19 +277,19 @@
       "unitAndRegressionTests": "SUCCESS",
       "productionWebBuild": "SUCCESS"
     },
-    "scopeNote": "Receipt applies to the verified Apidra implementation/repair head. This checkpoint metadata commit must receive its own exact-head CI receipt before later work treats the checkpoint head as verified.",
+    "scopeNote": "Receipt applies to the verified Levemir implementation head. This checkpoint metadata commit must receive its own exact-head CI receipt before later writes.",
     "lastSuccessfulReceipt": {
-      "verifiedHeadSha": "072d225b65f7b3b5a6d2bfa414e2cbfaf3a07407",
-      "workflowRunId": 36213205381,
-      "jobId": 108323892350,
-      "completedAt": "2026-09-26T02:56:44Z",
-      "scope": "Apidra U-100 product-identity increment and regression repair"
+      "verifiedHeadSha": "0e92ed4e248306d158bdafce29ec7a3d3fb1ef00",
+      "workflowRunId": 36213528886,
+      "jobId": 108324824131,
+      "completedAt": "2026-09-26T03:02:50Z",
+      "scope": "Levemir insulin detemir U-100 historical identity plus separately sourced FDA Purple Book market status"
     }
   },
   "auditReport": "docs/clinical-governance/med-batch-02-evidence-formulations.md",
-  "latestIncrementReport": "docs/clinical-governance/med-batch-02-apidra.md",
+  "latestIncrementReport": "docs/clinical-governance/med-batch-02-levemir.md",
   "nextCheckpoint": "B_TERMINOLOGY_AUDIT",
-  "nextWorkItem": "Verify insulin detemir/Levemir product and formulation identity from current authoritative sources. Preserve historical identity separately from any directly verified US market-status/discontinuation metadata; do not infer availability from old labels.",
+  "nextWorkItem": "Verify NovoLog/insulin aspart U-100 identity and presentation-level FDA Purple Book marketing status. Do not map generic insulin aspart to branded NovoLog by default, and do not collapse mixed Rx/Disc presentation status into one availability claim.",
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false
 }
