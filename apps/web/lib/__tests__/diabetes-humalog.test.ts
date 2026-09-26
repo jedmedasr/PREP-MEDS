@@ -18,10 +18,10 @@ function evaluate(id:string,procedureCode:ProcedureCode,overrides:ModifierValue[
 }
 
 describe('Humalog U-100/U-200 identity and presentation status',()=>{
- it('adds two source-linked branded identities without changing the 59-concept NovoLog snapshot',()=>{
-   expect(diabetesNovoLogMedications).toHaveLength(59); expect(diabetesHumalogMedications).toHaveLength(61);
-   expect(humalogProductDefinitions).toHaveLength(2); expect(diabetesHumalogAudit.searchableConceptCount).toBe(61);
-   expect(diabetesHumalogAudit.sourceLinkedIdentityCount).toBe(33); expect(validateTerminologyDataset(terminologyDataset)).toEqual([]);
+ it('reconciles the two existing Humalog identities without changing the 59-concept NovoLog snapshot',()=>{
+   expect(diabetesNovoLogMedications).toHaveLength(59); expect(diabetesHumalogMedications).toHaveLength(59);
+   expect(humalogProductDefinitions).toHaveLength(2); expect(diabetesHumalogAudit.searchableConceptCount).toBe(59);
+   expect(diabetesHumalogAudit.sourceLinkedIdentityCount).toBe(31); expect(validateTerminologyDataset(terminologyDataset)).toEqual([]);
  });
  it.each([['Humalog U-100','MED-insulin-lispro-humalog-u100'],['Humalog 100 units/mL','MED-insulin-lispro-humalog-u100'],['Humalog KwikPen U-100','MED-insulin-lispro-humalog-u100'],['Humalog U-200','MED-insulin-lispro-humalog-u200'],['Humalog 200 units/mL','MED-insulin-lispro-humalog-u200'],['Humalog KwikPen U-200','MED-insulin-lispro-humalog-u200']])('resolves %s to the concentration-specific branded identity',(query,id)=>{
    expect(index.resolve(query).medication?.id).toBe(id); const identity=diabetesHumalogIdentities[id];
