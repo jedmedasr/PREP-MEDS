@@ -39,6 +39,7 @@ describe('Humalog U-100/U-200 identity and presentation status',()=>{
    expect(diabetesHumalogAudit.rxPresentationProductCount).toBe(7); expect(diabetesHumalogAudit.discontinuedPresentationProductCount).toBe(1); expect(diabetesHumalogAudit.marketAvailabilityAsserted).toBe(false);
 });
 
+});
 describe('Humalog evidence provenance and append-only history',()=>{
  it('pins current manufacturer SPL 87 and separate Purple Book records',()=>{
    expect(humalogSources).toHaveLength(3); expect(humalogAtoms).toHaveLength(3);
