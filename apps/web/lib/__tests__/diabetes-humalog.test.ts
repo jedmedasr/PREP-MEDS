@@ -37,7 +37,6 @@ describe('Humalog U-100/U-200 identity and presentation status',()=>{
    expect(humalogPresentationMarketingStatuses.filter(x=>x.concentration===100&&x.status==='DISCONTINUED')).toEqual([{applicationNumber:'BLA 020563',concentration:100,productNumber:'002',presentation:'MULTI_DOSE_CARTRIDGE',status:'DISCONTINUED'}]);
    expect(humalogPresentationMarketingStatuses.filter(x=>x.concentration===200).every(x=>x.status==='RX')).toBe(true);
    expect(diabetesHumalogAudit.rxPresentationProductCount).toBe(7); expect(diabetesHumalogAudit.discontinuedPresentationProductCount).toBe(1); expect(diabetesHumalogAudit.marketAvailabilityAsserted).toBe(false);
- });
 });
 
 describe('Humalog evidence provenance and append-only history',()=>{
