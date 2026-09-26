@@ -25,10 +25,10 @@ export const diabetesHumalogMedications:MedicationRecord[]=[
   ...humalogMedications,
 ];
 
-export interface HumalogIdentity extends NovoLogIdentity {
+export type HumalogIdentity = Omit<NovoLogIdentity, 'presentationMarketingStatuses' | 'presentationMarketingStatusEvidenceRefs'> & {
   presentationMarketingStatuses?: typeof humalogPresentationMarketingStatuses;
   presentationMarketingStatusEvidenceRefs?: Array<{id:string;version:number}>;
-}
+};
 
 const unspecifiedLispro:HumalogIdentity={
   medicationId:'MED-insulin-lispro',version:3,state:'UNSPECIFIED',evidenceRefs:[],
