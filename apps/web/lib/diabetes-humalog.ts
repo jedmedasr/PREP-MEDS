@@ -1,4 +1,4 @@
-import { humalogPresentationMarketingStatuses, humalogProductDefinitions } from '@prep-meds/clinical-content';
+import { humalogPresentationMarketingStatuses, humalogProductDefinitions, type HumalogProductDefinition } from '@prep-meds/clinical-content';
 import type { MedicationRecord } from '@prep-meds/terminology';
 import { diabetesNovoLogIdentities, diabetesNovoLogMedications, type NovoLogIdentity } from './diabetes-novolog';
 
@@ -11,19 +11,23 @@ const replacements:Record<string,Partial<MedicationRecord>>={
   },
 };
 
-export const humalogMedications:MedicationRecord[]=humalogProductDefinitions.map((product)=>({
-  id:product.medicationId,
-  canonicalName:`${product.brand} U-${product.concentration} (${product.labelledActiveName})`,
-  genericName:`${product.labelledActiveName} U-${product.concentration}`,
-  brandNames:[product.brand],
-  aliases:[`${product.brand} U-${product.concentration}`,...product.aliases],
-  ingredientIds:[product.ingredientId],drugClassIds:[product.drugClassId],
-}));
+const humalogById=new Map(humalogProductDefinitions.map((product)=>[product.medicationId,product] as const));
 
-export const diabetesHumalogMedications:MedicationRecord[]=[
-  ...diabetesNovoLogMedications.map((medication)=>({...medication,...(replacements[medication.id]??{})})),
-  ...humalogMedications,
-];
+export const diabetesHumalogMedications:MedicationRecord[]=diabetesNovoLogMedications.map((medication)=>{
+  const product=humalogById.get(medication.id as HumalogProductDefinition['medicationId']);
+  if(product){
+    return {
+      ...medication,
+      canonicalName:`${product.brand} U-${product.concentration} (${product.labelledActiveName})`,
+      genericName:`${product.labelledActiveName} U-${product.concentration}`,
+      brandNames:[product.brand],
+      aliases:[`${product.brand} U-${product.concentration}`,...product.aliases],
+      ingredientIds:[product.ingredientId],
+      drugClassIds:[product.drugClassId],
+    };
+  }
+  return { ...medication, ...(replacements[medication.id]??{}) };
+});
 
 export type HumalogIdentity = Omit<NovoLogIdentity, 'presentationMarketingStatuses' | 'presentationMarketingStatusEvidenceRefs'> & {
   presentationMarketingStatuses?: typeof humalogPresentationMarketingStatuses;
