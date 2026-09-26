@@ -67,8 +67,6 @@ export {
 } from './diabetes-levemir-evidence.js';
 export type { LevemirProductDefinition } from './diabetes-levemir-evidence.js';
 export {
-  diabetesNovoLogEvidence as diabetesWorkflowEvidence,
-  diabetesNovoLogEvidence as diabetesCoreEvidence,
   diabetesNovoLogEvidence,
   novologLabelReference,
   novologMarketingStatusReference,
@@ -78,6 +76,19 @@ export {
   novologAtoms,
 } from './diabetes-novolog-evidence.js';
 export type { NovoLogProductDefinition, NovoLogPresentationMarketingStatus } from './diabetes-novolog-evidence.js';
+export {
+  diabetesHumalogEvidence as diabetesWorkflowEvidence,
+  diabetesHumalogEvidence as diabetesCoreEvidence,
+  diabetesHumalogEvidence,
+  humalogLabelReference,
+  humalogU100MarketingStatusReference,
+  humalogU200MarketingStatusReference,
+  humalogProductDefinitions,
+  humalogPresentationMarketingStatuses,
+  humalogSources,
+  humalogAtoms,
+} from './diabetes-humalog-evidence.js';
+export type { HumalogProductDefinition, HumalogPresentationMarketingStatus } from './diabetes-humalog-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',

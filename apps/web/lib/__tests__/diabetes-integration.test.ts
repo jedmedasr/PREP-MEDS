@@ -45,7 +45,7 @@ afterEach(() => vi.unstubAllEnvs());
 describe('diabetes catalog integration', () => {
   it('assembles a valid nonduplicated catalog and does not fabricate a pump ingredient', () => {
     expect(validateTerminologyDataset(terminologyDataset)).toEqual([]);
-    expect(diabetesSearchMedications).toHaveLength(59);
+    expect(diabetesSearchMedications).toHaveLength(61);
     expect(terminologyDataset.medications.filter((med) => med.id === 'MED-insulin-glargine')).toHaveLength(1);
     expect(index.getMedicationById('MED-insulin-pump-aid')).toBeNull();
   });
@@ -54,6 +54,7 @@ describe('diabetes catalog integration', () => {
     ['Lantus', 'MED-insulin-glargine-u100'], ['Humulin R U-500', 'MED-insulin-regular-humulin-u500'],
     ['Humalog Mix 75/25', 'MED-insulin-lispro-75-25'], ['Afrezza 4 unit cartridge', 'MED-afrezza-4-unit-cartridge'],
     ['Apidra SoloStar U-100', 'MED-insulin-glulisine-apidra-u100'], ['Levemir FlexPen U-100', 'MED-insulin-detemir-levemir-u100'], ['NovoLog FlexPen U-100', 'MED-insulin-aspart-novolog-u100'],
+    ['Humalog U-100', 'MED-insulin-lispro-humalog-u100'], ['Humalog U-200', 'MED-insulin-lispro-humalog-u200'],
   ])('finds %s without guessing a dosing plan', (query, medicationId) => {
     expect(index.search(query)[0]?.medicationId).toBe(medicationId);
   });
