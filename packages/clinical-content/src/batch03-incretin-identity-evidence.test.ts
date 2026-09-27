@@ -5,6 +5,7 @@ import {
   batch03IncretinIdentityDefinitions,
   batch03IncretinIdentityEvidence,
   batch03IncretinIdentitySources,
+  batch03TirzepatideProcedureReviewAtoms,
 } from './batch03-incretin-identity-evidence.js';
 
 describe('Batch 03 incretin product/formulation identity evidence', () => {
@@ -13,6 +14,7 @@ describe('Batch 03 incretin product/formulation identity evidence', () => {
     expect(batch03IncretinIdentityDefinitions).toHaveLength(6);
     expect(batch03IncretinIdentitySources).toHaveLength(6);
     expect(batch03IncretinIdentityAtoms).toHaveLength(6);
+    expect(batch03TirzepatideProcedureReviewAtoms).toHaveLength(2);
   });
 
   it('pins the current verified source versions', () => {
@@ -69,4 +71,19 @@ describe('Batch 03 incretin product/formulation identity evidence', () => {
       expect(source.metadata?.clinicalApprovalGranted).toBe(false);
     }
   });
+  it('keeps tirzepatide procedure evidence review-only without inventing timing', () => {
+    expect(batch03TirzepatideProcedureReviewAtoms.map((atom) => atom.id)).toEqual([
+      'EVD-B3-MOUNJARO-PROCEDURE-REVIEW',
+      'EVD-B3-ZEPBOUND-PROCEDURE-REVIEW',
+    ]);
+    for (const atom of batch03TirzepatideProcedureReviewAtoms) {
+      expect(atom.lifecycle).toBe('DRAFT');
+      expect(atom.stance).toBe('CONDITIONAL');
+      expect(atom.evidenceStrength).toBe('NOT_GRADED');
+      expect(atom.limitations).toContain(
+        'PREP-MEDS therefore uses this atom to require review, not to generate a hold/continue/restart timing instruction.',
+      );
+    }
+  });
+
 });
