@@ -4,8 +4,8 @@
   "branch": "med-batch-03-sglt2-glp1",
   "baseBranch": "med-batch-02-diabetes-core",
   "baseVerifiedHeadSha": "99ca14608dc3046ea21813277e20edb7f52bb55f",
-  "updatedAt": "2026-09-27T06:25:00Z",
-  "updatedAtBasis": "Semaglutide product/route terminology is now assembled with explicit ambiguity preservation and a shadow clinician-review guard; exact-head CI is pending on the coherent integration cluster.",
+  "updatedAt": "2026-09-27T06:30:00Z",
+  "updatedAtBasis": "Guarded semaglutide terminology passed exact-head quality run #136. A second DRAFT incretin product/formulation evidence cluster now covers current tirzepatide, exenatide, and liraglutide identities and awaits exact-head CI before searchable integration.",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -23,11 +23,15 @@
         "Preserved JARDIANCE SPL 31 and STEGLATRO SPL 17 current manufacturer identities.",
         "Verified from current primary labeling that SGLT2 temporary-interruption language is scoped to surgery or procedures associated with prolonged fasting; no class-wide endoscopy action is inferred.",
         "Verified current semaglutide labeling requires distinct Ozempic injection, Ozempic oral, Rybelsus oral, Wegovy injection, and Wegovy oral product/route identities; bare semaglutide and route-unspecified Ozempic/Wegovy must remain ambiguous.",
-        "Encoded five semaglutide product/route identity definitions from current manufacturer labeling without dose, substitution, availability, or peri-procedural action claims."
+        "Encoded five semaglutide product/route identity definitions from current manufacturer labeling without dose, substitution, availability, or peri-procedural action claims.",
+        "Verified current Mounjaro SPL 40 and Zepbound SPL 40 tirzepatide product identities with distinct indication boundaries.",
+        "Verified Byetta SPL 26 immediate-release exenatide and Bydureon BCise SPL 39 extended-release exenatide formulation identities.",
+        "Verified Saxenda SPL 22 and current Cipla liraglutide SPL 6 weight-management identity records."
       ],
       "remaining": [
-        "Integrate semaglutide product/route identities into searchable terminology without allowing explicit variants to bypass the governed GLP-1 review pathway.",
-        "Expand later GLP-1/GIP agents in roadmap order using current authoritative primary sources.",
+        "Resolve and encode current dulaglutide/Trulicity manufacturer source version.",
+        "Resolve current Victoza manufacturer source/version before adding a diabetes-specific liraglutide brand identity.",
+        "Integrate the newly verified tirzepatide/exenatide/liraglutide identities only after exact-head evidence-cluster CI.",
         "Reconcile evolving/conflicting GLP-1 endoscopy evidence and local policy without creating an autonomous universal hold rule."
       ]
     },
@@ -42,7 +46,10 @@
         "1a43a927331456037f62144d01368f10d1900658",
         "15074ceacada8c364c720a7ea6836dcf9061e351",
         "ab3cd6b9b29973f9818cd8356b280df680b0355d",
-        "a6b87643e19ad8943731d5e8dd0826b902bddaf4"
+        "a6b87643e19ad8943731d5e8dd0826b902bddaf4",
+        "052f9971680fd2d73668f0b744f76410d533518b",
+        "2e5924b2eabd0776a6c5e618b73c2e418e527c17",
+        "476c2360fdc950ae78764b35d4d76f77929c0d80"
       ],
       "currentSglt2Products": [
         "empagliflozin/Jardiance",
@@ -51,18 +58,26 @@
         "bexagliflozin/Brenzavvy",
         "canagliflozin/Invokana"
       ],
-      "notes": "SGLT2 identity evidence is reconciled. Five explicit semaglutide product/route identities are now searchable. Bare semaglutide is ambiguous; route-unspecified Ozempic and Wegovy are ambiguous; Rybelsus resolves only to the oral identity. Searchability does not authorize dose, substitution, availability, or peri-procedural action.",
+      "notes": "Semaglutide product/route terminology is searchable under a clinician-review guard. Six additional tirzepatide/exenatide/liraglutide product/formulation identities are source-linked in DRAFT evidence but are not yet searchable; ingredient identity alone must not authenticate brand, formulation, or indication.",
       "semaglutideIdentityDefinitions": [
         "Ozempic / subcutaneous injection",
         "Ozempic / oral tablet",
         "Rybelsus / oral tablet",
         "Wegovy / subcutaneous injection",
         "Wegovy / oral tablet"
+      ],
+      "incretinIdentityDefinitions": [
+        "Mounjaro / tirzepatide / diabetes",
+        "Zepbound / tirzepatide / weight-management-or-OSA",
+        "Byetta / exenatide immediate-release / diabetes",
+        "Bydureon BCise / exenatide extended-release / diabetes",
+        "Saxenda / liraglutide / weight management",
+        "Generic liraglutide injection / current weight-management labeling"
       ]
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
-      "notes": "The older generic MED-semaglutide individualized shadow pathway is unchanged. Explicit semaglutide product/route identities are protected by RULE-B3-SEMAGLUTIDE-PRODUCT-REVIEW-001 with disposition CLINICIAN_REVIEW_REQUIRED and no timing rule, preventing explicit products from escaping into the older default-continue path while GLP-1 evidence/local policy remain under review.",
+      "notes": "Guarded semaglutide integration passed exact-head quality run #136. No timing rule has been added for the newer incretin identity records; later searchable integration must use a review-only guard until GLP-1/GIP management is clinically and locally adjudicated.",
       "commits": [
         "ab3cd6b9b29973f9818cd8356b280df680b0355d"
       ]
@@ -72,9 +87,10 @@
       "commits": [
         "d6e6228c392315d6f052c8d82cac64eb0de0fdc5",
         "a14d48f3c3f29cef6d74a6fc88310161078265d9",
-        "a6b87643e19ad8943731d5e8dd0826b902bddaf4"
+        "a6b87643e19ad8943731d5e8dd0826b902bddaf4",
+        "2e5924b2eabd0776a6c5e618b73c2e418e527c17"
       ],
-      "notes": "Semaglutide integration regressions assert generic and brand-route ambiguity, explicit product resolution, production-rule isolation, and clinician-review routing across EGD, COLONOSCOPY, and EGD_COLONOSCOPY. Exact-head CI pending."
+      "notes": "Semaglutide guarded-search regressions passed exact-head run #136. New incretin evidence regressions validate source versions, tirzepatide indication boundaries, exenatide immediate-vs-extended-release distinction, liraglutide weight-management identities, and non-action-authorizing DRAFT state; exact-head CI pending."
     },
     "E_INTEGRATION_AUDIT": {
       "status": "IN_PROGRESS",
@@ -111,6 +127,14 @@
       "ozempicInjection": "SETID adec4fd2-6858-4c99-91d4-531f5f2a2d79 / SPL 20 / effective 2026-06-01 / NDA209637",
       "ozempicRybelsusOral": "SETID 27f15fac-7d98-4114-a2ec-92494a91da98 / SPL 13 / effective 2026-01-30 / NDA213051",
       "wegovyInjectionAndOral": "SETID ee06186f-2aa3-4990-a760-757579d8f77b / SPL 19 / effective 2026-06-18 / NDA215256 and NDA218316"
+    },
+    "currentIncretinSourceState": {
+      "mounjaro": "SETID d2d7da5d-ad07-4228-955f-cf7e355c8cc0 / SPL 40 / effective 2026-08-27 / NDA215866",
+      "zepbound": "SETID 487cd7e7-434c-4925-99fa-aa80b1cc776b / SPL 40 / effective 2026-08-28 / NDA217806",
+      "byetta": "SETID 53d03c03-ebf7-418d-88a8-533eabd2ee4f / SPL 26 / effective 2025-09-02 / NDA021773",
+      "bydureonBcise": "SETID 2d18cfc4-e0de-4814-a712-c1b7c504bff5 / SPL 39 / effective 2025-05-28 / NDA209210",
+      "saxenda": "SETID 3946d389-0926-4f77-a708-0acb8153b143 / SPL 22 / effective 2026-02-25 / NDA206321",
+      "genericLiraglutideWeightManagement": "SETID 22c86976-9657-4dd0-8fff-0c3f3f08357c / SPL 6 / effective 2026-06-18 / ANDA217234"
     }
   },
   "ci": {
@@ -119,15 +143,15 @@
     "workflowRunId": null,
     "jobId": null,
     "lastSuccessfulReceipt": {
-      "verifiedHeadSha": "9c98752d8b553f46cf1ada56c53a2ffcab86562c",
-      "workflowRunId": 36299705299,
-      "jobId": 108564974844,
-      "scope": "Batch 03 semaglutide current product/route evidence cluster before searchable terminology integration"
+      "verifiedHeadSha": "1ac5d90b3902e6fbc3a12d3615db3cd172588426",
+      "workflowRunId": 36299885446,
+      "jobId": 108565464681,
+      "scope": "Guarded semaglutide searchable terminology and clinician-review routing"
     },
-    "note": "Guarded semaglutide searchable terminology cluster requires exact-head PR CI before later incretin implementation."
+    "note": "Tirzepatide/exenatide/liraglutide evidence/export cluster requires exact-head PR CI before searchable terminology integration."
   },
   "blockers": [],
-  "nextWorkItem": "Obtain exact-head CI for guarded semaglutide searchable terminology. If green, continue current-source identity evidence for tirzepatide, exenatide, dulaglutide, and liraglutide while preserving product/indication/formulation distinctions and review-only GLP-1 management.",
+  "nextWorkItem": "Obtain exact-head CI for the tirzepatide/exenatide/liraglutide evidence cluster. If green, integrate verified products into searchable terminology with ingredient/product/formulation ambiguity and a review-only guard, while separately continuing current-source reconciliation for dulaglutide and Victoza.",
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
   "pullRequest": 13
