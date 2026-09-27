@@ -4,8 +4,8 @@
   "branch": "med-batch-03-sglt2-glp1",
   "baseBranch": "med-batch-02-diabetes-core",
   "baseVerifiedHeadSha": "99ca14608dc3046ea21813277e20edb7f52bb55f",
-  "updatedAt": "2026-09-27T10:31:00Z",
-  "updatedAtBasis": "Fixed insulin/GLP-1 combination cluster passed exact-head quality run #172 at 0ef8c7c4a7a1b47a9508775df934d4e8c272f667 after product-specific precedence repair. Next coherent SGLT2-combination cluster adds four products with fully reconciled current manufacturer provenance: GLYXAMBI, XIGDUO XR, SEGLUROMET, and STEGLUJAN; exact-head CI is pending.",
+  "updatedAt": "2026-09-27T10:42:00Z",
+  "updatedAtBasis": "Four-product SGLT2 combination cluster passed exact-head quality run #180 at e672619468970560f13987ce7223d5f14ed4261c. Current-source reconciliation then added SYNJARDY IR, SYNJARDY XR, and TRIJARDY XR as formulation-distinct whole-product identities; exact-head CI is pending for the seven-product cluster.",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -35,7 +35,10 @@
         "Verified current GLYXAMBI manufacturer labeling: Boehringer Ingelheim / DailyMed SETID ddbab689-f76c-488c-9613-4168d41dd730 / SPL 23 / effective 2026-01-20 / NDA206073.",
         "Verified current XIGDUO XR manufacturer labeling: AstraZeneca / DailyMed SETID ac8a0f7b-9f69-4495-abbc-3a47cd75a859 / SPL 40 / effective 2026-08-11 / NDA205649.",
         "Verified current SEGLUROMET manufacturer labeling: Merck / DailyMed SETID a6aeb99a-ce49-4125-90ce-642df3f1ebad / SPL 20 / effective 2026-08-11 / NDA209806.",
-        "Verified current STEGLUJAN manufacturer labeling: Merck / DailyMed SETID c2c553d8-5a9d-4366-bf53-8bdb5a876d19 / SPL 24 / effective 2026-06-03 / NDA209805."
+        "Verified current STEGLUJAN manufacturer labeling: Merck / DailyMed SETID c2c553d8-5a9d-4366-bf53-8bdb5a876d19 / SPL 24 / effective 2026-06-03 / NDA209805.",
+        "Resolved current SYNJARDY IR labeling: Boehringer Ingelheim / DailyMed SETID 0fdd0255-0055-65f3-b2c0-db8fbb87beae / SPL 23 / effective 2026-08-25 / NDA206111.",
+        "Resolved current SYNJARDY XR labeling separately from IR: Boehringer Ingelheim / DailyMed SETID 8006ba29-ee3a-f852-a9bb-c8ec9b41cf66 / SPL 18 / effective 2026-08-11 / NDA208658.",
+        "Resolved current TRIJARDY XR labeling: Boehringer Ingelheim / DailyMed SETID 71873567-9594-452a-bb92-34a129adecac / SPL 11 / effective 2026-08-24 / NDA212614."
       ],
       "remaining": [
         "Continue remaining GLP-1/GIP/metabolic identities in roadmap order.",
@@ -69,7 +72,7 @@
         "bexagliflozin/Brenzavvy",
         "canagliflozin/Invokana"
       ],
-      "notes": "Eight tirzepatide/exenatide/liraglutide/dulaglutide product/formulation identities are searchable. Bare tirzepatide, exenatide, liraglutide, and dulaglutide remain product/formulation unspecified; explicit brands/formulations resolve only to source-linked identities. Search resolution does not authorize substitution, dose conversion, availability inference, or peri-procedural timing. Fixed insulin/GLP-1 combinations are represented as indivisible two-ingredient product identities: SOLIQUA 100/33 (insulin glargine + lixisenatide) and XULTOPHY 100/3.6 (insulin degludec + liraglutide). Search resolution does not authorize component splitting, dose arithmetic, conversion, device settings, or substitution. Four verified SGLT2 fixed combinations are source-linked as whole products: GLYXAMBI, XIGDUO XR, SEGLUROMET, and STEGLUJAN. XIGDUO XR is explicitly extended-release; component identities are preserved and no component splitting/substitution is authorized.",
+      "notes": "Eight tirzepatide/exenatide/liraglutide/dulaglutide product/formulation identities are searchable. Bare tirzepatide, exenatide, liraglutide, and dulaglutide remain product/formulation unspecified; explicit brands/formulations resolve only to source-linked identities. Search resolution does not authorize substitution, dose conversion, availability inference, or peri-procedural timing. Fixed insulin/GLP-1 combinations are represented as indivisible two-ingredient product identities: SOLIQUA 100/33 (insulin glargine + lixisenatide) and XULTOPHY 100/3.6 (insulin degludec + liraglutide). Search resolution does not authorize component splitting, dose arithmetic, conversion, device settings, or substitution. Four verified SGLT2 fixed combinations are source-linked as whole products: GLYXAMBI, XIGDUO XR, SEGLUROMET, and STEGLUJAN. XIGDUO XR is explicitly extended-release; component identities are preserved and no component splitting/substitution is authorized. SYNJARDY IR and SYNJARDY XR are separate records with distinct current manufacturer SETIDs/version anchors; TRIJARDY XR preserves empagliflozin + linagliptin + metformin as a three-component XR product.",
       "semaglutideIdentityDefinitions": [
         "Ozempic / subcutaneous injection",
         "Ozempic / oral tablet",
@@ -90,7 +93,7 @@
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
-      "notes": "Explicit tirzepatide products use RULE-B3-TIRZEPATIDE-PRODUCT-REVIEW-001 with current-label procedure-review evidence and no timing rule. Explicit exenatide/liraglutide/dulaglutide products use RULE-B3-GLP1-PRODUCT-REVIEW-001 with the existing multisociety GLP-1 review evidence and no timing rule. Production rules remain empty. Fixed insulin/GLP-1 combinations use RULE-B3-FIXED-INSULIN-GLP1-PRODUCT-REVIEW-001 with product-label procedure-review evidence and no timing rule. Verified SGLT2 combinations use RULE-B3-SGLT2-COMBINATION-PRODUCT-REVIEW-001 at product-specific precedence with no timing rule. Current manufacturer temporary-interruption language is retained as procedure-review provenance only.",
+      "notes": "Explicit tirzepatide products use RULE-B3-TIRZEPATIDE-PRODUCT-REVIEW-001 with current-label procedure-review evidence and no timing rule. Explicit exenatide/liraglutide/dulaglutide products use RULE-B3-GLP1-PRODUCT-REVIEW-001 with the existing multisociety GLP-1 review evidence and no timing rule. Production rules remain empty. Fixed insulin/GLP-1 combinations use RULE-B3-FIXED-INSULIN-GLP1-PRODUCT-REVIEW-001 with product-label procedure-review evidence and no timing rule. Verified SGLT2 combinations use RULE-B3-SGLT2-COMBINATION-PRODUCT-REVIEW-001 at product-specific precedence with no timing rule. Current manufacturer temporary-interruption language is retained as procedure-review provenance only. The SGLT2-combination review guard now covers seven source-reconciled products, including SYNJARDY IR/XR and TRIJARDY XR, still with no timing rule.",
       "commits": [
         "ab3cd6b9b29973f9818cd8356b280df680b0355d",
         "160df73054cde62135007d9b14bf9b729138132f",
@@ -109,11 +112,11 @@
         "02e54548a3c6be42920cbc721256d0983887cd6d",
         "db130f7c3802d8e0dd4f78435b3a4f2d0bf65804"
       ],
-      "notes": "Evidence and web tests cover source/version provenance, tirzepatide indication boundaries, exenatide IR/ER, Victoza/Saxenda/generic liraglutide identity separation, dulaglutide generic ambiguity versus explicit Trulicity resolution, activeRules isolation, and clinician-review routing across all three procedure types. Fixed-combination tests verify current source versions, two-component identity preservation, terminology resolution, production-rule isolation, and clinician-review routing for EGD, colonoscopy, and combined procedures without timing. New SGLT2-combination tests verify exact source versions, DRAFT/non-authorizing evidence boundaries, terminology resolution/component identity, activeRules isolation, and review-only/no-timing routing across all three procedure types."
+      "notes": "Evidence and web tests cover source/version provenance, tirzepatide indication boundaries, exenatide IR/ER, Victoza/Saxenda/generic liraglutide identity separation, dulaglutide generic ambiguity versus explicit Trulicity resolution, activeRules isolation, and clinician-review routing across all three procedure types. Fixed-combination tests verify current source versions, two-component identity preservation, terminology resolution, production-rule isolation, and clinician-review routing for EGD, colonoscopy, and combined procedures without timing. New SGLT2-combination tests verify exact source versions, DRAFT/non-authorizing evidence boundaries, terminology resolution/component identity, activeRules isolation, and review-only/no-timing routing across all three procedure types. Evidence/web regressions now cover seven SGLT2 combinations, including IR/XR identity separation and the intact three-component TRIJARDY XR identity."
     },
     "E_INTEGRATION_AUDIT": {
       "status": "IN_PROGRESS",
-      "notes": "Eight current incretin product identities are assembled into the terminology dataset with ingredient records. Generic ingredient wording stays product/formulation unspecified. Explicit products route to CLINICIAN_REVIEW_REQUIRED with no timingRule. Exact-head verification is pending for the Trulicity cluster. SOLIQUA and XULTOPHY are assembled into review evidence/terminology only; activeRules remain empty and no patient-specific insulin arithmetic or component conversion is encoded. GLYXAMBI/XIGDUO XR/SEGLUROMET/STEGLUJAN are assembled into terminology and clinicalReviewEvidenceBundles; activeRules remain empty.",
+      "notes": "Eight current incretin product identities are assembled into the terminology dataset with ingredient records. Generic ingredient wording stays product/formulation unspecified. Explicit products route to CLINICIAN_REVIEW_REQUIRED with no timingRule. Exact-head verification is pending for the Trulicity cluster. SOLIQUA and XULTOPHY are assembled into review evidence/terminology only; activeRules remain empty and no patient-specific insulin arithmetic or component conversion is encoded. GLYXAMBI/XIGDUO XR/SEGLUROMET/STEGLUJAN are assembled into terminology and clinicalReviewEvidenceBundles; activeRules remain empty. Seven verified SGLT2 combinations are assembled into review-only terminology/evidence; activeRules remain empty.",
       "commits": [
         "15074ceacada8c364c720a7ea6836dcf9061e351",
         "ab3cd6b9b29973f9818cd8356b280df680b0355d",
@@ -169,15 +172,15 @@
     "workflowRunId": null,
     "jobId": null,
     "lastSuccessfulReceipt": {
-      "verifiedHeadSha": "0ef8c7c4a7a1b47a9508775df934d4e8c272f667",
-      "workflowRunId": 36311552946,
-      "jobId": 108598348645,
-      "scope": "SOLIQUA/XULTOPHY fixed-combination cluster after precedence repair; schema, strict TypeScript, source identity, isolated insulin regression, full regression suite, and production web build passed"
+      "verifiedHeadSha": "e672619468970560f13987ce7223d5f14ed4261c",
+      "workflowRunId": 36311783152,
+      "jobId": 108599001133,
+      "scope": "GLYXAMBI/XIGDUO XR/SEGLUROMET/STEGLUJAN cluster; schema, strict TypeScript, source identity, isolated insulin regression, full unit/regression suite, and production web build passed"
     },
-    "note": "Four-product verified SGLT2-combination cluster requires exact-head CI."
+    "note": "Seven-product SGLT2-combination cluster requires exact-head CI."
   },
   "blockers": [],
-  "nextWorkItem": "Obtain exact-head CI for GLYXAMBI/XIGDUO XR/SEGLUROMET/STEGLUJAN. If green, reconcile and add the remaining SYNJARDY/SYNJARDY XR, TRIJARDY XR, and INVOKAMET/INVOKAMET XR current manufacturer identities without inventing conflicted source versions.",
+  "nextWorkItem": "Obtain exact-head CI for the seven-product SGLT2 combination cluster. If green, finish current INVOKAMET/INVOKAMET XR provenance reconciliation and continue remaining Batch 03 combination/metabolic products.",
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
   "pullRequest": 13
