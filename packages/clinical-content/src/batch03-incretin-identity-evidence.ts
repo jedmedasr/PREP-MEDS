@@ -13,7 +13,7 @@ export interface Batch03IncretinIdentityDefinition {
     | 'MED-liraglutide-generic-weight-management';
   ingredientId: 'ING-tirzepatide' | 'ING-exenatide' | 'ING-liraglutide';
   genericName: 'tirzepatide' | 'exenatide' | 'liraglutide';
-  brandName?: 'Mounjaro' | 'Zepbound' | 'Byetta' | 'Bydureon BCise' | 'Saxenda';
+  brandName?: 'Mounjaro' | 'Zepbound' | 'Byetta' | 'Bydureon BCise' | 'Victoza' | 'Saxenda';
   dosageForm: 'INJECTION, SOLUTION' | 'INJECTION' | 'INJECTION, SUSPENSION, EXTENDED RELEASE';
   route: 'SUBCUTANEOUS';
   formulation?: 'IMMEDIATE_RELEASE' | 'EXTENDED_RELEASE';
