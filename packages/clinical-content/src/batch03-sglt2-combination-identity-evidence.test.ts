@@ -9,12 +9,12 @@ import {
 } from './batch03-sglt2-combination-identity-evidence.js';
 
 describe('Batch 03 SGLT2 combination evidence', () => {
-  it('validates four explicit combination identities from four current sources', () => {
+  it('validates seven explicit combination identities from seven current sources', () => {
     expect(validateEvidenceBundle(batch03Sglt2CombinationIdentityEvidence)).toEqual([]);
-    expect(batch03Sglt2CombinationIdentityDefinitions).toHaveLength(4);
-    expect(batch03Sglt2CombinationIdentitySources).toHaveLength(4);
-    expect(batch03Sglt2CombinationIdentityAtoms).toHaveLength(4);
-    expect(batch03Sglt2CombinationProcedureReviewAtoms).toHaveLength(4);
+    expect(batch03Sglt2CombinationIdentityDefinitions).toHaveLength(7);
+    expect(batch03Sglt2CombinationIdentitySources).toHaveLength(7);
+    expect(batch03Sglt2CombinationIdentityAtoms).toHaveLength(7);
+    expect(batch03Sglt2CombinationProcedureReviewAtoms).toHaveLength(7);
   });
 
   it('pins exact source versions and keeps them draft/non-authorizing', () => {
@@ -23,6 +23,9 @@ describe('Batch 03 SGLT2 combination evidence', () => {
     expect(byId.get('SRC-B3-XIGDUO-XR-SPL40')?.metadata?.splVersion).toBe(40);
     expect(byId.get('SRC-B3-SEGLUROMET-SPL20')?.metadata?.splVersion).toBe(20);
     expect(byId.get('SRC-B3-STEGLUJAN-SPL24')?.metadata?.splVersion).toBe(24);
+    expect(byId.get('SRC-B3-SYNJARDY-SPL23')?.metadata?.splVersion).toBe(23);
+    expect(byId.get('SRC-B3-SYNJARDY-XR-SPL18')?.metadata?.splVersion).toBe(18);
+    expect(byId.get('SRC-B3-TRIJARDY-XR-SPL11')?.metadata?.splVersion).toBe(11);
     for (const s of batch03Sglt2CombinationIdentitySources) {
       expect(s.lifecycle).toBe('DRAFT');
       expect(s.metadata?.marketAvailabilityAsserted).toBe(false);
