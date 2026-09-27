@@ -13,12 +13,14 @@ import {
   batch03ReviewRules,
   batch03SemaglutideIdentityEvidence,
   batch03IncretinIdentityEvidence,
+  batch03FixedCombinationIdentityEvidence,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
 import { diabetesCoreIngredients, diabetesSearchMedications, diabetesModifierDefinitions } from './diabetes-workflow-content';
 import { batch03SemaglutideSearchMedications } from './batch03-semaglutide';
 import { batch03IncretinIngredients, batch03IncretinSearchMedications } from './batch03-incretin';
+import { batch03FixedCombinationIngredients, batch03FixedCombinationMedications } from './batch03-fixed-combinations';
 
 export interface UiModifierDefinition {
   id: string;
@@ -36,7 +38,7 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-03-incretin-terminology-1',
+  version: 'med-batch-03-fixed-combination-terminology-1',
   generatedAt: '2026-09-18T01:15:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
@@ -46,6 +48,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...antithromboticIngredients,
     ...diabetesCoreIngredients,
     ...batch03IncretinIngredients,
+    ...batch03FixedCombinationIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -94,6 +97,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     { id: 'MED-empagliflozin', canonicalName: 'Empagliflozin', ingredientIds: ['ING-empagliflozin'], drugClassIds: ['CLS-sglt2-inhibitor'] },
     ...batch03SemaglutideSearchMedications,
     ...batch03IncretinSearchMedications,
+    ...batch03FixedCombinationMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-metoprolol', canonicalName: 'Metoprolol', ingredientIds: ['ING-metoprolol'], drugClassIds: ['CLS-beta-blocker'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
@@ -118,6 +122,7 @@ export const clinicalReviewEvidenceBundles = [
   diabetesCoreEvidence,
   batch03SemaglutideIdentityEvidence,
   batch03IncretinIdentityEvidence,
+  batch03FixedCombinationIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
