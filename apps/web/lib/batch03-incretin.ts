@@ -45,6 +45,7 @@ const aliasesByMedication: Record<string, string[]> = {
   'MED-tirzepatide-zepbound': ['Zepbound tirzepatide', 'tirzepatide Zepbound'],
   'MED-exenatide-byetta': ['Byetta exenatide', 'exenatide immediate release', 'exenatide immediate-release'],
   'MED-exenatide-bydureon-bcise': ['Bydureon BCise exenatide', 'exenatide extended release', 'exenatide extended-release'],
+  'MED-liraglutide-victoza': ['Victoza liraglutide', 'liraglutide Victoza'],
   'MED-liraglutide-saxenda': ['Saxenda liraglutide', 'liraglutide Saxenda'],
   'MED-liraglutide-generic-weight-management': [
     'liraglutide weight management',
@@ -79,7 +80,7 @@ export const batch03IncretinTerminologyAudit = {
   limitations: [
     'Bare tirzepatide is intentionally ambiguous across Mounjaro and Zepbound product/indication identities.',
     'Bare exenatide is intentionally ambiguous across immediate-release Byetta and extended-release Bydureon BCise identities.',
-    'Bare liraglutide is intentionally ambiguous across current weight-management identities and remains incomplete until the current Victoza identity is reconciled.',
+    'Bare liraglutide is intentionally ambiguous across current diabetes and weight-management identities, including Victoza, Saxenda, and current generic liraglutide labeling.',
     'Product identity does not authorize substitution, dose conversion, peri-procedural hold/continue/restart instructions, or clinical approval.',
   ],
 } as const;
