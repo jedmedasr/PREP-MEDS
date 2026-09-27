@@ -131,6 +131,14 @@ export {
   batch03FixedCombinationProcedureReviewAtoms,
 } from './batch03-fixed-combination-identity-evidence.js';
 export type { Batch03FixedCombinationIdentityDefinition } from './batch03-fixed-combination-identity-evidence.js';
+export {
+  batch03Sglt2CombinationIdentityEvidence,
+  batch03Sglt2CombinationIdentityDefinitions,
+  batch03Sglt2CombinationIdentitySources,
+  batch03Sglt2CombinationIdentityAtoms,
+  batch03Sglt2CombinationProcedureReviewAtoms,
+} from './batch03-sglt2-combination-identity-evidence.js';
+export type { Batch03Sglt2CombinationIdentityDefinition } from './batch03-sglt2-combination-identity-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
