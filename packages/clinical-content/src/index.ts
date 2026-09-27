@@ -101,6 +101,20 @@ export {
   oralReleaseAtoms,
 } from './diabetes-oral-release-evidence.js';
 export type { OralReleaseProductDefinition } from './diabetes-oral-release-evidence.js';
+export {
+  batch03Sglt2IdentityEvidence,
+  batch03Sglt2IdentityDefinitions,
+  batch03Sglt2IdentitySources,
+  batch03Sglt2IdentityAtoms,
+} from './batch03-sglt2-identity-evidence.js';
+export type { Batch03Sglt2IdentityDefinition } from './batch03-sglt2-identity-evidence.js';
+export {
+  batch03SemaglutideIdentityEvidence,
+  batch03SemaglutideIdentityDefinitions,
+  batch03SemaglutideIdentitySources,
+  batch03SemaglutideIdentityAtoms,
+} from './batch03-semaglutide-identity-evidence.js';
+export type { Batch03SemaglutideIdentityDefinition } from './batch03-semaglutide-identity-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
