@@ -1,11 +1,11 @@
 {
   "batchId": "MED-BATCH-02-DIABETES-CORE",
-  "status": "IN_PROGRESS",
+  "status": "ENGINEERING_COMPLETE_REVIEW_REQUIRED",
   "branch": "med-batch-02-diabetes-core",
   "pullRequest": 12,
-  "updatedAt": "2026-09-26T12:39:31Z",
-  "updatedAtBasis": "Exact-head quality run #118 passed all required gates for the Humalog current-source reconciliation after syntax/type/catalog-duplication and stale historical-evidence test repairs; this checkpoint metadata commit requires its own exact-head receipt.",
-  "lastWorkTrigger": "LIVE_CHAT",
+  "updatedAt": "2026-09-27T02:29:08Z",
+  "updatedAtBasis": "Exact-head quality run #125 passed all required engineering gates on 6702f57d63248586fd8dc8c09c14fa129a86f9f0; prior runs #120, #122, and #124 verified oral-release, input-normalization, and presentation-metadata increments.",
+  "lastWorkTrigger": "AUTOMATION_SPRINT",
   "dependency": {
     "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
     "verifiedHeadSha": "dc5768f9f8e2755db9a3757b89cd7eae180b1177",
@@ -31,7 +31,7 @@
       ]
     },
     "B_TERMINOLOGY_AUDIT": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "commits": [
         "73cfe447a8815a47974ee44396fea24444229516",
         "11f13e72e20f20d91bdb547dc451b991b22cde76",
@@ -219,14 +219,11 @@
           "blockers": []
         }
       },
-      "remaining": [
-        "Verify oral immediate-/extended-release variants and remaining original aliases.",
-        "Verify or explicitly exclude remaining commercial-availability and complete-presentation metadata."
-      ],
+      "remaining": [],
       "nextAtomicWorkItem": "Audit oral immediate-/extended-release formulation variants and remaining aliases in the existing diabetes catalog. Preserve formulation ambiguity when the release form is not explicit; do not infer a branded product, dose, or peri-procedural instruction from an unqualified generic name."
     },
     "C_RULE_AUDIT": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "commits": [
         "0f62ce5ecc1476e1bd20d6958a1cabcddce11a5d",
         "403c9ec9a15607a8b9562c549331289ca40d7ef3",
@@ -240,13 +237,10 @@
         "8c5891c99a1a9784967efd1ab167173c660e35a2"
       ],
       "notes": "Workflow v4 remains unchanged. Afrezza, Apidra, Levemir, NovoLog and Humalog identity/market-status atoms are descriptive and outside medication-action rules. Humalog current-source reconciliation preserves review-only behavior; Purple Book presentation status cannot trigger substitution, transition, device, dose or peri-procedural actions.",
-      "remaining": [
-        "Reconcile oral release-variant/product findings after B.",
-        "Complete clinical/local-policy and whole-regimen review; confirmation checkboxes are not approval."
-      ]
+      "remaining": []
     },
     "D_TEST_AUDIT": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "commits": [
         "e536aada6fde63bfd2313f9d06e717bda35b6932",
         "11505f6597fac5e5f377f699e44fe0ec6916a36a",
@@ -277,10 +271,7 @@
         "8c5891c99a1a9784967efd1ab167173c660e35a2"
       ],
       "notes": "Humalog regressions verify current SPL 87 provenance, U-100/U-200 separation, generic-lispro de-branding, unsupported-concentration rejection, exact presentation-level Purple Book status, append-only evidence history, and existing type-1/pump review safeguards. Intermediate runs exposed test syntax, type-shape inheritance, duplicate pre-existing Humalog IDs, and a stale NovoLog Object.is expectation; these were repaired without weakening safety behavior. Exact-head quality run #118 passed all required gates.",
-      "remaining": [
-        "Add tests for oral immediate-/extended-release variants and remaining aliases.",
-        "Complete whole-regimen/malformed-input review."
-      ]
+      "remaining": []
     },
     "E_INTEGRATION_AUDIT": {
       "status": "COMPLETE",
@@ -339,16 +330,16 @@
         "ebf4bdbd554460a7b8d5f4e7b8da0dc326574401",
         "14df71456faa4f363d2a050ec01980be2730a1d5"
       ],
-      "notes": "Keep PR #12 draft. Apidra, Levemir, NovoLog and Humalog engineering verification are green, but Batch 02 still requires oral release-variant/alias audit, remaining product-availability/presentation audit, whole-regimen/malformed-input review, and accountable clinical/local-policy review. Do not merge or activate clinical content."
+      "notes": "Engineering checkpoints A-F are complete. PR #12 remains draft/review-only. Accountable clinical review, local-policy reconciliation, physician validation, merge, deployment, and activation remain human-controlled gates."
     }
   },
   "ci": {
     "status": "SUCCESS",
-    "testedHeadSha": "8c5891c99a1a9784967efd1ab167173c660e35a2",
-    "workflowRunId": 36242550887,
-    "jobId": 108405658186,
-    "completedAt": "2026-09-26T12:39:31Z",
-    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/36242550887",
+    "testedHeadSha": "6702f57d63248586fd8dc8c09c14fa129a86f9f0",
+    "workflowRunId": 36285806481,
+    "jobId": 108526240814,
+    "completedAt": "2026-09-27T01:33:00Z",
+    "workflowUrl": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/36285806481",
     "gates": {
       "schemaValidation": "SUCCESS",
       "strictTypecheck": "SUCCESS",
@@ -357,19 +348,30 @@
       "unitAndRegressionTests": "SUCCESS",
       "productionWebBuild": "SUCCESS"
     },
-    "scopeNote": "Receipt applies to the verified Humalog current-source reconciliation head. This checkpoint metadata commit requires its own exact-head CI receipt before later writes.",
-    "lastSuccessfulReceipt": {
-      "verifiedHeadSha": "8c5891c99a1a9784967efd1ab167173c660e35a2",
-      "workflowRunId": 36242550887,
-      "jobId": 108405658186,
-      "completedAt": "2026-09-26T12:39:31Z",
-      "scope": "Humalog insulin lispro U-100/U-200 current label identity plus presentation-level FDA Purple Book status, reconciled in place"
-    }
+    "scopeNote": "Receipt covers the complete Batch 02 engineering head through whole-regimen fail-closed coverage; the checkpoint reconciliation commit itself requires exact-head CI."
   },
   "auditReport": "docs/clinical-governance/med-batch-02-evidence-formulations.md",
   "latestIncrementReport": "docs/clinical-governance/med-batch-02-humalog.md",
-  "nextCheckpoint": "B_TERMINOLOGY_AUDIT",
-  "nextWorkItem": "Audit oral immediate-/extended-release formulation variants and remaining aliases in the existing diabetes catalog. Preserve formulation ambiguity unless release form is explicit; do not infer branded identity, dose, or peri-procedural action.",
-  "advanceToNextBatchAllowed": false,
-  "productionActivationAllowed": false
+  "nextCheckpoint": "G_PR_FINALIZATION",
+  "nextWorkItem": "Begin the next medication batch only after this checkpoint reconciliation commit receives exact-head green CI; keep all new clinical content DRAFT/review-required.",
+  "advanceToNextBatchAllowed": true,
+  "productionActivationAllowed": false,
+  "engineeringCompletion": {
+    "status": "COMPLETE",
+    "verifiedHeadSha": "6702f57d63248586fd8dc8c09c14fa129a86f9f0",
+    "workflowRunId": 36285806481,
+    "jobId": 108526240814,
+    "catalogConceptCount": 63,
+    "completedIncrements": [
+      "oral immediate-/extended-release identity and alias audit",
+      "presentation/availability exclusion audit",
+      "malformed modifier fail-closed normalization",
+      "whole-regimen cross-pathway isolation and malformed-input regressions"
+    ],
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "merged": false,
+    "deployed": false,
+    "productionActive": false
+  }
 }
