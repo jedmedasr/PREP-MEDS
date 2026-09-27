@@ -7,10 +7,13 @@ export interface Batch03Sglt2CombinationIdentityDefinition {
     | 'MED-empagliflozin-linagliptin-glyxambi'
     | 'MED-dapagliflozin-metformin-xigduo-xr'
     | 'MED-ertugliflozin-metformin-segluromet'
-    | 'MED-ertugliflozin-sitagliptin-steglujan';
+    | 'MED-ertugliflozin-sitagliptin-steglujan'
+    | 'MED-empagliflozin-metformin-synjardy'
+    | 'MED-empagliflozin-metformin-synjardy-xr'
+    | 'MED-empagliflozin-linagliptin-metformin-trijardy-xr';
   ingredientIds: string[];
   genericName: string;
-  brandName: 'Glyxambi' | 'Xigduo XR' | 'Segluromet' | 'Steglujan';
+  brandName: 'Glyxambi' | 'Xigduo XR' | 'Segluromet' | 'Steglujan' | 'Synjardy' | 'Synjardy XR' | 'Trijardy XR';
   dosageForm: 'TABLET, FILM COATED' | 'TABLET, FILM COATED, EXTENDED RELEASE';
   release: 'IMMEDIATE' | 'EXTENDED';
   evidenceRef: { id: string; version: number };
@@ -58,6 +61,36 @@ export const batch03Sglt2CombinationIdentityDefinitions: Batch03Sglt2Combination
     evidenceRef: { id: 'EVD-B3-STEGLUJAN-IDENTITY', version: 1 },
     reviewEvidenceRef: { id: 'EVD-B3-STEGLUJAN-PROCEDURE-REVIEW', version: 1 },
   },
+  {
+    medicationId: 'MED-empagliflozin-metformin-synjardy',
+    ingredientIds: ['ING-empagliflozin', 'ING-metformin'],
+    genericName: 'empagliflozin and metformin hydrochloride',
+    brandName: 'Synjardy',
+    dosageForm: 'TABLET, FILM COATED',
+    release: 'IMMEDIATE',
+    evidenceRef: { id: 'EVD-B3-SYNJARDY-IDENTITY', version: 1 },
+    reviewEvidenceRef: { id: 'EVD-B3-SYNJARDY-PROCEDURE-REVIEW', version: 1 },
+  },
+  {
+    medicationId: 'MED-empagliflozin-metformin-synjardy-xr',
+    ingredientIds: ['ING-empagliflozin', 'ING-metformin'],
+    genericName: 'empagliflozin and metformin hydrochloride',
+    brandName: 'Synjardy XR',
+    dosageForm: 'TABLET, FILM COATED, EXTENDED RELEASE',
+    release: 'EXTENDED',
+    evidenceRef: { id: 'EVD-B3-SYNJARDY-XR-IDENTITY', version: 1 },
+    reviewEvidenceRef: { id: 'EVD-B3-SYNJARDY-XR-PROCEDURE-REVIEW', version: 1 },
+  },
+  {
+    medicationId: 'MED-empagliflozin-linagliptin-metformin-trijardy-xr',
+    ingredientIds: ['ING-empagliflozin', 'ING-linagliptin', 'ING-metformin'],
+    genericName: 'empagliflozin, linagliptin, and metformin hydrochloride',
+    brandName: 'Trijardy XR',
+    dosageForm: 'TABLET, FILM COATED, EXTENDED RELEASE',
+    release: 'EXTENDED',
+    evidenceRef: { id: 'EVD-B3-TRIJARDY-XR-IDENTITY', version: 1 },
+    reviewEvidenceRef: { id: 'EVD-B3-TRIJARDY-XR-PROCEDURE-REVIEW', version: 1 },
+  },
 ];
 
 const sourceData = [
@@ -65,6 +98,9 @@ const sourceData = [
   ['SRC-B3-XIGDUO-XR-SPL40','XIGDUO XR (dapagliflozin and metformin hydrochloride extended-release) tablets: current manufacturer labeling, SPL 40','AstraZeneca Pharmaceuticals LP; DailyMed','ac8a0f7b-9f69-4495-abbc-3a47cd75a859',40,'2026-08-11','NDA205649'],
   ['SRC-B3-SEGLUROMET-SPL20','SEGLUROMET (ertugliflozin and metformin hydrochloride) tablets: current manufacturer labeling, SPL 20','Merck Sharp & Dohme LLC; DailyMed','a6aeb99a-ce49-4125-90ce-642df3f1ebad',20,'2026-08-11','NDA209806'],
   ['SRC-B3-STEGLUJAN-SPL24','STEGLUJAN (ertugliflozin and sitagliptin) tablets: current manufacturer labeling, SPL 24','Merck Sharp & Dohme LLC; DailyMed','c2c553d8-5a9d-4366-bf53-8bdb5a876d19',24,'2026-06-03','NDA209805'],
+  ['SRC-B3-SYNJARDY-SPL23','SYNJARDY (empagliflozin and metformin hydrochloride) tablets: current manufacturer labeling, SPL 23','Boehringer Ingelheim Pharmaceuticals, Inc.; DailyMed','0fdd0255-0055-65f3-b2c0-db8fbb87beae',23,'2026-08-25','NDA206111'],
+  ['SRC-B3-SYNJARDY-XR-SPL18','SYNJARDY XR (empagliflozin and metformin hydrochloride extended-release) tablets: current manufacturer labeling, SPL 18','Boehringer Ingelheim Pharmaceuticals, Inc.; DailyMed','8006ba29-ee3a-f852-a9bb-c8ec9b41cf66',18,'2026-08-11','NDA208658'],
+  ['SRC-B3-TRIJARDY-XR-SPL11','TRIJARDY XR (empagliflozin, linagliptin, and metformin hydrochloride extended-release) tablets: current manufacturer labeling, SPL 11','Boehringer Ingelheim Pharmaceuticals, Inc.; DailyMed','71873567-9594-452a-bb92-34a129adecac',11,'2026-08-24','NDA212614'],
 ] as const;
 
 export const batch03Sglt2CombinationIdentitySources: SourceDocument[] = sourceData.map(
@@ -101,6 +137,9 @@ const sourceByMedication: Record<string,string> = {
   'MED-dapagliflozin-metformin-xigduo-xr': 'SRC-B3-XIGDUO-XR-SPL40',
   'MED-ertugliflozin-metformin-segluromet': 'SRC-B3-SEGLUROMET-SPL20',
   'MED-ertugliflozin-sitagliptin-steglujan': 'SRC-B3-STEGLUJAN-SPL24',
+  'MED-empagliflozin-metformin-synjardy': 'SRC-B3-SYNJARDY-SPL23',
+  'MED-empagliflozin-metformin-synjardy-xr': 'SRC-B3-SYNJARDY-XR-SPL18',
+  'MED-empagliflozin-linagliptin-metformin-trijardy-xr': 'SRC-B3-TRIJARDY-XR-SPL11',
 };
 
 function identityAtom(product: Batch03Sglt2CombinationIdentityDefinition): EvidenceAtom {
