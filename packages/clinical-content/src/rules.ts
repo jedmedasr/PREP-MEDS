@@ -254,6 +254,27 @@ export const batch03ReviewRules: ClinicalRule[] = [
     priority: 50,
   },
   {
+    id: 'RULE-B3-FIXED-INSULIN-GLP1-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Fixed insulin/GLP-1 combination product requires integrated clinician review',
+    scope: {
+      medicationIds: [
+        'MED-insulin-glargine-lixisenatide-soliqua',
+        'MED-insulin-degludec-liraglutide-xultophy',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [
+      { id: 'EVD-B3-SOLIQUA-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-XULTOPHY-PROCEDURE-REVIEW', version: 1 },
+    ],
+    status: 'TECHNICALLY_TESTED',
+    priority: 60,
+  },
+  {
     id: 'RULE-B3-SEMAGLUTIDE-PRODUCT-REVIEW-001',
     version: 1,
     name: 'Explicit semaglutide product/route requires clinician review pending GLP-1 policy adjudication',
