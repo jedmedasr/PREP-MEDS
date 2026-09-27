@@ -11,6 +11,9 @@ const classesByMedication: Record<string,string[]> = {
   'MED-dapagliflozin-metformin-xigduo-xr': ['CLS-sglt2-inhibitor','CLS-metformin'],
   'MED-ertugliflozin-metformin-segluromet': ['CLS-sglt2-inhibitor','CLS-metformin'],
   'MED-ertugliflozin-sitagliptin-steglujan': ['CLS-sglt2-inhibitor','CLS-dpp4-inhibitor'],
+  'MED-empagliflozin-metformin-synjardy': ['CLS-sglt2-inhibitor','CLS-metformin'],
+  'MED-empagliflozin-metformin-synjardy-xr': ['CLS-sglt2-inhibitor','CLS-metformin'],
+  'MED-empagliflozin-linagliptin-metformin-trijardy-xr': ['CLS-sglt2-inhibitor','CLS-dpp4-inhibitor','CLS-metformin'],
 };
 
 const aliasesByMedication: Record<string,string[]> = {
@@ -18,6 +21,9 @@ const aliasesByMedication: Record<string,string[]> = {
   'MED-dapagliflozin-metformin-xigduo-xr': ['Xigduo','Xigduo XR dapagliflozin metformin','dapagliflozin metformin XR'],
   'MED-ertugliflozin-metformin-segluromet': ['Segluromet ertugliflozin metformin'],
   'MED-ertugliflozin-sitagliptin-steglujan': ['Steglujan ertugliflozin sitagliptin'],
+  'MED-empagliflozin-metformin-synjardy': ['Synjardy empagliflozin metformin','empagliflozin metformin immediate release'],
+  'MED-empagliflozin-metformin-synjardy-xr': ['Synjardy XR empagliflozin metformin','empagliflozin metformin XR'],
+  'MED-empagliflozin-linagliptin-metformin-trijardy-xr': ['Trijardy','Trijardy XR empagliflozin linagliptin metformin'],
 };
 
 export const batch03Sglt2CombinationMedications: MedicationRecord[] =
