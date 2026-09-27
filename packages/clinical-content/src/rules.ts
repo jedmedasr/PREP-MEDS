@@ -122,6 +122,7 @@ export const firstReleaseCandidateRules: ClinicalRule[] = [
       medicationIds: [
         'MED-exenatide-byetta',
         'MED-exenatide-bydureon-bcise',
+        'MED-liraglutide-victoza',
         'MED-liraglutide-saxenda',
         'MED-liraglutide-generic-weight-management',
       ],
