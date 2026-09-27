@@ -234,7 +234,7 @@ export const batch03ReviewRules: ClinicalRule[] = [
   {
     id: 'RULE-B3-GLP1-PRODUCT-REVIEW-001',
     version: 1,
-    name: 'Explicit exenatide/liraglutide product requires clinician review pending GLP-1 policy adjudication',
+    name: 'Explicit exenatide/liraglutide/dulaglutide product requires clinician review pending GLP-1 policy adjudication',
     scope: {
       medicationIds: [
         'MED-exenatide-byetta',
@@ -242,6 +242,7 @@ export const batch03ReviewRules: ClinicalRule[] = [
         'MED-liraglutide-victoza',
         'MED-liraglutide-saxenda',
         'MED-liraglutide-generic-weight-management',
+        'MED-dulaglutide-trulicity',
       ],
       procedureCodes: [...procedures],
     },
