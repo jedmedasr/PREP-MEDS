@@ -5,12 +5,14 @@ export const batch03IncretinIngredients: IngredientRecord[] = [
   { id: 'ING-tirzepatide', canonicalName: 'Tirzepatide' },
   { id: 'ING-exenatide', canonicalName: 'Exenatide' },
   { id: 'ING-liraglutide', canonicalName: 'Liraglutide' },
+  { id: 'ING-dulaglutide', canonicalName: 'Dulaglutide' },
 ];
 
 const classByIngredient: Record<string, string[]> = {
   'ING-tirzepatide': ['CLS-gip-glp1-receptor-agonist'],
   'ING-exenatide': ['CLS-glp1-receptor-agonist'],
   'ING-liraglutide': ['CLS-glp1-receptor-agonist'],
+  'ING-dulaglutide': ['CLS-glp1-receptor-agonist'],
 };
 
 export const batch03IncretinBaseMedications: MedicationRecord[] = [
@@ -38,6 +40,14 @@ export const batch03IncretinBaseMedications: MedicationRecord[] = [
     ingredientIds: ['ING-liraglutide'],
     drugClassIds: ['CLS-glp1-receptor-agonist'],
   },
+  {
+    id: 'MED-dulaglutide',
+    canonicalName: 'Dulaglutide (product identity unspecified)',
+    genericName: 'dulaglutide',
+    brandNames: [],
+    ingredientIds: ['ING-dulaglutide'],
+    drugClassIds: ['CLS-glp1-receptor-agonist'],
+  },
 ];
 
 const aliasesByMedication: Record<string, string[]> = {
@@ -52,6 +62,7 @@ const aliasesByMedication: Record<string, string[]> = {
     'liraglutide injection weight management',
     'generic liraglutide weight management',
   ],
+  'MED-dulaglutide-trulicity': ['Trulicity dulaglutide', 'dulaglutide Trulicity'],
 };
 
 export const batch03IncretinExplicitMedications: MedicationRecord[] =
@@ -60,7 +71,9 @@ export const batch03IncretinExplicitMedications: MedicationRecord[] =
     canonicalName:
       product.brandName
         ? `${product.brandName} ${product.genericName}${product.formulation === 'EXTENDED_RELEASE' ? ' extended release' : product.formulation === 'IMMEDIATE_RELEASE' ? ' immediate release' : ''}`
-        : 'Liraglutide injection (weight-management labeling)',
+        : product.genericName === 'liraglutide'
+          ? 'Liraglutide injection (weight-management labeling)'
+          : `${product.genericName} ${product.dosageForm.toLowerCase()}`,
     genericName: product.genericName,
     brandNames: product.brandName ? [product.brandName] : [],
     aliases: aliasesByMedication[product.medicationId] ?? [],
@@ -81,6 +94,7 @@ export const batch03IncretinTerminologyAudit = {
     'Bare tirzepatide is intentionally ambiguous across Mounjaro and Zepbound product/indication identities.',
     'Bare exenatide is intentionally ambiguous across immediate-release Byetta and extended-release Bydureon BCise identities.',
     'Bare liraglutide is intentionally ambiguous across current diabetes and weight-management identities, including Victoza, Saxenda, and current generic liraglutide labeling.',
+    'Bare dulaglutide remains product-unspecified; explicit Trulicity wording resolves only to the source-linked manufacturer identity.',
     'Product identity does not authorize substitution, dose conversion, peri-procedural hold/continue/restart instructions, or clinical approval.',
   ],
 } as const;
