@@ -1,5 +1,5 @@
 export { firstClinicalContentEvidence } from './evidence.js';
-export { firstReleaseCandidateRules } from './rules.js';
+export { firstReleaseCandidateRules, batch03ReviewRules } from './rules.js';
 export {
   antithromboticCandidateRules as antithromboticBaseCandidateRules,
   antithromboticEvidence,
