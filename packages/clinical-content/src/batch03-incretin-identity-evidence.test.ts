@@ -9,11 +9,11 @@ import {
 } from './batch03-incretin-identity-evidence.js';
 
 describe('Batch 03 incretin product/formulation identity evidence', () => {
-  it('validates six explicit identities from six source records', () => {
+  it('validates seven explicit identities from seven source records', () => {
     expect(validateEvidenceBundle(batch03IncretinIdentityEvidence)).toEqual([]);
-    expect(batch03IncretinIdentityDefinitions).toHaveLength(6);
-    expect(batch03IncretinIdentitySources).toHaveLength(6);
-    expect(batch03IncretinIdentityAtoms).toHaveLength(6);
+    expect(batch03IncretinIdentityDefinitions).toHaveLength(7);
+    expect(batch03IncretinIdentitySources).toHaveLength(7);
+    expect(batch03IncretinIdentityAtoms).toHaveLength(7);
     expect(batch03TirzepatideProcedureReviewAtoms).toHaveLength(2);
   });
 
@@ -27,6 +27,8 @@ describe('Batch 03 incretin product/formulation identity evidence', () => {
     expect(byId.get('SRC-B3-BYETTA-SPL26')?.effectiveDate).toBe('2025-09-02');
     expect(byId.get('SRC-B3-BYDUREON-BCISE-SPL39')?.metadata?.splVersion).toBe(39);
     expect(byId.get('SRC-B3-BYDUREON-BCISE-SPL39')?.effectiveDate).toBe('2025-05-28');
+    expect(byId.get('SRC-B3-VICTOZA-SPL31')?.metadata?.splVersion).toBe(31);
+    expect(byId.get('SRC-B3-VICTOZA-SPL31')?.effectiveDate).toBe('2025-10-14');
     expect(byId.get('SRC-B3-SAXENDA-SPL22')?.metadata?.splVersion).toBe(22);
     expect(byId.get('SRC-B3-SAXENDA-SPL22')?.effectiveDate).toBe('2026-02-25');
     expect(byId.get('SRC-B3-LIRAGLUTIDE-CIPLA-SPL6')?.metadata?.splVersion).toBe(6);
@@ -50,8 +52,14 @@ describe('Batch 03 incretin product/formulation identity evidence', () => {
       new Set(['IMMEDIATE_RELEASE', 'EXTENDED_RELEASE']),
     );
 
-    expect(liraglutide).toHaveLength(2);
-    expect(liraglutide.every((item) => item.indicationBoundary === 'WEIGHT_MANAGEMENT')).toBe(true);
+    expect(liraglutide.map((item) => item.medicationId)).toEqual([
+      'MED-liraglutide-victoza',
+      'MED-liraglutide-saxenda',
+      'MED-liraglutide-generic-weight-management',
+    ]);
+    expect(new Set(liraglutide.map((item) => item.indicationBoundary))).toEqual(
+      new Set(['DIABETES', 'WEIGHT_MANAGEMENT']),
+    );
   });
 
   it('keeps all evidence draft, descriptive and non-action-authorizing', () => {
