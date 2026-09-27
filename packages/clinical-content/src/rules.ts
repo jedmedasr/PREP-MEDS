@@ -94,6 +94,47 @@ export const firstReleaseCandidateRules: ClinicalRule[] = [
     priority: 10,
   },
   {
+    id: 'RULE-B3-TIRZEPATIDE-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Explicit tirzepatide product requires clinician review pending procedure-management adjudication',
+    scope: {
+      medicationIds: [
+        'MED-tirzepatide-mounjaro',
+        'MED-tirzepatide-zepbound',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [
+      { id: 'EVD-B3-MOUNJARO-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-ZEPBOUND-PROCEDURE-REVIEW', version: 1 },
+    ],
+    status: 'TECHNICALLY_TESTED',
+    priority: 50,
+  },
+  {
+    id: 'RULE-B3-GLP1-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Explicit exenatide/liraglutide product requires clinician review pending GLP-1 policy adjudication',
+    scope: {
+      medicationIds: [
+        'MED-exenatide-byetta',
+        'MED-exenatide-bydureon-bcise',
+        'MED-liraglutide-saxenda',
+        'MED-liraglutide-generic-weight-management',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [{ id: 'EVD-GLP1-HIGH-RISK-REVIEW-2024', version: 1 }],
+    status: 'TECHNICALLY_TESTED',
+    priority: 50,
+  },
+  {
     id: 'RULE-B3-SEMAGLUTIDE-PRODUCT-REVIEW-001',
     version: 1,
     name: 'Explicit semaglutide product/route requires clinician review pending GLP-1 policy adjudication',
