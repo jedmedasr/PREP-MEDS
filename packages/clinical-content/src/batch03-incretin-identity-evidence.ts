@@ -10,10 +10,11 @@ export interface Batch03IncretinIdentityDefinition {
     | 'MED-exenatide-bydureon-bcise'
     | 'MED-liraglutide-victoza'
     | 'MED-liraglutide-saxenda'
-    | 'MED-liraglutide-generic-weight-management';
-  ingredientId: 'ING-tirzepatide' | 'ING-exenatide' | 'ING-liraglutide';
-  genericName: 'tirzepatide' | 'exenatide' | 'liraglutide';
-  brandName?: 'Mounjaro' | 'Zepbound' | 'Byetta' | 'Bydureon BCise' | 'Victoza' | 'Saxenda';
+    | 'MED-liraglutide-generic-weight-management'
+    | 'MED-dulaglutide-trulicity';
+  ingredientId: 'ING-tirzepatide' | 'ING-exenatide' | 'ING-liraglutide' | 'ING-dulaglutide';
+  genericName: 'tirzepatide' | 'exenatide' | 'liraglutide' | 'dulaglutide';
+  brandName?: 'Mounjaro' | 'Zepbound' | 'Byetta' | 'Bydureon BCise' | 'Victoza' | 'Saxenda' | 'Trulicity';
   dosageForm: 'INJECTION, SOLUTION' | 'INJECTION' | 'INJECTION, SUSPENSION, EXTENDED RELEASE';
   route: 'SUBCUTANEOUS';
   formulation?: 'IMMEDIATE_RELEASE' | 'EXTENDED_RELEASE';
@@ -92,6 +93,16 @@ export const batch03IncretinIdentityDefinitions: Batch03IncretinIdentityDefiniti
     route: 'SUBCUTANEOUS',
     indicationBoundary: 'WEIGHT_MANAGEMENT',
     evidenceRef: { id: 'EVD-B3-LIRAGLUTIDE-GENERIC-WM-IDENTITY', version: 1 },
+  },
+  {
+    medicationId: 'MED-dulaglutide-trulicity',
+    ingredientId: 'ING-dulaglutide',
+    genericName: 'dulaglutide',
+    brandName: 'Trulicity',
+    dosageForm: 'INJECTION, SOLUTION',
+    route: 'SUBCUTANEOUS',
+    indicationBoundary: 'DIABETES',
+    evidenceRef: { id: 'EVD-B3-TRULICITY-IDENTITY', version: 1 },
   },
 ];
 
@@ -203,6 +214,31 @@ export const batch03IncretinIdentitySources: SourceDocument[] = [
     'ANDA217234',
     'INJECTION, SOLUTION / SUBCUTANEOUS',
   ),
+  {
+    id: 'SRC-B3-TRULICITY-USPI-20260312',
+    version: 1,
+    sourceType: 'FDA_LABEL',
+    title: 'TRULICITY (dulaglutide) injection: Eli Lilly U.S. Prescribing Information, revised March 2026',
+    publisher: 'Eli Lilly and Company; FDA/DailyMed',
+    societyOrRegulator: 'FDA-approved manufacturer labeling',
+    effectiveDate: '2026-03-12',
+    sourceUrl: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=463050bd-2b1c-40f5-b3c3-0a04bb433309',
+    externalIdentifier: 'TRU-0021-USPI-20260312; DailyMed SETID 463050bd-2b1c-40f5-b3c3-0a04bb433309; BLA125469',
+    jurisdiction: 'US',
+    language: 'en',
+    retrievedAt,
+    lifecycle: 'DRAFT',
+    metadata: {
+      setId: '463050bd-2b1c-40f5-b3c3-0a04bb433309',
+      manufacturerDocumentId: 'TRU-0021-USPI-20260312',
+      applicationNumber: 'BLA125469',
+      dosageFormAndRoute: 'INJECTION, SOLUTION / SUBCUTANEOUS',
+      verificationScope: 'Current product/formulation identity only; SPL sequence number intentionally not asserted because the current manufacturer USPI document identifier is the verified version anchor',
+      marketAvailabilityAsserted: false,
+      substitutionAuthorized: false,
+      clinicalApprovalGranted: false,
+    },
+  },
 ];
 
 const sourceByMedication: Record<Batch03IncretinIdentityDefinition['medicationId'], string> = {
@@ -213,6 +249,7 @@ const sourceByMedication: Record<Batch03IncretinIdentityDefinition['medicationId
   'MED-liraglutide-victoza': 'SRC-B3-VICTOZA-SPL31',
   'MED-liraglutide-saxenda': 'SRC-B3-SAXENDA-SPL22',
   'MED-liraglutide-generic-weight-management': 'SRC-B3-LIRAGLUTIDE-CIPLA-SPL6',
+  'MED-dulaglutide-trulicity': 'SRC-B3-TRULICITY-USPI-20260312',
 };
 
 function identityAtom(product: Batch03IncretinIdentityDefinition): EvidenceAtom {
