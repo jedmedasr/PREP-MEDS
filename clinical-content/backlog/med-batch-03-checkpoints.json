@@ -4,8 +4,8 @@
   "branch": "med-batch-03-sglt2-glp1",
   "baseBranch": "med-batch-02-diabetes-core",
   "baseVerifiedHeadSha": "99ca14608dc3046ea21813277e20edb7f52bb55f",
-  "updatedAt": "2026-09-27T06:30:00Z",
-  "updatedAtBasis": "Guarded semaglutide terminology passed exact-head quality run #136. A second DRAFT incretin product/formulation evidence cluster now covers current tirzepatide, exenatide, and liraglutide identities and awaits exact-head CI before searchable integration.",
+  "updatedAt": "2026-09-27T06:45:00Z",
+  "updatedAtBasis": "Exact-head quality run #140 passed all required gates for the seven-source incretin evidence cluster before searchable integration. Tirzepatide/exenatide/liraglutide terminology, ingredients, review guards, Victoza reconciliation, and end-to-end ambiguity tests are now implemented; exact-head CI is pending on the checkpoint head.",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -26,12 +26,13 @@
         "Encoded five semaglutide product/route identity definitions from current manufacturer labeling without dose, substitution, availability, or peri-procedural action claims.",
         "Verified current Mounjaro SPL 40 and Zepbound SPL 40 tirzepatide product identities with distinct indication boundaries.",
         "Verified Byetta SPL 26 immediate-release exenatide and Bydureon BCise SPL 39 extended-release exenatide formulation identities.",
-        "Verified Saxenda SPL 22 and current Cipla liraglutide SPL 6 weight-management identity records."
+        "Verified Saxenda SPL 22 and current Cipla liraglutide SPL 6 weight-management identity records.",
+        "Verified current Victoza manufacturer identity: Novo Nordisk SETID 5a9ef4ea-c76a-4d34-a604-27c5b505f5a4, SPL 31, effective 2025-10-14, NDA022341.",
+        "Added tirzepatide-specific procedure-review evidence from current Mounjaro/Zepbound labels; both state delayed gastric emptying/aspiration risk and insufficient data to define a mitigation strategy, so no autonomous hold interval is encoded."
       ],
       "remaining": [
-        "Resolve and encode current dulaglutide/Trulicity manufacturer source version.",
-        "Resolve current Victoza manufacturer source/version before adding a diabetes-specific liraglutide brand identity.",
-        "Integrate the newly verified tirzepatide/exenatide/liraglutide identities only after exact-head evidence-cluster CI.",
+        "Resolve the exact current Trulicity manufacturer SPL version before adding dulaglutide identity.",
+        "Continue remaining GLP-1/GIP/metabolic identities in roadmap order.",
         "Reconcile evolving/conflicting GLP-1 endoscopy evidence and local policy without creating an autonomous universal hold rule."
       ]
     },
@@ -49,7 +50,11 @@
         "a6b87643e19ad8943731d5e8dd0826b902bddaf4",
         "052f9971680fd2d73668f0b744f76410d533518b",
         "2e5924b2eabd0776a6c5e618b73c2e418e527c17",
-        "476c2360fdc950ae78764b35d4d76f77929c0d80"
+        "476c2360fdc950ae78764b35d4d76f77929c0d80",
+        "eaa3a90eeaea10b12ed4e5f675164db7e563c7ae",
+        "3c609db2f5cb97655b5dd1c9549bab2022e196d8",
+        "14ace51c21ed263e0503481b2e83ee61b3451085",
+        "0d877ce371077f09241bfde04a91da38a23c3560"
       ],
       "currentSglt2Products": [
         "empagliflozin/Jardiance",
@@ -58,7 +63,7 @@
         "bexagliflozin/Brenzavvy",
         "canagliflozin/Invokana"
       ],
-      "notes": "Semaglutide product/route terminology is searchable under a clinician-review guard. Six additional tirzepatide/exenatide/liraglutide product/formulation identities are source-linked in DRAFT evidence but are not yet searchable; ingredient identity alone must not authenticate brand, formulation, or indication.",
+      "notes": "Seven tirzepatide/exenatide/liraglutide product/formulation identities are searchable. Bare tirzepatide, exenatide, and liraglutide remain ambiguous; explicit brands/formulations resolve only to source-linked identities. Search resolution does not authorize substitution, dose conversion, availability inference, or peri-procedural timing.",
       "semaglutideIdentityDefinitions": [
         "Ozempic / subcutaneous injection",
         "Ozempic / oral tablet",
@@ -71,15 +76,18 @@
         "Zepbound / tirzepatide / weight-management-or-OSA",
         "Byetta / exenatide immediate-release / diabetes",
         "Bydureon BCise / exenatide extended-release / diabetes",
+        "Victoza / liraglutide / diabetes",
         "Saxenda / liraglutide / weight management",
         "Generic liraglutide injection / current weight-management labeling"
       ]
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
-      "notes": "Guarded semaglutide integration passed exact-head quality run #136. No timing rule has been added for the newer incretin identity records; later searchable integration must use a review-only guard until GLP-1/GIP management is clinically and locally adjudicated.",
+      "notes": "Explicit tirzepatide products use RULE-B3-TIRZEPATIDE-PRODUCT-REVIEW-001 with current-label procedure-review evidence and no timing rule. Explicit exenatide/liraglutide products use RULE-B3-GLP1-PRODUCT-REVIEW-001 with the existing multisociety GLP-1 review evidence and no timing rule. Production rules remain empty.",
       "commits": [
-        "ab3cd6b9b29973f9818cd8356b280df680b0355d"
+        "ab3cd6b9b29973f9818cd8356b280df680b0355d",
+        "160df73054cde62135007d9b14bf9b729138132f",
+        "90a63e0b735a83a0c717db81657a25415510e55f"
       ]
     },
     "D_TEST_AUDIT": {
@@ -88,17 +96,26 @@
         "d6e6228c392315d6f052c8d82cac64eb0de0fdc5",
         "a14d48f3c3f29cef6d74a6fc88310161078265d9",
         "a6b87643e19ad8943731d5e8dd0826b902bddaf4",
-        "2e5924b2eabd0776a6c5e618b73c2e418e527c17"
+        "2e5924b2eabd0776a6c5e618b73c2e418e527c17",
+        "13199f4fc6305ee06e74946d07a47c136094f344",
+        "83235e5ee20d812b63f0a4b20d59ffb478b501d6",
+        "02e54548a3c6be42920cbc721256d0983887cd6d",
+        "db130f7c3802d8e0dd4f78435b3a4f2d0bf65804"
       ],
-      "notes": "Semaglutide guarded-search regressions passed exact-head run #136. New incretin evidence regressions validate source versions, tirzepatide indication boundaries, exenatide immediate-vs-extended-release distinction, liraglutide weight-management identities, and non-action-authorizing DRAFT state; exact-head CI pending."
+      "notes": "Evidence tests cover exact source versions, tirzepatide indication boundaries, exenatide IR/ER, Victoza/Saxenda/generic liraglutide identity separation, and review-only evidence. Web regressions cover bare generic ambiguity, explicit product resolution, activeRules isolation, and clinician-review routing across all three procedure types."
     },
     "E_INTEGRATION_AUDIT": {
       "status": "IN_PROGRESS",
-      "notes": "Explicit semaglutide product/route identities are now assembled into the web terminology dataset with a deterministic review-only guard. No active production rule or timing instruction was added. Exact-head verification is pending.",
+      "notes": "Seven current incretin product identities are assembled into the terminology dataset with new ingredient records. Generic ingredient wording stays ambiguous. Explicit products route to CLINICIAN_REVIEW_REQUIRED with no timingRule. Exact-head verification is pending.",
       "commits": [
         "15074ceacada8c364c720a7ea6836dcf9061e351",
         "ab3cd6b9b29973f9818cd8356b280df680b0355d",
-        "a6b87643e19ad8943731d5e8dd0826b902bddaf4"
+        "a6b87643e19ad8943731d5e8dd0826b902bddaf4",
+        "3c609db2f5cb97655b5dd1c9549bab2022e196d8",
+        "160df73054cde62135007d9b14bf9b729138132f",
+        "0d877ce371077f09241bfde04a91da38a23c3560",
+        "90a63e0b735a83a0c717db81657a25415510e55f",
+        "db130f7c3802d8e0dd4f78435b3a4f2d0bf65804"
       ]
     },
     "F_CI_REPAIR": {
@@ -134,7 +151,8 @@
       "byetta": "SETID 53d03c03-ebf7-418d-88a8-533eabd2ee4f / SPL 26 / effective 2025-09-02 / NDA021773",
       "bydureonBcise": "SETID 2d18cfc4-e0de-4814-a712-c1b7c504bff5 / SPL 39 / effective 2025-05-28 / NDA209210",
       "saxenda": "SETID 3946d389-0926-4f77-a708-0acb8153b143 / SPL 22 / effective 2026-02-25 / NDA206321",
-      "genericLiraglutideWeightManagement": "SETID 22c86976-9657-4dd0-8fff-0c3f3f08357c / SPL 6 / effective 2026-06-18 / ANDA217234"
+      "genericLiraglutideWeightManagement": "SETID 22c86976-9657-4dd0-8fff-0c3f3f08357c / SPL 6 / effective 2026-06-18 / ANDA217234",
+      "victoza": "SETID 5a9ef4ea-c76a-4d34-a604-27c5b505f5a4 / SPL 31 / effective 2025-10-14 / NDA022341"
     }
   },
   "ci": {
@@ -143,15 +161,15 @@
     "workflowRunId": null,
     "jobId": null,
     "lastSuccessfulReceipt": {
-      "verifiedHeadSha": "1ac5d90b3902e6fbc3a12d3615db3cd172588426",
-      "workflowRunId": 36299885446,
-      "jobId": 108565464681,
-      "scope": "Guarded semaglutide searchable terminology and clinician-review routing"
+      "verifiedHeadSha": "16cd7bd3eea050f597f9b506eb3c702c855ebf67",
+      "workflowRunId": 36300036660,
+      "jobId": 108565875924,
+      "scope": "Tirzepatide/exenatide/liraglutide evidence and provenance cluster before searchable integration"
     },
-    "note": "Tirzepatide/exenatide/liraglutide evidence/export cluster requires exact-head PR CI before searchable terminology integration."
+    "note": "Seven-product incretin searchable terminology/review-guard cluster requires exact-head PR CI before dulaglutide or later medication implementation."
   },
   "blockers": [],
-  "nextWorkItem": "Obtain exact-head CI for the tirzepatide/exenatide/liraglutide evidence cluster. If green, integrate verified products into searchable terminology with ingredient/product/formulation ambiguity and a review-only guard, while separately continuing current-source reconciliation for dulaglutide and Victoza.",
+  "nextWorkItem": "Obtain exact-head CI for the seven-product incretin searchable integration. If green, resolve and add current dulaglutide/Trulicity manufacturer identity, then continue remaining Batch 03 metabolic/combination products without creating a universal GLP-1 hold rule.",
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
   "pullRequest": 13
