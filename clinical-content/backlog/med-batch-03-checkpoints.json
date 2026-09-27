@@ -4,8 +4,8 @@
   "branch": "med-batch-03-sglt2-glp1",
   "baseBranch": "med-batch-02-diabetes-core",
   "baseVerifiedHeadSha": "99ca14608dc3046ea21813277e20edb7f52bb55f",
-  "updatedAt": "2026-09-27T09:59:22Z",
-  "updatedAtBasis": "Exact-head quality run #157 passed all required gates for the repaired seven-product incretin integration. The next coherent cluster adds current Trulicity/dulaglutide manufacturer identity using Eli Lilly USPI TRU-0021-USPI-20260312, conservative product-unspecified generic terminology, review-only routing, and regressions; exact-head CI is pending on this cluster.",
+  "updatedAt": "2026-09-27T10:08:00Z",
+  "updatedAtBasis": "Trulicity/dulaglutide cluster passed exact-head quality run #163 at 9c2b8967bb4f10d810ec0a9eb754cb4cd66b04c0. The next coherent fixed-combination cluster adds SOLIQUA 100/33 and XULTOPHY 100/3.6 as indivisible insulin/GLP-1 identities with current manufacturer provenance, review-only routing, and explicit no-dose/no-conversion/no-device-setting boundaries; exact-head CI is pending.",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -29,7 +29,9 @@
         "Verified Saxenda SPL 22 and current Cipla liraglutide SPL 6 weight-management identity records.",
         "Verified current Victoza manufacturer identity: Novo Nordisk SETID 5a9ef4ea-c76a-4d34-a604-27c5b505f5a4, SPL 31, effective 2025-10-14, NDA022341.",
         "Added tirzepatide-specific procedure-review evidence from current Mounjaro/Zepbound labels; both state delayed gastric emptying/aspiration risk and insufficient data to define a mitigation strategy, so no autonomous hold interval is encoded.",
-        "Resolved current Trulicity manufacturer version anchor to Eli Lilly USPI TRU-0021-USPI-20260312 (revised March 2026), DailyMed manufacturer SETID 463050bd-2b1c-40f5-b3c3-0a04bb433309, BLA125469; the lagging searchable SPL sequence number is intentionally not asserted."
+        "Resolved current Trulicity manufacturer version anchor to Eli Lilly USPI TRU-0021-USPI-20260312 (revised March 2026), DailyMed manufacturer SETID 463050bd-2b1c-40f5-b3c3-0a04bb433309, BLA125469; the lagging searchable SPL sequence number is intentionally not asserted.",
+        "Verified current SOLIQUA 100/33 manufacturer labeling: Sanofi-Aventis U.S. LLC / DailyMed SETID 4bba538b-cf7c-4310-ae8f-cb711ed21bcc / SPL 25 / effective 2026-03-18 / BLA208673.",
+        "Verified current XULTOPHY 100/3.6 manufacturer labeling: Novo Nordisk / DailyMed SETID 21335fe4-d395-4501-ac2a-2f20d7520da9 / SPL 14 / effective 2025-10-14 / BLA208583."
       ],
       "remaining": [
         "Continue remaining GLP-1/GIP/metabolic identities in roadmap order.",
@@ -63,7 +65,7 @@
         "bexagliflozin/Brenzavvy",
         "canagliflozin/Invokana"
       ],
-      "notes": "Eight tirzepatide/exenatide/liraglutide/dulaglutide product/formulation identities are searchable. Bare tirzepatide, exenatide, liraglutide, and dulaglutide remain product/formulation unspecified; explicit brands/formulations resolve only to source-linked identities. Search resolution does not authorize substitution, dose conversion, availability inference, or peri-procedural timing.",
+      "notes": "Eight tirzepatide/exenatide/liraglutide/dulaglutide product/formulation identities are searchable. Bare tirzepatide, exenatide, liraglutide, and dulaglutide remain product/formulation unspecified; explicit brands/formulations resolve only to source-linked identities. Search resolution does not authorize substitution, dose conversion, availability inference, or peri-procedural timing. Fixed insulin/GLP-1 combinations are represented as indivisible two-ingredient product identities: SOLIQUA 100/33 (insulin glargine + lixisenatide) and XULTOPHY 100/3.6 (insulin degludec + liraglutide). Search resolution does not authorize component splitting, dose arithmetic, conversion, device settings, or substitution.",
       "semaglutideIdentityDefinitions": [
         "Ozempic / subcutaneous injection",
         "Ozempic / oral tablet",
@@ -84,7 +86,7 @@
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
-      "notes": "Explicit tirzepatide products use RULE-B3-TIRZEPATIDE-PRODUCT-REVIEW-001 with current-label procedure-review evidence and no timing rule. Explicit exenatide/liraglutide/dulaglutide products use RULE-B3-GLP1-PRODUCT-REVIEW-001 with the existing multisociety GLP-1 review evidence and no timing rule. Production rules remain empty.",
+      "notes": "Explicit tirzepatide products use RULE-B3-TIRZEPATIDE-PRODUCT-REVIEW-001 with current-label procedure-review evidence and no timing rule. Explicit exenatide/liraglutide/dulaglutide products use RULE-B3-GLP1-PRODUCT-REVIEW-001 with the existing multisociety GLP-1 review evidence and no timing rule. Production rules remain empty. Fixed insulin/GLP-1 combinations use RULE-B3-FIXED-INSULIN-GLP1-PRODUCT-REVIEW-001 with product-label procedure-review evidence and no timing rule.",
       "commits": [
         "ab3cd6b9b29973f9818cd8356b280df680b0355d",
         "160df73054cde62135007d9b14bf9b729138132f",
@@ -103,11 +105,11 @@
         "02e54548a3c6be42920cbc721256d0983887cd6d",
         "db130f7c3802d8e0dd4f78435b3a4f2d0bf65804"
       ],
-      "notes": "Evidence and web tests cover source/version provenance, tirzepatide indication boundaries, exenatide IR/ER, Victoza/Saxenda/generic liraglutide identity separation, dulaglutide generic ambiguity versus explicit Trulicity resolution, activeRules isolation, and clinician-review routing across all three procedure types."
+      "notes": "Evidence and web tests cover source/version provenance, tirzepatide indication boundaries, exenatide IR/ER, Victoza/Saxenda/generic liraglutide identity separation, dulaglutide generic ambiguity versus explicit Trulicity resolution, activeRules isolation, and clinician-review routing across all three procedure types. Fixed-combination tests verify current source versions, two-component identity preservation, terminology resolution, production-rule isolation, and clinician-review routing for EGD, colonoscopy, and combined procedures without timing."
     },
     "E_INTEGRATION_AUDIT": {
       "status": "IN_PROGRESS",
-      "notes": "Eight current incretin product identities are assembled into the terminology dataset with ingredient records. Generic ingredient wording stays product/formulation unspecified. Explicit products route to CLINICIAN_REVIEW_REQUIRED with no timingRule. Exact-head verification is pending for the Trulicity cluster.",
+      "notes": "Eight current incretin product identities are assembled into the terminology dataset with ingredient records. Generic ingredient wording stays product/formulation unspecified. Explicit products route to CLINICIAN_REVIEW_REQUIRED with no timingRule. Exact-head verification is pending for the Trulicity cluster. SOLIQUA and XULTOPHY are assembled into review evidence/terminology only; activeRules remain empty and no patient-specific insulin arithmetic or component conversion is encoded.",
       "commits": [
         "15074ceacada8c364c720a7ea6836dcf9061e351",
         "ab3cd6b9b29973f9818cd8356b280df680b0355d",
@@ -163,15 +165,15 @@
     "workflowRunId": null,
     "jobId": null,
     "lastSuccessfulReceipt": {
-      "verifiedHeadSha": "d22b4fac43fdbef615aee98cee308eec37d99630",
-      "workflowRunId": 36310889327,
-      "jobId": 108596452787,
-      "scope": "Repaired Batch 03 review-rule/evidence assembly; schema validation, strict TypeScript, full regression suite, and production web build passed"
+      "verifiedHeadSha": "9c2b8967bb4f10d810ec0a9eb754cb4cd66b04c0",
+      "workflowRunId": 36311170057,
+      "jobId": 108597247768,
+      "scope": "Trulicity/dulaglutide cluster; schema validation, strict TypeScript, source identity, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed"
     },
-    "note": "Trulicity/dulaglutide identity + terminology + review-only guard + regression cluster requires exact-head PR CI."
+    "note": "Fixed SOLIQUA/XULTOPHY identity + review-only cluster requires exact-head PR CI."
   },
   "blockers": [],
-  "nextWorkItem": "Obtain exact-head CI for the Trulicity/dulaglutide cluster. If green, continue remaining Batch 03 GLP-1/GIP/metabolic and combination products in roadmap order without creating a universal GLP-1 hold rule.",
+  "nextWorkItem": "Obtain exact-head CI for the SOLIQUA 100/33 and XULTOPHY 100/3.6 fixed-combination cluster. If green, continue the next unresolved Batch 03 metabolic/combination product cluster in durable roadmap order.",
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
   "pullRequest": 13
