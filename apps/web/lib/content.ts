@@ -10,6 +10,9 @@ import {
   diabetesCoreReleaseMetadata,
   diabetesWorkflowRules,
   diabetesWorkflowMetadata,
+  batch03ReviewRules,
+  batch03SemaglutideIdentityEvidence,
+  batch03IncretinIdentityEvidence,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -107,8 +110,15 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...firstReleaseCandidateRules.filter((rule) => !rule.scope.medicationIds?.includes('MED-insulin-glargine')),
   ...antithromboticCandidateRules,
   ...diabetesWorkflowRules,
+  ...batch03ReviewRules,
 ];
-export const clinicalReviewEvidenceBundles = [firstClinicalContentEvidence, antithromboticEvidence, diabetesCoreEvidence] as const;
+export const clinicalReviewEvidenceBundles = [
+  firstClinicalContentEvidence,
+  antithromboticEvidence,
+  diabetesCoreEvidence,
+  batch03SemaglutideIdentityEvidence,
+  batch03IncretinIdentityEvidence,
+] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
 export function isShadowContentMode(): boolean {
