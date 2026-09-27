@@ -9,11 +9,11 @@ import {
 } from './batch03-incretin-identity-evidence.js';
 
 describe('Batch 03 incretin product/formulation identity evidence', () => {
-  it('validates seven explicit identities from seven source records', () => {
+  it('validates eight explicit identities from eight source records', () => {
     expect(validateEvidenceBundle(batch03IncretinIdentityEvidence)).toEqual([]);
-    expect(batch03IncretinIdentityDefinitions).toHaveLength(7);
-    expect(batch03IncretinIdentitySources).toHaveLength(7);
-    expect(batch03IncretinIdentityAtoms).toHaveLength(7);
+    expect(batch03IncretinIdentityDefinitions).toHaveLength(8);
+    expect(batch03IncretinIdentitySources).toHaveLength(8);
+    expect(batch03IncretinIdentityAtoms).toHaveLength(8);
     expect(batch03TirzepatideProcedureReviewAtoms).toHaveLength(2);
   });
 
