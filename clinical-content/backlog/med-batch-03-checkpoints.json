@@ -4,8 +4,8 @@
   "branch": "med-batch-03-sglt2-glp1",
   "baseBranch": "med-batch-02-diabetes-core",
   "baseVerifiedHeadSha": "99ca14608dc3046ea21813277e20edb7f52bb55f",
-  "updatedAt": "2026-09-27T04:31:16Z",
-  "updatedAtBasis": "Batch 03 initialized from the Batch 02 engineering-complete head. Current SGLT2 identity evidence is implemented through current manufacturer reconciliation and regression repair; exact-head CI is pending establishment of a draft PR.",
+  "updatedAt": "2026-09-27T06:14:00Z",
+  "updatedAtBasis": "Batch 03 draft PR #13 established exact-head CI. Quality run #127 passed all required gates on 4b71f6a1bd4b7c48bb47e633ad1fe2b834950f10. Semaglutide product/route evidence and provenance tests are now implemented and awaiting exact-head CI on the new cluster.",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -22,19 +22,23 @@
         "Added current INVOKANA/canagliflozin SPL 32 identity.",
         "Preserved JARDIANCE SPL 31 and STEGLATRO SPL 17 current manufacturer identities.",
         "Verified from current primary labeling that SGLT2 temporary-interruption language is scoped to surgery or procedures associated with prolonged fasting; no class-wide endoscopy action is inferred.",
-        "Verified current semaglutide labeling requires product/route distinctions across injectable and oral formulations."
+        "Verified current semaglutide labeling requires distinct Ozempic injection, Ozempic oral, Rybelsus oral, Wegovy injection, and Wegovy oral product/route identities; bare semaglutide and route-unspecified Ozempic/Wegovy must remain ambiguous.",
+        "Encoded five semaglutide product/route identity definitions from current manufacturer labeling without dose, substitution, availability, or peri-procedural action claims."
       ],
       "remaining": [
-        "Encode semaglutide product/route identities with bare semaglutide remaining ambiguous.",
+        "Integrate semaglutide product/route identities into searchable terminology without allowing explicit variants to bypass the governed GLP-1 review pathway.",
         "Expand later GLP-1/GIP agents in roadmap order using current authoritative primary sources.",
-        "Reconcile evidence conflicts and endoscopy-specific guidance without creating autonomous clinical timing rules."
+        "Reconcile evolving/conflicting GLP-1 endoscopy evidence and local policy without creating an autonomous universal hold rule."
       ]
     },
     "B_TERMINOLOGY_AUDIT": {
       "status": "IN_PROGRESS",
       "commits": [
         "5a3e3f03741d6fad459fbb4f38d121cbff504739",
-        "d6e6228c392315d6f052c8d82cac64eb0de0fdc5"
+        "d6e6228c392315d6f052c8d82cac64eb0de0fdc5",
+        "6ad8c2781500ee2a8bc0540814144ceca901c3f8",
+        "a14d48f3c3f29cef6d74a6fc88310161078265d9",
+        "22436d86a8ac091f4fab366d4061964c73f813cf"
       ],
       "currentSglt2Products": [
         "empagliflozin/Jardiance",
@@ -43,24 +47,33 @@
         "bexagliflozin/Brenzavvy",
         "canagliflozin/Invokana"
       ],
-      "notes": "Identity evidence only; no dose, substitution, market-availability, device, peri-procedural hold/restart, or patient-specific action is authorized."
+      "notes": "SGLT2 and semaglutide product identity evidence is DRAFT/review-required. Semaglutide evidence distinguishes current brand/route formulations but the new identities are not yet searchable; web integration remains gated on exact-head CI and rule-path review.",
+      "semaglutideIdentityDefinitions": [
+        "Ozempic / subcutaneous injection",
+        "Ozempic / oral tablet",
+        "Rybelsus / oral tablet",
+        "Wegovy / subcutaneous injection",
+        "Wegovy / oral tablet"
+      ]
     },
     "C_RULE_AUDIT": {
       "status": "IN_PROGRESS",
-      "notes": "Existing rule behavior must not be generalized from one SGLT2 agent to the class without accountable clinical/local-policy adjudication. Deterministic engine remains sole clinical authority."
+      "notes": "Existing semaglutide shadow rule remains scoped only to MED-semaglutide. Do not make explicit semaglutide product records searchable until integration ensures they cannot bypass the governed GLP-1 risk pathway. Current GLP-1 guidance/evidence is evolving and conflicting; no universal hold/continue rule is inferred."
     },
     "D_TEST_AUDIT": {
       "status": "IN_PROGRESS",
       "commits": [
-        "d6e6228c392315d6f052c8d82cac64eb0de0fdc5"
+        "d6e6228c392315d6f052c8d82cac64eb0de0fdc5",
+        "a14d48f3c3f29cef6d74a6fc88310161078265d9"
       ],
-      "notes": "Regression expectations now match five current SGLT2 definitions, seven append-only sources, and seven atoms; exact-head CI not yet available until PR is established."
+      "notes": "SGLT2 regression expectations match the append-only evidence set. Semaglutide evidence tests validate five explicit product/route identities, exact current source versions, brand-route ambiguity, and non-action-authorizing DRAFT evidence. New cluster exact-head CI pending."
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "NOT_STARTED"
+      "status": "IN_PROGRESS",
+      "notes": "Semaglutide evidence is exported but not yet assembled into searchable terminology. This intentional boundary prevents explicit product variants from escaping the existing semaglutide review pathway before integration tests are added."
     },
     "F_CI_REPAIR": {
-      "status": "PENDING_PR_CI"
+      "status": "PENDING_EXACT_HEAD_CI"
     },
     "G_PR_FINALIZATION": {
       "status": "NOT_STARTED"
@@ -80,17 +93,29 @@
       "invokana": "SPL 32"
     },
     "marketAvailabilityAsserted": false,
-    "clinicalApprovalGranted": false
+    "clinicalApprovalGranted": false,
+    "currentSemaglutideSourceState": {
+      "ozempicInjection": "SETID adec4fd2-6858-4c99-91d4-531f5f2a2d79 / SPL 20 / effective 2026-06-01 / NDA209637",
+      "ozempicRybelsusOral": "SETID 27f15fac-7d98-4114-a2ec-92494a91da98 / SPL 13 / effective 2026-01-30 / NDA213051",
+      "wegovyInjectionAndOral": "SETID ee06186f-2aa3-4990-a760-757579d8f77b / SPL 19 / effective 2026-06-18 / NDA215256 and NDA218316"
+    }
   },
   "ci": {
-    "status": "NOT_RUN",
+    "status": "PENDING",
     "testedHeadSha": null,
     "workflowRunId": null,
     "jobId": null,
-    "note": "No exact-head workflow run exists on this branch because the draft Batch 03 PR has not yet been created."
+    "lastSuccessfulReceipt": {
+      "verifiedHeadSha": "4b71f6a1bd4b7c48bb47e633ad1fe2b834950f10",
+      "workflowRunId": 36299525222,
+      "jobId": 108564483101,
+      "scope": "Batch 03 SGLT2 source reconciliation, regression repair, and durable checkpoint before semaglutide evidence cluster"
+    },
+    "note": "Semaglutide evidence/export cluster requires exact-head PR CI before searchable terminology integration."
   },
   "blockers": [],
-  "nextWorkItem": "Create draft Batch 03 PR to establish exact-head CI; repair any actual CI failure before adding unrelated content. Once green, encode semaglutide product/route identity ambiguity from current manufacturer labeling.",
+  "nextWorkItem": "Wait only for the exact-head semaglutide evidence cluster CI. If green, integrate explicit semaglutide product/route records into searchable terminology with fail-closed ambiguity and regression coverage proving no bypass of the governed GLP-1 pathway; then continue later incretin identities.",
   "advanceToNextBatchAllowed": false,
-  "productionActivationAllowed": false
+  "productionActivationAllowed": false,
+  "pullRequest": 13
 }
