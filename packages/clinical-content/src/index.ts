@@ -115,6 +115,13 @@ export {
   batch03SemaglutideIdentityAtoms,
 } from './batch03-semaglutide-identity-evidence.js';
 export type { Batch03SemaglutideIdentityDefinition } from './batch03-semaglutide-identity-evidence.js';
+export {
+  batch03IncretinIdentityEvidence,
+  batch03IncretinIdentityDefinitions,
+  batch03IncretinIdentitySources,
+  batch03IncretinIdentityAtoms,
+} from './batch03-incretin-identity-evidence.js';
+export type { Batch03IncretinIdentityDefinition } from './batch03-incretin-identity-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
