@@ -8,6 +8,7 @@ export interface Batch03IncretinIdentityDefinition {
     | 'MED-tirzepatide-zepbound'
     | 'MED-exenatide-byetta'
     | 'MED-exenatide-bydureon-bcise'
+    | 'MED-liraglutide-victoza'
     | 'MED-liraglutide-saxenda'
     | 'MED-liraglutide-generic-weight-management';
   ingredientId: 'ING-tirzepatide' | 'ING-exenatide' | 'ING-liraglutide';
@@ -62,6 +63,16 @@ export const batch03IncretinIdentityDefinitions: Batch03IncretinIdentityDefiniti
     formulation: 'EXTENDED_RELEASE',
     indicationBoundary: 'DIABETES',
     evidenceRef: { id: 'EVD-B3-BYDUREON-BCISE-IDENTITY', version: 1 },
+  },
+  {
+    medicationId: 'MED-liraglutide-victoza',
+    ingredientId: 'ING-liraglutide',
+    genericName: 'liraglutide',
+    brandName: 'Victoza',
+    dosageForm: 'INJECTION',
+    route: 'SUBCUTANEOUS',
+    indicationBoundary: 'DIABETES',
+    evidenceRef: { id: 'EVD-B3-VICTOZA-IDENTITY', version: 1 },
   },
   {
     medicationId: 'MED-liraglutide-saxenda',
@@ -163,6 +174,16 @@ export const batch03IncretinIdentitySources: SourceDocument[] = [
     'INJECTION, SUSPENSION, EXTENDED RELEASE / SUBCUTANEOUS',
   ),
   source(
+    'SRC-B3-VICTOZA-SPL31',
+    'VICTOZA (liraglutide) injection: manufacturer labeling, SPL 31',
+    'Novo Nordisk; DailyMed',
+    '5a9ef4ea-c76a-4d34-a604-27c5b505f5a4',
+    31,
+    '2025-10-14',
+    'NDA022341',
+    'INJECTION / SUBCUTANEOUS',
+  ),
+  source(
     'SRC-B3-SAXENDA-SPL22',
     'SAXENDA (liraglutide) injection: manufacturer labeling, SPL 22',
     'Novo Nordisk Pharmaceutical Industries, LP; DailyMed',
@@ -189,6 +210,7 @@ const sourceByMedication: Record<Batch03IncretinIdentityDefinition['medicationId
   'MED-tirzepatide-zepbound': 'SRC-B3-ZEPBOUND-SPL40',
   'MED-exenatide-byetta': 'SRC-B3-BYETTA-SPL26',
   'MED-exenatide-bydureon-bcise': 'SRC-B3-BYDUREON-BCISE-SPL39',
+  'MED-liraglutide-victoza': 'SRC-B3-VICTOZA-SPL31',
   'MED-liraglutide-saxenda': 'SRC-B3-SAXENDA-SPL22',
   'MED-liraglutide-generic-weight-management': 'SRC-B3-LIRAGLUTIDE-CIPLA-SPL6',
 };
