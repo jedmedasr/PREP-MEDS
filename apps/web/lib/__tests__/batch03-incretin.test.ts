@@ -17,6 +17,7 @@ const glp1Ids = [
   'MED-liraglutide-victoza',
   'MED-liraglutide-saxenda',
   'MED-liraglutide-generic-weight-management',
+  'MED-dulaglutide-trulicity',
 ] as const;
 
 function evaluate(medicationId: string, procedureCode: ProcedureCode) {
@@ -46,12 +47,12 @@ function evaluate(medicationId: string, procedureCode: ProcedureCode) {
 describe('Batch 03 incretin terminology ambiguity', () => {
   it('assembles a valid terminology dataset with new ingredient records', () => {
     expect(validateTerminologyDataset(terminologyDataset)).toEqual([]);
-    for (const ingredientId of ['ING-tirzepatide', 'ING-exenatide', 'ING-liraglutide']) {
+    for (const ingredientId of ['ING-tirzepatide', 'ING-exenatide', 'ING-liraglutide', 'ING-dulaglutide']) {
       expect(terminologyDataset.ingredients.some((ingredient) => ingredient.id === ingredientId)).toBe(true);
     }
   });
 
-  it.each(['tirzepatide', 'exenatide', 'liraglutide'])(
+  it.each(['tirzepatide', 'exenatide', 'liraglutide', 'dulaglutide'])(
     'keeps bare %s product/formulation identity ambiguous',
     (query) => {
       for (const limit of [1, 10]) {
@@ -71,6 +72,7 @@ describe('Batch 03 incretin terminology ambiguity', () => {
     ['Victoza', 'MED-liraglutide-victoza'],
     ['Saxenda', 'MED-liraglutide-saxenda'],
     ['liraglutide weight management', 'MED-liraglutide-generic-weight-management'],
+    ['Trulicity', 'MED-dulaglutide-trulicity'],
   ])('resolves explicit product wording %s to %s', (query, expectedId) => {
     expect(index.resolve(query).medication?.id).toBe(expectedId);
   });
