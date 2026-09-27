@@ -234,9 +234,71 @@ function identityAtom(product: Batch03IncretinIdentityDefinition): EvidenceAtom 
 export const batch03IncretinIdentityAtoms: EvidenceAtom[] =
   batch03IncretinIdentityDefinitions.map(identityAtom);
 
+
+export const batch03TirzepatideProcedureReviewAtoms: EvidenceAtom[] = [
+  {
+    id: 'EVD-B3-MOUNJARO-PROCEDURE-REVIEW',
+    version: 1,
+    source: { id: 'SRC-B3-MOUNJARO-SPL40', version: 1 },
+    claim: 'Current MOUNJARO labeling states that tirzepatide delays gastric emptying, reports rare pulmonary aspiration during elective surgery or procedures requiring general anesthesia or deep sedation, and states that available data are insufficient to determine whether modified fasting or temporary discontinuation reduces retained-gastric-content risk.',
+    normalizedTopic: 'batch03-tirzepatide-procedure-review',
+    stance: 'CONDITIONAL',
+    evidenceStrength: 'NOT_GRADED',
+    applicability: {
+      medicationIds: ['MED-tirzepatide-mounjaro'],
+      ingredientIds: ['ING-tirzepatide'],
+      contextTags: ['procedure-review', 'gastric-emptying', 'aspiration-risk', 'clinical-review-only'],
+    },
+    locator: { section: 'Warnings and Precautions 5.9 Pulmonary Aspiration During General Anesthesia or Deep Sedation' },
+    limitations: [
+      'The label does not establish an endoscopy-specific hold interval.',
+      'The label states that available data are insufficient to determine whether temporary discontinuation or modified fasting mitigates the risk.',
+      'PREP-MEDS therefore uses this atom to require review, not to generate a hold/continue/restart timing instruction.',
+    ],
+    retrieval: {
+      title: 'MOUNJARO procedure-related gastric-emptying review',
+      summary: 'Current MOUNJARO labeling identifies delayed gastric emptying and aspiration reports while stating that evidence is insufficient to define a mitigation strategy.',
+      keywords: ['Mounjaro', 'tirzepatide', 'gastric emptying', 'pulmonary aspiration', 'anesthesia', 'deep sedation'],
+      concepts: ['tirzepatide', 'gastric-emptying', 'aspiration-risk', 'clinical-review'],
+      sourceAuthorityRank: 100,
+    },
+    lifecycle: 'DRAFT',
+    createdAt: retrievedAt,
+  },
+  {
+    id: 'EVD-B3-ZEPBOUND-PROCEDURE-REVIEW',
+    version: 1,
+    source: { id: 'SRC-B3-ZEPBOUND-SPL40', version: 1 },
+    claim: 'Current ZEPBOUND labeling states that tirzepatide delays gastric emptying, reports rare pulmonary aspiration during elective surgery or procedures requiring general anesthesia or deep sedation, and states that available data are insufficient to determine whether modified fasting or temporary discontinuation reduces retained-gastric-content risk.',
+    normalizedTopic: 'batch03-tirzepatide-procedure-review',
+    stance: 'CONDITIONAL',
+    evidenceStrength: 'NOT_GRADED',
+    applicability: {
+      medicationIds: ['MED-tirzepatide-zepbound'],
+      ingredientIds: ['ING-tirzepatide'],
+      contextTags: ['procedure-review', 'gastric-emptying', 'aspiration-risk', 'clinical-review-only'],
+    },
+    locator: { section: 'Warnings and Precautions 5.9 Pulmonary Aspiration During General Anesthesia or Deep Sedation' },
+    limitations: [
+      'The label does not establish an endoscopy-specific hold interval.',
+      'The label states that available data are insufficient to determine whether temporary discontinuation or modified fasting mitigates the risk.',
+      'PREP-MEDS therefore uses this atom to require review, not to generate a hold/continue/restart timing instruction.',
+    ],
+    retrieval: {
+      title: 'ZEPBOUND procedure-related gastric-emptying review',
+      summary: 'Current ZEPBOUND labeling identifies delayed gastric emptying and aspiration reports while stating that evidence is insufficient to define a mitigation strategy.',
+      keywords: ['Zepbound', 'tirzepatide', 'gastric emptying', 'pulmonary aspiration', 'anesthesia', 'deep sedation'],
+      concepts: ['tirzepatide', 'gastric-emptying', 'aspiration-risk', 'clinical-review'],
+      sourceAuthorityRank: 100,
+    },
+    lifecycle: 'DRAFT',
+    createdAt: retrievedAt,
+  },
+];
+
 export const batch03IncretinIdentityEvidence: EvidenceBundle = {
   schemaVersion: '1.0.0',
   generatedAt: retrievedAt,
   sources: batch03IncretinIdentitySources,
-  atoms: batch03IncretinIdentityAtoms,
+  atoms: [...batch03IncretinIdentityAtoms, ...batch03TirzepatideProcedureReviewAtoms],
 };
