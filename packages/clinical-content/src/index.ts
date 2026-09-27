@@ -120,6 +120,7 @@ export {
   batch03IncretinIdentityDefinitions,
   batch03IncretinIdentitySources,
   batch03IncretinIdentityAtoms,
+  batch03TirzepatideProcedureReviewAtoms,
 } from './batch03-incretin-identity-evidence.js';
 export type { Batch03IncretinIdentityDefinition } from './batch03-incretin-identity-evidence.js';
 
