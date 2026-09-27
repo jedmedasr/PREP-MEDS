@@ -123,6 +123,14 @@ export {
   batch03TirzepatideProcedureReviewAtoms,
 } from './batch03-incretin-identity-evidence.js';
 export type { Batch03IncretinIdentityDefinition } from './batch03-incretin-identity-evidence.js';
+export {
+  batch03FixedCombinationIdentityEvidence,
+  batch03FixedCombinationIdentityDefinitions,
+  batch03FixedCombinationIdentitySources,
+  batch03FixedCombinationIdentityAtoms,
+  batch03FixedCombinationProcedureReviewAtoms,
+} from './batch03-fixed-combination-identity-evidence.js';
+export type { Batch03FixedCombinationIdentityDefinition } from './batch03-fixed-combination-identity-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',
