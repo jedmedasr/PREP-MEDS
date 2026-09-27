@@ -1,0 +1,96 @@
+{
+  "batchId": "MED-BATCH-03-SGLT2-GLP1",
+  "status": "IN_PROGRESS",
+  "branch": "med-batch-03-sglt2-glp1",
+  "baseBranch": "med-batch-02-diabetes-core",
+  "baseVerifiedHeadSha": "99ca14608dc3046ea21813277e20edb7f52bb55f",
+  "updatedAt": "2026-09-27T04:31:16Z",
+  "updatedAtBasis": "Batch 03 initialized from the Batch 02 engineering-complete head. Current SGLT2 identity evidence is implemented through current manufacturer reconciliation and regression repair; exact-head CI is pending establishment of a draft PR.",
+  "engineeringStatus": "IN_PROGRESS",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_SCOPE_AND_EVIDENCE_AUDIT": {
+      "status": "IN_PROGRESS",
+      "scope": "DRAFT/review-required SGLT2 and GLP-1 product/formulation identity and evidence reconciliation for EGD, colonoscopy, and combined procedures. Clinical timing rules remain separately governed.",
+      "completed": [
+        "Reconciled current FARXIGA manufacturer source to SPL 49 while retaining prior SPL 46 provenance.",
+        "Added direct manufacturer BRENZAVVY SPL 9 identity while retaining prior repackaged/generic bexagliflozin provenance.",
+        "Added current INVOKANA/canagliflozin SPL 32 identity.",
+        "Preserved JARDIANCE SPL 31 and STEGLATRO SPL 17 current manufacturer identities.",
+        "Verified from current primary labeling that SGLT2 temporary-interruption language is scoped to surgery or procedures associated with prolonged fasting; no class-wide endoscopy action is inferred.",
+        "Verified current semaglutide labeling requires product/route distinctions across injectable and oral formulations."
+      ],
+      "remaining": [
+        "Encode semaglutide product/route identities with bare semaglutide remaining ambiguous.",
+        "Expand later GLP-1/GIP agents in roadmap order using current authoritative primary sources.",
+        "Reconcile evidence conflicts and endoscopy-specific guidance without creating autonomous clinical timing rules."
+      ]
+    },
+    "B_TERMINOLOGY_AUDIT": {
+      "status": "IN_PROGRESS",
+      "commits": [
+        "5a3e3f03741d6fad459fbb4f38d121cbff504739",
+        "d6e6228c392315d6f052c8d82cac64eb0de0fdc5"
+      ],
+      "currentSglt2Products": [
+        "empagliflozin/Jardiance",
+        "dapagliflozin/Farxiga",
+        "ertugliflozin/Steglatro",
+        "bexagliflozin/Brenzavvy",
+        "canagliflozin/Invokana"
+      ],
+      "notes": "Identity evidence only; no dose, substitution, market-availability, device, peri-procedural hold/restart, or patient-specific action is authorized."
+    },
+    "C_RULE_AUDIT": {
+      "status": "IN_PROGRESS",
+      "notes": "Existing rule behavior must not be generalized from one SGLT2 agent to the class without accountable clinical/local-policy adjudication. Deterministic engine remains sole clinical authority."
+    },
+    "D_TEST_AUDIT": {
+      "status": "IN_PROGRESS",
+      "commits": [
+        "d6e6228c392315d6f052c8d82cac64eb0de0fdc5"
+      ],
+      "notes": "Regression expectations now match five current SGLT2 definitions, seven append-only sources, and seven atoms; exact-head CI not yet available until PR is established."
+    },
+    "E_INTEGRATION_AUDIT": {
+      "status": "NOT_STARTED"
+    },
+    "F_CI_REPAIR": {
+      "status": "PENDING_PR_CI"
+    },
+    "G_PR_FINALIZATION": {
+      "status": "NOT_STARTED"
+    }
+  },
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "primarySourceFamilies": [
+      "FDA/DailyMed manufacturer labeling"
+    ],
+    "currentSglt2SourceState": {
+      "jardiance": "SPL 31",
+      "farxiga": "SPL 49",
+      "steglatro": "SPL 17",
+      "brenzavvy": "SPL 9",
+      "invokana": "SPL 32"
+    },
+    "marketAvailabilityAsserted": false,
+    "clinicalApprovalGranted": false
+  },
+  "ci": {
+    "status": "NOT_RUN",
+    "testedHeadSha": null,
+    "workflowRunId": null,
+    "jobId": null,
+    "note": "No exact-head workflow run exists on this branch because the draft Batch 03 PR has not yet been created."
+  },
+  "blockers": [],
+  "nextWorkItem": "Create draft Batch 03 PR to establish exact-head CI; repair any actual CI failure before adding unrelated content. Once green, encode semaglutide product/route identity ambiguity from current manufacturer labeling.",
+  "advanceToNextBatchAllowed": false,
+  "productionActivationAllowed": false
+}
