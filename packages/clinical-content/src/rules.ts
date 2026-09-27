@@ -272,7 +272,9 @@ export const batch03ReviewRules: ClinicalRule[] = [
       { id: 'EVD-B3-XULTOPHY-PROCEDURE-REVIEW', version: 1 },
     ],
     status: 'TECHNICALLY_TESTED',
-    priority: 60,
+    // Explicit fixed-combination identity must outrank generic component-class
+    // workflow rules so the indivisible product is reviewed as a whole.
+    priority: 20,
   },
   {
     id: 'RULE-B3-SEMAGLUTIDE-PRODUCT-REVIEW-001',
