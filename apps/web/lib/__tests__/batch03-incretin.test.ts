@@ -14,6 +14,7 @@ const tirzepatideIds = [
 const glp1Ids = [
   'MED-exenatide-byetta',
   'MED-exenatide-bydureon-bcise',
+  'MED-liraglutide-victoza',
   'MED-liraglutide-saxenda',
   'MED-liraglutide-generic-weight-management',
 ] as const;
@@ -67,6 +68,7 @@ describe('Batch 03 incretin terminology ambiguity', () => {
     ['Zepbound', 'MED-tirzepatide-zepbound'],
     ['Byetta', 'MED-exenatide-byetta'],
     ['Bydureon BCise', 'MED-exenatide-bydureon-bcise'],
+    ['Victoza', 'MED-liraglutide-victoza'],
     ['Saxenda', 'MED-liraglutide-saxenda'],
     ['liraglutide weight management', 'MED-liraglutide-generic-weight-management'],
   ])('resolves explicit product wording %s to %s', (query, expectedId) => {
