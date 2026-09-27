@@ -277,6 +277,32 @@ export const batch03ReviewRules: ClinicalRule[] = [
     priority: 20,
   },
   {
+    id: 'RULE-B3-SGLT2-COMBINATION-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Verified SGLT2 fixed-combination product requires integrated clinician review',
+    scope: {
+      medicationIds: [
+        'MED-empagliflozin-linagliptin-glyxambi',
+        'MED-dapagliflozin-metformin-xigduo-xr',
+        'MED-ertugliflozin-metformin-segluromet',
+        'MED-ertugliflozin-sitagliptin-steglujan',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [
+      { id: 'EVD-B3-GLYXAMBI-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-XIGDUO-XR-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-SEGLUROMET-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-STEGLUJAN-PROCEDURE-REVIEW', version: 1 },
+    ],
+    status: 'TECHNICALLY_TESTED',
+    // Product identity must outrank generic SGLT2/metformin/DPP-4 class rules.
+    priority: 20,
+  },
+  {
     id: 'RULE-B3-SEMAGLUTIDE-PRODUCT-REVIEW-001',
     version: 1,
     name: 'Explicit semaglutide product/route requires clinician review pending GLP-1 policy adjudication',
