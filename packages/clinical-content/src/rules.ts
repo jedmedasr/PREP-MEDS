@@ -94,6 +94,27 @@ export const firstReleaseCandidateRules: ClinicalRule[] = [
     priority: 10,
   },
   {
+    id: 'RULE-B3-SEMAGLUTIDE-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Explicit semaglutide product/route requires clinician review pending GLP-1 policy adjudication',
+    scope: {
+      medicationIds: [
+        'MED-semaglutide-ozempic-injection',
+        'MED-semaglutide-ozempic-oral',
+        'MED-semaglutide-rybelsus-oral',
+        'MED-semaglutide-wegovy-injection',
+        'MED-semaglutide-wegovy-oral',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [{ id: 'EVD-GLP1-HIGH-RISK-REVIEW-2024', version: 1 }],
+    status: 'TECHNICALLY_TESTED',
+    priority: 50,
+  },
+  {
     id: 'RULE-SEMAGLUTIDE-RISK-001',
     version: 1,
     name: 'Semaglutide individualized gastric-emptying risk pathway',
