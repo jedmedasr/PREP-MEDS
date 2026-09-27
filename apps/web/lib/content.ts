@@ -15,6 +15,7 @@ import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/te
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
 import { diabetesCoreIngredients, diabetesSearchMedications, diabetesModifierDefinitions } from './diabetes-workflow-content';
 import { batch03SemaglutideSearchMedications } from './batch03-semaglutide';
+import { batch03IncretinIngredients, batch03IncretinSearchMedications } from './batch03-incretin';
 
 export interface UiModifierDefinition {
   id: string;
@@ -32,7 +33,7 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-03-semaglutide-terminology-1',
+  version: 'med-batch-03-incretin-terminology-1',
   generatedAt: '2026-09-18T01:15:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
@@ -41,6 +42,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     { id: 'ING-aspirin', canonicalName: 'Aspirin', aliases: ['ASA', 'acetylsalicylic acid'] },
     ...antithromboticIngredients,
     ...diabetesCoreIngredients,
+    ...batch03IncretinIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -88,6 +90,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...diabetesSearchMedications,
     { id: 'MED-empagliflozin', canonicalName: 'Empagliflozin', ingredientIds: ['ING-empagliflozin'], drugClassIds: ['CLS-sglt2-inhibitor'] },
     ...batch03SemaglutideSearchMedications,
+    ...batch03IncretinSearchMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-metoprolol', canonicalName: 'Metoprolol', ingredientIds: ['ING-metoprolol'], drugClassIds: ['CLS-beta-blocker'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
