@@ -10,6 +10,9 @@ const medicationIds = [
   'MED-dapagliflozin-metformin-xigduo-xr',
   'MED-ertugliflozin-metformin-segluromet',
   'MED-ertugliflozin-sitagliptin-steglujan',
+  'MED-empagliflozin-metformin-synjardy',
+  'MED-empagliflozin-metformin-synjardy-xr',
+  'MED-empagliflozin-linagliptin-metformin-trijardy-xr',
 ] as const;
 
 function evaluate(medicationId: string, procedureCode: ProcedureCode) {
@@ -42,6 +45,9 @@ describe('Batch 03 verified SGLT2 combinations', () => {
     expect(index.resolve('Xigduo XR').medication?.id).toBe('MED-dapagliflozin-metformin-xigduo-xr');
     expect(index.resolve('Segluromet').medication?.id).toBe('MED-ertugliflozin-metformin-segluromet');
     expect(index.resolve('Steglujan').medication?.id).toBe('MED-ertugliflozin-sitagliptin-steglujan');
+    expect(index.resolve('Synjardy').medication?.id).toBe('MED-empagliflozin-metformin-synjardy');
+    expect(index.resolve('Synjardy XR').medication?.id).toBe('MED-empagliflozin-metformin-synjardy-xr');
+    expect(index.resolve('Trijardy XR').medication?.id).toBe('MED-empagliflozin-linagliptin-metformin-trijardy-xr');
   });
 
   it('preserves formulation/component identity', () => {
@@ -49,6 +55,9 @@ describe('Batch 03 verified SGLT2 combinations', () => {
     expect(index.getMedicationById('MED-ertugliflozin-metformin-segluromet')?.ingredientIds).toEqual(['ING-ertugliflozin','ING-metformin']);
     expect(index.getMedicationById('MED-empagliflozin-linagliptin-glyxambi')?.ingredientIds).toEqual(['ING-empagliflozin','ING-linagliptin']);
     expect(index.getMedicationById('MED-ertugliflozin-sitagliptin-steglujan')?.ingredientIds).toEqual(['ING-ertugliflozin','ING-sitagliptin']);
+    expect(index.getMedicationById('MED-empagliflozin-metformin-synjardy')?.ingredientIds).toEqual(['ING-empagliflozin','ING-metformin']);
+    expect(index.getMedicationById('MED-empagliflozin-metformin-synjardy-xr')?.ingredientIds).toEqual(['ING-empagliflozin','ING-metformin']);
+    expect(index.getMedicationById('MED-empagliflozin-linagliptin-metformin-trijardy-xr')?.ingredientIds).toEqual(['ING-empagliflozin','ING-linagliptin','ING-metformin']);
   });
 });
 
@@ -61,7 +70,7 @@ describe('Batch 03 SGLT2 combinations remain review-only', () => {
     expect(guard?.timingRule).toBeUndefined();
   });
 
-  it.each(procedures)('routes all four products to review for %s with no timing', (procedureCode) => {
+  it.each(procedures)('routes all seven products to review for %s with no timing', (procedureCode) => {
     for (const medicationId of medicationIds) {
       const event=evaluate(medicationId,procedureCode);
       expect(event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
