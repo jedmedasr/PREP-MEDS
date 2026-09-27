@@ -1,7 +1,6 @@
 import type { EvidenceAtom, EvidenceBundle, SourceDocument } from '@prep-meds/evidence';
 
 const retrievedAt = '2026-09-27T10:25:00Z';
-const invokametRetrievedAt = '2026-09-27T13:30:00Z';
 
 export interface Batch03Sglt2CombinationIdentityDefinition {
   medicationId:
@@ -11,12 +10,10 @@ export interface Batch03Sglt2CombinationIdentityDefinition {
     | 'MED-ertugliflozin-sitagliptin-steglujan'
     | 'MED-empagliflozin-metformin-synjardy'
     | 'MED-empagliflozin-metformin-synjardy-xr'
-    | 'MED-empagliflozin-linagliptin-metformin-trijardy-xr'
-    | 'MED-canagliflozin-metformin-invokamet'
-    | 'MED-canagliflozin-metformin-invokamet-xr';
+    | 'MED-empagliflozin-linagliptin-metformin-trijardy-xr';
   ingredientIds: string[];
   genericName: string;
-  brandName: 'Glyxambi' | 'Xigduo XR' | 'Segluromet' | 'Steglujan' | 'Synjardy' | 'Synjardy XR' | 'Trijardy XR' | 'Invokamet' | 'Invokamet XR';
+  brandName: 'Glyxambi' | 'Xigduo XR' | 'Segluromet' | 'Steglujan' | 'Synjardy' | 'Synjardy XR' | 'Trijardy XR';
   dosageForm: 'TABLET, FILM COATED' | 'TABLET, FILM COATED, EXTENDED RELEASE';
   release: 'IMMEDIATE' | 'EXTENDED';
   evidenceRef: { id: string; version: number };
@@ -94,26 +91,6 @@ export const batch03Sglt2CombinationIdentityDefinitions: Batch03Sglt2Combination
     evidenceRef: { id: 'EVD-B3-TRIJARDY-XR-IDENTITY', version: 1 },
     reviewEvidenceRef: { id: 'EVD-B3-TRIJARDY-XR-PROCEDURE-REVIEW', version: 1 },
   },
-  {
-    medicationId: 'MED-canagliflozin-metformin-invokamet',
-    ingredientIds: ['ING-canagliflozin', 'ING-metformin'],
-    genericName: 'canagliflozin and metformin hydrochloride',
-    brandName: 'Invokamet',
-    dosageForm: 'TABLET, FILM COATED',
-    release: 'IMMEDIATE',
-    evidenceRef: { id: 'EVD-B3-INVOKAMET-IDENTITY', version: 1 },
-    reviewEvidenceRef: { id: 'EVD-B3-INVOKAMET-PROCEDURE-REVIEW', version: 1 },
-  },
-  {
-    medicationId: 'MED-canagliflozin-metformin-invokamet-xr',
-    ingredientIds: ['ING-canagliflozin', 'ING-metformin'],
-    genericName: 'canagliflozin and metformin hydrochloride',
-    brandName: 'Invokamet XR',
-    dosageForm: 'TABLET, FILM COATED, EXTENDED RELEASE',
-    release: 'EXTENDED',
-    evidenceRef: { id: 'EVD-B3-INVOKAMET-XR-IDENTITY', version: 1 },
-    reviewEvidenceRef: { id: 'EVD-B3-INVOKAMET-XR-PROCEDURE-REVIEW', version: 1 },
-  },
 ];
 
 const sourceData = [
@@ -124,7 +101,6 @@ const sourceData = [
   ['SRC-B3-SYNJARDY-SPL23','SYNJARDY (empagliflozin and metformin hydrochloride) tablets: current manufacturer labeling, SPL 23','Boehringer Ingelheim Pharmaceuticals, Inc.; DailyMed','0fdd0255-0055-65f3-b2c0-db8fbb87beae',23,'2026-08-25','NDA206111'],
   ['SRC-B3-SYNJARDY-XR-SPL18','SYNJARDY XR (empagliflozin and metformin hydrochloride extended-release) tablets: current manufacturer labeling, SPL 18','Boehringer Ingelheim Pharmaceuticals, Inc.; DailyMed','8006ba29-ee3a-f852-a9bb-c8ec9b41cf66',18,'2026-08-11','NDA208658'],
   ['SRC-B3-TRIJARDY-XR-SPL11','TRIJARDY XR (empagliflozin, linagliptin, and metformin hydrochloride extended-release) tablets: current manufacturer labeling, SPL 11','Boehringer Ingelheim Pharmaceuticals, Inc.; DailyMed','71873567-9594-452a-bb92-34a129adecac',11,'2026-08-24','NDA212614'],
-  ['SRC-B3-INVOKAMET-SPL32','INVOKAMET / INVOKAMET XR (canagliflozin and metformin hydrochloride) tablets: current manufacturer labeling, SPL 32','Janssen Pharmaceuticals, Inc.; DailyMed','6868666b-c25e-40d1-9d1f-306bbe9390c1',32,'2026-08-24','NDA204353; NDA205879'],
 ] as const;
 
 export const batch03Sglt2CombinationIdentitySources: SourceDocument[] = sourceData.map(
@@ -140,7 +116,7 @@ export const batch03Sglt2CombinationIdentitySources: SourceDocument[] = sourceDa
     externalIdentifier: `DailyMed SETID ${setId}; SPL version ${splVersion}; ${applicationNumber}`,
     jurisdiction: 'US',
     language: 'en',
-    retrievedAt: id === 'SRC-B3-INVOKAMET-SPL32' ? invokametRetrievedAt : retrievedAt,
+    retrievedAt,
     lifecycle: 'DRAFT',
     metadata: {
       setId,
@@ -164,8 +140,6 @@ const sourceByMedication: Record<string,string> = {
   'MED-empagliflozin-metformin-synjardy': 'SRC-B3-SYNJARDY-SPL23',
   'MED-empagliflozin-metformin-synjardy-xr': 'SRC-B3-SYNJARDY-XR-SPL18',
   'MED-empagliflozin-linagliptin-metformin-trijardy-xr': 'SRC-B3-TRIJARDY-XR-SPL11',
-  'MED-canagliflozin-metformin-invokamet': 'SRC-B3-INVOKAMET-SPL32',
-  'MED-canagliflozin-metformin-invokamet-xr': 'SRC-B3-INVOKAMET-SPL32',
 };
 
 function identityAtom(product: Batch03Sglt2CombinationIdentityDefinition): EvidenceAtom {
@@ -186,7 +160,7 @@ function identityAtom(product: Batch03Sglt2CombinationIdentityDefinition): Evide
     ],
     retrieval: { title: `${product.brandName} identity`, summary: 'Current manufacturer product/formulation identity.', keywords: [product.brandName, product.genericName, 'SGLT2 combination'], concepts: ['medication-identity','fixed-combination'], sourceAuthorityRank: 100 },
     lifecycle: 'DRAFT',
-    createdAt: product.medicationId.startsWith('MED-canagliflozin-metformin-invokamet') ? invokametRetrievedAt : retrievedAt,
+    createdAt: retrievedAt,
   };
 }
 
@@ -208,7 +182,7 @@ function reviewAtom(product: Batch03Sglt2CombinationIdentityDefinition): Evidenc
     ],
     retrieval: { title: `${product.brandName} procedure review`, summary: 'Manufacturer interruption language is retained as review provenance without autonomous timing.', keywords: [product.brandName,'temporary interruption','prolonged fasting','procedure review'], concepts: ['procedure-review','sglt2','fixed-combination'], sourceAuthorityRank: 100 },
     lifecycle: 'DRAFT',
-    createdAt: product.medicationId.startsWith('MED-canagliflozin-metformin-invokamet') ? invokametRetrievedAt : retrievedAt,
+    createdAt: retrievedAt,
   };
 }
 
@@ -217,7 +191,7 @@ export const batch03Sglt2CombinationProcedureReviewAtoms = batch03Sglt2Combinati
 
 export const batch03Sglt2CombinationIdentityEvidence: EvidenceBundle = {
   schemaVersion: '1.0.0',
-  generatedAt: invokametRetrievedAt,
+  generatedAt: retrievedAt,
   sources: batch03Sglt2CombinationIdentitySources,
   atoms: [...batch03Sglt2CombinationIdentityAtoms, ...batch03Sglt2CombinationProcedureReviewAtoms],
 };
