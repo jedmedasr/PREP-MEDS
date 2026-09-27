@@ -48,40 +48,51 @@ export function normalizeModifierValues(
   modifiers: ModifierValue[],
   definitions: Record<string, UiModifierDefinition>,
 ): ModifierValue[] {
+  const failClosed = (modifier: ModifierValue): ModifierValue => ({
+    ...modifier,
+    state: 'UNKNOWN',
+    value: undefined,
+    provenance: modifier.provenance
+      ? { ...modifier.provenance, confirmationStatus: 'UNCONFIRMED' }
+      : undefined,
+  } as ModifierValue);
+
   return modifiers.map((modifier) => {
     if (modifier.state !== 'KNOWN') return modifier;
     const definition = definitions[modifier.modifierId];
-    if (!definition) return modifier;
+    if (!definition) return failClosed(modifier);
 
     if (definition.inputType === 'number') {
-      const parsed = typeof modifier.value === 'number' ? modifier.value : Number(modifier.value);
-      if (!Number.isFinite(parsed)) {
-        return {
-          ...modifier,
-          state: 'UNKNOWN',
-          value: undefined,
-          provenance: modifier.provenance
-            ? { ...modifier.provenance, confirmationStatus: 'UNCONFIRMED' }
-            : undefined,
-        } as ModifierValue;
-      }
-      return { ...modifier, value: parsed };
+      const parsed =
+        typeof modifier.value === 'number'
+          ? modifier.value
+          : typeof modifier.value === 'string' && modifier.value.trim() !== ''
+            ? Number(modifier.value)
+            : Number.NaN;
+      return Number.isFinite(parsed) ? { ...modifier, value: parsed } : failClosed(modifier);
     }
 
-    if (definition.inputType === 'boolean' && typeof modifier.value === 'string') {
+    if (definition.inputType === 'boolean') {
+      if (typeof modifier.value === 'boolean') return modifier;
       if (modifier.value === 'true') return { ...modifier, value: true };
       if (modifier.value === 'false') return { ...modifier, value: false };
-      return {
-        ...modifier,
-        state: 'UNKNOWN',
-        value: undefined,
-        provenance: modifier.provenance
-          ? { ...modifier.provenance, confirmationStatus: 'UNCONFIRMED' }
-          : undefined,
-      } as ModifierValue;
+      return failClosed(modifier);
     }
 
-    return modifier;
+    if (definition.inputType === 'select') {
+      const allowed = new Set((definition.options ?? []).map((option) => option.value));
+      return typeof modifier.value === 'string' && allowed.has(modifier.value)
+        ? modifier
+        : failClosed(modifier);
+    }
+
+    if (definition.inputType === 'text') {
+      return typeof modifier.value === 'string' && modifier.value.trim() !== ''
+        ? modifier
+        : failClosed(modifier);
+    }
+
+    return failClosed(modifier);
   });
 }
 

@@ -9,6 +9,98 @@ export {
   antithromboticShadowRules,
   antithromboticShadowRules as antithromboticCandidateRules,
 } from './antithrombotic-shadow.js';
+export {
+  diabetesCoreCandidateRules as diabetesCoreBaseCandidateRules,
+  diabetesCoreEvidence as diabetesCoreBaseEvidence,
+  diabetesCoreReleaseMetadata,
+} from './diabetes-core.js';
+export {
+  diabetesCoreShadowRules,
+  diabetesCoreShadowRules as diabetesCoreCandidateRules,
+} from './diabetes-core-shadow.js';
+export { diabetesWorkflowRules, diabetesWorkflowMetadata } from './diabetes-workflow.js';
+export {
+  diabetesAuditedEvidence,
+  diabetesScopedEvidenceAudit as diabetesEvidenceAuditStatus,
+} from './diabetes-evidence-audit.js';
+export {
+  diabetesFormulationSources,
+  diabetesFormulationAtoms,
+} from './diabetes-formulation-evidence.js';
+export {
+  diabetesInsulinProductEvidence,
+  diabetesInsulinProductSources,
+  diabetesInsulinProductAtoms,
+  diabetesInsulinProductDefinitions,
+} from './diabetes-insulin-product-evidence.js';
+export type { InsulinProductDefinition } from './diabetes-insulin-product-evidence.js';
+export {
+  diabetesHumanInsulinEvidence,
+  humanInsulinProductDefinitions,
+  humanInsulinSources,
+  humanInsulinAtoms,
+} from './diabetes-human-insulin-evidence.js';
+export type { HumanInsulinProductDefinition } from './diabetes-human-insulin-evidence.js';
+export {
+  diabetesAfrezzaEvidence,
+  afrezzaLabelReference,
+  afrezzaProductDefinitions,
+  afrezzaSources,
+  afrezzaAtoms,
+} from './diabetes-afrezza-evidence.js';
+export type { AfrezzaProductDefinition } from './diabetes-afrezza-evidence.js';
+export {
+  diabetesApidraEvidence,
+  apidraLabelReference,
+  apidraProductDefinitions,
+  apidraSources,
+  apidraAtoms,
+} from './diabetes-apidra-evidence.js';
+export type { ApidraProductDefinition } from './diabetes-apidra-evidence.js';
+export {
+  diabetesLevemirEvidence,
+  levemirLabelReference,
+  levemirMarketingStatusReference,
+  levemirProductDefinitions,
+  levemirSources,
+  levemirAtoms,
+} from './diabetes-levemir-evidence.js';
+export type { LevemirProductDefinition } from './diabetes-levemir-evidence.js';
+export {
+  diabetesNovoLogEvidence,
+  novologLabelReference,
+  novologMarketingStatusReference,
+  novologProductDefinitions,
+  novologPresentationMarketingStatuses,
+  novologSources,
+  novologAtoms,
+} from './diabetes-novolog-evidence.js';
+export type { NovoLogProductDefinition, NovoLogPresentationMarketingStatus } from './diabetes-novolog-evidence.js';
+export {
+  diabetesHumalogEvidence as diabetesWorkflowEvidence,
+  diabetesHumalogEvidence,
+  humalogLabelReference,
+  humalogU100MarketingStatusReference,
+  humalogU200MarketingStatusReference,
+  humalogProductDefinitions,
+  humalogPresentationMarketingStatuses,
+  humalogSources,
+  humalogAtoms,
+} from './diabetes-humalog-evidence.js';
+export type { HumalogProductDefinition, HumalogPresentationMarketingStatus } from './diabetes-humalog-evidence.js';
+export {
+  diabetesOralReleaseEvidence as diabetesCoreEvidence,
+  diabetesOralReleaseEvidence,
+  metforminImmediateReleaseReference,
+  metforminExtendedReleaseReference,
+  glipizideImmediateReleaseReference,
+  glipizideExtendedReleaseReference,
+  glucotrolXlReference,
+  oralReleaseProductDefinitions,
+  oralReleaseSources,
+  oralReleaseAtoms,
+} from './diabetes-oral-release-evidence.js';
+export type { OralReleaseProductDefinition } from './diabetes-oral-release-evidence.js';
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',

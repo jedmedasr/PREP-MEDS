@@ -1,0 +1,30 @@
+{
+  "receiptId": "MED-BATCH-02-ENGINEERING-2026-09-26-NORMALIZATION",
+  "branch": "med-batch-02-diabetes-core",
+  "implementationCommits": [
+    "20703185d0edd41b2f9f88deb10beeac4999486a",
+    "538b50757b0ab5fc5937cdf611b85609d8063737"
+  ],
+  "verifiedHeadSha": "538b50757b0ab5fc5937cdf611b85609d8063737",
+  "workflowRunId": 36267250367,
+  "workflowRunNumber": 122,
+  "jobId": 108474171740,
+  "gates": {
+    "schemaValidation": "SUCCESS",
+    "strictTypecheck": "SUCCESS",
+    "sourceIdentity": "SUCCESS",
+    "isolatedRegressionTests": "SUCCESS",
+    "unitAndRegressionTests": "SUCCESS",
+    "productionWebBuild": "SUCCESS"
+  },
+  "engineeringScope": [
+    "Fail closed when a known modifier has no declared definition.",
+    "Fail closed on blank or non-finite numeric input.",
+    "Fail closed on malformed boolean input.",
+    "Fail closed when a select value is outside its declared options.",
+    "Fail closed on malformed or blank text input."
+  ],
+  "canonicalCheckpointReconciliationPending": true,
+  "clinicalApprovalGranted": false,
+  "productionActivationAllowed": false
+}
