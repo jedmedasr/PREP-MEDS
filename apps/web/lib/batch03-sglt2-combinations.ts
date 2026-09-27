@@ -4,6 +4,7 @@ import type { IngredientRecord, MedicationRecord } from '@prep-meds/terminology'
 export const batch03Sglt2CombinationIngredients: IngredientRecord[] = [
   { id: 'ING-dapagliflozin', canonicalName: 'Dapagliflozin' },
   { id: 'ING-ertugliflozin', canonicalName: 'Ertugliflozin' },
+  { id: 'ING-canagliflozin', canonicalName: 'Canagliflozin' },
 ];
 
 const classesByMedication: Record<string,string[]> = {
@@ -14,6 +15,8 @@ const classesByMedication: Record<string,string[]> = {
   'MED-empagliflozin-metformin-synjardy': ['CLS-sglt2-inhibitor','CLS-metformin'],
   'MED-empagliflozin-metformin-synjardy-xr': ['CLS-sglt2-inhibitor','CLS-metformin'],
   'MED-empagliflozin-linagliptin-metformin-trijardy-xr': ['CLS-sglt2-inhibitor','CLS-dpp4-inhibitor','CLS-metformin'],
+  'MED-canagliflozin-metformin-invokamet': ['CLS-sglt2-inhibitor','CLS-metformin'],
+  'MED-canagliflozin-metformin-invokamet-xr': ['CLS-sglt2-inhibitor','CLS-metformin'],
 };
 
 const aliasesByMedication: Record<string,string[]> = {
@@ -24,6 +27,8 @@ const aliasesByMedication: Record<string,string[]> = {
   'MED-empagliflozin-metformin-synjardy': ['Synjardy empagliflozin metformin','empagliflozin metformin immediate release'],
   'MED-empagliflozin-metformin-synjardy-xr': ['Synjardy XR empagliflozin metformin','empagliflozin metformin XR'],
   'MED-empagliflozin-linagliptin-metformin-trijardy-xr': ['Trijardy','Trijardy XR empagliflozin linagliptin metformin'],
+  'MED-canagliflozin-metformin-invokamet': ['Invokamet canagliflozin metformin','canagliflozin metformin immediate release'],
+  'MED-canagliflozin-metformin-invokamet-xr': ['Invokamet XR canagliflozin metformin','canagliflozin metformin XR'],
 };
 
 export const batch03Sglt2CombinationMedications: MedicationRecord[] =
