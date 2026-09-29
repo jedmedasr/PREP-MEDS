@@ -229,6 +229,15 @@ export {
   batch04ThiazideDiureticReviewRules,
 } from './batch04-thiazide-diuretic-evidence.js';
 export type { Batch04ThiazideDiureticIdentityDefinition } from './batch04-thiazide-diuretic-evidence.js';
+export {
+  batch04LoopDiureticIdentityEvidence,
+  batch04LoopDiureticIdentityDefinitions,
+  batch04LoopDiureticIdentitySources,
+  batch04LoopDiureticIdentityAtoms,
+  batch04LoopDiureticMarketingStatusAtoms,
+  batch04LoopDiureticReviewRules,
+} from './batch04-loop-diuretic-evidence.js';
+export type { Batch04LoopDiureticIdentityDefinition } from './batch04-loop-diuretic-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,

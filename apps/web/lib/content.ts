@@ -26,7 +26,10 @@ import {
   batch04NonDhpCcbIdentityEvidence,
   batch04NonDhpCcbReviewRules,
   batch04ThiazideDiureticIdentityEvidence,
+  batch04LoopDiureticIdentityEvidence,
   batch04ThiazideDiureticReviewRules,
+  batch04LoopDiureticIdentityEvidence,
+  batch04LoopDiureticReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -40,6 +43,7 @@ import { batch04BetaBlockerIngredients, batch04BetaBlockerMedications } from './
 import { batch04DhpCcbIngredients, batch04DhpCcbMedications } from './batch04-dhp-ccbs';
 import { batch04NonDhpCcbIngredients, batch04NonDhpCcbMedications } from './batch04-nondhp-ccbs';
 import { batch04ThiazideDiureticIngredients, batch04ThiazideDiureticMedications } from './batch04-thiazide-diuretics';
+import { batch04LoopDiureticIngredients, batch04LoopDiureticMedications } from './batch04-loop-diuretics';
 
 export interface UiModifierDefinition {
   id: string;
@@ -57,8 +61,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-04-thiazide-diuretic-terminology-1',
-  generatedAt: '2026-09-29T09:02:00Z',
+  version: 'med-batch-04-loop-diuretic-terminology-1',
+  generatedAt: '${now}',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -75,6 +79,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch04DhpCcbIngredients,
     ...batch04NonDhpCcbIngredients,
     ...batch04ThiazideDiureticIngredients,
+    ...batch04LoopDiureticIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -131,6 +136,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch04DhpCcbMedications,
     ...batch04NonDhpCcbMedications,
     ...batch04ThiazideDiureticMedications,
+    ...batch04LoopDiureticMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -158,6 +164,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...batch04DhpCcbReviewRules,
   ...batch04NonDhpCcbReviewRules,
   ...batch04ThiazideDiureticReviewRules,
+  ...batch04LoopDiureticReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
