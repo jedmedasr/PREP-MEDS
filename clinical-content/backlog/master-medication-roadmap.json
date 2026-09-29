@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T21:05:00Z",
+  "generatedAt": "2026-09-29T21:18:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+    "basedOnHeadSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -672,7 +672,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Priority override active: complete remaining OUD/chronic-opioid identities (methadone and naltrexone products), then inventory stimulants/MAOIs, chronic systemic steroids, and transplant/immunosuppression before statins.",
+      "nextEngineeringWork": "Priority override active: inventory stimulants/MAOIs, chronic systemic steroids, and transplant/immunosuppression for genuine anesthesia-sensitive gaps before statins.",
       "completedClusters": [
         {
           "clusterId": "B5-CLASS-III-ANTIARRHYTHMIC-ROUTE-FORM",
@@ -1023,9 +1023,27 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-METHADONE-NALTREXONE-ROUTE-FORM-INDICATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+          "products": [
+            "methadone oral tablet",
+            "methadone oral concentrate",
+            "naltrexone film-coated oral tablet",
+            "VIVITROL naltrexone extended-release intramuscular injection kit"
+          ],
+          "ci": {
+            "workflowRunNumber": 282,
+            "workflowRunId": 36629870330,
+            "jobId": 109616069236,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Methadone oral tablet versus oral solution/concentrate and naltrexone oral tablet versus VIVITROL extended-release intramuscular injection; retain indication/formulation ambiguity and timing-free clinician review."
+      "nextEngineeringWork": "OUD/chronic-opioid priority identities are engineering-verified. Inventory the next anesthesia-sensitive stimulant/MAOI cluster; implement only concrete evidence or terminology gaps."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",

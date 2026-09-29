@@ -4,7 +4,7 @@
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "baseBranch": "med-batch-04-cardiovascular-core",
   "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
-  "updatedAt": "2026-09-29T21:05:00Z",
+  "updatedAt": "2026-09-29T21:18:00Z",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -154,6 +154,29 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "M_REPRIORITIZED_METHADONE_NALTREXONE_ROUTE_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+      "completed": [
+        "Added direct DailyMed identities for methadone oral tablet, methadone oral concentrate, naltrexone film-coated oral tablet, and VIVITROL extended-release intramuscular injection kit.",
+        "Preserved methadone tablet-versus-concentrate and pain-versus-OUD context, plus naltrexone oral-versus-extended-release-IM and alcohol-versus-opioid-relapse/blockade context.",
+        "All evidence remains DRAFT and all pathways remain clinician-review-only with no autonomous continuation, interruption, dose conversion, sedation, analgesia, or restart timing."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 282,
+        "workflowRunId": 36629870330,
+        "jobId": 109616069236,
+        "conclusion": "success",
+        "verifiedHeadSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -170,7 +193,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Complete the remaining OUD/chronic-opioid identity cluster: methadone oral tablet versus oral solution/concentrate and naltrexone oral tablet versus VIVITROL extended-release IM injection; preserve indication/formulation ambiguity and timing-free clinician review.",
+  "nextWorkItem": "Inventory stimulants and monoamine oxidase inhibitors for genuine route/release/combination gaps and anesthesia-sensitive review requirements; do not create universal hold/restart rules.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,

@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-29T21:05:00Z",
+  "updatedAt": "2026-09-29T21:18:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -41,6 +41,36 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "B_METHADONE_NALTREXONE_ROUTE_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+      "products": [
+        "methadone oral tablet",
+        "methadone oral concentrate",
+        "naltrexone film-coated oral tablet",
+        "VIVITROL naltrexone extended-release intramuscular injection kit"
+      ],
+      "preservation": [
+        "Methadone tablet and oral concentrate remain distinct; indication and maintenance status remain clinician-reviewed.",
+        "Naltrexone oral tablet and VIVITROL extended-release IM injection remain distinct; alcohol and opioid contexts remain explicit.",
+        "Current opioid exposure, detoxification/blockade status, QT risk, concomitant sedatives/opioids, and emergency analgesia remain clinician/local-policy reviewed.",
+        "No substitution, dose conversion, continuation, interruption, sedation, analgesia, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 282,
+        "workflowRunId": 36629870330,
+        "jobId": 109616069236,
+        "conclusion": "success",
+        "verifiedHeadSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -57,7 +87,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Methadone oral tablet versus oral solution/concentrate and naltrexone oral tablet versus VIVITROL extended-release intramuscular injection; retain indication/formulation ambiguity and timing-free clinician review.",
+  "nextWorkItem": "OUD/chronic-opioid priority identities are engineering-verified. Inventory the next anesthesia-sensitive stimulant/MAOI cluster; implement only concrete evidence or terminology gaps.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
