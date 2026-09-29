@@ -28,7 +28,6 @@ import {
   batch04ThiazideDiureticIdentityEvidence,
   batch04ThiazideDiureticReviewRules,
   batch04LoopDiureticIdentityEvidence,
-  batch04PotassiumSparingIdentityEvidence,
   batch04LoopDiureticReviewRules,
   batch04PotassiumSparingIdentityEvidence,
   batch04PotassiumSparingReviewRules,
