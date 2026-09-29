@@ -289,6 +289,8 @@ export const batch03ReviewRules: ClinicalRule[] = [
         'MED-empagliflozin-metformin-synjardy',
         'MED-empagliflozin-metformin-synjardy-xr',
         'MED-empagliflozin-linagliptin-metformin-trijardy-xr',
+        'MED-canagliflozin-metformin-invokamet',
+        'MED-canagliflozin-metformin-invokamet-xr',
       ],
       procedureCodes: [...procedures],
     },
@@ -303,6 +305,8 @@ export const batch03ReviewRules: ClinicalRule[] = [
       { id: 'EVD-B3-SYNJARDY-PROCEDURE-REVIEW', version: 1 },
       { id: 'EVD-B3-SYNJARDY-XR-PROCEDURE-REVIEW', version: 1 },
       { id: 'EVD-B3-TRIJARDY-XR-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-INVOKAMET-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-INVOKAMET-XR-PROCEDURE-REVIEW', version: 1 },
     ],
     status: 'TECHNICALLY_TESTED',
     // Product identity must outrank generic SGLT2/metformin/DPP-4 class rules.

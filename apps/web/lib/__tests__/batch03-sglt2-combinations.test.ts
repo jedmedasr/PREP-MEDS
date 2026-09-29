@@ -13,6 +13,8 @@ const medicationIds = [
   'MED-empagliflozin-metformin-synjardy',
   'MED-empagliflozin-metformin-synjardy-xr',
   'MED-empagliflozin-linagliptin-metformin-trijardy-xr',
+  'MED-canagliflozin-metformin-invokamet',
+  'MED-canagliflozin-metformin-invokamet-xr',
 ] as const;
 
 function evaluate(medicationId: string, procedureCode: ProcedureCode) {
@@ -20,7 +22,7 @@ function evaluate(medicationId: string, procedureCode: ProcedureCode) {
   if (!medication) throw new Error(`Missing SGLT2 combination fixture: ${medicationId}`);
   return evaluateDecision({
     decisionEventId: `DEC-SYNTHETIC-B3-SGLT2-COMBO-${medicationId}-${procedureCode}`,
-    occurredAt: '2026-09-27T10:25:00Z',
+    occurredAt: '2026-09-29T02:01:30Z',
     engineVersion: 'batch-03-sglt2-combination-guard-test',
     mode: 'VALIDATION',
     context: {
@@ -48,9 +50,11 @@ describe('Batch 03 verified SGLT2 combinations', () => {
     expect(index.resolve('Synjardy').medication?.id).toBe('MED-empagliflozin-metformin-synjardy');
     expect(index.resolve('Synjardy XR').medication?.id).toBe('MED-empagliflozin-metformin-synjardy-xr');
     expect(index.resolve('Trijardy XR').medication?.id).toBe('MED-empagliflozin-linagliptin-metformin-trijardy-xr');
+    expect(index.resolve('Invokamet').medication?.id).toBe('MED-canagliflozin-metformin-invokamet');
+    expect(index.resolve('Invokamet XR').medication?.id).toBe('MED-canagliflozin-metformin-invokamet-xr');
   });
 
-  it('preserves formulation/component identity', () => {
+  it('preserves formulation/component identity and fails closed for generic release-unspecified INVOKAMET wording', () => {
     expect(index.getMedicationById('MED-dapagliflozin-metformin-xigduo-xr')?.ingredientIds).toEqual(['ING-dapagliflozin','ING-metformin']);
     expect(index.getMedicationById('MED-ertugliflozin-metformin-segluromet')?.ingredientIds).toEqual(['ING-ertugliflozin','ING-metformin']);
     expect(index.getMedicationById('MED-empagliflozin-linagliptin-glyxambi')?.ingredientIds).toEqual(['ING-empagliflozin','ING-linagliptin']);
@@ -58,6 +62,9 @@ describe('Batch 03 verified SGLT2 combinations', () => {
     expect(index.getMedicationById('MED-empagliflozin-metformin-synjardy')?.ingredientIds).toEqual(['ING-empagliflozin','ING-metformin']);
     expect(index.getMedicationById('MED-empagliflozin-metformin-synjardy-xr')?.ingredientIds).toEqual(['ING-empagliflozin','ING-metformin']);
     expect(index.getMedicationById('MED-empagliflozin-linagliptin-metformin-trijardy-xr')?.ingredientIds).toEqual(['ING-empagliflozin','ING-linagliptin','ING-metformin']);
+    expect(index.getMedicationById('MED-canagliflozin-metformin-invokamet')?.ingredientIds).toEqual(['ING-canagliflozin','ING-metformin']);
+    expect(index.getMedicationById('MED-canagliflozin-metformin-invokamet-xr')?.ingredientIds).toEqual(['ING-canagliflozin','ING-metformin']);
+    expect(index.resolve('canagliflozin and metformin hydrochloride').status).toBe('AMBIGUOUS');
   });
 });
 
@@ -70,7 +77,7 @@ describe('Batch 03 SGLT2 combinations remain review-only', () => {
     expect(guard?.timingRule).toBeUndefined();
   });
 
-  it.each(procedures)('routes all seven products to review for %s with no timing', (procedureCode) => {
+  it.each(procedures)('routes all nine products to review for %s with no timing', (procedureCode) => {
     for (const medicationId of medicationIds) {
       const event=evaluate(medicationId,procedureCode);
       expect(event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
