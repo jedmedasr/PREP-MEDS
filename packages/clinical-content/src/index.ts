@@ -148,9 +148,7 @@ export {
   batch03HistoricalIncretinMarketingStatusAtoms,
 } from './batch03-historical-incretin-identity-evidence.js';
 export { batch03HistoricalIncretinReviewRules };
-export type {
-  Batch03HistoricalIncretinIdentityDefinition,
-} from './batch03-historical-incretin-identity-evidence.js';
+export type { Batch03HistoricalIncretinIdentityDefinition } from './batch03-historical-incretin-identity-evidence.js';
 export {
   batch03CurrentIncretinExpansionDefinitions,
   batch03CurrentIncretinExpansionSources,
@@ -158,9 +156,7 @@ export {
   batch03CurrentIncretinExpansionProcedureReviewAtoms,
 } from './batch03-current-incretin-expansion-evidence.js';
 export { batch03CurrentIncretinExpansionReviewRules };
-export type {
-  Batch03CurrentIncretinExpansionDefinition,
-} from './batch03-current-incretin-expansion-evidence.js';
+export type { Batch03CurrentIncretinExpansionDefinition } from './batch03-current-incretin-expansion-evidence.js';
 export {
   batch03FixedCombinationIdentityEvidence,
   batch03FixedCombinationIdentityDefinitions,
@@ -176,10 +172,7 @@ export {
   batch03Sglt2CombinationProcedureReviewAtoms,
 } from './batch03-sglt2-combination-identity-evidence.js';
 export type { Batch03Sglt2CombinationIdentityDefinition } from './batch03-sglt2-combination-identity-evidence.js';
-export {
-  batch03QternIdentityEvidence,
-  batch03QternReviewRules,
-};
+export { batch03QternIdentityEvidence, batch03QternReviewRules };
 export {
   batch03QternIdentityDefinitions,
   batch03QternIdentitySources,
@@ -195,7 +188,6 @@ export {
   batch04AceReviewRules,
 } from './batch04-ace-inhibitor-evidence.js';
 export type { Batch04AceIdentityDefinition } from './batch04-ace-inhibitor-evidence.js';
-
 export {
   batch04ArbArniIdentityEvidence,
   batch04ArbArniIdentityDefinitions,
@@ -204,6 +196,14 @@ export {
   batch04ArbArniReviewRules,
 } from './batch04-arb-arni-evidence.js';
 export type { Batch04ArbArniIdentityDefinition } from './batch04-arb-arni-evidence.js';
+export {
+  batch04BetaBlockerIdentityEvidence,
+  batch04BetaBlockerIdentityDefinitions,
+  batch04BetaBlockerIdentitySources,
+  batch04BetaBlockerIdentityAtoms,
+  batch04BetaBlockerReviewRules,
+} from './batch04-beta-blocker-evidence.js';
+export type { Batch04BetaBlockerIdentityDefinition } from './batch04-beta-blocker-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
