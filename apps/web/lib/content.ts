@@ -17,6 +17,8 @@ import {
   batch03Sglt2CombinationIdentityEvidence,
   batch04AceIdentityEvidence,
   batch04AceReviewRules,
+  batch04ArbArniIdentityEvidence,
+  batch04ArbArniReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -25,7 +27,7 @@ import { batch03SemaglutideSearchMedications } from './batch03-semaglutide';
 import { batch03IncretinIngredients, batch03IncretinSearchMedications } from './batch03-incretin';
 import { batch03FixedCombinationIngredients, batch03FixedCombinationMedications } from './batch03-fixed-combinations';
 import { batch03Sglt2CombinationIngredients, batch03Sglt2CombinationMedications } from './batch03-sglt2-combinations';
-import { batch04AceIngredients, batch04AceMedications } from './batch04-raas';
+import { batch04AceIngredients, batch04AceMedications, batch04ArbArniIngredients, batch04ArbArniMedications } from './batch04-raas';
 
 export interface UiModifierDefinition {
   id: string;
@@ -43,7 +45,7 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-04-ace-core-terminology-1',
+  version: 'med-batch-04-raas-core-terminology-2',
   generatedAt: '2026-09-29T07:40:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
@@ -56,6 +58,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch03FixedCombinationIngredients,
     ...batch03Sglt2CombinationIngredients,
     ...batch04AceIngredients,
+    ...batch04ArbArniIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -107,6 +110,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch03FixedCombinationMedications,
     ...batch03Sglt2CombinationMedications,
     ...batch04AceMedications,
+    ...batch04ArbArniMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-metoprolol', canonicalName: 'Metoprolol', ingredientIds: ['ING-metoprolol'], drugClassIds: ['CLS-beta-blocker'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
@@ -129,6 +133,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...diabetesWorkflowRules,
   ...batch03ReviewRules,
   ...batch04AceReviewRules,
+  ...batch04ArbArniReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -139,6 +144,7 @@ export const clinicalReviewEvidenceBundles = [
   batch03FixedCombinationIdentityEvidence,
   batch03Sglt2CombinationIdentityEvidence,
   batch04AceIdentityEvidence,
+  batch04ArbArniIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 

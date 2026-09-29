@@ -1,4 +1,4 @@
-import { batch04AceIdentityDefinitions } from '@prep-meds/clinical-content';
+import { batch04AceIdentityDefinitions, batch04ArbArniIdentityDefinitions } from '@prep-meds/clinical-content';
 import type { IngredientRecord, MedicationRecord } from '@prep-meds/terminology';
 
 export const batch04AceIngredients: IngredientRecord[] = [
@@ -26,3 +26,33 @@ export const batch04AceMedications: MedicationRecord[] = batch04AceIdentityDefin
     ingredientIds: [definition.ingredientId],
     drugClassIds: ['CLS-ace-inhibitor'],
   }));
+
+export const batch04ArbArniIngredients: IngredientRecord[] = [
+  { id: 'ING-losartan', canonicalName: 'Losartan', aliases: ['losartan potassium'] },
+  { id: 'ING-valsartan', canonicalName: 'Valsartan' },
+  { id: 'ING-irbesartan', canonicalName: 'Irbesartan' },
+  { id: 'ING-candesartan', canonicalName: 'Candesartan', aliases: ['candesartan cilexetil'] },
+  { id: 'ING-olmesartan', canonicalName: 'Olmesartan', aliases: ['olmesartan medoxomil'] },
+  { id: 'ING-telmisartan', canonicalName: 'Telmisartan' },
+  { id: 'ING-sacubitril', canonicalName: 'Sacubitril' },
+];
+
+const batch04ArbArniAliases: Record<string, string[]> = {
+  'MED-losartan': ['losartan potassium'],
+  'MED-candesartan': ['candesartan', 'candesartan cilexetil'],
+  'MED-olmesartan': ['olmesartan', 'olmesartan medoxomil'],
+  'MED-sacubitril-valsartan': ['sacubitril and valsartan', 'sacubitril valsartan'],
+};
+
+export const batch04ArbArniMedications: MedicationRecord[] = batch04ArbArniIdentityDefinitions.map((definition) => ({
+  id: definition.medicationId,
+  canonicalName: definition.genericName
+    .split(/([/ ])/)
+    .map((part) => (/^[a-z]/.test(part) ? part.charAt(0).toUpperCase() + part.slice(1) : part))
+    .join(''),
+  genericName: definition.genericName,
+  brandNames: [],
+  aliases: batch04ArbArniAliases[definition.medicationId] ?? [],
+  ingredientIds: [...definition.ingredientIds],
+  drugClassIds: [definition.drugClassId],
+}));
