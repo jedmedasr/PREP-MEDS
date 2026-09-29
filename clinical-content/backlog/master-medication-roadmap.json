@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T09:08:00Z",
+  "generatedAt": "2026-09-29T09:50:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-04-cardiovascular-core",
@@ -489,9 +489,29 @@
           "jobId": 109330797200,
           "status": "ENGINEERING_VERIFIED",
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "LOOP-DIURETIC-ROUTE-FORM-CORE",
+          "medicationIds": [
+            "MED-furosemide-tablet",
+            "MED-furosemide-oral-solution",
+            "MED-furosemide-injection",
+            "MED-furosemide-furoscix-readyflow",
+            "MED-furosemide-furoscix-on-body-infusor",
+            "MED-torsemide-tablet",
+            "MED-torsemide-demadex-injection",
+            "MED-bumetanide-tablet",
+            "MED-bumetanide-injection",
+            "MED-bumetanide-enbumyst-nasal-spray"
+          ],
+          "testedHeadSha": "23e437902778857fdddf94b779a554c87154c35c",
+          "workflowRunId": 36551524288,
+          "jobId": 109350580342,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Loop diuretics: reconcile furosemide, torsemide, and bumetanide with direct authoritative labeling, preserve route/formulation ambiguity, and keep routing review-only without an invented universal timing interval."
+      "nextEngineeringWork": "Potassium-sparing/MRA agents: reconcile spironolactone, eplerenone, amiloride, and triamterene with direct authoritative labeling; preserve standalone versus fixed-combination ambiguity and keep routing review-only without an invented timing interval."
     },
     {
       "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
