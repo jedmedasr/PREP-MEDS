@@ -4,7 +4,7 @@
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "baseBranch": "med-batch-04-cardiovascular-core",
   "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
-  "updatedAt": "2026-09-29T15:49:00Z",
+  "updatedAt": "2026-09-29T17:02:00Z",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -58,6 +58,28 @@
       "jobId": 109490476245,
       "conclusion": "success",
       "scope": "Schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build."
+    },
+    "F_OTHER_CARDIAC_ROUTE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "4fd930fe3706c52b45b3bcbb0c2cd9ff8f1c3e86",
+      "completed": [
+        "Added thirteen direct-label route/form identities spanning digoxin, ivabradine, nitroglycerin, isosorbide dinitrate, isosorbide mononitrate, and ranolazine.",
+        "Preserved digoxin oral tablet, oral solution, and intravenous/intramuscular injection ambiguity.",
+        "Preserved CORLANOR film-coated tablet versus oral solution ambiguity.",
+        "Preserved nitroglycerin sublingual tablet, lingual spray, transdermal patch, and topical ointment ambiguity.",
+        "Preserved isosorbide dinitrate oral versus sublingual ambiguity and explicit extended-release wording for isosorbide mononitrate and ranolazine.",
+        "Integrated DRAFT evidence, terminology, timing-free clinician-review routing, and regressions; production activeRules remain empty."
+      ]
+    },
+    "G_OTHER_CARDIAC_CI": {
+      "status": "PASS_EXACT_IMPLEMENTATION_HEAD",
+      "testedHeadSha": "4fd930fe3706c52b45b3bcbb0c2cd9ff8f1c3e86",
+      "workflowName": "quality",
+      "workflowRunNumber": 272,
+      "workflowRunId": 36600731683,
+      "jobId": 109517129628,
+      "conclusion": "success",
+      "scope": "Schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build."
     }
   },
   "evidenceState": {
@@ -74,7 +96,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Other cardiac drugs: digoxin, ivabradine, nitrates, and ranolazine, preserving nitrate route/release distinctions.",
+  "nextWorkItem": "Statin core: atorvastatin, rosuvastatin, simvastatin, pravastatin, lovastatin, and pitavastatin; preserve formulation distinctions and review-only routing.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,

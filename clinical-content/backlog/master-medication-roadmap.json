@@ -619,7 +619,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Other cardiac drugs: digoxin, ivabradine, nitrates, and ranolazine; preserve nitrate route/release distinctions and retain review-only routing.",
+      "nextEngineeringWork": "Statin core: atorvastatin, rosuvastatin, simvastatin, pravastatin, lovastatin, and pitavastatin; preserve formulation distinctions and review-only routing.",
       "completedClusters": [
         {
           "clusterId": "B5-CLASS-III-ANTIARRHYTHMIC-ROUTE-FORM",
@@ -658,6 +658,32 @@
             "workflowRunNumber": 270,
             "workflowRunId": 36592953366,
             "jobId": 109490476245,
+            "conclusion": "success"
+          }
+        },
+        {
+          "clusterId": "B5-OTHER-CARDIAC-ROUTE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "4fd930fe3706c52b45b3bcbb0c2cd9ff8f1c3e86",
+          "products": [
+            "digoxin oral tablet",
+            "digoxin oral solution",
+            "LANOXIN injection solution",
+            "CORLANOR film-coated tablet",
+            "CORLANOR oral solution",
+            "NITROSTAT sublingual tablet",
+            "nitroglycerin lingual spray",
+            "nitroglycerin transdermal patch",
+            "NITRO-BID topical ointment",
+            "isosorbide dinitrate oral tablet",
+            "isosorbide dinitrate sublingual tablet",
+            "isosorbide mononitrate extended-release tablet",
+            "ranolazine extended-release film-coated tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 272,
+            "workflowRunId": 36600731683,
+            "jobId": 109517129628,
             "conclusion": "success"
           }
         }
