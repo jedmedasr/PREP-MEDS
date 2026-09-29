@@ -10,13 +10,14 @@ const medicationIds = [
   'MED-dapagliflozin-saxagliptin-generic-anda211533',
   'MED-dapagliflozin-saxagliptin-generic-anda211537',
 ] as const;
+const qternmetMedicationId = 'MED-dapagliflozin-saxagliptin-metformin-qternmet-xr' as const;
 
 function evaluate(medicationId: string, procedureCode: ProcedureCode) {
   const medication = index.getMedicationById(medicationId);
   if (!medication) throw new Error(`Missing QTERN reconciliation fixture: ${medicationId}`);
   return evaluateDecision({
     decisionEventId: `DEC-SYNTHETIC-B3-QTERN-${medicationId}-${procedureCode}`,
-    occurredAt: '2026-09-29T02:10:10Z',
+    occurredAt: '2026-09-29T02:21:25Z',
     engineVersion: 'batch-03-qtern-guard-test',
     mode: 'VALIDATION',
     context: {
@@ -43,26 +44,37 @@ describe('Batch 03 QTERN / dapagliflozin+saxagliptin terminology', () => {
     expect(index.resolve('Torrent dapagliflozin saxagliptin').medication?.id).toBe('MED-dapagliflozin-saxagliptin-generic-anda211537');
   });
 
-  it('fails closed for release/product-unspecified generic wording', () => {
+  it('fails closed for product-unspecified dapagliflozin+saxagliptin wording', () => {
     const generic = index.resolve('dapagliflozin and saxagliptin');
     expect(generic.status).toBe('AMBIGUOUS');
     for (const medicationId of medicationIds) {
       expect(index.getMedicationById(medicationId)?.ingredientIds).toEqual(['ING-dapagliflozin', 'ING-saxagliptin']);
     }
   });
+
+  it('resolves explicit QTERNMET XR while release-unspecified triple-combination wording fails closed', () => {
+    expect(index.resolve('Qternmet XR').medication?.id).toBe(qternmetMedicationId);
+    expect(index.resolve('dapagliflozin, saxagliptin, and metformin hydrochloride extended-release').medication?.id).toBe(qternmetMedicationId);
+    expect(index.resolve('dapagliflozin saxagliptin metformin').status).toBe('AMBIGUOUS');
+    expect(index.getMedicationById(qternmetMedicationId)?.ingredientIds).toEqual(['ING-dapagliflozin', 'ING-saxagliptin', 'ING-metformin']);
+  });
 });
 
 describe('Batch 03 QTERN reconciliation remains review-only', () => {
-  it('keeps production rules empty and the QTERN guard timing-free', () => {
+  it('keeps production rules empty and both QTERN guards timing-free', () => {
     expect(activeRules).toEqual([]);
     const guard = clinicalReviewRules.find((rule) => rule.id === 'RULE-B3-DAPA-SAXA-PRODUCT-REVIEW-001');
     expect(guard?.scope.medicationIds).toEqual([...medicationIds]);
     expect(guard?.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
     expect(guard?.timingRule).toBeUndefined();
+    const qternmetGuard = clinicalReviewRules.find((rule) => rule.id === 'RULE-B3-QTERNMET-XR-PRODUCT-REVIEW-001');
+    expect(qternmetGuard?.scope.medicationIds).toEqual([qternmetMedicationId]);
+    expect(qternmetGuard?.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(qternmetGuard?.timingRule).toBeUndefined();
   });
 
   it.each(procedures)('routes all reconciled identities to review for %s with no timing', (procedureCode) => {
-    for (const medicationId of medicationIds) {
+    for (const medicationId of [...medicationIds, qternmetMedicationId]) {
       const event = evaluate(medicationId, procedureCode);
       expect(event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
       expect(event.outputSnapshot.timingRule).toBeUndefined();

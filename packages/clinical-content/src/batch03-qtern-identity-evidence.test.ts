@@ -5,17 +5,19 @@ import {
   batch03QternIdentityDefinitions,
   batch03QternIdentityEvidence,
   batch03QternIdentitySources,
+  batch03QternMarketingStatusAtoms,
   batch03QternProcedureReviewAtoms,
   batch03QternReviewRules,
 } from './batch03-qtern-identity-evidence.js';
 
 describe('Batch 03 QTERN / dapagliflozin+saxagliptin evidence', () => {
-  it('validates three source-distinct product/application identities', () => {
+  it('validates four source-distinct product/application identities plus QTERNMET market-status provenance', () => {
     expect(validateEvidenceBundle(batch03QternIdentityEvidence)).toEqual([]);
-    expect(batch03QternIdentityDefinitions).toHaveLength(3);
-    expect(batch03QternIdentitySources).toHaveLength(3);
-    expect(batch03QternIdentityAtoms).toHaveLength(3);
-    expect(batch03QternProcedureReviewAtoms).toHaveLength(3);
+    expect(batch03QternIdentityDefinitions).toHaveLength(4);
+    expect(batch03QternIdentitySources).toHaveLength(5);
+    expect(batch03QternIdentityAtoms).toHaveLength(4);
+    expect(batch03QternMarketingStatusAtoms).toHaveLength(1);
+    expect(batch03QternProcedureReviewAtoms).toHaveLength(4);
   });
 
   it('pins current QTERN and ANDA211533 source metadata without availability inference', () => {
@@ -50,10 +52,27 @@ describe('Batch 03 QTERN / dapagliflozin+saxagliptin evidence', () => {
     expect(torrent?.metadata?.splVersion).toBeUndefined();
   });
 
-  it('keeps every product review-only with no timing rule', () => {
-    expect(batch03QternReviewRules).toHaveLength(1);
-    expect(batch03QternReviewRules[0]?.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
-    expect(batch03QternReviewRules[0]?.timingRule).toBeUndefined();
+  it('records QTERNMET XR as historical/discontinued without inventing a label SPL version', () => {
+    const byId = new Map(batch03QternIdentitySources.map((source) => [source.id, source]));
+    const label = byId.get('SRC-B3-QTERNMET-XR-HISTORICAL-LABEL');
+    const orangeBook = byId.get('SRC-B3-QTERNMET-XR-ORANGE-BOOK-2026');
+    expect(label?.metadata?.setId).toBe('cfffcbfe-dcd9-4001-963e-a99e67390116');
+    expect(label?.metadata?.applicationNumber).toBe('NDA210874');
+    expect(label?.metadata?.latestListedMarketingEndDate).toBe('2020-06-01');
+    expect(label?.metadata?.splVersionAsserted).toBe(false);
+    expect(label?.metadata?.splVersion).toBeUndefined();
+    expect(orangeBook?.metadata?.orangeBookMarketingStatus).toBe('DISCONTINUED');
+    expect(orangeBook?.metadata?.productNumbers).toBe('001,002,003,004');
+    expect(orangeBook?.metadata?.marketAvailabilityAsserted).toBe(false);
+    expect(batch03QternMarketingStatusAtoms[0]?.claim).toContain('all four QTERNMET XR presentations');
+  });
+
+  it('keeps both review guards timing-free', () => {
+    expect(batch03QternReviewRules).toHaveLength(2);
+    for (const rule of batch03QternReviewRules) {
+      expect(rule.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+      expect(rule.timingRule).toBeUndefined();
+    }
     for (const atom of batch03QternProcedureReviewAtoms) {
       expect(atom.stance).toBe('CONDITIONAL');
       expect(atom.limitations?.some((limitation) => limitation.includes('does not authorize a hold'))).toBe(true);

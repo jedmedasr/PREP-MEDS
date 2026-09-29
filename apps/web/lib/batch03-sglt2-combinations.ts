@@ -52,7 +52,9 @@ const qternReconciliationMedications: MedicationRecord[] = batch03QternIdentityD
   brandNames: [...product.brandNames],
   aliases: [...product.aliases],
   ingredientIds: [...product.ingredientIds],
-  drugClassIds: ['CLS-sglt2-inhibitor', 'CLS-dpp4-inhibitor'],
+  drugClassIds: product.medicationId === 'MED-dapagliflozin-saxagliptin-metformin-qternmet-xr'
+    ? ['CLS-sglt2-inhibitor', 'CLS-dpp4-inhibitor', 'CLS-metformin']
+    : ['CLS-sglt2-inhibitor', 'CLS-dpp4-inhibitor'],
 }));
 
 export const batch03Sglt2CombinationMedications: MedicationRecord[] = [
@@ -66,5 +68,6 @@ export const batch03Sglt2CombinationTerminologyAudit = {
     'Each record preserves the source-defined fixed combination and authenticated product/application identity.',
     'Search resolution does not authorize component splitting, substitution, patient-specific dosing, commercial-availability inference, or peri-procedural timing.',
     'Bare dapagliflozin+saxagliptin wording remains ambiguous across branded and generic application identities.',
+    'QTERNMET XR is represented only as a historical/discontinued extended-release triple-combination identity; release-unspecified generic wording does not authenticate that formulation.',
   ],
 } as const;
