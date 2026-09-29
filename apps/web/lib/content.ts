@@ -19,6 +19,8 @@ import {
   batch04AceReviewRules,
   batch04ArbArniIdentityEvidence,
   batch04ArbArniReviewRules,
+  batch04BetaBlockerIdentityEvidence,
+  batch04BetaBlockerReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -28,6 +30,7 @@ import { batch03IncretinIngredients, batch03IncretinSearchMedications } from './
 import { batch03FixedCombinationIngredients, batch03FixedCombinationMedications } from './batch03-fixed-combinations';
 import { batch03Sglt2CombinationIngredients, batch03Sglt2CombinationMedications } from './batch03-sglt2-combinations';
 import { batch04AceIngredients, batch04AceMedications, batch04ArbArniIngredients, batch04ArbArniMedications } from './batch04-raas';
+import { batch04BetaBlockerIngredients, batch04BetaBlockerMedications } from './batch04-beta-blockers';
 
 export interface UiModifierDefinition {
   id: string;
@@ -45,8 +48,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-04-raas-core-terminology-2',
-  generatedAt: '2026-09-29T07:40:00Z',
+  version: 'med-batch-04-beta-blocker-core-terminology-1',
+  generatedAt: '2026-09-29T08:18:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -59,6 +62,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch03Sglt2CombinationIngredients,
     ...batch04AceIngredients,
     ...batch04ArbArniIngredients,
+    ...batch04BetaBlockerIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -111,8 +115,8 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch03Sglt2CombinationMedications,
     ...batch04AceMedications,
     ...batch04ArbArniMedications,
+    ...batch04BetaBlockerMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
-    { id: 'MED-metoprolol', canonicalName: 'Metoprolol', ingredientIds: ['ING-metoprolol'], drugClassIds: ['CLS-beta-blocker'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
 });
@@ -121,19 +125,21 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
 export const activeRules: ClinicalRule[] = [];
 export const activePolicies: PolicyOverlay[] = [];
 
-// Replace superseded first-release glargine and lisinopril candidates only in the assembled shadow release.
-// Their historical source records remain unchanged; Batch 02/04 review guards become the current shadow behavior.
+// Replace superseded first-release glargine, lisinopril, and formulation-unspecified metoprolol candidates only in the assembled shadow release.
+// Their historical source records remain unchanged; current batch review guards become the shadow behavior.
 export const clinicalReviewRules: ClinicalRule[] = [
   ...firstReleaseCandidateRules.filter(
     (rule) =>
       !rule.scope.medicationIds?.includes('MED-insulin-glargine') &&
-      !rule.scope.medicationIds?.includes('MED-lisinopril'),
+      !rule.scope.medicationIds?.includes('MED-lisinopril') &&
+      !rule.scope.medicationIds?.includes('MED-metoprolol'),
   ),
   ...antithromboticCandidateRules,
   ...diabetesWorkflowRules,
   ...batch03ReviewRules,
   ...batch04AceReviewRules,
   ...batch04ArbArniReviewRules,
+  ...batch04BetaBlockerReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -145,6 +151,7 @@ export const clinicalReviewEvidenceBundles = [
   batch03Sglt2CombinationIdentityEvidence,
   batch04AceIdentityEvidence,
   batch04ArbArniIdentityEvidence,
+  batch04BetaBlockerIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
