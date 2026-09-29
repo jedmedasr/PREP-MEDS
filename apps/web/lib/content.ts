@@ -15,6 +15,24 @@ import {
   batch03IncretinIdentityEvidence,
   batch03FixedCombinationIdentityEvidence,
   batch03Sglt2CombinationIdentityEvidence,
+  batch04AceIdentityEvidence,
+  batch04AceReviewRules,
+  batch04ArbArniIdentityEvidence,
+  batch04ArbArniReviewRules,
+  batch04BetaBlockerIdentityEvidence,
+  batch04BetaBlockerReviewRules,
+  batch04DhpCcbIdentityEvidence,
+  batch04DhpCcbReviewRules,
+  batch04NonDhpCcbIdentityEvidence,
+  batch04NonDhpCcbReviewRules,
+  batch04ThiazideDiureticIdentityEvidence,
+  batch04ThiazideDiureticReviewRules,
+  batch04LoopDiureticIdentityEvidence,
+  batch04LoopDiureticReviewRules,
+  batch04PotassiumSparingIdentityEvidence,
+  batch04PotassiumSparingReviewRules,
+  batch04OtherAntihypertensiveIdentityEvidence,
+  batch04OtherAntihypertensiveReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -23,6 +41,14 @@ import { batch03SemaglutideSearchMedications } from './batch03-semaglutide';
 import { batch03IncretinIngredients, batch03IncretinSearchMedications } from './batch03-incretin';
 import { batch03FixedCombinationIngredients, batch03FixedCombinationMedications } from './batch03-fixed-combinations';
 import { batch03Sglt2CombinationIngredients, batch03Sglt2CombinationMedications } from './batch03-sglt2-combinations';
+import { batch04AceIngredients, batch04AceMedications, batch04ArbArniIngredients, batch04ArbArniMedications } from './batch04-raas';
+import { batch04BetaBlockerIngredients, batch04BetaBlockerMedications } from './batch04-beta-blockers';
+import { batch04DhpCcbIngredients, batch04DhpCcbMedications } from './batch04-dhp-ccbs';
+import { batch04NonDhpCcbIngredients, batch04NonDhpCcbMedications } from './batch04-nondhp-ccbs';
+import { batch04ThiazideDiureticIngredients, batch04ThiazideDiureticMedications } from './batch04-thiazide-diuretics';
+import { batch04LoopDiureticIngredients, batch04LoopDiureticMedications } from './batch04-loop-diuretics';
+import { batch04PotassiumSparingIngredients, batch04PotassiumSparingMedications } from './batch04-potassium-sparing';
+import { batch04OtherAntihypertensiveIngredients, batch04OtherAntihypertensiveMedications } from './batch04-other-antihypertensives';
 
 export interface UiModifierDefinition {
   id: string;
@@ -40,8 +66,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-03-sglt2-combination-terminology-1',
-  generatedAt: '2026-09-18T01:15:00Z',
+  version: 'med-batch-04-other-antihypertensive-terminology-1',
+  generatedAt: '2026-09-29T13:34:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -52,6 +78,15 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch03IncretinIngredients,
     ...batch03FixedCombinationIngredients,
     ...batch03Sglt2CombinationIngredients,
+    ...batch04AceIngredients,
+    ...batch04ArbArniIngredients,
+    ...batch04BetaBlockerIngredients,
+    ...batch04DhpCcbIngredients,
+    ...batch04NonDhpCcbIngredients,
+    ...batch04ThiazideDiureticIngredients,
+    ...batch04LoopDiureticIngredients,
+    ...batch04PotassiumSparingIngredients,
+    ...batch04OtherAntihypertensiveIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -102,8 +137,16 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch03IncretinSearchMedications,
     ...batch03FixedCombinationMedications,
     ...batch03Sglt2CombinationMedications,
-    { id: 'MED-lisinopril', canonicalName: 'Lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
-    { id: 'MED-metoprolol', canonicalName: 'Metoprolol', ingredientIds: ['ING-metoprolol'], drugClassIds: ['CLS-beta-blocker'] },
+    ...batch04AceMedications,
+    ...batch04ArbArniMedications,
+    ...batch04BetaBlockerMedications,
+    ...batch04DhpCcbMedications,
+    ...batch04NonDhpCcbMedications,
+    ...batch04ThiazideDiureticMedications,
+    ...batch04LoopDiureticMedications,
+    ...batch04PotassiumSparingMedications,
+    ...batch04OtherAntihypertensiveMedications,
+    { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
 });
@@ -112,13 +155,27 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
 export const activeRules: ClinicalRule[] = [];
 export const activePolicies: PolicyOverlay[] = [];
 
-// Replace only the superseded first-release glargine candidate in the assembled shadow release.
-// The historical source record remains unchanged. Other first-release and Batch 01 content is retained.
+// Replace superseded first-release glargine, lisinopril, and formulation-unspecified metoprolol candidates only in the assembled shadow release.
+// Their historical source records remain unchanged; current batch review guards become the shadow behavior.
 export const clinicalReviewRules: ClinicalRule[] = [
-  ...firstReleaseCandidateRules.filter((rule) => !rule.scope.medicationIds?.includes('MED-insulin-glargine')),
+  ...firstReleaseCandidateRules.filter(
+    (rule) =>
+      !rule.scope.medicationIds?.includes('MED-insulin-glargine') &&
+      !rule.scope.medicationIds?.includes('MED-lisinopril') &&
+      !rule.scope.medicationIds?.includes('MED-metoprolol'),
+  ),
   ...antithromboticCandidateRules,
   ...diabetesWorkflowRules,
   ...batch03ReviewRules,
+  ...batch04AceReviewRules,
+  ...batch04ArbArniReviewRules,
+  ...batch04BetaBlockerReviewRules,
+  ...batch04DhpCcbReviewRules,
+  ...batch04NonDhpCcbReviewRules,
+  ...batch04ThiazideDiureticReviewRules,
+  ...batch04LoopDiureticReviewRules,
+  ...batch04PotassiumSparingReviewRules,
+  ...batch04OtherAntihypertensiveReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -128,6 +185,15 @@ export const clinicalReviewEvidenceBundles = [
   batch03IncretinIdentityEvidence,
   batch03FixedCombinationIdentityEvidence,
   batch03Sglt2CombinationIdentityEvidence,
+  batch04AceIdentityEvidence,
+  batch04ArbArniIdentityEvidence,
+  batch04BetaBlockerIdentityEvidence,
+  batch04DhpCcbIdentityEvidence,
+  batch04NonDhpCcbIdentityEvidence,
+  batch04ThiazideDiureticIdentityEvidence,
+  batch04LoopDiureticIdentityEvidence,
+  batch04PotassiumSparingIdentityEvidence,
+  batch04OtherAntihypertensiveIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
@@ -286,7 +352,8 @@ export const modifierDefinitions: Record<string, UiModifierDefinition> = {
   },
   'MOD-raas-indication': {
     id: 'MOD-raas-indication',
-    label: 'ACE inhibitor indication',
+    label: 'RAAS inhibitor indication',
+    description: 'Clarify whether the RAAS inhibitor is used for hypertension, HFrEF, or another/unclear indication before local anesthesia policy is applied.',
     inputType: 'select',
     options: [
       { value: 'HYPERTENSION', label: 'Hypertension' },

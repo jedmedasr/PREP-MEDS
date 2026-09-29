@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T06:54:00Z",
+  "generatedAt": "2026-09-29T13:43:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
-    "activeBranch": "med-batch-03-sglt2-glp1",
-    "basedOnHeadSha": "fba47fdfc257444ea9eb3d7e9a7bca794e287be2",
+    "activeBranch": "med-batch-04-cardiovascular-core",
+    "basedOnHeadSha": "72321b8544dc010a7b1e11c63180e5c339ed38e6",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -25,9 +25,9 @@
   },
   "counters": {
     "totalBatches": 14,
-    "engineeringVerifiedBatches": 2,
+    "engineeringVerifiedBatches": 3,
     "inProgressBatches": 1,
-    "plannedBatches": 11,
+    "plannedBatches": 10,
     "clinicallyApprovedBatches": 0,
     "localPolicyApprovedBatches": 0
   },
@@ -43,13 +43,52 @@
       "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
       "batchNumber": 1,
       "batchName": "Antithrombotics",
-      "medicationClassFamily": ["anticoagulants", "antiplatelets"],
-      "genericIngredient": ["warfarin", "apixaban", "rivaroxaban", "dabigatran", "edoxaban", "unfractionated heparin", "enoxaparin", "dalteparin", "fondaparinux", "aspirin", "clopidogrel", "prasugrel", "ticagrelor", "dipyridamole", "cilostazol"],
-      "importantBrandedProducts": ["Eliquis", "Xarelto", "Pradaxa", "Savaysa", "Plavix", "Effient", "Brilinta", "Aggrenox"],
-      "importantFormulationDistinctions": ["oral versus parenteral anticoagulants", "single versus dual antiplatelet therapy"],
-      "routeDistinctions": ["oral", "subcutaneous", "intravenous"],
-      "releaseFormDistinctions": ["aspirin/dipyridamole extended release"],
-      "combinationProductDistinctions": ["aspirin/dipyridamole as a whole product"],
+      "medicationClassFamily": [
+        "anticoagulants",
+        "antiplatelets"
+      ],
+      "genericIngredient": [
+        "warfarin",
+        "apixaban",
+        "rivaroxaban",
+        "dabigatran",
+        "edoxaban",
+        "unfractionated heparin",
+        "enoxaparin",
+        "dalteparin",
+        "fondaparinux",
+        "aspirin",
+        "clopidogrel",
+        "prasugrel",
+        "ticagrelor",
+        "dipyridamole",
+        "cilostazol"
+      ],
+      "importantBrandedProducts": [
+        "Eliquis",
+        "Xarelto",
+        "Pradaxa",
+        "Savaysa",
+        "Plavix",
+        "Effient",
+        "Brilinta",
+        "Aggrenox"
+      ],
+      "importantFormulationDistinctions": [
+        "oral versus parenteral anticoagulants",
+        "single versus dual antiplatelet therapy"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "subcutaneous",
+        "intravenous"
+      ],
+      "releaseFormDistinctions": [
+        "aspirin/dipyridamole extended release"
+      ],
+      "combinationProductDistinctions": [
+        "aspirin/dipyridamole as a whole product"
+      ],
       "developmentStatus": "ENGINEERING_VERIFIED",
       "evidenceStatus": "EVIDENCE_RECONCILED",
       "terminologyStatus": "IMPLEMENTED",
@@ -66,13 +105,84 @@
       "batchId": "MED-BATCH-02-DIABETES-CORE",
       "batchNumber": 2,
       "batchName": "Diabetes core / insulin",
-      "medicationClassFamily": ["biguanides", "sulfonylureas", "meglitinides", "DPP-4 inhibitors", "TZDs", "alpha-glucosidase inhibitors", "other diabetes agents", "insulin"],
-      "genericIngredient": ["metformin", "glipizide", "glyburide", "glimepiride", "repaglinide", "nateglinide", "sitagliptin", "saxagliptin", "linagliptin", "alogliptin", "pioglitazone", "rosiglitazone", "acarbose", "miglitol", "pramlintide", "bromocriptine", "colesevelam", "insulin lispro", "insulin aspart", "insulin glulisine", "regular human insulin", "NPH insulin", "insulin degludec", "insulin glargine", "insulin detemir", "inhaled human insulin"],
-      "importantBrandedProducts": ["Glucophage", "Glucotrol XL", "Humalog", "Lyumjev", "Admelog", "NovoLog", "Fiasp", "Apidra", "Lantus", "Basaglar", "Semglee", "Toujeo", "Tresiba", "Levemir", "Humulin", "Novolin", "Afrezza"],
-      "importantFormulationDistinctions": ["metformin IR versus ER", "glipizide IR versus ER", "insulin concentration/formulation identity", "premixed insulin ratios", "inhaled insulin cartridge strength identity"],
-      "routeDistinctions": ["oral", "subcutaneous", "inhaled"],
-      "releaseFormDistinctions": ["IR", "ER/XR", "premixed", "concentrated"],
-      "combinationProductDistinctions": ["premixed human and analog insulin products remain whole formulation identities"],
+      "medicationClassFamily": [
+        "biguanides",
+        "sulfonylureas",
+        "meglitinides",
+        "DPP-4 inhibitors",
+        "TZDs",
+        "alpha-glucosidase inhibitors",
+        "other diabetes agents",
+        "insulin"
+      ],
+      "genericIngredient": [
+        "metformin",
+        "glipizide",
+        "glyburide",
+        "glimepiride",
+        "repaglinide",
+        "nateglinide",
+        "sitagliptin",
+        "saxagliptin",
+        "linagliptin",
+        "alogliptin",
+        "pioglitazone",
+        "rosiglitazone",
+        "acarbose",
+        "miglitol",
+        "pramlintide",
+        "bromocriptine",
+        "colesevelam",
+        "insulin lispro",
+        "insulin aspart",
+        "insulin glulisine",
+        "regular human insulin",
+        "NPH insulin",
+        "insulin degludec",
+        "insulin glargine",
+        "insulin detemir",
+        "inhaled human insulin"
+      ],
+      "importantBrandedProducts": [
+        "Glucophage",
+        "Glucotrol XL",
+        "Humalog",
+        "Lyumjev",
+        "Admelog",
+        "NovoLog",
+        "Fiasp",
+        "Apidra",
+        "Lantus",
+        "Basaglar",
+        "Semglee",
+        "Toujeo",
+        "Tresiba",
+        "Levemir",
+        "Humulin",
+        "Novolin",
+        "Afrezza"
+      ],
+      "importantFormulationDistinctions": [
+        "metformin IR versus ER",
+        "glipizide IR versus ER",
+        "insulin concentration/formulation identity",
+        "premixed insulin ratios",
+        "inhaled insulin cartridge strength identity"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "subcutaneous",
+        "inhaled"
+      ],
+      "releaseFormDistinctions": [
+        "IR",
+        "ER/XR",
+        "premixed",
+        "concentrated"
+      ],
+      "combinationProductDistinctions": [
+        "premixed human and analog insulin products remain whole formulation identities"
+      ],
       "developmentStatus": "ENGINEERING_VERIFIED",
       "evidenceStatus": "EVIDENCE_RECONCILED",
       "terminologyStatus": "IMPLEMENTED",
@@ -89,13 +199,84 @@
       "batchId": "MED-BATCH-03-SGLT2-GLP1",
       "batchNumber": 3,
       "batchName": "SGLT2 / GLP-1 / GIP / metabolic combinations",
-      "medicationClassFamily": ["SGLT2 inhibitors", "SGLT2 fixed combinations", "GLP-1 receptor agonists", "GIP/GLP-1 agonists", "fixed insulin/GLP-1"],
-      "genericIngredient": ["empagliflozin", "dapagliflozin", "canagliflozin", "ertugliflozin", "bexagliflozin", "semaglutide", "tirzepatide", "dulaglutide", "liraglutide", "exenatide", "lixisenatide", "albiglutide", "orforglipron"],
-      "importantBrandedProducts": ["Jardiance", "Farxiga", "Invokana", "Steglatro", "Brenzavvy", "Glyxambi", "Xigduo XR", "Segluromet", "Steglujan", "Synjardy", "Synjardy XR", "Trijardy XR", "Invokamet", "Invokamet XR", "Qtern", "Qternmet XR", "Ozempic", "Rybelsus", "Wegovy", "Mounjaro", "Zepbound", "Trulicity", "Victoza", "Saxenda", "Byetta", "Bydureon BCise", "Adlyxin", "Tanzeum", "Foundayo", "Soliqua", "Xultophy"],
-      "importantFormulationDistinctions": ["oral versus injectable GLP-1 products including semaglutide and orforglipron", "immediate versus extended-release exenatide", "current branded versus source-distinct generic exenatide", "current versus historical products", "whole-product fixed combinations"],
-      "routeDistinctions": ["oral", "subcutaneous"],
-      "releaseFormDistinctions": ["IR", "XR/ER", "oral film-coated tablet", "injectable solution", "extended-release injectable suspension"],
-      "combinationProductDistinctions": ["SGLT2/metformin and SGLT2/DPP-4 products", "triple oral combinations", "Soliqua and Xultophy as indivisible fixed products"],
+      "medicationClassFamily": [
+        "SGLT2 inhibitors",
+        "SGLT2 fixed combinations",
+        "GLP-1 receptor agonists",
+        "GIP/GLP-1 agonists",
+        "fixed insulin/GLP-1"
+      ],
+      "genericIngredient": [
+        "empagliflozin",
+        "dapagliflozin",
+        "canagliflozin",
+        "ertugliflozin",
+        "bexagliflozin",
+        "semaglutide",
+        "tirzepatide",
+        "dulaglutide",
+        "liraglutide",
+        "exenatide",
+        "lixisenatide",
+        "albiglutide",
+        "orforglipron"
+      ],
+      "importantBrandedProducts": [
+        "Jardiance",
+        "Farxiga",
+        "Invokana",
+        "Steglatro",
+        "Brenzavvy",
+        "Glyxambi",
+        "Xigduo XR",
+        "Segluromet",
+        "Steglujan",
+        "Synjardy",
+        "Synjardy XR",
+        "Trijardy XR",
+        "Invokamet",
+        "Invokamet XR",
+        "Qtern",
+        "Qternmet XR",
+        "Ozempic",
+        "Rybelsus",
+        "Wegovy",
+        "Mounjaro",
+        "Zepbound",
+        "Trulicity",
+        "Victoza",
+        "Saxenda",
+        "Byetta",
+        "Bydureon BCise",
+        "Adlyxin",
+        "Tanzeum",
+        "Foundayo",
+        "Soliqua",
+        "Xultophy"
+      ],
+      "importantFormulationDistinctions": [
+        "oral versus injectable GLP-1 products including semaglutide and orforglipron",
+        "immediate versus extended-release exenatide",
+        "current branded versus source-distinct generic exenatide",
+        "current versus historical products",
+        "whole-product fixed combinations"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "subcutaneous"
+      ],
+      "releaseFormDistinctions": [
+        "IR",
+        "XR/ER",
+        "oral film-coated tablet",
+        "injectable solution",
+        "extended-release injectable suspension"
+      ],
+      "combinationProductDistinctions": [
+        "SGLT2/metformin and SGLT2/DPP-4 products",
+        "triple oral combinations",
+        "Soliqua and Xultophy as indivisible fixed products"
+      ],
       "plannedProductCandidates": [
         {
           "candidateId": "MED-exenatide-generic-anda206697",
@@ -103,8 +284,8 @@
           "product": "unbranded exenatide injection",
           "route": "SUBCUTANEOUS",
           "application": "ANDA206697",
-          "status": "PLANNED",
-          "sourceStatus": "SOURCE_RESEARCH"
+          "status": "ENGINEERING_VERIFIED",
+          "sourceStatus": "EVIDENCE_RECONCILED"
         },
         {
           "candidateId": "MED-orforglipron-foundayo",
@@ -112,34 +293,409 @@
           "product": "Foundayo",
           "route": "ORAL",
           "application": "NDA220934",
-          "status": "PLANNED",
-          "sourceStatus": "SOURCE_RESEARCH"
+          "status": "ENGINEERING_VERIFIED",
+          "sourceStatus": "EVIDENCE_RECONCILED"
         }
       ],
-      "developmentStatus": "IN_PROGRESS",
-      "evidenceStatus": "SOURCE_RESEARCH",
+      "developmentStatus": "ENGINEERING_VERIFIED",
+      "evidenceStatus": "EVIDENCE_RECONCILED",
       "terminologyStatus": "IMPLEMENTED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "IN_PROGRESS",
-      "engineeringVerificationStatus": "PARTIALLY_VERIFIED",
+      "testingStatus": "ENGINEERING_VERIFIED",
+      "engineeringVerificationStatus": "ENGINEERING_VERIFIED",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Implement current Amneal exenatide ANDA206697 and Foundayo/orforglipron as source-linked, ambiguity-safe, clinician-review-only identities; then reconcile remaining Batch 03 evidence/policy gaps without creating a universal autonomous GLP-1 hold interval."
+      "nextEngineeringWork": "Accountable clinical/local-policy review remains pending; no further engineering cluster is required before Batch 04 work."
     },
     {
       "batchId": "MED-BATCH-04-CARDIOVASCULAR-RAAS",
       "batchNumber": 4,
       "batchName": "Cardiovascular I: blood pressure / RAAS / diuretics",
-      "medicationClassFamily": ["ACE inhibitors", "ARBs", "ARNI", "beta blockers", "calcium-channel blockers", "diuretics", "other antihypertensives"],
-      "genericIngredient": ["lisinopril", "enalapril", "benazepril", "ramipril", "captopril", "losartan", "valsartan", "irbesartan", "candesartan", "olmesartan", "telmisartan", "sacubitril/valsartan", "metoprolol", "carvedilol", "atenolol", "propranolol", "bisoprolol", "nadolol", "labetalol", "amlodipine", "nifedipine", "diltiazem", "verapamil", "felodipine", "hydrochlorothiazide", "chlorthalidone", "indapamide", "furosemide", "torsemide", "bumetanide", "spironolactone", "eplerenone", "amiloride", "triamterene", "clonidine", "hydralazine", "minoxidil", "doxazosin", "prazosin"],
-      "importantBrandedProducts": ["Entresto"],
-      "importantFormulationDistinctions": ["metoprolol tartrate versus succinate", "nifedipine/diltiazem/verapamil release forms", "clonidine oral versus transdermal"],
-      "routeDistinctions": ["oral", "transdermal"],
-      "releaseFormDistinctions": ["IR versus ER where clinically relevant"],
-      "combinationProductDistinctions": ["sacubitril/valsartan whole-product identity"],
+      "medicationClassFamily": [
+        "ACE inhibitors",
+        "ARBs",
+        "ARNI",
+        "beta blockers",
+        "calcium-channel blockers",
+        "diuretics",
+        "other antihypertensives"
+      ],
+      "genericIngredient": [
+        "lisinopril",
+        "enalapril",
+        "benazepril",
+        "ramipril",
+        "captopril",
+        "losartan",
+        "valsartan",
+        "irbesartan",
+        "candesartan",
+        "olmesartan",
+        "telmisartan",
+        "sacubitril/valsartan",
+        "metoprolol",
+        "carvedilol",
+        "atenolol",
+        "propranolol",
+        "bisoprolol",
+        "nadolol",
+        "labetalol",
+        "amlodipine",
+        "nifedipine",
+        "diltiazem",
+        "verapamil",
+        "felodipine",
+        "hydrochlorothiazide",
+        "chlorthalidone",
+        "indapamide",
+        "furosemide",
+        "torsemide",
+        "bumetanide",
+        "spironolactone",
+        "eplerenone",
+        "amiloride",
+        "triamterene",
+        "clonidine",
+        "hydralazine",
+        "minoxidil",
+        "doxazosin",
+        "prazosin"
+      ],
+      "importantBrandedProducts": [
+        "Entresto"
+      ],
+      "importantFormulationDistinctions": [
+        "metoprolol tartrate versus succinate",
+        "nifedipine/diltiazem/verapamil release forms",
+        "clonidine oral versus transdermal"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "transdermal"
+      ],
+      "releaseFormDistinctions": [
+        "IR versus ER where clinically relevant"
+      ],
+      "combinationProductDistinctions": [
+        "sacubitril/valsartan whole-product identity",
+        "potassium-sparing/hydrochlorothiazide fixed combinations remain whole-product identities"
+      ],
+      "developmentStatus": "ENGINEERING_VERIFIED",
+      "evidenceStatus": "EVIDENCE_RECONCILED",
+      "terminologyStatus": "IMPLEMENTED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "ENGINEERING_VERIFIED",
+      "engineeringVerificationStatus": "ENGINEERING_VERIFIED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedEngineeringClusters": [
+        {
+          "clusterId": "ACE-INHIBITOR-CORE",
+          "medicationIds": [
+            "MED-lisinopril",
+            "MED-enalapril",
+            "MED-benazepril",
+            "MED-ramipril",
+            "MED-captopril"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "a5ec6a5ac523c0010bbfe9371968d1f8028e9f4b",
+          "workflowRunId": 36538856120,
+          "jobId": 109309197986,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "ARB-ARNI-CORE",
+          "medicationIds": [
+            "MED-losartan",
+            "MED-valsartan",
+            "MED-irbesartan",
+            "MED-candesartan",
+            "MED-olmesartan",
+            "MED-telmisartan",
+            "MED-sacubitril-valsartan",
+            "MED-sacubitril-valsartan-entresto-tablet",
+            "MED-sacubitril-valsartan-entresto-sprinkle"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "937650ae2e85af4311de3aea67d8a295d998ddae",
+          "workflowRunId": 36540317967,
+          "jobId": 109313901520,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "BETA-BLOCKER-CORE",
+          "medicationIds": [
+            "MED-metoprolol-tartrate",
+            "MED-metoprolol-succinate-er",
+            "MED-carvedilol",
+            "MED-atenolol",
+            "MED-propranolol",
+            "MED-bisoprolol",
+            "MED-nadolol",
+            "MED-labetalol"
+          ],
+          "testedHeadSha": "9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35",
+          "workflowRunId": 36541857215,
+          "jobId": 109318929319,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "DHP-CCB-CORE",
+          "medicationIds": [
+            "MED-amlodipine",
+            "MED-nifedipine-capsule",
+            "MED-nifedipine-er",
+            "MED-felodipine-er"
+          ],
+          "testedHeadSha": "275fc265ced74540f4b6acf24cf9cdd8b8ed2fcf",
+          "workflowRunId": 36543181848,
+          "jobId": 109323219824,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "NON-DHP-CCB-CORE",
+          "medicationIds": [
+            "MED-diltiazem-tablet",
+            "MED-diltiazem-er-capsule-twice-daily",
+            "MED-diltiazem-cartia-xt-er-capsule-once-daily",
+            "MED-diltiazem-er-tablet-once-daily",
+            "MED-verapamil-tablet",
+            "MED-verapamil-er-tablet",
+            "MED-verapamil-verelan-pm-er-capsule"
+          ],
+          "testedHeadSha": "77c0caacd87be55f9eb1e273052e0d596dfc4cc7",
+          "workflowRunId": 36544480381,
+          "jobId": 109327454652,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "THIAZIDE-DIURETIC-CORE",
+          "medicationIds": [
+            "MED-hydrochlorothiazide",
+            "MED-chlorthalidone",
+            "MED-indapamide"
+          ],
+          "testedHeadSha": "07a80f434bcfc13ae5e7d91a76d458a919f57c15",
+          "workflowRunId": 36545501747,
+          "jobId": 109330797200,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "LOOP-DIURETIC-ROUTE-FORM-CORE",
+          "medicationIds": [
+            "MED-furosemide-tablet",
+            "MED-furosemide-oral-solution",
+            "MED-furosemide-injection",
+            "MED-furosemide-furoscix-readyflow",
+            "MED-furosemide-furoscix-on-body-infusor",
+            "MED-torsemide-tablet",
+            "MED-torsemide-demadex-injection",
+            "MED-bumetanide-tablet",
+            "MED-bumetanide-injection",
+            "MED-bumetanide-enbumyst-nasal-spray"
+          ],
+          "testedHeadSha": "23e437902778857fdddf94b779a554c87154c35c",
+          "workflowRunId": 36551524288,
+          "jobId": 109350580342,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "POTASSIUM-SPARING-MRA-COMBINATION-CORE",
+          "medicationIds": [
+            "MED-spironolactone-tablet",
+            "MED-spironolactone-carospir-suspension",
+            "MED-eplerenone-tablet",
+            "MED-amiloride-tablet",
+            "MED-triamterene-dyrenium-capsule",
+            "MED-spironolactone-hydrochlorothiazide-tablet",
+            "MED-amiloride-hydrochlorothiazide-tablet",
+            "MED-triamterene-hydrochlorothiazide-capsule",
+            "MED-triamterene-hydrochlorothiazide-tablet"
+          ],
+          "testedHeadSha": "e5ab221640b1d71c09c904593f3ec45bbedaf2e8",
+          "workflowRunId": 36570660685,
+          "jobId": 109413544712,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "OTHER-ANTIHYPERTENSIVE-ROUTE-FORM-CORE",
+          "medicationIds": [
+            "MED-clonidine-tablet",
+            "MED-clonidine-catapres-tts-patch",
+            "MED-hydralazine-tablet",
+            "MED-minoxidil-oral-tablet",
+            "MED-doxazosin-tablet",
+            "MED-prazosin-capsule"
+          ],
+          "testedHeadSha": "72321b8544dc010a7b1e11c63180e5c339ed38e6",
+          "workflowRunId": 36577754303,
+          "jobId": 109437656169,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Batch 04 engineering scope is complete. Accountable clinical/local-policy review remains pending; proceed to the Batch 05 antiarrhythmic core without merging, deploying, or activating this content."
+    },
+    {
+      "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
+      "batchNumber": 5,
+      "batchName": "Cardiovascular II: rhythm / angina / lipids",
+      "medicationClassFamily": [
+        "antiarrhythmics",
+        "other cardiac drugs",
+        "statins",
+        "nonstatin lipid therapy"
+      ],
+      "genericIngredient": [
+        "amiodarone",
+        "dronedarone",
+        "sotalol",
+        "flecainide",
+        "propafenone",
+        "dofetilide",
+        "mexiletine",
+        "quinidine",
+        "digoxin",
+        "ivabradine",
+        "nitrates",
+        "ranolazine",
+        "atorvastatin",
+        "rosuvastatin",
+        "simvastatin",
+        "pravastatin",
+        "lovastatin",
+        "pitavastatin",
+        "ezetimibe",
+        "fenofibrate",
+        "gemfibrozil",
+        "evolocumab",
+        "alirocumab",
+        "inclisiran",
+        "bempedoic acid"
+      ],
+      "importantBrandedProducts": [
+        "Repatha",
+        "Praluent",
+        "Leqvio",
+        "Nexletol"
+      ],
+      "importantFormulationDistinctions": [
+        "nitrate route/release distinctions",
+        "oral versus injectable lipid therapy"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "sublingual",
+        "transdermal",
+        "subcutaneous"
+      ],
+      "releaseFormDistinctions": [
+        "IR/ER where relevant"
+      ],
+      "combinationProductDistinctions": [
+        "clinically relevant lipid combinations"
+      ],
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE",
+      "nextEngineeringWork": "Antiarrhythmic core: amiodarone, dronedarone, sotalol, flecainide, propafenone, dofetilide, mexiletine, and quinidine; reconcile authoritative route/release identities and retain review-only routing."
+    },
+    {
+      "batchId": "MED-BATCH-06-GI-BOWEL-IRON-IBD",
+      "batchNumber": 6,
+      "batchName": "Gastrointestinal / bowel / iron / IBD",
+      "medicationClassFamily": [
+        "acid suppression",
+        "mucosal/antacid agents",
+        "antiemetics/prokinetics",
+        "constipation/motility",
+        "antidiarrheal/bile-acid agents",
+        "antispasmodics",
+        "IBD therapies",
+        "iron"
+      ],
+      "genericIngredient": [
+        "omeprazole",
+        "pantoprazole",
+        "esomeprazole",
+        "lansoprazole",
+        "rabeprazole",
+        "dexlansoprazole",
+        "famotidine",
+        "sucralfate",
+        "bismuth products",
+        "ondansetron",
+        "promethazine",
+        "prochlorperazine",
+        "metoclopramide",
+        "polyethylene glycol",
+        "bisacodyl",
+        "senna",
+        "docusate",
+        "lactulose",
+        "linaclotide",
+        "plecanatide",
+        "lubiprostone",
+        "prucalopride",
+        "tenapanor",
+        "naloxegol",
+        "naldemedine",
+        "methylnaltrexone",
+        "loperamide",
+        "diphenoxylate/atropine",
+        "cholestyramine",
+        "colestipol",
+        "colesevelam",
+        "dicyclomine",
+        "hyoscyamine",
+        "mesalamine",
+        "sulfasalazine",
+        "budesonide",
+        "immunomodulators",
+        "IBD biologics",
+        "IBD small molecules",
+        "oral iron",
+        "IV iron"
+      ],
+      "importantBrandedProducts": [],
+      "importantFormulationDistinctions": [
+        "PPI delayed-release formulations",
+        "mesalamine and budesonide formulation/release distinctions",
+        "oral versus IV iron"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "rectal",
+        "subcutaneous",
+        "intravenous"
+      ],
+      "releaseFormDistinctions": [
+        "IR/ER/delayed release where relevant"
+      ],
+      "combinationProductDistinctions": [
+        "diphenoxylate/atropine whole-product identity"
+      ],
       "developmentStatus": "PLANNED",
       "evidenceStatus": "SOURCE_RESEARCH",
       "terminologyStatus": "PLANNED",
@@ -153,134 +709,546 @@
       "productionActivationStatus": "NOT_ACTIVE"
     },
     {
-      "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
-      "batchNumber": 5,
-      "batchName": "Cardiovascular II: rhythm / angina / lipids",
-      "medicationClassFamily": ["antiarrhythmics", "other cardiac drugs", "statins", "nonstatin lipid therapy"],
-      "genericIngredient": ["amiodarone", "dronedarone", "sotalol", "flecainide", "propafenone", "dofetilide", "mexiletine", "quinidine", "digoxin", "ivabradine", "nitrates", "ranolazine", "atorvastatin", "rosuvastatin", "simvastatin", "pravastatin", "lovastatin", "pitavastatin", "ezetimibe", "fenofibrate", "gemfibrozil", "evolocumab", "alirocumab", "inclisiran", "bempedoic acid"],
-      "importantBrandedProducts": ["Repatha", "Praluent", "Leqvio", "Nexletol"],
-      "importantFormulationDistinctions": ["nitrate route/release distinctions", "oral versus injectable lipid therapy"],
-      "routeDistinctions": ["oral", "sublingual", "transdermal", "subcutaneous"],
-      "releaseFormDistinctions": ["IR/ER where relevant"],
-      "combinationProductDistinctions": ["clinically relevant lipid combinations"],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
-    },
-    {
-      "batchId": "MED-BATCH-06-GI-BOWEL-IRON-IBD",
-      "batchNumber": 6,
-      "batchName": "Gastrointestinal / bowel / iron / IBD",
-      "medicationClassFamily": ["acid suppression", "mucosal/antacid agents", "antiemetics/prokinetics", "constipation/motility", "antidiarrheal/bile-acid agents", "antispasmodics", "IBD therapies", "iron"],
-      "genericIngredient": ["omeprazole", "pantoprazole", "esomeprazole", "lansoprazole", "rabeprazole", "dexlansoprazole", "famotidine", "sucralfate", "bismuth products", "ondansetron", "promethazine", "prochlorperazine", "metoclopramide", "polyethylene glycol", "bisacodyl", "senna", "docusate", "lactulose", "linaclotide", "plecanatide", "lubiprostone", "prucalopride", "tenapanor", "naloxegol", "naldemedine", "methylnaltrexone", "loperamide", "diphenoxylate/atropine", "cholestyramine", "colestipol", "colesevelam", "dicyclomine", "hyoscyamine", "mesalamine", "sulfasalazine", "budesonide", "immunomodulators", "IBD biologics", "IBD small molecules", "oral iron", "IV iron"],
-      "importantBrandedProducts": [],
-      "importantFormulationDistinctions": ["PPI delayed-release formulations", "mesalamine and budesonide formulation/release distinctions", "oral versus IV iron"],
-      "routeDistinctions": ["oral", "rectal", "subcutaneous", "intravenous"],
-      "releaseFormDistinctions": ["IR/ER/delayed release where relevant"],
-      "combinationProductDistinctions": ["diphenoxylate/atropine whole-product identity"],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
-    },
-    {
       "batchId": "MED-BATCH-07-PSYCHIATRY",
       "batchNumber": 7,
       "batchName": "Psychiatry",
-      "medicationClassFamily": ["SSRIs", "SNRIs", "other antidepressants", "TCAs", "MAOIs", "antipsychotics", "mood stabilizers", "benzodiazepines", "ADHD/stimulants"],
-      "genericIngredient": ["sertraline", "escitalopram", "citalopram", "fluoxetine", "paroxetine", "fluvoxamine", "venlafaxine", "desvenlafaxine", "duloxetine", "bupropion", "mirtazapine", "trazodone", "vortioxetine", "vilazodone", "amitriptyline", "nortriptyline", "imipramine", "clomipramine", "phenelzine", "tranylcypromine", "selegiline", "quetiapine", "olanzapine", "risperidone", "aripiprazole", "ziprasidone", "haloperidol", "clozapine", "lithium", "valproate/divalproex", "lamotrigine", "carbamazepine", "alprazolam", "lorazepam", "clonazepam", "diazepam", "temazepam", "methylphenidate", "amphetamine formulations", "lisdexamfetamine", "atomoxetine", "guanfacine", "clonidine"],
-      "importantBrandedProducts": ["Vyvanse"],
-      "importantFormulationDistinctions": ["bupropion IR/SR/XL", "stimulant IR/ER", "oral versus long-acting injectable antipsychotics"],
-      "routeDistinctions": ["oral", "transdermal", "intramuscular"],
-      "releaseFormDistinctions": ["IR/SR/XL where clinically relevant"],
+      "medicationClassFamily": [
+        "SSRIs",
+        "SNRIs",
+        "other antidepressants",
+        "TCAs",
+        "MAOIs",
+        "antipsychotics",
+        "mood stabilizers",
+        "benzodiazepines",
+        "ADHD/stimulants"
+      ],
+      "genericIngredient": [
+        "sertraline",
+        "escitalopram",
+        "citalopram",
+        "fluoxetine",
+        "paroxetine",
+        "fluvoxamine",
+        "venlafaxine",
+        "desvenlafaxine",
+        "duloxetine",
+        "bupropion",
+        "mirtazapine",
+        "trazodone",
+        "vortioxetine",
+        "vilazodone",
+        "amitriptyline",
+        "nortriptyline",
+        "imipramine",
+        "clomipramine",
+        "phenelzine",
+        "tranylcypromine",
+        "selegiline",
+        "quetiapine",
+        "olanzapine",
+        "risperidone",
+        "aripiprazole",
+        "ziprasidone",
+        "haloperidol",
+        "clozapine",
+        "lithium",
+        "valproate/divalproex",
+        "lamotrigine",
+        "carbamazepine",
+        "alprazolam",
+        "lorazepam",
+        "clonazepam",
+        "diazepam",
+        "temazepam",
+        "methylphenidate",
+        "amphetamine formulations",
+        "lisdexamfetamine",
+        "atomoxetine",
+        "guanfacine",
+        "clonidine"
+      ],
+      "importantBrandedProducts": [
+        "Vyvanse"
+      ],
+      "importantFormulationDistinctions": [
+        "bupropion IR/SR/XL",
+        "stimulant IR/ER",
+        "oral versus long-acting injectable antipsychotics"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "transdermal",
+        "intramuscular"
+      ],
+      "releaseFormDistinctions": [
+        "IR/SR/XL where clinically relevant"
+      ],
       "combinationProductDistinctions": [],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE"
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
       "batchNumber": 8,
       "batchName": "Pain / OUD / neurologic",
-      "medicationClassFamily": ["opioids", "OUD/chronic opioid therapy", "nonopioid analgesics", "neuropathic pain", "antiepileptics", "Parkinson therapies", "migraine therapies"],
-      "genericIngredient": ["oxycodone", "hydrocodone", "morphine", "hydromorphone", "fentanyl", "tramadol", "codeine", "tapentadol", "buprenorphine", "buprenorphine/naloxone", "methadone", "naltrexone", "acetaminophen", "ibuprofen", "naproxen", "celecoxib", "meloxicam", "diclofenac", "gabapentin", "pregabalin", "levetiracetam", "lacosamide", "topiramate", "zonisamide", "oxcarbazepine", "phenytoin", "phenobarbital", "carbidopa/levodopa", "dopamine agonists", "MAO-B inhibitors", "COMT inhibitors", "triptans", "gepants", "migraine preventive biologics"],
-      "importantBrandedProducts": ["Suboxone"],
-      "importantFormulationDistinctions": ["opioid IR/ER", "fentanyl transdermal", "buprenorphine route/formulation", "naltrexone oral versus injectable", "carbidopa/levodopa formulations"],
-      "routeDistinctions": ["oral", "sublingual", "buccal", "transdermal", "intranasal", "subcutaneous", "intramuscular"],
-      "releaseFormDistinctions": ["IR/ER where clinically relevant"],
-      "combinationProductDistinctions": ["buprenorphine/naloxone and opioid/acetaminophen products as whole identities"],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
+      "medicationClassFamily": [
+        "opioids",
+        "OUD/chronic opioid therapy",
+        "nonopioid analgesics",
+        "neuropathic pain",
+        "antiepileptics",
+        "Parkinson therapies",
+        "migraine therapies"
+      ],
+      "genericIngredient": [
+        "oxycodone",
+        "hydrocodone",
+        "morphine",
+        "hydromorphone",
+        "fentanyl",
+        "tramadol",
+        "codeine",
+        "tapentadol",
+        "buprenorphine",
+        "buprenorphine/naloxone",
+        "methadone",
+        "naltrexone",
+        "acetaminophen",
+        "ibuprofen",
+        "naproxen",
+        "celecoxib",
+        "meloxicam",
+        "diclofenac",
+        "gabapentin",
+        "pregabalin",
+        "levetiracetam",
+        "lacosamide",
+        "topiramate",
+        "zonisamide",
+        "oxcarbazepine",
+        "phenytoin",
+        "phenobarbital",
+        "carbidopa/levodopa",
+        "dopamine agonists",
+        "MAO-B inhibitors",
+        "COMT inhibitors",
+        "triptans",
+        "gepants",
+        "migraine preventive biologics"
+      ],
+      "importantBrandedProducts": [
+        "Suboxone"
+      ],
+      "importantFormulationDistinctions": [
+        "opioid IR/ER",
+        "fentanyl transdermal",
+        "buprenorphine route/formulation",
+        "naltrexone oral versus injectable",
+        "carbidopa/levodopa formulations"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "sublingual",
+        "buccal",
+        "transdermal",
+        "intranasal",
+        "subcutaneous",
+        "intramuscular"
+      ],
+      "releaseFormDistinctions": [
+        "IR/ER where clinically relevant"
+      ],
+      "combinationProductDistinctions": [
+        "buprenorphine/naloxone and opioid/acetaminophen products as whole identities"
+      ],
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE"
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
       "batchNumber": 9,
       "batchName": "Endocrine / hormonal / urologic",
-      "medicationClassFamily": ["thyroid", "corticosteroids", "hormonal therapies", "breast/prostate endocrine therapy", "urologic"],
-      "genericIngredient": ["levothyroxine", "liothyronine", "desiccated thyroid", "methimazole", "propylthiouracil", "prednisone", "prednisolone", "methylprednisolone", "dexamethasone", "hydrocortisone", "estrogen products", "progesterone/progestins", "oral contraceptives", "testosterone products", "tamoxifen", "raloxifene", "aromatase inhibitors", "antiandrogens", "GnRH therapies", "tamsulosin", "alfuzosin", "silodosin", "finasteride", "dutasteride", "oxybutynin", "solifenacin", "mirabegron", "tadalafil"],
+      "medicationClassFamily": [
+        "thyroid",
+        "corticosteroids",
+        "hormonal therapies",
+        "breast/prostate endocrine therapy",
+        "urologic"
+      ],
+      "genericIngredient": [
+        "levothyroxine",
+        "liothyronine",
+        "desiccated thyroid",
+        "methimazole",
+        "propylthiouracil",
+        "prednisone",
+        "prednisolone",
+        "methylprednisolone",
+        "dexamethasone",
+        "hydrocortisone",
+        "estrogen products",
+        "progesterone/progestins",
+        "oral contraceptives",
+        "testosterone products",
+        "tamoxifen",
+        "raloxifene",
+        "aromatase inhibitors",
+        "antiandrogens",
+        "GnRH therapies",
+        "tamsulosin",
+        "alfuzosin",
+        "silodosin",
+        "finasteride",
+        "dutasteride",
+        "oxybutynin",
+        "solifenacin",
+        "mirabegron",
+        "tadalafil"
+      ],
       "importantBrandedProducts": [],
-      "importantFormulationDistinctions": ["chronic systemic steroid/adrenal-suppression context", "oral versus transdermal/injectable hormones"],
-      "routeDistinctions": ["oral", "transdermal", "injectable"],
-      "releaseFormDistinctions": ["ER urologic formulations where relevant"],
-      "combinationProductDistinctions": ["combination contraceptives"],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
+      "importantFormulationDistinctions": [
+        "chronic systemic steroid/adrenal-suppression context",
+        "oral versus transdermal/injectable hormones"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "transdermal",
+        "injectable"
+      ],
+      "releaseFormDistinctions": [
+        "ER urologic formulations where relevant"
+      ],
+      "combinationProductDistinctions": [
+        "combination contraceptives"
+      ],
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE"
     },
     {
       "batchId": "MED-BATCH-10-PULMONARY-ALLERGY",
       "batchNumber": 10,
       "batchName": "Pulmonary / allergy",
-      "medicationClassFamily": ["rescue bronchodilators", "inhaled controllers", "other pulmonary therapies", "allergy therapies", "asthma/allergy biologics"],
-      "genericIngredient": ["albuterol", "levalbuterol", "inhaled corticosteroids", "LABAs", "LAMAs", "montelukast", "roflumilast", "theophylline", "pulmonary-hypertension agents", "cetirizine", "loratadine", "fexofenadine", "diphenhydramine", "hydroxyzine", "nasal corticosteroids", "decongestants", "omalizumab", "mepolizumab", "benralizumab", "dupilumab", "tezepelumab"],
+      "medicationClassFamily": [
+        "rescue bronchodilators",
+        "inhaled controllers",
+        "other pulmonary therapies",
+        "allergy therapies",
+        "asthma/allergy biologics"
+      ],
+      "genericIngredient": [
+        "albuterol",
+        "levalbuterol",
+        "inhaled corticosteroids",
+        "LABAs",
+        "LAMAs",
+        "montelukast",
+        "roflumilast",
+        "theophylline",
+        "pulmonary-hypertension agents",
+        "cetirizine",
+        "loratadine",
+        "fexofenadine",
+        "diphenhydramine",
+        "hydroxyzine",
+        "nasal corticosteroids",
+        "decongestants",
+        "omalizumab",
+        "mepolizumab",
+        "benralizumab",
+        "dupilumab",
+        "tezepelumab"
+      ],
       "importantBrandedProducts": [],
-      "importantFormulationDistinctions": ["MDI versus nebulized", "inhaler device/formulation identity", "theophylline release forms"],
-      "routeDistinctions": ["inhaled", "oral", "intranasal", "subcutaneous"],
-      "releaseFormDistinctions": ["IR/ER where relevant"],
-      "combinationProductDistinctions": ["ICS/LABA and triple inhalers as whole products"],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
+      "importantFormulationDistinctions": [
+        "MDI versus nebulized",
+        "inhaler device/formulation identity",
+        "theophylline release forms"
+      ],
+      "routeDistinctions": [
+        "inhaled",
+        "oral",
+        "intranasal",
+        "subcutaneous"
+      ],
+      "releaseFormDistinctions": [
+        "IR/ER where relevant"
+      ],
+      "combinationProductDistinctions": [
+        "ICS/LABA and triple inhalers as whole products"
+      ],
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE"
     },
     {
       "batchId": "MED-BATCH-11-RHEUM-IMMUNOSUPPRESSION-TRANSPLANT",
       "batchNumber": 11,
       "batchName": "Rheumatology / immunosuppression / transplant",
-      "medicationClassFamily": ["conventional DMARDs", "biologic DMARDs", "JAK inhibitors", "transplant immunosuppression"],
-      "genericIngredient": ["methotrexate", "hydroxychloroquine", "leflunomide", "sulfasalazine", "TNF inhibitors", "IL inhibitors", "B-cell/T-cell therapies", "tofacitinib", "upadacitinib", "baricitinib", "tacrolimus", "cyclosporine", "sirolimus", "everolimus", "mycophenolate", "azathioprine", "chronic corticosteroids"],
+      "medicationClassFamily": [
+        "conventional DMARDs",
+        "biologic DMARDs",
+        "JAK inhibitors",
+        "transplant immunosuppression"
+      ],
+      "genericIngredient": [
+        "methotrexate",
+        "hydroxychloroquine",
+        "leflunomide",
+        "sulfasalazine",
+        "TNF inhibitors",
+        "IL inhibitors",
+        "B-cell/T-cell therapies",
+        "tofacitinib",
+        "upadacitinib",
+        "baricitinib",
+        "tacrolimus",
+        "cyclosporine",
+        "sirolimus",
+        "everolimus",
+        "mycophenolate",
+        "azathioprine",
+        "chronic corticosteroids"
+      ],
       "importantBrandedProducts": [],
-      "importantFormulationDistinctions": ["tacrolimus IR/ER", "injectable versus infusion biologics"],
-      "routeDistinctions": ["oral", "subcutaneous", "intravenous"],
-      "releaseFormDistinctions": ["IR/ER where relevant"],
+      "importantFormulationDistinctions": [
+        "tacrolimus IR/ER",
+        "injectable versus infusion biologics"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "subcutaneous",
+        "intravenous"
+      ],
+      "releaseFormDistinctions": [
+        "IR/ER where relevant"
+      ],
       "combinationProductDistinctions": [],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE"
     },
     {
       "batchId": "MED-BATCH-12-HIV-HEPATITIS-ANTIINFECTIVE-ONCOLOGY",
       "batchNumber": 12,
       "batchName": "HIV / hepatitis / anti-infective / oncology",
-      "medicationClassFamily": ["HIV ART/PrEP", "hepatitis B antivirals", "hepatitis C DAAs", "chronic anti-infectives", "oncology"],
-      "genericIngredient": ["integrase inhibitors", "NRTIs", "NNRTIs", "protease inhibitors", "tenofovir formulations", "entecavir", "current hepatitis C DAAs", "chronic antibacterial/antifungal/antiviral therapies", "common oral anticancer agents", "targeted therapies", "endocrine anticancer therapy"],
+      "medicationClassFamily": [
+        "HIV ART/PrEP",
+        "hepatitis B antivirals",
+        "hepatitis C DAAs",
+        "chronic anti-infectives",
+        "oncology"
+      ],
+      "genericIngredient": [
+        "integrase inhibitors",
+        "NRTIs",
+        "NNRTIs",
+        "protease inhibitors",
+        "tenofovir formulations",
+        "entecavir",
+        "current hepatitis C DAAs",
+        "chronic antibacterial/antifungal/antiviral therapies",
+        "common oral anticancer agents",
+        "targeted therapies",
+        "endocrine anticancer therapy"
+      ],
       "importantBrandedProducts": [],
-      "importantFormulationDistinctions": ["tenofovir DF versus AF", "oral versus injectable/infusion oncology therapy"],
-      "routeDistinctions": ["oral", "injectable", "intravenous"],
+      "importantFormulationDistinctions": [
+        "tenofovir DF versus AF",
+        "oral versus injectable/infusion oncology therapy"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "injectable",
+        "intravenous"
+      ],
       "releaseFormDistinctions": [],
-      "combinationProductDistinctions": ["major current fixed-combination ART, PrEP, and hepatitis C products remain whole identities"],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
+      "combinationProductDistinctions": [
+        "major current fixed-combination ART, PrEP, and hepatitis C products remain whole identities"
+      ],
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE"
     },
     {
       "batchId": "MED-BATCH-13-BONE-GOUT-WEIGHT",
       "batchNumber": 13,
       "batchName": "Bone / gout / other metabolic / non-GLP-1 weight",
-      "medicationClassFamily": ["osteoporosis/bone", "gout", "non-GLP-1 weight management"],
-      "genericIngredient": ["alendronate", "risedronate", "ibandronate", "zoledronic acid", "denosumab", "teriparatide", "abaloparatide", "romosozumab", "allopurinol", "febuxostat", "colchicine", "probenecid", "phentermine", "phentermine/topiramate", "naltrexone/bupropion", "orlistat"],
-      "importantBrandedProducts": ["Qsymia", "Contrave", "Xenical", "Alli"],
-      "importantFormulationDistinctions": ["oral versus IV/subcutaneous bone therapy"],
-      "routeDistinctions": ["oral", "intravenous", "subcutaneous"],
-      "releaseFormDistinctions": ["ER where relevant"],
-      "combinationProductDistinctions": ["phentermine/topiramate and naltrexone/bupropion whole-product identities"],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
+      "medicationClassFamily": [
+        "osteoporosis/bone",
+        "gout",
+        "non-GLP-1 weight management"
+      ],
+      "genericIngredient": [
+        "alendronate",
+        "risedronate",
+        "ibandronate",
+        "zoledronic acid",
+        "denosumab",
+        "teriparatide",
+        "abaloparatide",
+        "romosozumab",
+        "allopurinol",
+        "febuxostat",
+        "colchicine",
+        "probenecid",
+        "phentermine",
+        "phentermine/topiramate",
+        "naltrexone/bupropion",
+        "orlistat"
+      ],
+      "importantBrandedProducts": [
+        "Qsymia",
+        "Contrave",
+        "Xenical",
+        "Alli"
+      ],
+      "importantFormulationDistinctions": [
+        "oral versus IV/subcutaneous bone therapy"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "intravenous",
+        "subcutaneous"
+      ],
+      "releaseFormDistinctions": [
+        "ER where relevant"
+      ],
+      "combinationProductDistinctions": [
+        "phentermine/topiramate and naltrexone/bupropion whole-product identities"
+      ],
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE"
     },
     {
       "batchId": "MED-BATCH-14-OTC-SUPPLEMENTS-CANNABINOIDS",
       "batchNumber": 14,
       "batchName": "OTC / supplements / herbals / cannabinoids / miscellaneous",
-      "medicationClassFamily": ["vitamins/minerals", "supplements/herbals", "cannabinoids", "other OTC", "unknown/foreign/unresolved"],
-      "genericIngredient": ["multivitamins", "vitamin D", "calcium", "magnesium", "iron", "zinc", "potassium supplements", "vitamin E", "fish oil/omega-3", "turmeric/curcumin", "garlic", "ginkgo", "ginseng", "saw palmetto", "valerian", "St. John's wort", "glucosamine/chondroitin", "CoQ10", "melatonin", "cannabis/marijuana", "THC products", "CBD products", "sleep aids", "cold/flu products", "antacids", "laxatives", "antihistamines"],
+      "medicationClassFamily": [
+        "vitamins/minerals",
+        "supplements/herbals",
+        "cannabinoids",
+        "other OTC",
+        "unknown/foreign/unresolved"
+      ],
+      "genericIngredient": [
+        "multivitamins",
+        "vitamin D",
+        "calcium",
+        "magnesium",
+        "iron",
+        "zinc",
+        "potassium supplements",
+        "vitamin E",
+        "fish oil/omega-3",
+        "turmeric/curcumin",
+        "garlic",
+        "ginkgo",
+        "ginseng",
+        "saw palmetto",
+        "valerian",
+        "St. John's wort",
+        "glucosamine/chondroitin",
+        "CoQ10",
+        "melatonin",
+        "cannabis/marijuana",
+        "THC products",
+        "CBD products",
+        "sleep aids",
+        "cold/flu products",
+        "antacids",
+        "laxatives",
+        "antihistamines"
+      ],
       "importantBrandedProducts": [],
-      "importantFormulationDistinctions": ["cannabinoid route/use-pattern ambiguity", "multi-ingredient OTC active-ingredient resolution", "foreign/unknown medication fail-closed behavior"],
-      "routeDistinctions": ["oral", "inhaled", "topical", "other/unknown"],
-      "releaseFormDistinctions": ["unknown when not explicit"],
-      "combinationProductDistinctions": ["multi-ingredient OTC and cannabinoid products remain whole identities until active ingredients are verified"],
-      "developmentStatus": "PLANNED", "evidenceStatus": "SOURCE_RESEARCH", "terminologyStatus": "PLANNED", "ruleReviewStatus": "REVIEW_REQUIRED", "testingStatus": "PLANNED", "engineeringVerificationStatus": "PLANNED", "clinicalReviewStatus": "REVIEW_REQUIRED", "localPolicyStatus": "REVIEW_REQUIRED", "mergeStatus": "NOT_MERGED", "deploymentStatus": "NOT_DEPLOYED", "productionActivationStatus": "NOT_ACTIVE"
+      "importantFormulationDistinctions": [
+        "cannabinoid route/use-pattern ambiguity",
+        "multi-ingredient OTC active-ingredient resolution",
+        "foreign/unknown medication fail-closed behavior"
+      ],
+      "routeDistinctions": [
+        "oral",
+        "inhaled",
+        "topical",
+        "other/unknown"
+      ],
+      "releaseFormDistinctions": [
+        "unknown when not explicit"
+      ],
+      "combinationProductDistinctions": [
+        "multi-ingredient OTC and cannabinoid products remain whole identities until active ingredients are verified"
+      ],
+      "developmentStatus": "PLANNED",
+      "evidenceStatus": "SOURCE_RESEARCH",
+      "terminologyStatus": "PLANNED",
+      "ruleReviewStatus": "REVIEW_REQUIRED",
+      "testingStatus": "PLANNED",
+      "engineeringVerificationStatus": "PLANNED",
+      "clinicalReviewStatus": "REVIEW_REQUIRED",
+      "localPolicyStatus": "REVIEW_REQUIRED",
+      "mergeStatus": "NOT_MERGED",
+      "deploymentStatus": "NOT_DEPLOYED",
+      "productionActivationStatus": "NOT_ACTIVE"
     }
   ]
 }

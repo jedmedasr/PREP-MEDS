@@ -148,9 +148,7 @@ export {
   batch03HistoricalIncretinMarketingStatusAtoms,
 } from './batch03-historical-incretin-identity-evidence.js';
 export { batch03HistoricalIncretinReviewRules };
-export type {
-  Batch03HistoricalIncretinIdentityDefinition,
-} from './batch03-historical-incretin-identity-evidence.js';
+export type { Batch03HistoricalIncretinIdentityDefinition } from './batch03-historical-incretin-identity-evidence.js';
 export {
   batch03CurrentIncretinExpansionDefinitions,
   batch03CurrentIncretinExpansionSources,
@@ -158,9 +156,7 @@ export {
   batch03CurrentIncretinExpansionProcedureReviewAtoms,
 } from './batch03-current-incretin-expansion-evidence.js';
 export { batch03CurrentIncretinExpansionReviewRules };
-export type {
-  Batch03CurrentIncretinExpansionDefinition,
-} from './batch03-current-incretin-expansion-evidence.js';
+export type { Batch03CurrentIncretinExpansionDefinition } from './batch03-current-incretin-expansion-evidence.js';
 export {
   batch03FixedCombinationIdentityEvidence,
   batch03FixedCombinationIdentityDefinitions,
@@ -176,10 +172,7 @@ export {
   batch03Sglt2CombinationProcedureReviewAtoms,
 } from './batch03-sglt2-combination-identity-evidence.js';
 export type { Batch03Sglt2CombinationIdentityDefinition } from './batch03-sglt2-combination-identity-evidence.js';
-export {
-  batch03QternIdentityEvidence,
-  batch03QternReviewRules,
-};
+export { batch03QternIdentityEvidence, batch03QternReviewRules };
 export {
   batch03QternIdentityDefinitions,
   batch03QternIdentitySources,
@@ -187,6 +180,80 @@ export {
   batch03QternProcedureReviewAtoms,
 } from './batch03-qtern-identity-evidence.js';
 export type { Batch03QternIdentityDefinition } from './batch03-qtern-identity-evidence.js';
+export {
+  batch04AceIdentityEvidence,
+  batch04AceIdentityDefinitions,
+  batch04AceIdentitySources,
+  batch04AceIdentityAtoms,
+  batch04AceReviewRules,
+} from './batch04-ace-inhibitor-evidence.js';
+export type { Batch04AceIdentityDefinition } from './batch04-ace-inhibitor-evidence.js';
+export {
+  batch04ArbArniIdentityEvidence,
+  batch04ArbArniIdentityDefinitions,
+  batch04ArbArniIdentitySources,
+  batch04ArbArniIdentityAtoms,
+  batch04ArbArniReviewRules,
+} from './batch04-arb-arni-evidence.js';
+export type { Batch04ArbArniIdentityDefinition } from './batch04-arb-arni-evidence.js';
+export {
+  batch04BetaBlockerIdentityEvidence,
+  batch04BetaBlockerIdentityDefinitions,
+  batch04BetaBlockerIdentitySources,
+  batch04BetaBlockerIdentityAtoms,
+  batch04BetaBlockerReviewRules,
+} from './batch04-beta-blocker-evidence.js';
+export type { Batch04BetaBlockerIdentityDefinition } from './batch04-beta-blocker-evidence.js';
+export {
+  batch04DhpCcbIdentityEvidence,
+  batch04DhpCcbIdentityDefinitions,
+  batch04DhpCcbIdentitySources,
+  batch04DhpCcbIdentityAtoms,
+  batch04DhpCcbReviewRules,
+} from './batch04-dhp-ccb-evidence.js';
+export type { Batch04DhpCcbIdentityDefinition } from './batch04-dhp-ccb-evidence.js';
+export {
+  batch04NonDhpCcbIdentityEvidence,
+  batch04NonDhpCcbIdentityDefinitions,
+  batch04NonDhpCcbIdentitySources,
+  batch04NonDhpCcbIdentityAtoms,
+  batch04NonDhpCcbMarketingStatusAtoms,
+  batch04NonDhpCcbReviewRules,
+} from './batch04-nondhp-ccb-evidence.js';
+export type { Batch04NonDhpCcbIdentityDefinition } from './batch04-nondhp-ccb-evidence.js';
+export {
+  batch04ThiazideDiureticIdentityEvidence,
+  batch04ThiazideDiureticIdentityDefinitions,
+  batch04ThiazideDiureticIdentitySources,
+  batch04ThiazideDiureticIdentityAtoms,
+  batch04ThiazideDiureticReviewRules,
+} from './batch04-thiazide-diuretic-evidence.js';
+export type { Batch04ThiazideDiureticIdentityDefinition } from './batch04-thiazide-diuretic-evidence.js';
+export {
+  batch04LoopDiureticIdentityEvidence,
+  batch04LoopDiureticIdentityDefinitions,
+  batch04LoopDiureticIdentitySources,
+  batch04LoopDiureticIdentityAtoms,
+  batch04LoopDiureticMarketingStatusAtoms,
+  batch04LoopDiureticReviewRules,
+} from './batch04-loop-diuretic-evidence.js';
+export type { Batch04LoopDiureticIdentityDefinition } from './batch04-loop-diuretic-evidence.js';
+export {
+  batch04PotassiumSparingIdentityEvidence,
+  batch04PotassiumSparingIdentityDefinitions,
+  batch04PotassiumSparingIdentitySources,
+  batch04PotassiumSparingIdentityAtoms,
+  batch04PotassiumSparingReviewRules,
+} from './batch04-potassium-sparing-evidence.js';
+export type { Batch04PotassiumSparingIdentityDefinition } from './batch04-potassium-sparing-evidence.js';
+export {
+  batch04OtherAntihypertensiveIdentityEvidence,
+  batch04OtherAntihypertensiveIdentityDefinitions,
+  batch04OtherAntihypertensiveIdentitySources,
+  batch04OtherAntihypertensiveIdentityAtoms,
+  batch04OtherAntihypertensiveReviewRules,
+} from './batch04-other-antihypertensive-evidence.js';
+export type { Batch04OtherAntihypertensiveIdentityDefinition } from './batch04-other-antihypertensive-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
