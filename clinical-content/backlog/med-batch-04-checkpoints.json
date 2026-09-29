@@ -4,9 +4,9 @@
   "branch": "med-batch-04-cardiovascular-core",
   "baseBranch": "med-batch-03-sglt2-glp1",
   "baseVerifiedHeadSha": "0c7f59959383a641b8c6704b7a823e0fa4c0e8cd",
-  "updatedAt": "2026-09-29T07:40:00Z",
-  "updatedAtBasis": "Batch 04 opened from the exact-head-green Batch 03 engineering checkpoint. The five-drug ACE inhibitor core is implemented with current direct DailyMed provenance and a timing-free local-policy review guard; exact-head CI is pending.",
-  "engineeringStatus": "IN_PROGRESS",
+  "updatedAt": "2026-09-29T07:50:00Z",
+  "updatedAtBasis": "The five-drug ACE inhibitor core passed exact-head pull-request CI at a5ec6a5ac523c0010bbfe9371968d1f8028e9f4b. Batch 04 remains in progress and review-required; the next executable cluster is ARB/ARNI identity and local-policy reconciliation.",
+  "engineeringStatus": "PARTIALLY_VERIFIED",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -14,7 +14,7 @@
   "productionActivationStatus": "NOT_ACTIVE",
   "checkpoints": {
     "A_SCOPE_AND_EVIDENCE_AUDIT": {
-      "status": "IN_PROGRESS",
+      "status": "ACE_CORE_COMPLETE_NEXT_CLUSTER_PENDING",
       "scope": "DRAFT/review-required cardiovascular blood-pressure, RAAS, beta-blocker, calcium-channel-blocker, diuretic, and other antihypertensive identity/evidence reconciliation for EGD, colonoscopy, and combined procedures. Local anesthesia policy and clinically approved timing remain separately governed.",
       "completed": [
         "Verified representative current direct DailyMed provenance for oral lisinopril, enalapril, benazepril, ramipril, and captopril generic identities.",
@@ -27,26 +27,32 @@
       ]
     },
     "B_TERMINOLOGY_AUDIT": {
-      "status": "IN_PROGRESS",
+      "status": "ACE_CORE_ENGINEERING_VERIFIED",
       "notes": "Lisinopril retains its historical generic medication identifier. Enalapril, benazepril, ramipril, and captopril are added as generic single-ingredient ACE inhibitor identities. Salt wording resolves only to the corresponding ingredient identity; no NDC/manufacturer identity is inferred from generic wording."
     },
     "C_RULE_AUDIT": {
-      "status": "IN_PROGRESS",
+      "status": "ACE_CORE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
       "notes": "RULE-B4-ACE-INHIBITOR-POLICY-REVIEW-001 covers the five ACE inhibitors across EGD, colonoscopy, and combined procedures. It requires MOD-raas-indication, returns LOCAL_POLICY_REQUIRED, references existing AHA/ACC and STOP-or-NOT evidence, depends on POLICY-ANESTHESIA-RAAS, and contains no timing rule. The legacy RULE-LISINOPRIL-POLICY-001 remains preserved historically but is filtered from the assembled shadow release to avoid duplicate competing lisinopril rules. Production activeRules remain empty."
     },
     "D_TEST_AUDIT": {
-      "status": "PENDING_EXACT_HEAD_CI",
-      "notes": "Evidence tests pin five DailyMed source records and governance flags. Web regressions validate terminology, absence of the legacy assembled lisinopril rule, the new class guard, and timing-free LOCAL_POLICY_REQUIRED routing across all three procedure types."
+      "status": "PASS_EXACT_HEAD",
+      "notes": "Evidence tests pin five DailyMed source records and governance flags. Web regressions validate terminology, absence of the legacy assembled lisinopril rule, the new class guard, and timing-free LOCAL_POLICY_REQUIRED routing across all three procedure types. Exact-head workflow 36538856120 / job 109309197986 passed."
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "PENDING_EXACT_HEAD_CI",
+      "status": "ACE_CORE_ENGINEERING_VERIFIED",
       "notes": "ACE inhibitor source evidence, terminology, shadow-rule assembly, and regressions are integrated. No production clinical rule, dose arithmetic, substitution, market-availability inference, or peri-procedural hold/restart interval was activated."
     },
     "F_CI_REPAIR": {
-      "status": "PENDING_EXACT_HEAD_CI"
+      "status": "PASS",
+      "testedHeadSha": "a5ec6a5ac523c0010bbfe9371968d1f8028e9f4b",
+      "workflowRunId": 36538856120,
+      "jobId": 109309197986,
+      "conclusion": "success"
     },
     "G_PR_FINALIZATION": {
-      "status": "NOT_STARTED"
+      "status": "DRAFT_PR_OPEN",
+      "pullRequest": 14,
+      "url": "https://github.com/jedmedasr/PREP-MEDS/pull/14"
     }
   },
   "evidenceState": {
@@ -71,16 +77,19 @@
     "timingRuleAuthorized": false
   },
   "ci": {
-    "status": "PENDING",
-    "testedHeadSha": null,
-    "workflowRunId": null,
-    "jobId": null,
-    "note": "Open the Batch 04 draft PR, then require schema validation, strict TypeScript, full regression tests, and production web build to pass on the exact head before advancing to the ARB/ARNI cluster."
+    "status": "PASS",
+    "testedHeadSha": "a5ec6a5ac523c0010bbfe9371968d1f8028e9f4b",
+    "workflowName": "quality",
+    "workflowRunNumber": 216,
+    "workflowRunId": 36538856120,
+    "jobId": 109309197986,
+    "conclusion": "success",
+    "scope": "ACE inhibitor core; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
   },
   "blockers": [],
-  "nextWorkItem": "Open the Batch 04 draft PR and verify exact-head CI for the ACE inhibitor core. If green, update this checkpoint with the implementation SHA/workflow/job receipt, then continue with the ARB/ARNI cluster without creating a universal outpatient-endoscopy RAAS hold interval.",
-  "advanceToNextClusterAllowed": false,
+  "nextWorkItem": "Implement the ARB/ARNI cluster (losartan, valsartan, irbesartan, candesartan, olmesartan, telmisartan, and sacubitril/valsartan) with direct authoritative identity provenance, whole-product preservation for sacubitril/valsartan, indication-aware review-only routing, and no universal outpatient-endoscopy RAAS timing interval.",
+  "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
-  "pullRequest": null
+  "pullRequest": 14
 }
