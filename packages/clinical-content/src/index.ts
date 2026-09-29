@@ -333,3 +333,13 @@ export {
   periproceduralBuprenorphineReviewRules,
 } from './periprocedural-buprenorphine-evidence.js';
 export type { PeriproceduralBuprenorphineIdentityDefinition } from './periprocedural-buprenorphine-evidence.js';
+
+
+export {
+  periproceduralMethadoneNaltrexoneIdentityEvidence,
+  periproceduralMethadoneNaltrexoneIdentityDefinitions,
+  periproceduralMethadoneNaltrexoneIdentitySources,
+  periproceduralMethadoneNaltrexoneIdentityAtoms,
+  periproceduralMethadoneNaltrexoneReviewRules,
+} from './periprocedural-methadone-naltrexone-evidence.js';
+export type { PeriproceduralMethadoneNaltrexoneIdentityDefinition } from './periprocedural-methadone-naltrexone-evidence.js';
