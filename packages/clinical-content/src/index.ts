@@ -314,3 +314,12 @@ export const firstReleaseMetadata = {
     'MED-atorvastatin',
   ],
 } as const;
+
+export {
+  batch05OtherCardiacIdentityEvidence,
+  batch05OtherCardiacIdentityDefinitions,
+  batch05OtherCardiacIdentitySources,
+  batch05OtherCardiacIdentityAtoms,
+  batch05OtherCardiacReviewRules,
+} from './batch05-other-cardiac-evidence.js';
+export type { Batch05OtherCardiacIdentityDefinition } from './batch05-other-cardiac-evidence.js';
