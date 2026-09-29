@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T19:16:00Z",
+  "generatedAt": "2026-09-29T19:31:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
+    "basedOnHeadSha": "835595fea9a3d3b0945f5a4a75027d84f022c498",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -114,23 +114,34 @@
         },
         "nextCluster": {
           "priority": 1,
-          "name": "Antiplatelet direct-label hardening",
+          "name": "Injectable anticoagulant direct-label hardening",
           "medications": [
-            "aspirin",
-            "dipyridamole",
-            "aspirin/extended-release dipyridamole",
-            "cilostazol",
-            "ticlopidine"
+            "enoxaparin",
+            "unfractionated heparin",
+            "fondaparinux",
+            "dalteparin"
           ],
           "constraints": [
-            "preserve aspirin indication distinctions",
-            "preserve monotherapy versus DAPT/concomitant-antithrombotic context",
-            "preserve extended-release and whole-product combination identity",
-            "no autonomous interruption or restart timing"
+            "preserve therapeutic versus prophylactic intent",
+            "preserve renal-function and indication context",
+            "preserve recent-thrombotic-event and concomitant-antithrombotic context",
+            "no autonomous interruption, bridging, or restart timing"
           ]
+        },
+        "antiplatelets": {
+          "status": "ENGINEERING_VERIFIED",
+          "verifiedHeadSha": "835595fea9a3d3b0945f5a4a75027d84f022c498",
+          "completed": [
+            "aspirin indication-boundary provenance",
+            "dipyridamole tablet provenance",
+            "aspirin/extended-release dipyridamole whole-product provenance",
+            "cilostazol tablet provenance",
+            "ticlopidine tablet provenance"
+          ],
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       },
-      "nextEngineeringWork": "Complete the high-priority antiplatelet direct-label hardening cluster before lower peri-procedural-impact medication work."
+      "nextEngineeringWork": "Complete injectable anticoagulant direct-label hardening before lower peri-procedural-impact medication work."
     },
     {
       "batchId": "MED-BATCH-02-DIABETES-CORE",

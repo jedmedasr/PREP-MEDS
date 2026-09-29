@@ -2,7 +2,7 @@
   "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
   "branch": "med-batch-01-antithrombotics",
   "pullRequest": 11,
-  "updatedAt": "2026-09-29T19:16:00Z",
+  "updatedAt": "2026-09-29T19:31:00Z",
   "engineeringStatus": "COMPLETE",
   "clinicalStatus": "HUMAN_REVIEW_REQUIRED",
   "completionMeaning": "Engineering checkpoint completion for draft shadow content, not clinical approval or a complete drug-specific timing protocol.",
@@ -76,6 +76,28 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "I_ANTIPLATELET_DIRECT_LABEL_HARDENING": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "835595fea9a3d3b0945f5a4a75027d84f022c498",
+      "commits": [
+        "835595fea9a3d3b0945f5a4a75027d84f022c498"
+      ],
+      "notes": "Added direct DailyMed product-level provenance for delayed-release aspirin, dipyridamole tablets, AGGRENOX whole-product extended-release dipyridamole/aspirin, cilostazol, and ticlopidine. Aspirin secondary-prevention scope remains indication-specific; DAPT, concomitant antithrombotic, recent ACS/stent, timing, and restart remain review-only.",
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 276,
+        "workflowRunId": 36615606269,
+        "jobId": 109567690388,
+        "conclusion": "success",
+        "verifiedHeadSha": "835595fea9a3d3b0945f5a4a75027d84f022c498",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "ci": {
@@ -94,11 +116,11 @@
     "scopeNote": "Receipt applies to the exact verified code head. This subsequent checkpoint-only commit must also have its own CI result inspected before advancement. Never infer green CI for a newer head from this receipt."
   },
   "lastWorkTrigger": "LIVE_CHAT",
-  "nextCheckpoint": "I_ANTIPLATELET_DIRECT_LABEL_HARDENING",
+  "nextCheckpoint": "J_INJECTABLE_ANTICOAGULANT_DIRECT_LABEL_HARDENING",
   "nextBatch": {
     "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
     "branch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "action": "Harden aspirin, dipyridamole, aspirin/extended-release dipyridamole whole-product, cilostazol, and ticlopidine with direct authoritative provenance and review-only regressions."
+    "action": "Harden enoxaparin, unfractionated heparin, fondaparinux, and dalteparin with direct authoritative provenance while preserving therapeutic-versus-prophylactic intent, renal context, and review-only timing."
   },
   "clinicalReviewDependencies": [
     "Primary-source locators, label versions and evidence applicability still require accountable clinical verification.",

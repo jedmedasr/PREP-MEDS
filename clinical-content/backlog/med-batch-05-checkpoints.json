@@ -4,7 +4,7 @@
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "baseBranch": "med-batch-04-cardiovascular-core",
   "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
-  "updatedAt": "2026-09-29T19:16:00Z",
+  "updatedAt": "2026-09-29T19:31:00Z",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -97,6 +97,23 @@
         "conclusion": "success",
         "verifiedHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328"
       }
+    },
+    "I_REPRIORITIZED_ANTIPLATELET_LABEL_HARDENING": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "835595fea9a3d3b0945f5a4a75027d84f022c498",
+      "completed": [
+        "Added direct DailyMed provenance for aspirin, dipyridamole, aspirin/extended-release dipyridamole, cilostazol, and ticlopidine.",
+        "Preserved aspirin indication boundaries, monotherapy versus DAPT/concomitant-antithrombotic context, recent ACS/stent uncertainty, and AGGRENOX whole-product/release identity.",
+        "All evidence remains DRAFT and all operational timing remains absent or clinician/local-policy reviewed."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 276,
+        "workflowRunId": 36615606269,
+        "jobId": 109567690388,
+        "conclusion": "success",
+        "verifiedHeadSha": "835595fea9a3d3b0945f5a4a75027d84f022c498"
+      }
     }
   },
   "evidenceState": {
@@ -113,7 +130,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "High-priority antiplatelet direct-label hardening: aspirin, dipyridamole, aspirin/extended-release dipyridamole whole-product identity, cilostazol, and ticlopidine; keep timing review-only and fail closed.",
+  "nextWorkItem": "Complete injectable anticoagulant direct-label hardening in priority order: enoxaparin, unfractionated heparin, fondaparinux, then dalteparin; preserve therapeutic/prophylactic intent, renal context, and timing/restart uncertainty.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
