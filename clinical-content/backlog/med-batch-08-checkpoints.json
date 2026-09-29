@@ -1,0 +1,63 @@
+{
+  "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-09-29T21:05:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_BUPRENORPHINE_ROUTE_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+      "products": [
+        "buprenorphine sublingual tablet",
+        "SUBOXONE buprenorphine/naloxone soluble film",
+        "ZUBSOLV buprenorphine/naloxone sublingual orally disintegrating tablet",
+        "BELBUCA buprenorphine buccal film",
+        "BUTRANS buprenorphine extended-release transdermal patch",
+        "SUBLOCADE buprenorphine extended-release subcutaneous injection"
+      ],
+      "preservation": [
+        "Bare buprenorphine remains ambiguous across sublingual, buccal, transdermal, and subcutaneous products.",
+        "SUBOXONE film and ZUBSOLV tablet remain distinct whole-product buprenorphine/naloxone identities.",
+        "OUD and severe-persistent-pain label contexts remain distinct.",
+        "No substitution, route conversion, dose conversion, interruption, continuation, sedation, analgesia, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 280,
+        "workflowRunId": 36629110384,
+        "jobId": 109613529284,
+        "conclusion": "success",
+        "verifiedHeadSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "primarySourceFamilies": [
+      "FDA/DailyMed direct prescription labeling"
+    ],
+    "representativeIdentityOnly": true,
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Methadone oral tablet versus oral solution/concentrate and naltrexone oral tablet versus VIVITROL extended-release intramuscular injection; retain indication/formulation ambiguity and timing-free clinician review.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}

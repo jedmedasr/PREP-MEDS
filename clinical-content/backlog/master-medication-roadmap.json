@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T20:03:00Z",
+  "generatedAt": "2026-09-29T21:05:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "5960969597176d3eecd74744152f372443a2e4b2",
+    "basedOnHeadSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -672,7 +672,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Statin core: atorvastatin, rosuvastatin, simvastatin, pravastatin, lovastatin, and pitavastatin; preserve formulation distinctions and review-only routing.",
+      "nextEngineeringWork": "Priority override active: complete remaining OUD/chronic-opioid identities (methadone and naltrexone products), then inventory stimulants/MAOIs, chronic systemic steroids, and transplant/immunosuppression before statins.",
       "completedClusters": [
         {
           "clusterId": "B5-CLASS-III-ANTIARRHYTHMIC-ROUTE-FORM",
@@ -992,17 +992,40 @@
       "combinationProductDistinctions": [
         "buprenorphine/naloxone and opioid/acetaminophen products as whole identities"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B8-BUPRENORPHINE-ROUTE-FORM-INDICATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+          "products": [
+            "buprenorphine sublingual tablet",
+            "SUBOXONE buprenorphine/naloxone soluble film",
+            "ZUBSOLV buprenorphine/naloxone sublingual orally disintegrating tablet",
+            "BELBUCA buprenorphine buccal film",
+            "BUTRANS buprenorphine extended-release transdermal patch",
+            "SUBLOCADE buprenorphine extended-release subcutaneous injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 280,
+            "workflowRunId": 36629110384,
+            "jobId": 109613529284,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Methadone oral tablet versus oral solution/concentrate and naltrexone oral tablet versus VIVITROL extended-release intramuscular injection; retain indication/formulation ambiguity and timing-free clinician review."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",

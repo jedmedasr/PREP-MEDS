@@ -4,7 +4,7 @@
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "baseBranch": "med-batch-04-cardiovascular-core",
   "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
-  "updatedAt": "2026-09-29T20:03:00Z",
+  "updatedAt": "2026-09-29T21:05:00Z",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -131,6 +131,29 @@
         "conclusion": "success",
         "verifiedHeadSha": "5960969597176d3eecd74744152f372443a2e4b2"
       }
+    },
+    "L_REPRIORITIZED_BUPRENORPHINE_ROUTE_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+      "completed": [
+        "Added six direct DailyMed route/form/indication identities: buprenorphine sublingual tablet, SUBOXONE film, ZUBSOLV sublingual tablet, BELBUCA buccal film, BUTRANS extended-release transdermal patch, and SUBLOCADE extended-release subcutaneous injection.",
+        "Preserved bare-buprenorphine ambiguity, buprenorphine/naloxone whole-product identity, film-versus-tablet distinction, route/release distinctions, and OUD-versus-pain indication context.",
+        "All evidence remains DRAFT and all pathways remain clinician-review-only with no autonomous continuation, interruption, dose conversion, sedation, analgesia, or restart timing."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 280,
+        "workflowRunId": 36629110384,
+        "jobId": 109613529284,
+        "conclusion": "success",
+        "verifiedHeadSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -147,7 +170,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory remaining high-value peri-procedural/anesthesia-sensitive gaps (pain/OUD, stimulants/MAOIs, chronic systemic steroids, transplant/immunosuppression) before statins; implement only concrete missing identities/evidence.",
+  "nextWorkItem": "Complete the remaining OUD/chronic-opioid identity cluster: methadone oral tablet versus oral solution/concentrate and naltrexone oral tablet versus VIVITROL extended-release IM injection; preserve indication/formulation ambiguity and timing-free clinician review.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
