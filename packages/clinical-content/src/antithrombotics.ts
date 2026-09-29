@@ -1,7 +1,7 @@
 import type { ClinicalRule } from '@prep-meds/clinical-engine';
 import type { EvidenceAtom, EvidenceBundle, SourceDocument } from '@prep-meds/evidence';
 
-const generatedAt = '2026-09-29T19:05:00Z';
+const generatedAt = '2026-09-29T19:50:00Z';
 const procedures = ['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY'] as const;
 
 const sources: SourceDocument[] = [
@@ -211,6 +211,58 @@ const sources: SourceDocument[] = [
     publisher: 'U.S. Food and Drug Administration / DailyMed',
     societyOrRegulator: 'FDA',
     externalIdentifier: 'DailyMed SETID 77d619f8-05a3-408a-a6f8-1511694b6a24',
+    jurisdiction: 'US',
+    language: 'en',
+    retrievedAt: generatedAt,
+    lifecycle: 'DRAFT',
+  },
+  {
+    id: 'SRC-FDA-ENOXAPARIN-LOVENOX-LABEL-2025',
+    version: 1,
+    sourceType: 'FDA_LABEL',
+    title: 'LOVENOX (enoxaparin sodium) injection prescribing information',
+    publisher: 'U.S. Food and Drug Administration / DailyMed',
+    societyOrRegulator: 'FDA',
+    externalIdentifier: 'DailyMed SETID 5017a927-2a24-4f27-89f9-27c805bf7d59',
+    jurisdiction: 'US',
+    language: 'en',
+    retrievedAt: generatedAt,
+    lifecycle: 'DRAFT',
+  },
+  {
+    id: 'SRC-FDA-HEPARIN-SODIUM-INJECTION-LABEL-2025',
+    version: 1,
+    sourceType: 'FDA_LABEL',
+    title: 'Heparin sodium injection prescribing information',
+    publisher: 'Pfizer Injectables / U.S. Food and Drug Administration / DailyMed',
+    societyOrRegulator: 'FDA',
+    externalIdentifier: 'DailyMed SETID 56dc3074-f1c5-45a3-b923-f1d14858e06d',
+    jurisdiction: 'US',
+    language: 'en',
+    retrievedAt: generatedAt,
+    lifecycle: 'DRAFT',
+  },
+  {
+    id: 'SRC-FDA-FONDAPARINUX-ARIXTRA-LABEL-2024',
+    version: 1,
+    sourceType: 'FDA_LABEL',
+    title: 'ARIXTRA (fondaparinux sodium) injection prescribing information',
+    publisher: 'U.S. Food and Drug Administration / DailyMed',
+    societyOrRegulator: 'FDA',
+    externalIdentifier: 'DailyMed SETID d3b30c68-cf45-4b46-8ba6-72090f7ba01a',
+    jurisdiction: 'US',
+    language: 'en',
+    retrievedAt: generatedAt,
+    lifecycle: 'DRAFT',
+  },
+  {
+    id: 'SRC-FDA-DALTEPARIN-FRAGMIN-LABEL-2024',
+    version: 1,
+    sourceType: 'FDA_LABEL',
+    title: 'FRAGMIN (dalteparin sodium) injection prescribing information',
+    publisher: 'Pfizer Laboratories / U.S. Food and Drug Administration / DailyMed',
+    societyOrRegulator: 'FDA',
+    externalIdentifier: 'DailyMed SETID 23527b8b-9b28-4e6d-9751-33b143975ac7',
     jurisdiction: 'US',
     language: 'en',
     retrievedAt: generatedAt,
@@ -458,6 +510,46 @@ const atoms: EvidenceAtom[] = [
     keywords: ['ticlopidine', 'stroke', 'coronary stent', 'aspirin'], concepts: ['antiplatelet-indication', 'concomitant-antithrombotic'], authority: 100,
   }),
   atom({
+    id: 'EVD-B1-FDA-ENOXAPARIN-INTENT-RENAL-NONSUBSTITUTION', sourceId: 'SRC-FDA-ENOXAPARIN-LOVENOX-LABEL-2025',
+    claim: 'LOVENOX labeling distinguishes prophylactic and therapeutic indications, requires renal-sensitive handling in severe impairment, and states that enoxaparin is not interchangeable unit-for-unit with unfractionated heparin or other low-molecular-weight heparins.',
+    normalizedTopic: 'enoxaparin-intent-renal-nonsubstitution', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
+    applicability: { medicationIds: ['MED-enoxaparin'], procedureCodes: [...procedures] },
+    title: 'Enoxaparin review preserves intent, renal function, and non-substitution',
+    summary: 'The label supports indication-, intent-, renal-, and product-specific review but does not authorize a universal endoscopy interruption or restart interval.',
+    keywords: ['enoxaparin', 'Lovenox', 'prophylaxis', 'treatment', 'renal impairment'], concepts: ['anticoagulant-intent', 'renal-function', 'nonsubstitution'], authority: 100,
+    limitations: ['Therapeutic and prophylactic regimens must not be collapsed.', 'The label is not an endoscopy-specific operational protocol.'],
+  }),
+  atom({
+    id: 'EVD-B1-FDA-UFH-ROUTE-INTENT-MONITORING', sourceId: 'SRC-FDA-HEPARIN-SODIUM-INJECTION-LABEL-2025',
+    claim: 'Heparin sodium injection labeling distinguishes full-dose therapeutic anticoagulation from low-dose prophylaxis, supports intravenous or deep subcutaneous administration, and requires indication- and laboratory-sensitive monitoring.',
+    normalizedTopic: 'unfractionated-heparin-route-intent-monitoring', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
+    applicability: { medicationIds: ['MED-heparin'], procedureCodes: [...procedures] },
+    title: 'Unfractionated heparin review preserves route, intent, and monitoring context',
+    summary: 'Intravenous versus deep subcutaneous route and therapeutic versus prophylactic intent remain explicit clinician-review inputs; the label does not authorize endoscopy timing.',
+    keywords: ['heparin sodium', 'unfractionated heparin', 'intravenous', 'subcutaneous', 'prophylaxis'], concepts: ['route-distinction', 'anticoagulant-intent', 'monitoring'], authority: 100,
+    limitations: ['Heparin injection must not be confused with catheter lock flush products.', 'Timing remains a clinician and approved-local-policy decision.'],
+  }),
+  atom({
+    id: 'EVD-B1-FDA-FONDAPARINUX-INTENT-RENAL', sourceId: 'SRC-FDA-FONDAPARINUX-ARIXTRA-LABEL-2024',
+    claim: 'ARIXTRA labeling distinguishes VTE prophylaxis from DVT or PE treatment and identifies renal function as a major bleeding-risk and clearance determinant, with severe renal impairment contraindicated for prophylaxis or treatment.',
+    normalizedTopic: 'fondaparinux-intent-renal-risk', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
+    applicability: { medicationIds: ['MED-fondaparinux'], procedureCodes: [...procedures] },
+    title: 'Fondaparinux review preserves intent and renal function',
+    summary: 'The label supports intent- and renal-sensitive review but does not authorize a universal endoscopy interruption or restart interval.',
+    keywords: ['fondaparinux', 'Arixtra', 'prophylaxis', 'treatment', 'renal impairment'], concepts: ['anticoagulant-intent', 'renal-function', 'bleeding-risk'], authority: 100,
+    limitations: ['Postoperative label timing is not generalized to elective GI endoscopy.', 'Restart remains a clinician and approved-local-policy decision.'],
+  }),
+  atom({
+    id: 'EVD-B1-FDA-DALTEPARIN-INTENT-CONTEXT', sourceId: 'SRC-FDA-DALTEPARIN-FRAGMIN-LABEL-2024',
+    claim: 'FRAGMIN labeling distinguishes DVT prophylaxis, cancer-associated extended VTE treatment, pediatric VTE treatment, and acute coronary use with aspirin, while warning that concomitant anticoagulants or platelet inhibitors increase bleeding risk.',
+    normalizedTopic: 'dalteparin-intent-concomitant-antithrombotic', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
+    applicability: { medicationIds: ['MED-dalteparin'], procedureCodes: [...procedures] },
+    title: 'Dalteparin review preserves intent and concomitant-antithrombotic context',
+    summary: 'The label supports indication-, intent-, and whole-list antithrombotic review but does not authorize endoscopy interruption or restart timing.',
+    keywords: ['dalteparin', 'Fragmin', 'prophylaxis', 'cancer-associated VTE', 'aspirin'], concepts: ['anticoagulant-intent', 'anticoagulation-indication', 'concomitant-antithrombotic'], authority: 100,
+    limitations: ['FRAGMIN is not labeled for acute VTE treatment.', 'Timing remains a clinician and approved-local-policy decision.'],
+  }),
+  atom({
     id: 'EVD-B1-FDA-CLOPIDOGREL-DISCONTINUATION', sourceId: 'SRC-FDA-CLOPIDOGREL-LABEL',
     claim: 'Clopidogrel labeling warns against unsupervised discontinuation because premature interruption can increase cardiovascular risk and describes surgery-related interruption when antiplatelet effect is not desired.',
     normalizedTopic: 'clopidogrel-discontinuation', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
@@ -589,22 +681,34 @@ export const antithromboticCandidateRules: ClinicalRule[] = [
   }),
   reviewRule({
     id: 'RULE-B1-ENOXAPARIN-REVIEW', name: 'Enoxaparin peri-endoscopic review pathway', medicationIds: ['MED-enoxaparin'],
-    evidenceRefs: [{ id: 'EVD-B1-CHEST-COLONOSCOPY-WARFARIN-BRIDGE', version: 1 }],
+    evidenceRefs: [
+      { id: 'EVD-B1-CHEST-COLONOSCOPY-WARFARIN-BRIDGE', version: 1 },
+      { id: 'EVD-B1-FDA-ENOXAPARIN-INTENT-RENAL-NONSUBSTITUTION', version: 1 },
+    ],
     requiredModifierIds: ['MOD-anticoagulation-indication', 'MOD-anticoagulant-intent', 'MOD-recent-thrombotic-event', 'MOD-verified-crcl-band'], restartOwner: 'CLINICIAN_REVIEW',
   }),
   reviewRule({
     id: 'RULE-B1-DALTEPARIN-REVIEW', name: 'Dalteparin peri-endoscopic review pathway', medicationIds: ['MED-dalteparin'],
-    evidenceRefs: [{ id: 'EVD-B1-CHEST-COLONOSCOPY-WARFARIN-BRIDGE', version: 1 }],
+    evidenceRefs: [
+      { id: 'EVD-B1-CHEST-COLONOSCOPY-WARFARIN-BRIDGE', version: 1 },
+      { id: 'EVD-B1-FDA-DALTEPARIN-INTENT-CONTEXT', version: 1 },
+    ],
     requiredModifierIds: ['MOD-anticoagulation-indication', 'MOD-anticoagulant-intent', 'MOD-recent-thrombotic-event', 'MOD-verified-crcl-band'], restartOwner: 'CLINICIAN_REVIEW',
   }),
   reviewRule({
     id: 'RULE-B1-HEPARIN-REVIEW', name: 'Unfractionated heparin peri-endoscopic review pathway', medicationIds: ['MED-heparin'],
-    evidenceRefs: [{ id: 'EVD-B1-CHEST-NO-DOAC-BRIDGE', version: 1 }],
+    evidenceRefs: [
+      { id: 'EVD-B1-CHEST-NO-DOAC-BRIDGE', version: 1 },
+      { id: 'EVD-B1-FDA-UFH-ROUTE-INTENT-MONITORING', version: 1 },
+    ],
     requiredModifierIds: ['MOD-anticoagulation-indication', 'MOD-anticoagulant-intent', 'MOD-recent-thrombotic-event'], restartOwner: 'CLINICIAN_REVIEW',
   }),
   reviewRule({
     id: 'RULE-B1-FONDAPARINUX-REVIEW', name: 'Fondaparinux peri-endoscopic review pathway', medicationIds: ['MED-fondaparinux'],
-    evidenceRefs: [{ id: 'EVD-B1-CHEST-NO-DOAC-BRIDGE', version: 1 }],
+    evidenceRefs: [
+      { id: 'EVD-B1-CHEST-NO-DOAC-BRIDGE', version: 1 },
+      { id: 'EVD-B1-FDA-FONDAPARINUX-INTENT-RENAL', version: 1 },
+    ],
     requiredModifierIds: ['MOD-anticoagulation-indication', 'MOD-anticoagulant-intent', 'MOD-recent-thrombotic-event', 'MOD-verified-crcl-band'], restartOwner: 'CLINICIAN_REVIEW',
   }),
   {
