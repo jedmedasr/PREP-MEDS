@@ -1,0 +1,61 @@
+{
+  "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "baseBranch": "med-batch-04-cardiovascular-core",
+  "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
+  "updatedAt": "2026-09-29T14:57:00Z",
+  "engineeringStatus": "IN_PROGRESS",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_CLASS_III_ANTIARRHYTHMIC": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "3ac08446a372db0e5df0e4b2ff0b3d1ebf2153c1",
+      "completed": [
+        "Added eight direct-label route/form identities spanning amiodarone, dronedarone, sotalol, and dofetilide.",
+        "Preserved bare amiodarone ambiguity across oral and intravenous routes.",
+        "Preserved bare sotalol ambiguity across standard tablet, AF-labeled tablet, SOTYLIZE solution, and intravenous injection.",
+        "Recorded the sotalol AF label non-substitution distinction and historical/inactivated MULTAQ NDC status without inferring availability.",
+        "Integrated DRAFT evidence, terminology, timing-free clinician-review routing, and regressions; production activeRules remain empty."
+      ]
+    },
+    "B_CI": {
+      "status": "PASS_EXACT_IMPLEMENTATION_HEAD",
+      "testedHeadSha": "3ac08446a372db0e5df0e4b2ff0b3d1ebf2153c1",
+      "workflowName": "quality",
+      "workflowRunNumber": 268,
+      "workflowRunId": 36586160822,
+      "jobId": 109466936456,
+      "conclusion": "success",
+      "scope": "Schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build."
+    },
+    "C_PR": {
+      "status": "DRAFT_PR_OPEN",
+      "pullRequest": 15,
+      "url": "https://github.com/jedmedasr/PREP-MEDS/pull/15"
+    }
+  },
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "primarySourceFamilies": [
+      "FDA/DailyMed direct prescription labeling"
+    ],
+    "representativeIdentityOnly": true,
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Flecainide, propafenone, mexiletine, and quinidine route/release identity cluster.",
+  "advanceToNextClusterAllowed": true,
+  "advanceToNextBatchAllowed": false,
+  "productionActivationAllowed": false,
+  "pullRequest": 15
+}

@@ -608,18 +608,41 @@
       "combinationProductDistinctions": [
         "clinically relevant lipid combinations"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Antiarrhythmic core: amiodarone, dronedarone, sotalol, flecainide, propafenone, dofetilide, mexiletine, and quinidine; reconcile authoritative route/release identities and retain review-only routing."
+      "nextEngineeringWork": "Complete the canonical antiarrhythmic core with flecainide, propafenone, mexiletine, and quinidine; reconcile authoritative release/form identities and retain review-only routing.",
+      "completedClusters": [
+        {
+          "clusterId": "B5-CLASS-III-ANTIARRHYTHMIC-ROUTE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "3ac08446a372db0e5df0e4b2ff0b3d1ebf2153c1",
+          "products": [
+            "amiodarone oral tablet",
+            "amiodarone intravenous injection",
+            "MULTAQ dronedarone tablet",
+            "standard sotalol tablet",
+            "sotalol AF tablet",
+            "SOTYLIZE oral solution",
+            "sotalol intravenous injection",
+            "TIKOSYN dofetilide capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 268,
+            "workflowRunId": 36586160822,
+            "jobId": 109466936456,
+            "conclusion": "success"
+          }
+        }
+      ]
     },
     {
       "batchId": "MED-BATCH-06-GI-BOWEL-IRON-IBD",
