@@ -204,6 +204,14 @@ export {
   batch04BetaBlockerReviewRules,
 } from './batch04-beta-blocker-evidence.js';
 export type { Batch04BetaBlockerIdentityDefinition } from './batch04-beta-blocker-evidence.js';
+export {
+  batch04DhpCcbIdentityEvidence,
+  batch04DhpCcbIdentityDefinitions,
+  batch04DhpCcbIdentitySources,
+  batch04DhpCcbIdentityAtoms,
+  batch04DhpCcbReviewRules,
+} from './batch04-dhp-ccb-evidence.js';
+export type { Batch04DhpCcbIdentityDefinition } from './batch04-dhp-ccb-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
