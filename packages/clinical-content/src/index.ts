@@ -264,6 +264,15 @@ export {
 } from './batch05-class-iii-antiarrhythmic-evidence.js';
 export type { Batch05ClassIIIAntiarrhythmicIdentityDefinition } from './batch05-class-iii-antiarrhythmic-evidence.js';
 
+export {
+  batch05ClassIAntiarrhythmicIdentityEvidence,
+  batch05ClassIAntiarrhythmicIdentityDefinitions,
+  batch05ClassIAntiarrhythmicIdentitySources,
+  batch05ClassIAntiarrhythmicIdentityAtoms,
+  batch05ClassIAntiarrhythmicReviewRules,
+} from './batch05-class-i-antiarrhythmic-evidence.js';
+export type { Batch05ClassIAntiarrhythmicIdentityDefinition } from './batch05-class-i-antiarrhythmic-evidence.js';
+
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
   generatedAt: batch03CurrentIncretinExpansionEvidence.generatedAt,
