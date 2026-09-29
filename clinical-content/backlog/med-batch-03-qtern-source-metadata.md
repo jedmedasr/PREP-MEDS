@@ -1,35 +1,68 @@
-# Batch 03 source metadata: QTERN and QTERNMET XR
+# Batch 03 QTERN / dapagliflozin + saxagliptin source reconciliation
 
-Status: RESEARCH_ONLY / NOT_INTEGRATED
+Status: INTEGRATED / REVIEW_REQUIRED
 
-## QTERN
+## Historical branded QTERN
 
-- Established name: dapagliflozin and saxagliptin.
-- Labeler: AstraZeneca Pharmaceuticals LP.
+- Product: QTERN (dapagliflozin + saxagliptin), oral film-coated tablet.
+- Manufacturer/labeler: AstraZeneca Pharmaceuticals LP.
 - Application: NDA209091.
 - DailyMed SETID: 423c489c-085b-4320-b892-7868ebd6dc6b.
-- Indexed SPL metadata: version 31; effective 2024-11-13.
-- A DailyMed document revised 2026-06 records marketing start 2017-12-04 and marketing end 2026-02-28.
-- Source: https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=423c489c-085b-4320-b892-7868ebd6dc6b
+- Current searchable SPL version: 32.
+- Effective date: 2026-06-03.
+- Prescribing-information revision: 06/2026.
+- Current label product/application rows retain marketing-end metadata; the latest listed end date is 2026-02-28.
 
-## Current generic dapagliflozin + saxagliptin
+PREP-MEDS therefore preserves QTERN as a historical branded identity and source-provenance record. The later label revision does not erase the marketing-end metadata, and neither state is converted into a real-time pharmacy-inventory claim.
 
-- Labeler: Novadoz Pharmaceuticals LLC.
+## Generic dapagliflozin + saxagliptin — ANDA211533
+
+- Packager/labeler: Novadoz Pharmaceuticals LLC.
+- Establishment/manufacturer recorded by DailyMed: MSN LABORATORIES PRIVATE LIMITED.
 - Application: ANDA211533.
 - DailyMed SETID: 1cfa51fd-8406-404c-b2a8-0fc1068675fb.
-- DailyMed updated: 2026-04-08.
-- Dosage form: oral film-coated tablet.
-- DailyMed marketing rows do not list a marketing end date.
+- Current searchable SPL version: 1.
+- DailyMed updated: 2026-04-08; version published 2026-04-10.
+- Application marketing start: 2026-04-06; package marketing start: 2026-04-09.
+- No marketing-end date is listed in the authenticated DailyMed rows used for this reconciliation.
 
-This current generic source is not interchangeable with the branded QTERN marketing record for provenance purposes. No clinical behavior is inferred from this source metadata.
+The absence of a listed marketing-end date is source metadata only. PREP-MEDS does not infer real-time commercial availability or pharmacy inventory.
 
-## QTERNMET XR
+## Generic dapagliflozin + saxagliptin — ANDA211537
 
-- Established name: dapagliflozin, saxagliptin, and metformin hydrochloride.
-- Labeler: AstraZeneca Pharmaceuticals LP.
-- Application: NDA210874.
-- DailyMed labeling revised 2020-01 records marketing start and marketing end as 2020-06-01.
+- Applicant: Torrent Pharmaceuticals Limited.
+- Application: ANDA211537.
+- FDA approval date: 2026-04-06.
+- Reference listed drug: QTERN.
+- FDA first-generic/Orange Book records authenticate the application-level generic product identity.
+- No current manufacturer DailyMed SPL was authenticated for ANDA211537 in this reconciliation.
 
-## Repository state
+No SETID, SPL version, manufacturer label revision, or commercial-availability state is invented for ANDA211537. It is modeled as an FDA-approved application identity with an explicit source gap.
 
-No terminology record, rule, availability assertion, or production behavior is created by this research note. These source records require explicit reconciliation before any database integration.
+## Terminology behavior
+
+Three source-distinct whole-product/application identities are encoded:
+
+1. historical branded QTERN / NDA209091;
+2. dapagliflozin+saxagliptin / ANDA211533;
+3. dapagliflozin+saxagliptin / ANDA211537.
+
+All preserve dapagliflozin + saxagliptin component identity. Bare `dapagliflozin and saxagliptin` remains ambiguous across these identities. Explicit QTERN or authenticated application/applicant wording may resolve to the corresponding identity. No RxNorm identifier, substitution, or commercial-availability inference is created.
+
+## Procedure-routing boundary
+
+The authenticated QTERN and ANDA211533 labels contain temporary-interruption language for surgery or procedures associated with prolonged fasting. PREP-MEDS retains that language only as source provenance; it is not converted into a universal endoscopy timing instruction. ANDA211537 has no authenticated manufacturer SPL in this reconciliation, so no label-derived timing language is inferred for it.
+
+All three identities route to `CLINICIAN_REVIEW_REQUIRED` with no `timingRule`. Production `activeRules` remain empty.
+
+## Engineering state
+
+Implementation commit: `3025bbcbe948a4f6902317d4f6d87453f66d85ea` (`feat(batch03): reconcile qtern and dapagliflozin saxagliptin`).
+
+Exact-head quality run #195 (`36511812039`), job `109225385173`, passed at that implementation head: schema validation, strict TypeScript checking, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build.
+
+No clinical approval, local-policy approval, merge, deployment, or production activation is implied.
+
+## Adjacent research item
+
+QTERNMET XR (dapagliflozin + saxagliptin + metformin hydrochloride extended-release; NDA210874) remains research-only until its current authoritative source state and historical marketing status are reverified. Do not infer present commercial availability from its approval history.
