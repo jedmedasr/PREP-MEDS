@@ -187,6 +187,14 @@ export {
   batch03QternProcedureReviewAtoms,
 } from './batch03-qtern-identity-evidence.js';
 export type { Batch03QternIdentityDefinition } from './batch03-qtern-identity-evidence.js';
+export {
+  batch04AceIdentityEvidence,
+  batch04AceIdentityDefinitions,
+  batch04AceIdentitySources,
+  batch04AceIdentityAtoms,
+  batch04AceReviewRules,
+} from './batch04-ace-inhibitor-evidence.js';
+export type { Batch04AceIdentityDefinition } from './batch04-ace-inhibitor-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
