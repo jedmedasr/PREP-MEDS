@@ -4,6 +4,10 @@ import {
   batch03HistoricalIncretinIdentityEvidence,
   batch03HistoricalIncretinReviewRules,
 } from './batch03-historical-incretin-identity-evidence.js';
+import {
+  batch03CurrentIncretinExpansionEvidence,
+  batch03CurrentIncretinExpansionReviewRules,
+} from './batch03-current-incretin-expansion-evidence.js';
 import { batch03Sglt2CombinationIdentityEvidence as baseBatch03Sglt2CombinationIdentityEvidence } from './batch03-sglt2-combination-identity-evidence.js';
 import { batch03QternIdentityEvidence, batch03QternReviewRules } from './batch03-qtern-identity-evidence.js';
 
@@ -13,6 +17,7 @@ export const batch03ReviewRules = [
   ...baseBatch03ReviewRules,
   ...batch03QternReviewRules,
   ...batch03HistoricalIncretinReviewRules,
+  ...batch03CurrentIncretinExpansionReviewRules,
 ];
 export {
   antithromboticCandidateRules as antithromboticBaseCandidateRules,
@@ -147,6 +152,16 @@ export type {
   Batch03HistoricalIncretinIdentityDefinition,
 } from './batch03-historical-incretin-identity-evidence.js';
 export {
+  batch03CurrentIncretinExpansionDefinitions,
+  batch03CurrentIncretinExpansionSources,
+  batch03CurrentIncretinExpansionIdentityAtoms,
+  batch03CurrentIncretinExpansionProcedureReviewAtoms,
+} from './batch03-current-incretin-expansion-evidence.js';
+export { batch03CurrentIncretinExpansionReviewRules };
+export type {
+  Batch03CurrentIncretinExpansionDefinition,
+} from './batch03-current-incretin-expansion-evidence.js';
+export {
   batch03FixedCombinationIdentityEvidence,
   batch03FixedCombinationIdentityDefinitions,
   batch03FixedCombinationIdentitySources,
@@ -175,14 +190,16 @@ export type { Batch03QternIdentityDefinition } from './batch03-qtern-identity-ev
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
-  generatedAt: batch03HistoricalIncretinIdentityEvidence.generatedAt,
+  generatedAt: batch03CurrentIncretinExpansionEvidence.generatedAt,
   sources: [
     ...baseBatch03IncretinIdentityEvidence.sources,
     ...batch03HistoricalIncretinIdentityEvidence.sources,
+    ...batch03CurrentIncretinExpansionEvidence.sources,
   ],
   atoms: [
     ...baseBatch03IncretinIdentityEvidence.atoms,
     ...batch03HistoricalIncretinIdentityEvidence.atoms,
+    ...batch03CurrentIncretinExpansionEvidence.atoms,
   ],
 };
 
