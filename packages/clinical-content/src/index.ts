@@ -1,5 +1,10 @@
+import { batch03ReviewRules as baseBatch03ReviewRules } from './rules.js';
+import { batch03Sglt2CombinationIdentityEvidence as baseBatch03Sglt2CombinationIdentityEvidence } from './batch03-sglt2-combination-identity-evidence.js';
+import { batch03QternIdentityEvidence, batch03QternReviewRules } from './batch03-qtern-identity-evidence.js';
+
 export { firstClinicalContentEvidence } from './evidence.js';
-export { firstReleaseCandidateRules, batch03ReviewRules } from './rules.js';
+export { firstReleaseCandidateRules } from './rules.js';
+export const batch03ReviewRules = [...baseBatch03ReviewRules, ...batch03QternReviewRules];
 export {
   antithromboticCandidateRules as antithromboticBaseCandidateRules,
   antithromboticEvidence,
@@ -132,13 +137,30 @@ export {
 } from './batch03-fixed-combination-identity-evidence.js';
 export type { Batch03FixedCombinationIdentityDefinition } from './batch03-fixed-combination-identity-evidence.js';
 export {
-  batch03Sglt2CombinationIdentityEvidence,
   batch03Sglt2CombinationIdentityDefinitions,
   batch03Sglt2CombinationIdentitySources,
   batch03Sglt2CombinationIdentityAtoms,
   batch03Sglt2CombinationProcedureReviewAtoms,
 } from './batch03-sglt2-combination-identity-evidence.js';
 export type { Batch03Sglt2CombinationIdentityDefinition } from './batch03-sglt2-combination-identity-evidence.js';
+export {
+  batch03QternIdentityEvidence,
+  batch03QternReviewRules,
+};
+export {
+  batch03QternIdentityDefinitions,
+  batch03QternIdentitySources,
+  batch03QternIdentityAtoms,
+  batch03QternProcedureReviewAtoms,
+} from './batch03-qtern-identity-evidence.js';
+export type { Batch03QternIdentityDefinition } from './batch03-qtern-identity-evidence.js';
+
+export const batch03Sglt2CombinationIdentityEvidence = {
+  ...baseBatch03Sglt2CombinationIdentityEvidence,
+  generatedAt: batch03QternIdentityEvidence.generatedAt,
+  sources: [...baseBatch03Sglt2CombinationIdentityEvidence.sources, ...batch03QternIdentityEvidence.sources],
+  atoms: [...baseBatch03Sglt2CombinationIdentityEvidence.atoms, ...batch03QternIdentityEvidence.atoms],
+};
 
 export const firstReleaseMetadata = {
   releaseId: 'PREP-MEDS-CLINICAL-RC-001',

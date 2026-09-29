@@ -1,4 +1,7 @@
-import { batch03Sglt2CombinationIdentityDefinitions } from '@prep-meds/clinical-content';
+import {
+  batch03QternIdentityDefinitions,
+  batch03Sglt2CombinationIdentityDefinitions,
+} from '@prep-meds/clinical-content';
 import type { IngredientRecord, MedicationRecord } from '@prep-meds/terminology';
 
 export const batch03Sglt2CombinationIngredients: IngredientRecord[] = [
@@ -31,22 +34,37 @@ const aliasesByMedication: Record<string,string[]> = {
   'MED-canagliflozin-metformin-invokamet-xr': ['Invokamet XR canagliflozin metformin','canagliflozin metformin XR'],
 };
 
-export const batch03Sglt2CombinationMedications: MedicationRecord[] =
-  batch03Sglt2CombinationIdentityDefinitions.map((p) => ({
-    id: p.medicationId,
-    canonicalName: p.brandName,
-    genericName: p.genericName,
-    brandNames: [p.brandName],
-    aliases: aliasesByMedication[p.medicationId] ?? [],
-    ingredientIds: [...p.ingredientIds],
-    drugClassIds: classesByMedication[p.medicationId] ?? ['CLS-sglt2-inhibitor'],
+const verifiedSglt2CombinationMedications: MedicationRecord[] =
+  batch03Sglt2CombinationIdentityDefinitions.map((product) => ({
+    id: product.medicationId,
+    canonicalName: product.brandName,
+    genericName: product.genericName,
+    brandNames: [product.brandName],
+    aliases: aliasesByMedication[product.medicationId] ?? [],
+    ingredientIds: [...product.ingredientIds],
+    drugClassIds: classesByMedication[product.medicationId] ?? ['CLS-sglt2-inhibitor'],
   }));
+
+const qternReconciliationMedications: MedicationRecord[] = batch03QternIdentityDefinitions.map((product) => ({
+  id: product.medicationId,
+  canonicalName: product.canonicalName,
+  genericName: product.genericName,
+  brandNames: [...product.brandNames],
+  aliases: [...product.aliases],
+  ingredientIds: [...product.ingredientIds],
+  drugClassIds: ['CLS-sglt2-inhibitor', 'CLS-dpp4-inhibitor'],
+}));
+
+export const batch03Sglt2CombinationMedications: MedicationRecord[] = [
+  ...verifiedSglt2CombinationMedications,
+  ...qternReconciliationMedications,
+];
 
 export const batch03Sglt2CombinationTerminologyAudit = {
   status: 'CLINICAL_REVIEW_REQUIRED',
   limitations: [
-    'Each record preserves the manufacturer-defined fixed combination and release formulation.',
-    'Search resolution does not authorize component splitting, substitution, patient-specific dosing, or peri-procedural timing.',
-    'Unreconciled combination products remain excluded until current manufacturer provenance is verified.',
+    'Each record preserves the source-defined fixed combination and authenticated product/application identity.',
+    'Search resolution does not authorize component splitting, substitution, patient-specific dosing, commercial-availability inference, or peri-procedural timing.',
+    'Bare dapagliflozin+saxagliptin wording remains ambiguous across branded and generic application identities.',
   ],
 } as const;
