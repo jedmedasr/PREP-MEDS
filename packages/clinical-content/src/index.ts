@@ -212,6 +212,15 @@ export {
   batch04DhpCcbReviewRules,
 } from './batch04-dhp-ccb-evidence.js';
 export type { Batch04DhpCcbIdentityDefinition } from './batch04-dhp-ccb-evidence.js';
+export {
+  batch04NonDhpCcbIdentityEvidence,
+  batch04NonDhpCcbIdentityDefinitions,
+  batch04NonDhpCcbIdentitySources,
+  batch04NonDhpCcbIdentityAtoms,
+  batch04NonDhpCcbMarketingStatusAtoms,
+  batch04NonDhpCcbReviewRules,
+} from './batch04-nondhp-ccb-evidence.js';
+export type { Batch04NonDhpCcbIdentityDefinition } from './batch04-nondhp-ccb-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
