@@ -221,6 +221,14 @@ export {
   batch04NonDhpCcbReviewRules,
 } from './batch04-nondhp-ccb-evidence.js';
 export type { Batch04NonDhpCcbIdentityDefinition } from './batch04-nondhp-ccb-evidence.js';
+export {
+  batch04ThiazideDiureticIdentityEvidence,
+  batch04ThiazideDiureticIdentityDefinitions,
+  batch04ThiazideDiureticIdentitySources,
+  batch04ThiazideDiureticIdentityAtoms,
+  batch04ThiazideDiureticReviewRules,
+} from './batch04-thiazide-diuretic-evidence.js';
+export type { Batch04ThiazideDiureticIdentityDefinition } from './batch04-thiazide-diuretic-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
