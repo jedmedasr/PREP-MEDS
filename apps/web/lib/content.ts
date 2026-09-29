@@ -15,6 +15,8 @@ import {
   batch03IncretinIdentityEvidence,
   batch03FixedCombinationIdentityEvidence,
   batch03Sglt2CombinationIdentityEvidence,
+  batch04AceIdentityEvidence,
+  batch04AceReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -23,6 +25,7 @@ import { batch03SemaglutideSearchMedications } from './batch03-semaglutide';
 import { batch03IncretinIngredients, batch03IncretinSearchMedications } from './batch03-incretin';
 import { batch03FixedCombinationIngredients, batch03FixedCombinationMedications } from './batch03-fixed-combinations';
 import { batch03Sglt2CombinationIngredients, batch03Sglt2CombinationMedications } from './batch03-sglt2-combinations';
+import { batch04AceIngredients, batch04AceMedications } from './batch04-raas';
 
 export interface UiModifierDefinition {
   id: string;
@@ -40,8 +43,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-03-sglt2-combination-terminology-1',
-  generatedAt: '2026-09-18T01:15:00Z',
+  version: 'med-batch-04-ace-core-terminology-1',
+  generatedAt: '2026-09-29T07:40:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -52,6 +55,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch03IncretinIngredients,
     ...batch03FixedCombinationIngredients,
     ...batch03Sglt2CombinationIngredients,
+    ...batch04AceIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -102,7 +106,8 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch03IncretinSearchMedications,
     ...batch03FixedCombinationMedications,
     ...batch03Sglt2CombinationMedications,
-    { id: 'MED-lisinopril', canonicalName: 'Lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
+    ...batch04AceMedications,
+    { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-metoprolol', canonicalName: 'Metoprolol', ingredientIds: ['ING-metoprolol'], drugClassIds: ['CLS-beta-blocker'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -112,13 +117,18 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
 export const activeRules: ClinicalRule[] = [];
 export const activePolicies: PolicyOverlay[] = [];
 
-// Replace only the superseded first-release glargine candidate in the assembled shadow release.
-// The historical source record remains unchanged. Other first-release and Batch 01 content is retained.
+// Replace superseded first-release glargine and lisinopril candidates only in the assembled shadow release.
+// Their historical source records remain unchanged; Batch 02/04 review guards become the current shadow behavior.
 export const clinicalReviewRules: ClinicalRule[] = [
-  ...firstReleaseCandidateRules.filter((rule) => !rule.scope.medicationIds?.includes('MED-insulin-glargine')),
+  ...firstReleaseCandidateRules.filter(
+    (rule) =>
+      !rule.scope.medicationIds?.includes('MED-insulin-glargine') &&
+      !rule.scope.medicationIds?.includes('MED-lisinopril'),
+  ),
   ...antithromboticCandidateRules,
   ...diabetesWorkflowRules,
   ...batch03ReviewRules,
+  ...batch04AceReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -128,6 +138,7 @@ export const clinicalReviewEvidenceBundles = [
   batch03IncretinIdentityEvidence,
   batch03FixedCombinationIdentityEvidence,
   batch03Sglt2CombinationIdentityEvidence,
+  batch04AceIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
@@ -286,7 +297,8 @@ export const modifierDefinitions: Record<string, UiModifierDefinition> = {
   },
   'MOD-raas-indication': {
     id: 'MOD-raas-indication',
-    label: 'ACE inhibitor indication',
+    label: 'RAAS inhibitor indication',
+    description: 'Clarify whether the RAAS inhibitor is used for hypertension, HFrEF, or another/unclear indication before local anesthesia policy is applied.',
     inputType: 'select',
     options: [
       { value: 'HYPERTENSION', label: 'Hypertension' },
