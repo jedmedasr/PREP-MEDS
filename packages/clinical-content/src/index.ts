@@ -238,6 +238,14 @@ export {
   batch04LoopDiureticReviewRules,
 } from './batch04-loop-diuretic-evidence.js';
 export type { Batch04LoopDiureticIdentityDefinition } from './batch04-loop-diuretic-evidence.js';
+export {
+  batch04PotassiumSparingIdentityEvidence,
+  batch04PotassiumSparingIdentityDefinitions,
+  batch04PotassiumSparingIdentitySources,
+  batch04PotassiumSparingIdentityAtoms,
+  batch04PotassiumSparingReviewRules,
+} from './batch04-potassium-sparing-evidence.js';
+export type { Batch04PotassiumSparingIdentityDefinition } from './batch04-potassium-sparing-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
