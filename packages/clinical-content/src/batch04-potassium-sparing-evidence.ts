@@ -61,7 +61,7 @@ export const batch04PotassiumSparingIdentitySources: SourceDocument[] = sourceDa
     jurisdiction: 'US', language: 'en', retrievedAt, lifecycle: 'DRAFT',
     metadata: {
       setId: source.setId, splVersion: source.splVersion, applicationNumber: source.applicationNumber,
-      route: definition.route, dosageForm: definition.dosageForm, combination: definition.combination, ingredientIds: definition.ingredientIds,
+      route: definition.route, dosageForm: definition.dosageForm, combination: definition.combination, ingredientIds: definition.ingredientIds.join('; '),
       representativeIdentityOnly: true, marketAvailabilityAsserted: false, substitutionAuthorized: false,
       combinationSubstitutionAuthorized: false, clinicalApprovalGranted: false, timingRuleAuthorized: false,
     },
