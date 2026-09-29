@@ -99,12 +99,22 @@ describe('oral anticoagulant shadow pathways', () => {
   });
 
   it('routes factor-Xa DOACs to clinician review without an autonomous hold or restart interval', () => {
-    for (const id of ['MED-apixaban', 'MED-rivaroxaban', 'MED-edoxaban']) {
+    for (const id of ['MED-apixaban', 'MED-rivaroxaban']) {
       const result = evaluate(medication(id, 'CLS-doac-factor-xa'), anticoagContext);
       expect(result.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
       expect(result.event.outputSnapshot.timingRule).toBeUndefined();
       expect(result.event.outputSnapshot.restartOwner).toBe('CLINICIAN_REVIEW');
     }
+
+    const edoxaban = medication('MED-edoxaban', 'CLS-doac-factor-xa');
+    const missingRenal = evaluate(edoxaban, anticoagContext);
+    expect(missingRenal.event.disposition).toBe('INSUFFICIENT_INFORMATION');
+    expect(missingRenal.event.missingModifierIds).toContain('MOD-verified-crcl-band');
+
+    const complete = evaluate(edoxaban, [...anticoagContext, known('MOD-verified-crcl-band', 'GE_50')]);
+    expect(complete.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(complete.event.outputSnapshot.timingRule).toBeUndefined();
+    expect(complete.event.outputSnapshot.restartOwner).toBe('CLINICIAN_REVIEW');
   });
 
   it('requires a verified CrCl band before dabigatran review can be finalized', () => {

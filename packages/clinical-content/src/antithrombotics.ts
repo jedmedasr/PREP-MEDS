@@ -1,7 +1,7 @@
 import type { ClinicalRule } from '@prep-meds/clinical-engine';
 import type { EvidenceAtom, EvidenceBundle, SourceDocument } from '@prep-meds/evidence';
 
-const generatedAt = '2026-09-17T02:00:00Z';
+const generatedAt = '2026-09-29T19:05:00Z';
 const procedures = ['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY'] as const;
 
 const sources: SourceDocument[] = [
@@ -107,6 +107,45 @@ const sources: SourceDocument[] = [
     title: 'Ticagrelor tablets prescribing information',
     publisher: 'U.S. Food and Drug Administration / DailyMed',
     societyOrRegulator: 'FDA',
+    jurisdiction: 'US',
+    language: 'en',
+    retrievedAt: generatedAt,
+    lifecycle: 'DRAFT',
+  },
+  {
+    id: 'SRC-FDA-DABIGATRAN-CAPSULE-LABEL-2026',
+    version: 1,
+    sourceType: 'FDA_LABEL',
+    title: 'Dabigatran etexilate capsules prescribing information',
+    publisher: 'Apotex Corp. / U.S. Food and Drug Administration / DailyMed',
+    societyOrRegulator: 'FDA',
+    externalIdentifier: 'DailyMed SETID dd47a015-ff90-d7a7-8dcb-4e6e31a68071; ANDA208070',
+    jurisdiction: 'US',
+    language: 'en',
+    retrievedAt: generatedAt,
+    lifecycle: 'DRAFT',
+  },
+  {
+    id: 'SRC-FDA-EDOXABAN-SAVAYSA-LABEL-2023',
+    version: 1,
+    sourceType: 'FDA_LABEL',
+    title: 'SAVAYSA (edoxaban tosylate) film-coated tablets prescribing information',
+    publisher: 'Daiichi Sankyo Inc. / U.S. Food and Drug Administration / DailyMed',
+    societyOrRegulator: 'FDA',
+    externalIdentifier: 'DailyMed SETID e77d3400-56ad-11e3-949a-0800200c9a66',
+    jurisdiction: 'US',
+    language: 'en',
+    retrievedAt: generatedAt,
+    lifecycle: 'DRAFT',
+  },
+  {
+    id: 'SRC-FDA-WARFARIN-TABLET-LABEL-2022',
+    version: 1,
+    sourceType: 'FDA_LABEL',
+    title: 'Warfarin sodium tablets prescribing information',
+    publisher: 'Amneal Pharmaceuticals LLC / U.S. Food and Drug Administration / DailyMed',
+    societyOrRegulator: 'FDA',
+    externalIdentifier: 'DailyMed SETID 558b7a0d-5490-4c1b-802e-3ab3f1efe760; ANDA202202',
     jurisdiction: 'US',
     language: 'en',
     retrievedAt: generatedAt,
@@ -278,6 +317,36 @@ const atoms: EvidenceAtom[] = [
     keywords: ['rivaroxaban', 'Xarelto', 'boxed warning'], concepts: ['premature-discontinuation'], authority: 100,
   }),
   atom({
+    id: 'EVD-B1-FDA-DABIGATRAN-CAPSULE-DISCONTINUATION-RENAL', sourceId: 'SRC-FDA-DABIGATRAN-CAPSULE-LABEL-2026',
+    claim: 'Dabigatran etexilate capsule labeling warns that premature discontinuation increases thrombotic risk, identifies renal function and concomitant P-gp therapy as exposure-relevant, and states that capsule dosage forms are not milligram-for-milligram substitutable with other dabigatran dosage forms.',
+    normalizedTopic: 'dabigatran-capsule-discontinuation-renal-formulation', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
+    applicability: { medicationIds: ['MED-dabigatran'], procedureCodes: [...procedures] },
+    title: 'Dabigatran capsule review preserves renal and formulation context',
+    summary: 'The label supports renal-function and formulation-specific review but does not authorize a universal endoscopy interruption, bridging, or restart interval.',
+    keywords: ['dabigatran etexilate', 'capsule', 'renal function', 'premature discontinuation'], concepts: ['premature-discontinuation', 'renal-function', 'dosage-form-nonsubstitution'], authority: 100,
+    limitations: ['This atom applies to the capsule identity and does not collapse other dabigatran dosage forms.', 'Endoscopy timing remains a clinician and approved-local-policy decision.'],
+  }),
+  atom({
+    id: 'EVD-B1-FDA-EDOXABAN-DISCONTINUATION-RENAL', sourceId: 'SRC-FDA-EDOXABAN-SAVAYSA-LABEL-2023',
+    claim: 'SAVAYSA labeling warns that premature discontinuation increases ischemic-event risk and identifies creatinine-clearance- and indication-specific limitations, including reduced efficacy in nonvalvular atrial fibrillation when CrCl is greater than 95 mL/min.',
+    normalizedTopic: 'edoxaban-discontinuation-renal-indication', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
+    applicability: { medicationIds: ['MED-edoxaban'], procedureCodes: [...procedures] },
+    title: 'Edoxaban review preserves renal function and indication',
+    summary: 'The label supports indication- and renal-sensitive review but does not authorize a universal endoscopy interruption, bridging, or restart interval.',
+    keywords: ['edoxaban', 'Savaysa', 'creatinine clearance', 'premature discontinuation'], concepts: ['premature-discontinuation', 'renal-function', 'anticoagulation-indication'], authority: 100,
+    limitations: ['The label is not an endoscopy-specific operational protocol.', 'Timing remains a clinician and approved-local-policy decision.'],
+  }),
+  atom({
+    id: 'EVD-B1-FDA-WARFARIN-INDICATION-MONITORING', sourceId: 'SRC-FDA-WARFARIN-TABLET-LABEL-2022',
+    claim: 'Warfarin sodium tablet labeling distinguishes venous thromboembolism, atrial fibrillation, cardiac valve replacement, and post-myocardial-infarction thromboembolic indications and requires individualized anticoagulation monitoring.',
+    normalizedTopic: 'warfarin-indication-monitoring', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
+    applicability: { medicationIds: ['MED-warfarin'], procedureCodes: [...procedures] },
+    title: 'Warfarin review preserves indication and valve context',
+    summary: 'The label supports indication-specific review and monitoring but does not by itself authorize endoscopy interruption, bridging, or restart timing.',
+    keywords: ['warfarin', 'atrial fibrillation', 'venous thromboembolism', 'cardiac valve replacement'], concepts: ['anticoagulation-indication', 'mechanical-heart-valve', 'monitoring'], authority: 100,
+    limitations: ['Procedure risk, recent thrombotic events, bridging, and restart remain clinician and approved-local-policy decisions.'],
+  }),
+  atom({
     id: 'EVD-B1-FDA-CLOPIDOGREL-DISCONTINUATION', sourceId: 'SRC-FDA-CLOPIDOGREL-LABEL',
     claim: 'Clopidogrel labeling warns against unsupervised discontinuation because premature interruption can increase cardiovascular risk and describes surgery-related interruption when antiplatelet effect is not desired.',
     normalizedTopic: 'clopidogrel-discontinuation', stance: 'DESCRIPTIVE', evidenceStrength: 'NOT_GRADED',
@@ -382,8 +451,9 @@ export const antithromboticCandidateRules: ClinicalRule[] = [
     id: 'RULE-B1-EDOXABAN-REVIEW', name: 'Edoxaban peri-endoscopic review pathway', medicationIds: ['MED-edoxaban'],
     evidenceRefs: [
       { id: 'EVD-B1-ACG-DOAC-INTERRUPT', version: 1 }, { id: 'EVD-B1-CHEST-DOAC-INTERRUPTION', version: 1 },
-      { id: 'EVD-B1-CHEST-NO-DOAC-BRIDGE', version: 1 },
+      { id: 'EVD-B1-CHEST-NO-DOAC-BRIDGE', version: 1 }, { id: 'EVD-B1-FDA-EDOXABAN-DISCONTINUATION-RENAL', version: 1 },
     ],
+    requiredModifierIds: [...commonAnticoagulantModifiers, 'MOD-verified-crcl-band'],
     policyDependencyIds: ['POLICY-GI-ANTITHROMBOTIC-TIMING'],
   }),
   reviewRule({
@@ -391,6 +461,7 @@ export const antithromboticCandidateRules: ClinicalRule[] = [
     evidenceRefs: [
       { id: 'EVD-B1-ACG-DOAC-INTERRUPT', version: 1 }, { id: 'EVD-B1-CHEST-DOAC-INTERRUPTION', version: 1 },
       { id: 'EVD-B1-BSG-HIGH-RISK-TIMING', version: 1 }, { id: 'EVD-B1-CHEST-NO-DOAC-BRIDGE', version: 1 },
+      { id: 'EVD-B1-FDA-DABIGATRAN-CAPSULE-DISCONTINUATION-RENAL', version: 1 },
     ],
     requiredModifierIds: [...commonAnticoagulantModifiers, 'MOD-verified-crcl-band'],
     policyDependencyIds: ['POLICY-GI-ANTITHROMBOTIC-TIMING'],
@@ -400,6 +471,7 @@ export const antithromboticCandidateRules: ClinicalRule[] = [
     evidenceRefs: [
       { id: 'EVD-B1-ACG-WARFARIN-CONTINUE', version: 1 }, { id: 'EVD-B1-ACG-NO-ROUTINE-BRIDGE', version: 1 },
       { id: 'EVD-B1-CHEST-COLONOSCOPY-WARFARIN-BRIDGE', version: 1 }, { id: 'EVD-B1-BSG-LOW-HIGH-RISK-ENDOSCOPY', version: 1 },
+      { id: 'EVD-B1-FDA-WARFARIN-INDICATION-MONITORING', version: 1 },
     ],
     requiredModifierIds: [...commonAnticoagulantModifiers, 'MOD-mechanical-heart-valve'],
     policyDependencyIds: ['POLICY-GI-ANTITHROMBOTIC-TIMING'],
