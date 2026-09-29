@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T06:45:00Z",
+  "generatedAt": "2026-09-29T06:54:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-03-sglt2-glp1",
-    "basedOnHeadSha": "8d7edf3dbc960d6b81013aa1e0821453759e51a0",
+    "basedOnHeadSha": "fba47fdfc257444ea9eb3d7e9a7bca794e287be2",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -90,12 +90,32 @@
       "batchNumber": 3,
       "batchName": "SGLT2 / GLP-1 / GIP / metabolic combinations",
       "medicationClassFamily": ["SGLT2 inhibitors", "SGLT2 fixed combinations", "GLP-1 receptor agonists", "GIP/GLP-1 agonists", "fixed insulin/GLP-1"],
-      "genericIngredient": ["empagliflozin", "dapagliflozin", "canagliflozin", "ertugliflozin", "bexagliflozin", "semaglutide", "tirzepatide", "dulaglutide", "liraglutide", "exenatide", "lixisenatide", "albiglutide"],
-      "importantBrandedProducts": ["Jardiance", "Farxiga", "Invokana", "Steglatro", "Brenzavvy", "Glyxambi", "Xigduo XR", "Segluromet", "Steglujan", "Synjardy", "Synjardy XR", "Trijardy XR", "Invokamet", "Invokamet XR", "Qtern", "Qternmet XR", "Ozempic", "Rybelsus", "Wegovy", "Mounjaro", "Zepbound", "Trulicity", "Victoza", "Saxenda", "Byetta", "Bydureon BCise", "Adlyxin", "Tanzeum", "Soliqua", "Xultophy"],
-      "importantFormulationDistinctions": ["oral versus injectable semaglutide", "immediate versus extended-release exenatide", "current versus historical products", "whole-product fixed combinations"],
+      "genericIngredient": ["empagliflozin", "dapagliflozin", "canagliflozin", "ertugliflozin", "bexagliflozin", "semaglutide", "tirzepatide", "dulaglutide", "liraglutide", "exenatide", "lixisenatide", "albiglutide", "orforglipron"],
+      "importantBrandedProducts": ["Jardiance", "Farxiga", "Invokana", "Steglatro", "Brenzavvy", "Glyxambi", "Xigduo XR", "Segluromet", "Steglujan", "Synjardy", "Synjardy XR", "Trijardy XR", "Invokamet", "Invokamet XR", "Qtern", "Qternmet XR", "Ozempic", "Rybelsus", "Wegovy", "Mounjaro", "Zepbound", "Trulicity", "Victoza", "Saxenda", "Byetta", "Bydureon BCise", "Adlyxin", "Tanzeum", "Foundayo", "Soliqua", "Xultophy"],
+      "importantFormulationDistinctions": ["oral versus injectable GLP-1 products including semaglutide and orforglipron", "immediate versus extended-release exenatide", "current branded versus source-distinct generic exenatide", "current versus historical products", "whole-product fixed combinations"],
       "routeDistinctions": ["oral", "subcutaneous"],
-      "releaseFormDistinctions": ["IR", "XR/ER", "injectable solution", "extended-release injectable suspension"],
+      "releaseFormDistinctions": ["IR", "XR/ER", "oral film-coated tablet", "injectable solution", "extended-release injectable suspension"],
       "combinationProductDistinctions": ["SGLT2/metformin and SGLT2/DPP-4 products", "triple oral combinations", "Soliqua and Xultophy as indivisible fixed products"],
+      "plannedProductCandidates": [
+        {
+          "candidateId": "MED-exenatide-generic-anda206697",
+          "genericIngredient": "exenatide",
+          "product": "unbranded exenatide injection",
+          "route": "SUBCUTANEOUS",
+          "application": "ANDA206697",
+          "status": "PLANNED",
+          "sourceStatus": "SOURCE_RESEARCH"
+        },
+        {
+          "candidateId": "MED-orforglipron-foundayo",
+          "genericIngredient": "orforglipron",
+          "product": "Foundayo",
+          "route": "ORAL",
+          "application": "NDA220934",
+          "status": "PLANNED",
+          "sourceStatus": "SOURCE_RESEARCH"
+        }
+      ],
       "developmentStatus": "IN_PROGRESS",
       "evidenceStatus": "SOURCE_RESEARCH",
       "terminologyStatus": "IMPLEMENTED",
@@ -107,7 +127,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Complete remaining current/historical incretin identities, then reconcile evolving GLP-1 endoscopy evidence and local policy without creating a universal autonomous hold interval."
+      "nextEngineeringWork": "Implement current Amneal exenatide ANDA206697 and Foundayo/orforglipron as source-linked, ambiguity-safe, clinician-review-only identities; then reconcile remaining Batch 03 evidence/policy gaps without creating a universal autonomous GLP-1 hold interval."
     },
     {
       "batchId": "MED-BATCH-04-CARDIOVASCULAR-RAAS",
