@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T13:06:00Z",
+  "generatedAt": "2026-09-29T13:43:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-04-cardiovascular-core",
-    "basedOnHeadSha": "e5ab221640b1d71c09c904593f3ec45bbedaf2e8",
+    "basedOnHeadSha": "72321b8544dc010a7b1e11c63180e5c339ed38e6",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -383,12 +383,12 @@
         "sacubitril/valsartan whole-product identity",
         "potassium-sparing/hydrochlorothiazide fixed combinations remain whole-product identities"
       ],
-      "developmentStatus": "IN_PROGRESS",
-      "evidenceStatus": "PARTIALLY_RECONCILED",
-      "terminologyStatus": "PARTIALLY_IMPLEMENTED",
+      "developmentStatus": "ENGINEERING_VERIFIED",
+      "evidenceStatus": "EVIDENCE_RECONCILED",
+      "terminologyStatus": "IMPLEMENTED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PARTIALLY_VERIFIED",
-      "engineeringVerificationStatus": "PARTIALLY_VERIFIED",
+      "testingStatus": "ENGINEERING_VERIFIED",
+      "engineeringVerificationStatus": "ENGINEERING_VERIFIED",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
@@ -529,9 +529,25 @@
           "jobId": 109413544712,
           "status": "ENGINEERING_VERIFIED",
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "OTHER-ANTIHYPERTENSIVE-ROUTE-FORM-CORE",
+          "medicationIds": [
+            "MED-clonidine-tablet",
+            "MED-clonidine-catapres-tts-patch",
+            "MED-hydralazine-tablet",
+            "MED-minoxidil-oral-tablet",
+            "MED-doxazosin-tablet",
+            "MED-prazosin-capsule"
+          ],
+          "testedHeadSha": "72321b8544dc010a7b1e11c63180e5c339ed38e6",
+          "workflowRunId": 36577754303,
+          "jobId": 109437656169,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Remaining antihypertensives: reconcile clonidine oral versus transdermal, hydralazine, minoxidil, doxazosin, and prazosin with direct authoritative labeling; preserve route/form ambiguity and keep routing review-only without invented timing, substitution, or availability."
+      "nextEngineeringWork": "Batch 04 engineering scope is complete. Accountable clinical/local-policy review remains pending; proceed to the Batch 05 antiarrhythmic core without merging, deploying, or activating this content."
     },
     {
       "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
@@ -602,7 +618,8 @@
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "nextEngineeringWork": "Antiarrhythmic core: amiodarone, dronedarone, sotalol, flecainide, propafenone, dofetilide, mexiletine, and quinidine; reconcile authoritative route/release identities and retain review-only routing."
     },
     {
       "batchId": "MED-BATCH-06-GI-BOWEL-IRON-IBD",

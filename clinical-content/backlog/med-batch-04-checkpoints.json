@@ -1,12 +1,12 @@
 {
   "batchId": "MED-BATCH-04-CARDIOVASCULAR-RAAS",
-  "status": "IN_PROGRESS",
+  "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-04-cardiovascular-core",
   "baseBranch": "med-batch-03-sglt2-glp1",
   "baseVerifiedHeadSha": "0c7f59959383a641b8c6704b7a823e0fa4c0e8cd",
-  "updatedAt": "2026-09-29T13:06:00Z",
-  "updatedAtBasis": "The potassium-sparing/MRA and fixed-combination cluster passed exact-head pull-request CI at e5ab221640b1d71c09c904593f3ec45bbedaf2e8 after two fail-closed TypeScript repairs. Batch 04 remains in progress and review-required; remaining antihypertensives are next.",
-  "engineeringStatus": "PARTIALLY_VERIFIED",
+  "updatedAt": "2026-09-29T13:43:00Z",
+  "updatedAtBasis": "The remaining-antihypertensive cluster passed exact-head pull-request CI at 72321b8544dc010a7b1e11c63180e5c339ed38e6. All canonical Batch 04 engineering clusters are now verified; clinical/local-policy review, merge, deployment, and production activation remain pending.",
+  "engineeringStatus": "ENGINEERING_VERIFIED",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -14,7 +14,7 @@
   "productionActivationStatus": "NOT_ACTIVE",
   "checkpoints": {
     "A_SCOPE_AND_EVIDENCE_AUDIT": {
-      "status": "RAAS_BETA_CCB_THIAZIDE_LOOP_POTASSIUM_COMPLETE_REMAINING_ANTIHYPERTENSIVES_PENDING",
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
       "scope": "DRAFT/review-required cardiovascular blood-pressure, RAAS, beta-blocker, calcium-channel-blocker, diuretic, and other antihypertensive identity/evidence reconciliation for EGD, colonoscopy, and combined procedures. Local anesthesia policy and clinically approved timing remain separately governed.",
       "completed": [
         "Verified representative direct DailyMed provenance for five ACE-inhibitor identities.",
@@ -28,36 +28,37 @@
         "Reconciled ten route/formulation/device-specific loop-diuretic identities for furosemide, torsemide, and bumetanide, including FUROSCIX device distinctions, historical DEMADEX intravenous labeling, and ENBUMYST nasal spray.",
         "Preserved bare-ingredient ambiguity across oral, injection, subcutaneous-device, and nasal identities; current availability, substitution, and route conversion remain unasserted.",
         "Reconciled five standalone potassium-sparing/MRA route/form identities and four hydrochlorothiazide fixed-combination identities with direct DailyMed SETID/SPL/application provenance.",
-        "Preserved standalone versus fixed-combination ambiguity for spironolactone, amiloride, and triamterene; explicit whole-product combinations remain indivisible identities."
+        "Preserved standalone versus fixed-combination ambiguity for spironolactone, amiloride, and triamterene; explicit whole-product combinations remain indivisible identities.",
+        "Reconciled clonidine oral tablet versus CATAPRES-TTS transdermal patch as distinct route identities.",
+        "Reconciled hydralazine oral tablet, systemic minoxidil oral tablet, doxazosin oral tablet, and prazosin oral capsule with direct DailyMed provenance.",
+        "Preserved bare clonidine ambiguity and failed bare minoxidil closed because systemic oral versus topical route/formulation was not explicit."
       ],
-      "remaining": [
-        "Reconcile remaining antihypertensives: clonidine oral versus transdermal, hydralazine, minoxidil, doxazosin, and prazosin, without inventing timing, substitution, or availability rules."
-      ]
+      "remaining": []
     },
     "B_TERMINOLOGY_AUDIT": {
-      "status": "RAAS_BETA_CCB_THIAZIDE_LOOP_POTASSIUM_ENGINEERING_VERIFIED",
-      "notes": "Terminology now preserves ARNI source/formulation ambiguity, metoprolol tartrate versus succinate ER ambiguity, nifedipine capsule versus ER ambiguity, and multi-profile diltiazem/verapamil ambiguity. Explicit Cartia XT, Verelan PM, and formulation-qualified queries resolve to source-linked identities. No substitution, formulation conversion, or market availability is inferred. Hydrochlorothiazide/HCTZ, chlorthalidone, and indapamide resolve only to their explicit single-ingredient oral identities; combination products are not inferred. Loop-diuretic terminology now fails bare furosemide, torsemide, and bumetanide closed across route/formulation identities while resolving explicit oral, injection, FUROSCIX device, historical DEMADEX IV, and ENBUMYST nasal wording. Potassium-sparing terminology now fails bare spironolactone, amiloride, and triamterene closed across standalone and fixed-combination identities; explicit formulation or combination wording resolves only to the matching whole-product identity."
+      "status": "COMPLETE_ENGINEERING_VERIFIED",
+      "notes": "Terminology now preserves ARNI source/formulation ambiguity, metoprolol tartrate versus succinate ER ambiguity, nifedipine capsule versus ER ambiguity, and multi-profile diltiazem/verapamil ambiguity. Explicit Cartia XT, Verelan PM, and formulation-qualified queries resolve to source-linked identities. No substitution, formulation conversion, or market availability is inferred. Hydrochlorothiazide/HCTZ, chlorthalidone, and indapamide resolve only to their explicit single-ingredient oral identities; combination products are not inferred. Loop-diuretic terminology now fails bare furosemide, torsemide, and bumetanide closed across route/formulation identities while resolving explicit oral, injection, FUROSCIX device, historical DEMADEX IV, and ENBUMYST nasal wording. Potassium-sparing terminology now fails bare spironolactone, amiloride, and triamterene closed across standalone and fixed-combination identities; explicit formulation or combination wording resolves only to the matching whole-product identity. Remaining-antihypertensive terminology preserves clonidine oral/transdermal ambiguity, requires explicit systemic oral-tablet wording for minoxidil, and resolves explicit hydralazine, doxazosin, and prazosin identities."
     },
     "C_RULE_AUDIT": {
-      "status": "RAAS_BETA_CCB_THIAZIDE_LOOP_POTASSIUM_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-      "notes": "RAAS guards remain timing-free LOCAL_POLICY_REQUIRED rules. Beta-blocker, DHP CCB, and non-DHP CCB product guards route explicit identities to CLINICIAN_REVIEW_REQUIRED with no timing rule. Production activeRules remain empty. The thiazide/thiazide-like product guard routes explicit identities to CLINICIAN_REVIEW_REQUIRED with no timing rule. The loop-diuretic product guard is also timing-free and routes only explicit identities to CLINICIAN_REVIEW_REQUIRED. The potassium-sparing/MRA product guard is timing-free and routes only explicit identities to CLINICIAN_REVIEW_REQUIRED; production activeRules remain empty."
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "notes": "RAAS guards remain timing-free LOCAL_POLICY_REQUIRED rules. Beta-blocker, DHP CCB, and non-DHP CCB product guards route explicit identities to CLINICIAN_REVIEW_REQUIRED with no timing rule. Production activeRules remain empty. The thiazide/thiazide-like product guard routes explicit identities to CLINICIAN_REVIEW_REQUIRED with no timing rule. The loop-diuretic product guard is also timing-free and routes only explicit identities to CLINICIAN_REVIEW_REQUIRED. The potassium-sparing/MRA product guard is timing-free and routes only explicit identities to CLINICIAN_REVIEW_REQUIRED; production activeRules remain empty. The remaining-antihypertensive product guard is timing-free and routes only explicit identities to CLINICIAN_REVIEW_REQUIRED; production activeRules remain empty."
     },
     "D_TEST_AUDIT": {
       "status": "PASS_EXACT_HEAD",
-      "notes": "Potassium-sparing/MRA regressions validate nine direct-label standalone and fixed-combination identities, require bare ingredient ambiguity, preserve whole-product combinations, and require timing-free clinician review across EGD, colonoscopy, and combined procedures. Workflow run #264 / run 36570660685 / job 109413544712 passed schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build at e5ab221640b1d71c09c904593f3ec45bbedaf2e8."
+      "notes": "Remaining-antihypertensive regressions validate six direct-label route/form identities, require clonidine and minoxidil ambiguity safeguards, and require timing-free clinician review across EGD, colonoscopy, and combined procedures. Workflow run #266 / run 36577754303 / job 109437656169 passed schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build at 72321b8544dc010a7b1e11c63180e5c339ed38e6."
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "RAAS_BETA_CCB_THIAZIDE_LOOP_POTASSIUM_ENGINEERING_VERIFIED",
-      "notes": "ACE, ARB/ARNI, beta-blocker, DHP/non-DHP CCB, thiazide, loop-diuretic, and potassium-sparing/MRA evidence, terminology, shadow routing, source notes, and regressions are integrated. No production rule, dosing, substitution, route conversion, availability inference, or autonomous timing was activated."
+      "status": "COMPLETE_ENGINEERING_VERIFIED",
+      "notes": "All canonical Batch 04 ACE, ARB/ARNI, beta-blocker, DHP/non-DHP CCB, thiazide, loop-diuretic, potassium-sparing/MRA, and remaining-antihypertensive evidence, terminology, shadow routing, source notes, and regressions are integrated. Loop, potassium-sparing, and remaining-antihypertensive evidence bundles are now included in assembled review evidence. No production rule, dosing, substitution, route conversion, availability inference, or autonomous timing was activated."
     },
     "F_CI_REPAIR": {
       "status": "PASS",
-      "testedHeadSha": "e5ab221640b1d71c09c904593f3ec45bbedaf2e8",
-      "workflowRunNumber": 264,
-      "workflowRunId": 36570660685,
-      "jobId": 109413544712,
+      "testedHeadSha": "72321b8544dc010a7b1e11c63180e5c339ed38e6",
+      "workflowRunNumber": 266,
+      "workflowRunId": 36577754303,
+      "jobId": 109437656169,
       "conclusion": "success",
-      "previousRepairContext": "Run #262 failed strict TypeScript because SourceDocument.metadata does not allow arrays; ingredientIds were normalized to a semicolon-delimited string. Run #263 then exposed a duplicate web-assembly import; commit e5ab221640b1d71c09c904593f3ec45bbedaf2e8 removed it. Exact-head run #264 passed without weakening safeguards."
+      "previousRepairContext": "No repair was required for this cluster. The implementation also corrected the literal terminology generatedAt placeholder and assembled previously omitted loop- and potassium-sparing evidence bundles."
     },
     "G_PR_FINALIZATION": {
       "status": "DRAFT_PR_OPEN",
@@ -108,22 +109,30 @@
       "amilorideHctz": "Teva / SETID 8b2c581a-f955-4a8e-bf85-e768e903fd10 / SPL 12 / effective 2022-12-27 / ANDA071111 / oral tablet",
       "triamtereneHctzCapsule": "Sandoz / SETID f824b6ba-bd1c-41a8-8f6f-ad507b48f3e0 / SPL 24 / effective 2026-07-16 / ANDA074821 / oral capsule",
       "triamtereneHctzTablet": "Actavis / SETID abf2fe45-8b69-4d3c-981e-289c0aa3e98b / SPL 17 / effective 2024-05-01 / ANDA073449; ANDA071851 / oral tablet"
+    },
+    "otherAntihypertensiveSourceState": {
+      "clonidineTablet": "Cardinal Health 107 / SETID df62817d-2f50-4c27-aaa8-a22f0290c94f / SPL 6 / effective 2026-05-01 / ANDA070974; ANDA070975 / oral tablet",
+      "catapresTts": "Technomed / SETID d4a55825-7041-42f4-b3b2-dd7a25dbe793 / SPL 4 / effective 2024-10-11 / NDA018891 / transdermal patch / label-listed marketing end 2026-10-30; availability not inferred",
+      "hydralazineTablet": "Macleods / SETID f9f56326-6d72-47d3-89ac-3625b8a6d713 / SPL 1 / effective 2024-09-06 / ANDA211010 / oral tablet",
+      "minoxidilOralTablet": "Sun / SETID 0354a7f5-5917-44dc-9963-411104008cb5 / SPL 5 / effective 2026-02-09 / ANDA072709 / systemic oral tablet",
+      "doxazosinTablet": "Chartwell / SETID a7f589b0-eebb-48cb-912f-a4bd956e4dcb / SPL 1 / effective 2023-06-09 / ANDA075646 / oral tablet",
+      "prazosinCapsule": "PD-Rx / SETID cd52f022-ca29-4f87-8684-da63e05b3c1f / SPL 11 / effective 2025-10-21 / ANDA072575 / oral capsule"
     }
   },
   "ci": {
     "status": "PASS",
-    "testedHeadSha": "e5ab221640b1d71c09c904593f3ec45bbedaf2e8",
+    "testedHeadSha": "72321b8544dc010a7b1e11c63180e5c339ed38e6",
     "workflowName": "quality",
-    "workflowRunNumber": 264,
-    "workflowRunId": 36570660685,
-    "jobId": 109413544712,
+    "workflowRunNumber": 266,
+    "workflowRunId": 36577754303,
+    "jobId": 109437656169,
     "conclusion": "success",
-    "scope": "Potassium-sparing/MRA standalone and fixed-combination cluster plus prior Batch 04 content; schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
+    "scope": "Complete Batch 04 through remaining antihypertensives; schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
   },
   "blockers": [],
-  "nextWorkItem": "Implement remaining antihypertensives: clonidine oral versus transdermal, hydralazine, minoxidil, doxazosin, and prazosin; preserve route/form ambiguity and keep all routing review-only without invented timing, substitution, or availability.",
-  "advanceToNextClusterAllowed": true,
-  "advanceToNextBatchAllowed": false,
+  "nextWorkItem": "Begin MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS with the antiarrhythmic core in canonical order: amiodarone, dronedarone, sotalol, flecainide, propafenone, dofetilide, mexiletine, and quinidine; preserve route and release-form distinctions and keep routing review-only.",
+  "advanceToNextClusterAllowed": false,
+  "advanceToNextBatchAllowed": true,
   "productionActivationAllowed": false,
   "pullRequest": 14
 }
