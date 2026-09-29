@@ -4,8 +4,8 @@
   "branch": "med-batch-04-cardiovascular-core",
   "baseBranch": "med-batch-03-sglt2-glp1",
   "baseVerifiedHeadSha": "0c7f59959383a641b8c6704b7a823e0fa4c0e8cd",
-  "updatedAt": "2026-09-29T07:50:00Z",
-  "updatedAtBasis": "The five-drug ACE inhibitor core passed exact-head pull-request CI at a5ec6a5ac523c0010bbfe9371968d1f8028e9f4b. Batch 04 remains in progress and review-required; the next executable cluster is ARB/ARNI identity and local-policy reconciliation.",
+  "updatedAt": "2026-09-29T08:05:00Z",
+  "updatedAtBasis": "The ACE inhibitor core and nine-identity ARB/ARNI cluster passed exact-head pull-request CI. Batch 04 remains in progress and review-required; the next executable cluster is beta blockers with explicit metoprolol tartrate/succinate preservation.",
   "engineeringStatus": "PARTIALLY_VERIFIED",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -14,39 +14,42 @@
   "productionActivationStatus": "NOT_ACTIVE",
   "checkpoints": {
     "A_SCOPE_AND_EVIDENCE_AUDIT": {
-      "status": "ACE_CORE_COMPLETE_NEXT_CLUSTER_PENDING",
+      "status": "ACE_AND_ARB_ARNI_COMPLETE_NEXT_CLUSTER_PENDING",
       "scope": "DRAFT/review-required cardiovascular blood-pressure, RAAS, beta-blocker, calcium-channel-blocker, diuretic, and other antihypertensive identity/evidence reconciliation for EGD, colonoscopy, and combined procedures. Local anesthesia policy and clinically approved timing remain separately governed.",
       "completed": [
         "Verified representative current direct DailyMed provenance for oral lisinopril, enalapril, benazepril, ramipril, and captopril generic identities.",
         "Preserved exact SETID, SPL sequence, effective/update date, application number, route, and dosage form for the five ACE inhibitor source records.",
-        "Verified current AHA/ACC perioperative RAAS guidance remains indication- and surgical-risk-dependent: selected hypertension patients undergoing elevated-risk noncardiac surgery may benefit from omission before surgery, whereas continuation is reasonable in HFrEF; no outpatient-endoscopy universal timing rule was inferred."
+        "Verified current AHA/ACC perioperative RAAS guidance remains indication- and surgical-risk-dependent: selected hypertension patients undergoing elevated-risk noncardiac surgery may benefit from omission before surgery, whereas continuation is reasonable in HFrEF; no outpatient-endoscopy universal timing rule was inferred.",
+        "Reconciled six standalone ARB identities and three source/formulation-distinct sacubitril/valsartan whole-product identities against direct DailyMed labeling.",
+        "Preserved generic Novugen tablet, Entresto film-coated tablet, and Entresto Sprinkle pellet identities; bare ARNI wording fails closed as ambiguous.",
+        "Kept the AHA/ACC indication/procedure-risk boundary and restricted STOP-or-NOT context to ACE inhibitor/ARB evidence rather than ARNI evidence."
       ],
       "remaining": [
-        "Reconcile the ARB/ARNI cluster: losartan, valsartan, irbesartan, candesartan, olmesartan, telmisartan, and sacubitril/valsartan with current source provenance and the same local-policy boundary where applicable.",
-        "Then reconcile beta blockers, calcium-channel blockers, diuretics, clonidine/hydralazine/minoxidil, and alpha blockers in coherent formulation/route clusters."
+        "Reconcile beta blockers in a formulation-aware cluster, beginning with metoprolol tartrate versus metoprolol succinate ER, then carvedilol, atenolol, propranolol, bisoprolol, nadolol, and labetalol.",
+        "Then reconcile calcium-channel blockers, diuretics, clonidine/hydralazine/minoxidil, and alpha blockers in coherent formulation/route clusters."
       ]
     },
     "B_TERMINOLOGY_AUDIT": {
-      "status": "ACE_CORE_ENGINEERING_VERIFIED",
-      "notes": "Lisinopril retains its historical generic medication identifier. Enalapril, benazepril, ramipril, and captopril are added as generic single-ingredient ACE inhibitor identities. Salt wording resolves only to the corresponding ingredient identity; no NDC/manufacturer identity is inferred from generic wording."
+      "status": "ACE_AND_ARB_ARNI_ENGINEERING_VERIFIED",
+      "notes": "Six ARBs resolve as generic ingredient identities. Sacubitril/valsartan is preserved as three source/formulation-distinct indivisible two-ingredient identities. Bare Entresto or generic sacubitril/valsartan wording fails closed as AMBIGUOUS; explicit application/form wording resolves only to the corresponding identity. No substitution or market availability is inferred."
     },
     "C_RULE_AUDIT": {
-      "status": "ACE_CORE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-      "notes": "RULE-B4-ACE-INHIBITOR-POLICY-REVIEW-001 covers the five ACE inhibitors across EGD, colonoscopy, and combined procedures. It requires MOD-raas-indication, returns LOCAL_POLICY_REQUIRED, references existing AHA/ACC and STOP-or-NOT evidence, depends on POLICY-ANESTHESIA-RAAS, and contains no timing rule. The legacy RULE-LISINOPRIL-POLICY-001 remains preserved historically but is filtered from the assembled shadow release to avoid duplicate competing lisinopril rules. Production activeRules remain empty."
+      "status": "ACE_AND_ARB_ARNI_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "notes": "ACE inhibitor, ARB, and ARNI shadow rules remain timing-free LOCAL_POLICY_REQUIRED guards across EGD, colonoscopy, and combined procedures, require MOD-raas-indication, and depend on POLICY-ANESTHESIA-RAAS. ARNI evidence excludes STOP-or-NOT. Production activeRules remain empty."
     },
     "D_TEST_AUDIT": {
       "status": "PASS_EXACT_HEAD",
-      "notes": "Evidence tests pin five DailyMed source records and governance flags. Web regressions validate terminology, absence of the legacy assembled lisinopril rule, the new class guard, and timing-free LOCAL_POLICY_REQUIRED routing across all three procedure types. Exact-head workflow 36538856120 / job 109309197986 passed."
+      "notes": "Evidence regressions pin 11 ARB/ARNI source records, nine medication identities, formulation boundaries, and non-authorizing governance flags. Web regressions enforce ARNI ambiguity, source/formulation-specific resolution, and timing-free local-policy routing across all three procedure types. Exact-head workflow 36540317967 / job 109313901520 passed."
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "ACE_CORE_ENGINEERING_VERIFIED",
-      "notes": "ACE inhibitor source evidence, terminology, shadow-rule assembly, and regressions are integrated. No production clinical rule, dose arithmetic, substitution, market-availability inference, or peri-procedural hold/restart interval was activated."
+      "status": "ACE_AND_ARB_ARNI_ENGINEERING_VERIFIED",
+      "notes": "ACE inhibitor and ARB/ARNI evidence, terminology, shadow-rule assembly, source reconciliation notes, and regressions are integrated. No production clinical rule, dose arithmetic, component splitting, substitution, market-availability inference, or peri-procedural timing interval was activated."
     },
     "F_CI_REPAIR": {
       "status": "PASS",
-      "testedHeadSha": "a5ec6a5ac523c0010bbfe9371968d1f8028e9f4b",
-      "workflowRunId": 36538856120,
-      "jobId": 109309197986,
+      "testedHeadSha": "937650ae2e85af4311de3aea67d8a295d998ddae",
+      "workflowRunId": 36540317967,
+      "jobId": 109313901520,
       "conclusion": "success"
     },
     "G_PR_FINALIZATION": {
@@ -74,20 +77,29 @@
     "marketAvailabilityAsserted": false,
     "clinicalApprovalGranted": false,
     "localPolicyApprovalGranted": false,
-    "timingRuleAuthorized": false
+    "timingRuleAuthorized": false,
+    "arbArniSourceState": {
+      "losartan": "Zydus / SETID 3233c707-70b6-4c29-8210-913eeb2a38ed / SPL 22 / ANDA078243 / oral film-coated tablet",
+      "valsartan": "Mylan / SETID 73e01dc6-7dd4-421a-a4f6-137e75f69f9a / SPL 16 / ANDA090866 / oral film-coated tablet",
+      "irbesartan": "Macleods / SETID e8635a1c-ae06-4e23-99f7-e704f91d6f43 / SPL 13 / ANDA202254 / oral tablet",
+      "candesartan": "Viona / SETID 9da86c48-5911-4512-8c71-eca4a6418cf6 / SPL 4 / ANDA091390 / oral tablet",
+      "olmesartan": "Aurobindo / SETID 8c94d403-809b-43b9-834f-3ecd330d2dd9 / SPL 9 / ANDA204798 / oral film-coated tablet",
+      "telmisartan": "Alembic / SETID c62d424c-7630-413c-be2c-3932831c3f1d / SPL 11 / ANDA202130 / oral tablet",
+      "sacubitrilValsartan": "Novugen ANDA213611 film-coated tablet; Entresto NDA207620 film-coated tablet; Entresto Sprinkle NDA218591 pellet; identities remain distinct and whole-product"
+    }
   },
   "ci": {
     "status": "PASS",
-    "testedHeadSha": "a5ec6a5ac523c0010bbfe9371968d1f8028e9f4b",
+    "testedHeadSha": "937650ae2e85af4311de3aea67d8a295d998ddae",
     "workflowName": "quality",
-    "workflowRunNumber": 216,
-    "workflowRunId": 36538856120,
-    "jobId": 109309197986,
+    "workflowRunNumber": 225,
+    "workflowRunId": 36540317967,
+    "jobId": 109313901520,
     "conclusion": "success",
-    "scope": "ACE inhibitor core; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
+    "scope": "ACE inhibitor and ARB/ARNI clusters; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
   },
   "blockers": [],
-  "nextWorkItem": "Implement the ARB/ARNI cluster (losartan, valsartan, irbesartan, candesartan, olmesartan, telmisartan, and sacubitril/valsartan) with direct authoritative identity provenance, whole-product preservation for sacubitril/valsartan, indication-aware review-only routing, and no universal outpatient-endoscopy RAAS timing interval.",
+  "nextWorkItem": "Implement the beta-blocker cluster with direct authoritative identity provenance, beginning with separate metoprolol tartrate immediate-release and metoprolol succinate extended-release identities, followed by carvedilol, atenolol, propranolol, bisoprolol, nadolol, and labetalol; add review-only routing only where evidence and governance support it.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,

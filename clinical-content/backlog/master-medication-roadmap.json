@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T07:50:00Z",
+  "generatedAt": "2026-09-29T08:05:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-04-cardiovascular-core",
-    "basedOnHeadSha": "a5ec6a5ac523c0010bbfe9371968d1f8028e9f4b",
+    "basedOnHeadSha": "937650ae2e85af4311de3aea67d8a295d998ddae",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -408,9 +408,28 @@
           "workflowRunId": 36538856120,
           "jobId": 109309197986,
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "ARB-ARNI-CORE",
+          "medicationIds": [
+            "MED-losartan",
+            "MED-valsartan",
+            "MED-irbesartan",
+            "MED-candesartan",
+            "MED-olmesartan",
+            "MED-telmisartan",
+            "MED-sacubitril-valsartan",
+            "MED-sacubitril-valsartan-entresto-tablet",
+            "MED-sacubitril-valsartan-entresto-sprinkle"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "937650ae2e85af4311de3aea67d8a295d998ddae",
+          "workflowRunId": 36540317967,
+          "jobId": 109313901520,
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "ARB/ARNI identity and review-only routing: losartan, valsartan, irbesartan, candesartan, olmesartan, telmisartan, and sacubitril/valsartan; preserve the fixed combination and do not infer a universal timing interval."
+      "nextEngineeringWork": "Beta blockers: preserve metoprolol tartrate immediate-release versus metoprolol succinate extended-release before adding carvedilol, atenolol, propranolol, bisoprolol, nadolol, and labetalol; use direct authoritative labeling and do not invent a universal timing interval."
     },
     {
       "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
