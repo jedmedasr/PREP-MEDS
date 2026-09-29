@@ -4,8 +4,8 @@
   "branch": "med-batch-04-cardiovascular-core",
   "baseBranch": "med-batch-03-sglt2-glp1",
   "baseVerifiedHeadSha": "0c7f59959383a641b8c6704b7a823e0fa4c0e8cd",
-  "updatedAt": "2026-09-29T08:55:00Z",
-  "updatedAtBasis": "ACE inhibitor, ARB/ARNI, beta-blocker, dihydropyridine CCB, and non-dihydropyridine CCB clusters are engineering-verified. The non-DHP CCB cluster passed exact-head quality run #249 at 77c0caacd87be55f9eb1e273052e0d596dfc4cc7.",
+  "updatedAt": "2026-09-29T09:08:00Z",
+  "updatedAtBasis": "The thiazide/thiazide-like diuretic cluster passed exact-head pull-request CI at 07a80f434bcfc13ae5e7d91a76d458a919f57c15 after repairing the staged export/assembly TypeScript failure. Batch 04 remains in progress and review-required; loop diuretics are next.",
   "engineeringStatus": "PARTIALLY_VERIFIED",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -14,7 +14,7 @@
   "productionActivationStatus": "NOT_ACTIVE",
   "checkpoints": {
     "A_SCOPE_AND_EVIDENCE_AUDIT": {
-      "status": "RAAS_BETA_CCB_COMPLETE_NEXT_CLUSTER_PENDING",
+      "status": "RAAS_BETA_CCB_THIAZIDE_COMPLETE_NEXT_CLUSTER_PENDING",
       "scope": "DRAFT/review-required cardiovascular blood-pressure, RAAS, beta-blocker, calcium-channel-blocker, diuretic, and other antihypertensive identity/evidence reconciliation for EGD, colonoscopy, and combined procedures. Local anesthesia policy and clinically approved timing remain separately governed.",
       "completed": [
         "Verified representative direct DailyMed provenance for five ACE-inhibitor identities.",
@@ -23,37 +23,38 @@
         "Reconciled four DHP CCB identities and preserved nifedipine capsule versus ER ambiguity.",
         "Reconciled seven source/formulation-distinct non-DHP CCB identities spanning diltiazem standard tablet, twice-daily ER capsule, Cartia XT once-daily ER capsule, once-daily ER tablet, verapamil standard tablet, generic verapamil ER tablet, and Verelan PM controlled-onset ER capsule.",
         "Preserved diltiazem and verapamil generic/ER ambiguity and prevented automatic interchange among distinct ER products.",
-        "Preserved Verelan PM listed marketing-end metadata separately from identity without inferring current commercial availability."
+        "Preserved Verelan PM listed marketing-end metadata separately from identity without inferring current commercial availability.",
+        "Reconciled hydrochlorothiazide, chlorthalidone, and indapamide as three single-ingredient oral thiazide/thiazide-like diuretic identities with direct DailyMed SETID/SPL/application provenance."
       ],
       "remaining": [
-        "Reconcile diuretics in coherent clusters: thiazide/thiazide-like agents, loop diuretics, and potassium-sparing/MRA agents.",
-        "Then reconcile remaining antihypertensives including clonidine route distinctions, hydralazine, minoxidil, doxazosin, and prazosin."
+        "Reconcile loop diuretics: furosemide, torsemide, and bumetanide.",
+        "Then reconcile potassium-sparing/MRA agents and remaining antihypertensives, preserving route and formulation distinctions."
       ]
     },
     "B_TERMINOLOGY_AUDIT": {
-      "status": "RAAS_BETA_CCB_ENGINEERING_VERIFIED",
-      "notes": "Terminology now preserves ARNI source/formulation ambiguity, metoprolol tartrate versus succinate ER ambiguity, nifedipine capsule versus ER ambiguity, and multi-profile diltiazem/verapamil ambiguity. Explicit Cartia XT, Verelan PM, and formulation-qualified queries resolve to source-linked identities. No substitution, formulation conversion, or market availability is inferred."
+      "status": "RAAS_BETA_CCB_THIAZIDE_ENGINEERING_VERIFIED",
+      "notes": "Terminology now preserves ARNI source/formulation ambiguity, metoprolol tartrate versus succinate ER ambiguity, nifedipine capsule versus ER ambiguity, and multi-profile diltiazem/verapamil ambiguity. Explicit Cartia XT, Verelan PM, and formulation-qualified queries resolve to source-linked identities. No substitution, formulation conversion, or market availability is inferred. Hydrochlorothiazide/HCTZ, chlorthalidone, and indapamide resolve only to their explicit single-ingredient oral identities; combination products are not inferred."
     },
     "C_RULE_AUDIT": {
-      "status": "RAAS_BETA_CCB_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-      "notes": "RAAS guards remain timing-free LOCAL_POLICY_REQUIRED rules. Beta-blocker, DHP CCB, and non-DHP CCB product guards route explicit identities to CLINICIAN_REVIEW_REQUIRED with no timing rule. Production activeRules remain empty."
+      "status": "RAAS_BETA_CCB_THIAZIDE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "notes": "RAAS guards remain timing-free LOCAL_POLICY_REQUIRED rules. Beta-blocker, DHP CCB, and non-DHP CCB product guards route explicit identities to CLINICIAN_REVIEW_REQUIRED with no timing rule. Production activeRules remain empty. The thiazide/thiazide-like product guard routes explicit identities to CLINICIAN_REVIEW_REQUIRED with no timing rule."
     },
     "D_TEST_AUDIT": {
       "status": "PASS_EXACT_HEAD",
-      "notes": "Non-DHP CCB regressions pin seven source/formulation identities plus Verelan PM historical marketing-status provenance, enforce generic/ER ambiguity for diltiazem and verapamil, verify explicit formulation resolution, and require timing-free clinician review across EGD, colonoscopy, and combined procedures. Exact-head workflow run #249 / run 36544480381 / job 109327454652 passed schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression tests, and production web build at 77c0caacd87be55f9eb1e273052e0d596dfc4cc7."
+      "notes": "Thiazide regressions pin three direct-label source records, validate terminology including HCTZ, and require timing-free clinician review across EGD, colonoscopy, and combined procedures. Workflow run #257 / run 36545501747 / job 109330797200 passed schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression tests, and production web build at 07a80f434bcfc13ae5e7d91a76d458a919f57c15."
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "RAAS_BETA_CCB_ENGINEERING_VERIFIED",
-      "notes": "ACE, ARB/ARNI, beta-blocker, DHP CCB, and non-DHP CCB evidence, terminology, shadow-rule assembly, source reconciliation notes, and regressions are integrated. No production clinical rule, dose arithmetic, formulation conversion, substitution, market-availability inference, or autonomous peri-procedural timing interval was activated."
+      "status": "RAAS_BETA_CCB_THIAZIDE_ENGINEERING_VERIFIED",
+      "notes": "ACE, ARB/ARNI, beta-blocker, DHP/non-DHP CCB, and thiazide evidence, terminology, shadow routing, source notes, and regressions are integrated. No production rule, dosing, substitution, availability inference, or autonomous timing was activated."
     },
     "F_CI_REPAIR": {
       "status": "PASS",
-      "testedHeadSha": "77c0caacd87be55f9eb1e273052e0d596dfc4cc7",
-      "workflowRunNumber": 249,
-      "workflowRunId": 36544480381,
-      "jobId": 109327454652,
+      "testedHeadSha": "07a80f434bcfc13ae5e7d91a76d458a919f57c15",
+      "workflowRunNumber": 257,
+      "workflowRunId": 36545501747,
+      "jobId": 109330797200,
       "conclusion": "success",
-      "previousRepairContext": "Earlier ARB/ARNI stale evidence assertions were repaired without weakening safeguards. No repair was required for the beta-blocker or CCB clusters."
+      "previousRepairContext": "Run #254 failed strict TypeScript because thiazide definitions were not yet exported to the web workspace. The export and complete shadow assembly were added; exact-head runs #256 and #257 passed without weakening safeguards."
     },
     "G_PR_FINALIZATION": {
       "status": "DRAFT_PR_OPEN",
@@ -87,16 +88,16 @@
   },
   "ci": {
     "status": "PASS",
-    "testedHeadSha": "77c0caacd87be55f9eb1e273052e0d596dfc4cc7",
+    "testedHeadSha": "07a80f434bcfc13ae5e7d91a76d458a919f57c15",
     "workflowName": "quality",
-    "workflowRunNumber": 249,
-    "workflowRunId": 36544480381,
-    "jobId": 109327454652,
+    "workflowRunNumber": 257,
+    "workflowRunId": 36545501747,
+    "jobId": 109330797200,
     "conclusion": "success",
-    "scope": "Non-DHP calcium-channel-blocker cluster plus prior Batch 04 content; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
+    "scope": "Thiazide/thiazide-like diuretic cluster plus prior Batch 04 content; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
   },
   "blockers": [],
-  "nextWorkItem": "Implement the thiazide/thiazide-like diuretic cluster with authoritative source reconciliation and review-only terminology for hydrochlorothiazide, chlorthalidone, and indapamide; then continue to loop and potassium-sparing/MRA diuretics.",
+  "nextWorkItem": "Implement the loop-diuretic cluster with authoritative source reconciliation and review-only terminology for furosemide, torsemide, and bumetanide; preserve route/formulation ambiguity and do not infer a universal peri-procedural timing interval.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,

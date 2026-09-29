@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T08:05:00Z",
+  "generatedAt": "2026-09-29T09:08:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-04-cardiovascular-core",
-    "basedOnHeadSha": "937650ae2e85af4311de3aea67d8a295d998ddae",
+    "basedOnHeadSha": "07a80f434bcfc13ae5e7d91a76d458a919f57c15",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -427,9 +427,71 @@
           "workflowRunId": 36540317967,
           "jobId": 109313901520,
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "BETA-BLOCKER-CORE",
+          "medicationIds": [
+            "MED-metoprolol-tartrate",
+            "MED-metoprolol-succinate-er",
+            "MED-carvedilol",
+            "MED-atenolol",
+            "MED-propranolol",
+            "MED-bisoprolol",
+            "MED-nadolol",
+            "MED-labetalol"
+          ],
+          "testedHeadSha": "9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35",
+          "workflowRunId": 36541857215,
+          "jobId": 109318929319,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "DHP-CCB-CORE",
+          "medicationIds": [
+            "MED-amlodipine",
+            "MED-nifedipine-capsule",
+            "MED-nifedipine-er",
+            "MED-felodipine-er"
+          ],
+          "testedHeadSha": "275fc265ced74540f4b6acf24cf9cdd8b8ed2fcf",
+          "workflowRunId": 36543181848,
+          "jobId": 109323219824,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "NON-DHP-CCB-CORE",
+          "medicationIds": [
+            "MED-diltiazem-tablet",
+            "MED-diltiazem-er-capsule-twice-daily",
+            "MED-diltiazem-cartia-xt-er-capsule-once-daily",
+            "MED-diltiazem-er-tablet-once-daily",
+            "MED-verapamil-tablet",
+            "MED-verapamil-er-tablet",
+            "MED-verapamil-verelan-pm-er-capsule"
+          ],
+          "testedHeadSha": "77c0caacd87be55f9eb1e273052e0d596dfc4cc7",
+          "workflowRunId": 36544480381,
+          "jobId": 109327454652,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "THIAZIDE-DIURETIC-CORE",
+          "medicationIds": [
+            "MED-hydrochlorothiazide",
+            "MED-chlorthalidone",
+            "MED-indapamide"
+          ],
+          "testedHeadSha": "07a80f434bcfc13ae5e7d91a76d458a919f57c15",
+          "workflowRunId": 36545501747,
+          "jobId": 109330797200,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Beta blockers: preserve metoprolol tartrate immediate-release versus metoprolol succinate extended-release before adding carvedilol, atenolol, propranolol, bisoprolol, nadolol, and labetalol; use direct authoritative labeling and do not invent a universal timing interval."
+      "nextEngineeringWork": "Loop diuretics: reconcile furosemide, torsemide, and bumetanide with direct authoritative labeling, preserve route/formulation ambiguity, and keep routing review-only without an invented universal timing interval."
     },
     {
       "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
