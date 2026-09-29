@@ -1,0 +1,86 @@
+{
+  "batchId": "MED-BATCH-04-CARDIOVASCULAR-RAAS",
+  "status": "IN_PROGRESS",
+  "branch": "med-batch-04-cardiovascular-core",
+  "baseBranch": "med-batch-03-sglt2-glp1",
+  "baseVerifiedHeadSha": "0c7f59959383a641b8c6704b7a823e0fa4c0e8cd",
+  "updatedAt": "2026-09-29T07:40:00Z",
+  "updatedAtBasis": "Batch 04 opened from the exact-head-green Batch 03 engineering checkpoint. The five-drug ACE inhibitor core is implemented with current direct DailyMed provenance and a timing-free local-policy review guard; exact-head CI is pending.",
+  "engineeringStatus": "IN_PROGRESS",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_SCOPE_AND_EVIDENCE_AUDIT": {
+      "status": "IN_PROGRESS",
+      "scope": "DRAFT/review-required cardiovascular blood-pressure, RAAS, beta-blocker, calcium-channel-blocker, diuretic, and other antihypertensive identity/evidence reconciliation for EGD, colonoscopy, and combined procedures. Local anesthesia policy and clinically approved timing remain separately governed.",
+      "completed": [
+        "Verified representative current direct DailyMed provenance for oral lisinopril, enalapril, benazepril, ramipril, and captopril generic identities.",
+        "Preserved exact SETID, SPL sequence, effective/update date, application number, route, and dosage form for the five ACE inhibitor source records.",
+        "Verified current AHA/ACC perioperative RAAS guidance remains indication- and surgical-risk-dependent: selected hypertension patients undergoing elevated-risk noncardiac surgery may benefit from omission before surgery, whereas continuation is reasonable in HFrEF; no outpatient-endoscopy universal timing rule was inferred."
+      ],
+      "remaining": [
+        "Reconcile the ARB/ARNI cluster: losartan, valsartan, irbesartan, candesartan, olmesartan, telmisartan, and sacubitril/valsartan with current source provenance and the same local-policy boundary where applicable.",
+        "Then reconcile beta blockers, calcium-channel blockers, diuretics, clonidine/hydralazine/minoxidil, and alpha blockers in coherent formulation/route clusters."
+      ]
+    },
+    "B_TERMINOLOGY_AUDIT": {
+      "status": "IN_PROGRESS",
+      "notes": "Lisinopril retains its historical generic medication identifier. Enalapril, benazepril, ramipril, and captopril are added as generic single-ingredient ACE inhibitor identities. Salt wording resolves only to the corresponding ingredient identity; no NDC/manufacturer identity is inferred from generic wording."
+    },
+    "C_RULE_AUDIT": {
+      "status": "IN_PROGRESS",
+      "notes": "RULE-B4-ACE-INHIBITOR-POLICY-REVIEW-001 covers the five ACE inhibitors across EGD, colonoscopy, and combined procedures. It requires MOD-raas-indication, returns LOCAL_POLICY_REQUIRED, references existing AHA/ACC and STOP-or-NOT evidence, depends on POLICY-ANESTHESIA-RAAS, and contains no timing rule. The legacy RULE-LISINOPRIL-POLICY-001 remains preserved historically but is filtered from the assembled shadow release to avoid duplicate competing lisinopril rules. Production activeRules remain empty."
+    },
+    "D_TEST_AUDIT": {
+      "status": "PENDING_EXACT_HEAD_CI",
+      "notes": "Evidence tests pin five DailyMed source records and governance flags. Web regressions validate terminology, absence of the legacy assembled lisinopril rule, the new class guard, and timing-free LOCAL_POLICY_REQUIRED routing across all three procedure types."
+    },
+    "E_INTEGRATION_AUDIT": {
+      "status": "PENDING_EXACT_HEAD_CI",
+      "notes": "ACE inhibitor source evidence, terminology, shadow-rule assembly, and regressions are integrated. No production clinical rule, dose arithmetic, substitution, market-availability inference, or peri-procedural hold/restart interval was activated."
+    },
+    "F_CI_REPAIR": {
+      "status": "PENDING_EXACT_HEAD_CI"
+    },
+    "G_PR_FINALIZATION": {
+      "status": "NOT_STARTED"
+    }
+  },
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "primarySourceFamilies": [
+      "FDA/DailyMed direct prescription labeling",
+      "2024 AHA/ACC multisociety perioperative cardiovascular guideline",
+      "STOP-or-NOT randomized trial already present in the clinical evidence bundle"
+    ],
+    "aceSourceState": {
+      "lisinopril": "Aurobindo Pharma Limited / SETID 0e6364a4-6d66-4151-8197-d45e2a762895 / SPL 27 / effective 2026-07-21 / ANDA077622 / oral tablet",
+      "enalapril": "Sun Pharmaceutical Industries / SETID f103b9f9-e081-419d-a2d8-b86acda834dd / SPL 14 / effective 2026-07-14 / ANDA075657 / oral tablet",
+      "benazepril": "ANI Pharmaceuticals / SETID ff732cfa-9ded-4226-b464-19c90a6865ae / SPL 2 / effective 2026-08-19 / ANDA076333 / oral tablet",
+      "ramipril": "Lupin Pharmaceuticals / SETID a8cdec12-81d1-4ef4-82c0-d05d93c37a07 / SPL 21 / effective 2026-08-24 / ANDA077626 / oral capsule",
+      "captopril": "Solco Healthcare US / SETID 2d3779b0-83d9-4b6f-a043-f7768cd7fce6 / SPL 2 / effective 2025-12-25 / ANDA074477 / oral tablet"
+    },
+    "representativeGenericIdentityOnly": true,
+    "marketAvailabilityAsserted": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "ci": {
+    "status": "PENDING",
+    "testedHeadSha": null,
+    "workflowRunId": null,
+    "jobId": null,
+    "note": "Open the Batch 04 draft PR, then require schema validation, strict TypeScript, full regression tests, and production web build to pass on the exact head before advancing to the ARB/ARNI cluster."
+  },
+  "blockers": [],
+  "nextWorkItem": "Open the Batch 04 draft PR and verify exact-head CI for the ACE inhibitor core. If green, update this checkpoint with the implementation SHA/workflow/job receipt, then continue with the ARB/ARNI cluster without creating a universal outpatient-endoscopy RAAS hold interval.",
+  "advanceToNextClusterAllowed": false,
+  "advanceToNextBatchAllowed": false,
+  "productionActivationAllowed": false,
+  "pullRequest": null
+}
