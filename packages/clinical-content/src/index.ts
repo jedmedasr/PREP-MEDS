@@ -246,6 +246,14 @@ export {
   batch04PotassiumSparingReviewRules,
 } from './batch04-potassium-sparing-evidence.js';
 export type { Batch04PotassiumSparingIdentityDefinition } from './batch04-potassium-sparing-evidence.js';
+export {
+  batch04OtherAntihypertensiveIdentityEvidence,
+  batch04OtherAntihypertensiveIdentityDefinitions,
+  batch04OtherAntihypertensiveIdentitySources,
+  batch04OtherAntihypertensiveIdentityAtoms,
+  batch04OtherAntihypertensiveReviewRules,
+} from './batch04-other-antihypertensive-evidence.js';
+export type { Batch04OtherAntihypertensiveIdentityDefinition } from './batch04-other-antihypertensive-evidence.js';
 
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
