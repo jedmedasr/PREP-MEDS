@@ -323,3 +323,13 @@ export {
   batch05OtherCardiacReviewRules,
 } from './batch05-other-cardiac-evidence.js';
 export type { Batch05OtherCardiacIdentityDefinition } from './batch05-other-cardiac-evidence.js';
+
+
+export {
+  periproceduralBuprenorphineIdentityEvidence,
+  periproceduralBuprenorphineIdentityDefinitions,
+  periproceduralBuprenorphineIdentitySources,
+  periproceduralBuprenorphineIdentityAtoms,
+  periproceduralBuprenorphineReviewRules,
+} from './periprocedural-buprenorphine-evidence.js';
+export type { PeriproceduralBuprenorphineIdentityDefinition } from './periprocedural-buprenorphine-evidence.js';

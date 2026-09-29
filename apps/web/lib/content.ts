@@ -39,6 +39,8 @@ import {
   batch05ClassIAntiarrhythmicReviewRules,
   batch05OtherCardiacIdentityEvidence,
   batch05OtherCardiacReviewRules,
+  periproceduralBuprenorphineIdentityEvidence,
+  periproceduralBuprenorphineReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -58,6 +60,7 @@ import { batch04OtherAntihypertensiveIngredients, batch04OtherAntihypertensiveMe
 import { batch05ClassIIIAntiarrhythmicIngredients, batch05ClassIIIAntiarrhythmicMedications } from './batch05-class-iii-antiarrhythmics';
 import { batch05ClassIAntiarrhythmicIngredients, batch05ClassIAntiarrhythmicMedications } from './batch05-class-i-antiarrhythmics';
 import { batch05OtherCardiacIngredients, batch05OtherCardiacMedications } from './batch05-other-cardiac';
+import { periproceduralBuprenorphineIngredients, periproceduralBuprenorphineMedications } from './periprocedural-buprenorphine';
 
 export interface UiModifierDefinition {
   id: string;
@@ -75,8 +78,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-05-other-cardiac-terminology-1',
-  generatedAt: '2026-09-29T16:58:00Z',
+  version: 'periprocedural-buprenorphine-terminology-1',
+  generatedAt: '2026-09-29T20:52:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -99,6 +102,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch05ClassIIIAntiarrhythmicIngredients,
     ...batch05ClassIAntiarrhythmicIngredients,
     ...batch05OtherCardiacIngredients,
+    ...periproceduralBuprenorphineIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -161,6 +165,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...batch05ClassIIIAntiarrhythmicMedications,
     ...batch05ClassIAntiarrhythmicMedications,
     ...batch05OtherCardiacMedications,
+    ...periproceduralBuprenorphineMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -194,6 +199,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...batch05ClassIIIAntiarrhythmicReviewRules,
   ...batch05ClassIAntiarrhythmicReviewRules,
   ...batch05OtherCardiacReviewRules,
+  ...periproceduralBuprenorphineReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -215,6 +221,7 @@ export const clinicalReviewEvidenceBundles = [
   batch05ClassIIIAntiarrhythmicIdentityEvidence,
   batch05ClassIAntiarrhythmicIdentityEvidence,
   batch05OtherCardiacIdentityEvidence,
+  periproceduralBuprenorphineIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
