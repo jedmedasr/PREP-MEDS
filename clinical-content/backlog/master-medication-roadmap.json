@@ -619,7 +619,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Complete the canonical antiarrhythmic core with flecainide, propafenone, mexiletine, and quinidine; reconcile authoritative release/form identities and retain review-only routing.",
+      "nextEngineeringWork": "Other cardiac drugs: digoxin, ivabradine, nitrates, and ranolazine; preserve nitrate route/release distinctions and retain review-only routing.",
       "completedClusters": [
         {
           "clusterId": "B5-CLASS-III-ANTIARRHYTHMIC-ROUTE-FORM",
@@ -639,6 +639,25 @@
             "workflowRunNumber": 268,
             "workflowRunId": 36586160822,
             "jobId": 109466936456,
+            "conclusion": "success"
+          }
+        },
+        {
+          "clusterId": "B5-CLASS-I-ANTIARRHYTHMIC-RELEASE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "77848ab332d85cba1b73a5308c112f326a1ad5ab",
+          "products": [
+            "flecainide acetate tablet",
+            "propafenone film-coated tablet",
+            "propafenone extended-release capsule",
+            "mexiletine capsule",
+            "quinidine sulfate tablet",
+            "quinidine gluconate extended-release tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 270,
+            "workflowRunId": 36592953366,
+            "jobId": 109490476245,
             "conclusion": "success"
           }
         }
