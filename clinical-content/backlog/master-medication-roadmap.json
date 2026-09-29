@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T09:50:00Z",
+  "generatedAt": "2026-09-29T13:06:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-04-cardiovascular-core",
-    "basedOnHeadSha": "07a80f434bcfc13ae5e7d91a76d458a919f57c15",
+    "basedOnHeadSha": "e5ab221640b1d71c09c904593f3ec45bbedaf2e8",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -380,7 +380,8 @@
         "IR versus ER where clinically relevant"
       ],
       "combinationProductDistinctions": [
-        "sacubitril/valsartan whole-product identity"
+        "sacubitril/valsartan whole-product identity",
+        "potassium-sparing/hydrochlorothiazide fixed combinations remain whole-product identities"
       ],
       "developmentStatus": "IN_PROGRESS",
       "evidenceStatus": "PARTIALLY_RECONCILED",
@@ -509,9 +510,28 @@
           "jobId": 109350580342,
           "status": "ENGINEERING_VERIFIED",
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "POTASSIUM-SPARING-MRA-COMBINATION-CORE",
+          "medicationIds": [
+            "MED-spironolactone-tablet",
+            "MED-spironolactone-carospir-suspension",
+            "MED-eplerenone-tablet",
+            "MED-amiloride-tablet",
+            "MED-triamterene-dyrenium-capsule",
+            "MED-spironolactone-hydrochlorothiazide-tablet",
+            "MED-amiloride-hydrochlorothiazide-tablet",
+            "MED-triamterene-hydrochlorothiazide-capsule",
+            "MED-triamterene-hydrochlorothiazide-tablet"
+          ],
+          "testedHeadSha": "e5ab221640b1d71c09c904593f3ec45bbedaf2e8",
+          "workflowRunId": 36570660685,
+          "jobId": 109413544712,
+          "status": "ENGINEERING_VERIFIED",
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Potassium-sparing/MRA agents: reconcile spironolactone, eplerenone, amiloride, and triamterene with direct authoritative labeling; preserve standalone versus fixed-combination ambiguity and keep routing review-only without an invented timing interval."
+      "nextEngineeringWork": "Remaining antihypertensives: reconcile clonidine oral versus transdermal, hydralazine, minoxidil, doxazosin, and prazosin with direct authoritative labeling; preserve route/form ambiguity and keep routing review-only without invented timing, substitution, or availability."
     },
     {
       "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
