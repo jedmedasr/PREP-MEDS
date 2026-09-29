@@ -4,8 +4,8 @@
   "branch": "med-batch-04-cardiovascular-core",
   "baseBranch": "med-batch-03-sglt2-glp1",
   "baseVerifiedHeadSha": "0c7f59959383a641b8c6704b7a823e0fa4c0e8cd",
-  "updatedAt": "2026-09-29T08:05:00Z",
-  "updatedAtBasis": "The ACE inhibitor core and nine-identity ARB/ARNI cluster passed exact-head pull-request CI. Batch 04 remains in progress and review-required; the next executable cluster is beta blockers with explicit metoprolol tartrate/succinate preservation.",
+  "updatedAt": "2026-09-29T08:20:00Z",
+  "updatedAtBasis": "ACE inhibitor, ARB/ARNI, and beta-blocker core clusters are engineering-verified. The beta-blocker cluster passed exact-head quality run #233 at 9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35.",
   "engineeringStatus": "PARTIALLY_VERIFIED",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -14,43 +14,45 @@
   "productionActivationStatus": "NOT_ACTIVE",
   "checkpoints": {
     "A_SCOPE_AND_EVIDENCE_AUDIT": {
-      "status": "ACE_AND_ARB_ARNI_COMPLETE_NEXT_CLUSTER_PENDING",
+      "status": "RAAS_AND_BETA_CORE_COMPLETE_NEXT_CLUSTER_PENDING",
       "scope": "DRAFT/review-required cardiovascular blood-pressure, RAAS, beta-blocker, calcium-channel-blocker, diuretic, and other antihypertensive identity/evidence reconciliation for EGD, colonoscopy, and combined procedures. Local anesthesia policy and clinically approved timing remain separately governed.",
       "completed": [
-        "Verified representative current direct DailyMed provenance for oral lisinopril, enalapril, benazepril, ramipril, and captopril generic identities.",
-        "Preserved exact SETID, SPL sequence, effective/update date, application number, route, and dosage form for the five ACE inhibitor source records.",
-        "Verified current AHA/ACC perioperative RAAS guidance remains indication- and surgical-risk-dependent: selected hypertension patients undergoing elevated-risk noncardiac surgery may benefit from omission before surgery, whereas continuation is reasonable in HFrEF; no outpatient-endoscopy universal timing rule was inferred.",
+        "Verified representative current direct DailyMed provenance for oral lisinopril, enalapril, benazepril, ramipril, and captopril generic ACE-inhibitor identities.",
         "Reconciled six standalone ARB identities and three source/formulation-distinct sacubitril/valsartan whole-product identities against direct DailyMed labeling.",
-        "Preserved generic Novugen tablet, Entresto film-coated tablet, and Entresto Sprinkle pellet identities; bare ARNI wording fails closed as ambiguous.",
-        "Kept the AHA/ACC indication/procedure-risk boundary and restricted STOP-or-NOT context to ACE inhibitor/ARB evidence rather than ARNI evidence."
+        "Preserved generic Novugen sacubitril/valsartan tablet, Entresto film-coated tablet, and Entresto Sprinkle pellet identities; bare ARNI wording fails closed as ambiguous.",
+        "Reconciled eight oral beta-blocker identities: metoprolol tartrate, metoprolol succinate extended release, carvedilol, atenolol, propranolol, bisoprolol, nadolol, and labetalol.",
+        "Preserved metoprolol formulation ambiguity: bare metoprolol fails closed while explicit tartrate versus succinate extended-release wording resolves to distinct identities.",
+        "Preserved AHA/ACC perioperative beta-blocker evidence as review provenance without creating an autonomous outpatient-endoscopy timing rule."
       ],
       "remaining": [
-        "Reconcile beta blockers in a formulation-aware cluster, beginning with metoprolol tartrate versus metoprolol succinate ER, then carvedilol, atenolol, propranolol, bisoprolol, nadolol, and labetalol.",
-        "Then reconcile calcium-channel blockers, diuretics, clonidine/hydralazine/minoxidil, and alpha blockers in coherent formulation/route clusters."
+        "Reconcile calcium-channel blockers with formulation-aware identities for amlodipine, nifedipine, diltiazem, verapamil, and felodipine; preserve IR/ER distinctions where current authoritative sources support them.",
+        "Then reconcile diuretics and the remaining antihypertensive cluster including clonidine route distinctions, hydralazine, minoxidil, doxazosin, and prazosin."
       ]
     },
     "B_TERMINOLOGY_AUDIT": {
-      "status": "ACE_AND_ARB_ARNI_ENGINEERING_VERIFIED",
-      "notes": "Six ARBs resolve as generic ingredient identities. Sacubitril/valsartan is preserved as three source/formulation-distinct indivisible two-ingredient identities. Bare Entresto or generic sacubitril/valsartan wording fails closed as AMBIGUOUS; explicit application/form wording resolves only to the corresponding identity. No substitution or market availability is inferred."
+      "status": "RAAS_AND_BETA_CORE_ENGINEERING_VERIFIED",
+      "notes": "ACE and standalone ARB generic identities resolve deterministically. Sacubitril/valsartan remains an indivisible source/formulation-distinct product family with ambiguous bare wording. Beta-blocker terminology contains eight explicit identities; bare metoprolol is AMBIGUOUS across tartrate and succinate ER while explicit formulations resolve deterministically. No substitution or market availability is inferred."
     },
     "C_RULE_AUDIT": {
-      "status": "ACE_AND_ARB_ARNI_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-      "notes": "ACE inhibitor, ARB, and ARNI shadow rules remain timing-free LOCAL_POLICY_REQUIRED guards across EGD, colonoscopy, and combined procedures, require MOD-raas-indication, and depend on POLICY-ANESTHESIA-RAAS. ARNI evidence excludes STOP-or-NOT. Production activeRules remain empty."
+      "status": "RAAS_AND_BETA_CORE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "notes": "ACE inhibitor, ARB, and ARNI guards remain timing-free LOCAL_POLICY_REQUIRED rules. RULE-B4-BETA-BLOCKER-PRODUCT-REVIEW-001 routes the eight explicit beta-blocker identities to CLINICIAN_REVIEW_REQUIRED, requires MOD-stable-chronic-use, references existing AHA/ACC beta-blocker evidence, and contains no timing rule. The legacy formulation-unspecified metoprolol continuation rule remains historically preserved but is excluded from assembled review content. Production activeRules remain empty."
     },
     "D_TEST_AUDIT": {
       "status": "PASS_EXACT_HEAD",
-      "notes": "Evidence regressions pin 11 ARB/ARNI source records, nine medication identities, formulation boundaries, and non-authorizing governance flags. Web regressions enforce ARNI ambiguity, source/formulation-specific resolution, and timing-free local-policy routing across all three procedure types. Exact-head workflow 36540317967 / job 109313901520 passed."
+      "notes": "Evidence regressions pin beta-blocker source provenance and governance flags. Web regressions enforce metoprolol formulation ambiguity, explicit product resolution, legacy-rule isolation, and timing-free clinician-review routing across EGD, colonoscopy, and combined procedures. Exact-head workflow run #233 / run 36541857215 / job 109318929319 passed schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression tests, and production web build at 9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35."
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "ACE_AND_ARB_ARNI_ENGINEERING_VERIFIED",
-      "notes": "ACE inhibitor and ARB/ARNI evidence, terminology, shadow-rule assembly, source reconciliation notes, and regressions are integrated. No production clinical rule, dose arithmetic, component splitting, substitution, market-availability inference, or peri-procedural timing interval was activated."
+      "status": "RAAS_AND_BETA_CORE_ENGINEERING_VERIFIED",
+      "notes": "ACE, ARB/ARNI, and beta-blocker evidence, terminology, shadow-rule assembly, source reconciliation notes, and regressions are integrated. No production clinical rule, dose arithmetic, formulation conversion, substitution, market-availability inference, or autonomous peri-procedural timing interval was activated."
     },
     "F_CI_REPAIR": {
       "status": "PASS",
-      "testedHeadSha": "937650ae2e85af4311de3aea67d8a295d998ddae",
-      "workflowRunId": 36540317967,
-      "jobId": 109313901520,
-      "conclusion": "success"
+      "testedHeadSha": "9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35",
+      "workflowRunNumber": 233,
+      "workflowRunId": 36541857215,
+      "jobId": 109318929319,
+      "conclusion": "success",
+      "previousRepairContext": "ARB/ARNI stale evidence assertions were repaired without weakening safeguards before the beta-blocker expansion."
     },
     "G_PR_FINALIZATION": {
       "status": "DRAFT_PR_OPEN",
@@ -66,40 +68,35 @@
       "2024 AHA/ACC multisociety perioperative cardiovascular guideline",
       "STOP-or-NOT randomized trial already present in the clinical evidence bundle"
     ],
-    "aceSourceState": {
-      "lisinopril": "Aurobindo Pharma Limited / SETID 0e6364a4-6d66-4151-8197-d45e2a762895 / SPL 27 / effective 2026-07-21 / ANDA077622 / oral tablet",
-      "enalapril": "Sun Pharmaceutical Industries / SETID f103b9f9-e081-419d-a2d8-b86acda834dd / SPL 14 / effective 2026-07-14 / ANDA075657 / oral tablet",
-      "benazepril": "ANI Pharmaceuticals / SETID ff732cfa-9ded-4226-b464-19c90a6865ae / SPL 2 / effective 2026-08-19 / ANDA076333 / oral tablet",
-      "ramipril": "Lupin Pharmaceuticals / SETID a8cdec12-81d1-4ef4-82c0-d05d93c37a07 / SPL 21 / effective 2026-08-24 / ANDA077626 / oral capsule",
-      "captopril": "Solco Healthcare US / SETID 2d3779b0-83d9-4b6f-a043-f7768cd7fce6 / SPL 2 / effective 2025-12-25 / ANDA074477 / oral tablet"
-    },
     "representativeGenericIdentityOnly": true,
     "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
     "clinicalApprovalGranted": false,
     "localPolicyApprovalGranted": false,
     "timingRuleAuthorized": false,
-    "arbArniSourceState": {
-      "losartan": "Zydus / SETID 3233c707-70b6-4c29-8210-913eeb2a38ed / SPL 22 / ANDA078243 / oral film-coated tablet",
-      "valsartan": "Mylan / SETID 73e01dc6-7dd4-421a-a4f6-137e75f69f9a / SPL 16 / ANDA090866 / oral film-coated tablet",
-      "irbesartan": "Macleods / SETID e8635a1c-ae06-4e23-99f7-e704f91d6f43 / SPL 13 / ANDA202254 / oral tablet",
-      "candesartan": "Viona / SETID 9da86c48-5911-4512-8c71-eca4a6418cf6 / SPL 4 / ANDA091390 / oral tablet",
-      "olmesartan": "Aurobindo / SETID 8c94d403-809b-43b9-834f-3ecd330d2dd9 / SPL 9 / ANDA204798 / oral film-coated tablet",
-      "telmisartan": "Alembic / SETID c62d424c-7630-413c-be2c-3932831c3f1d / SPL 11 / ANDA202130 / oral tablet",
-      "sacubitrilValsartan": "Novugen ANDA213611 film-coated tablet; Entresto NDA207620 film-coated tablet; Entresto Sprinkle NDA218591 pellet; identities remain distinct and whole-product"
+    "betaBlockerSourceState": {
+      "metoprololTartrate": "Mylan / SETID 809c6386-0039-42ff-a03e-e42733e229b8 / SPL 31 / effective 2024-01-31 / ANDA076704 / oral film-coated tablet / standard release identity",
+      "metoprololSuccinateEr": "Zydus / SETID bd77ec6e-c58c-440b-81d6-8a462b2fdc9c / SPL 10 / effective 2026-05-19 / ANDA203894 / oral extended-release tablet",
+      "carvedilol": "BluePoint / SETID e68c9b18-e7fd-45f7-a8f5-1d815e32680b / SPL 14 / effective 2026-03-09 / ANDA077614",
+      "atenolol": "Zydus / SETID db801706-1362-44c7-92ab-f584f96c7e1c / SPL 13 / effective 2024-01-11 / ANDA076900",
+      "propranolol": "Lifestar / SETID 25f9b9a3-7b0b-48d2-a458-c613bedc7cab / SPL 7 / effective 2026-02-02 / ANDA216663",
+      "bisoprolol": "Micro Labs / SETID c3ee566c-74c4-45f4-a947-526a7313e326 / SPL 1 / effective 2026-03-11 / ANDA218303",
+      "nadolol": "Zydus / SETID a0a38f9b-268d-4463-881d-5bee6cd92e8a / SPL 6 / effective 2024-01-02 / ANDA207761",
+      "labetalol": "BluePoint / SETID e4562c70-f245-4dbe-8fe1-0bb64a91a315 / SPL 5 / effective 2026-06-04 / ANDA074787"
     }
   },
   "ci": {
     "status": "PASS",
-    "testedHeadSha": "937650ae2e85af4311de3aea67d8a295d998ddae",
+    "testedHeadSha": "9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35",
     "workflowName": "quality",
-    "workflowRunNumber": 225,
-    "workflowRunId": 36540317967,
-    "jobId": 109313901520,
+    "workflowRunNumber": 233,
+    "workflowRunId": 36541857215,
+    "jobId": 109318929319,
     "conclusion": "success",
-    "scope": "ACE inhibitor and ARB/ARNI clusters; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
+    "scope": "Beta-blocker cluster plus prior Batch 04 content; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
   },
   "blockers": [],
-  "nextWorkItem": "Implement the beta-blocker cluster with direct authoritative identity provenance, beginning with separate metoprolol tartrate immediate-release and metoprolol succinate extended-release identities, followed by carvedilol, atenolol, propranolol, bisoprolol, nadolol, and labetalol; add review-only routing only where evidence and governance support it.",
+  "nextWorkItem": "Implement the calcium-channel-blocker cluster with authoritative source reconciliation and formulation-aware terminology for amlodipine, nifedipine, diltiazem, verapamil, and felodipine. Preserve IR/ER ambiguity where clinically relevant and keep peri-procedural behavior review-only unless governed evidence supports more.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
