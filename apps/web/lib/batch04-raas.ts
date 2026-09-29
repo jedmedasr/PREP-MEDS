@@ -37,21 +37,56 @@ export const batch04ArbArniIngredients: IngredientRecord[] = [
   { id: 'ING-sacubitril', canonicalName: 'Sacubitril' },
 ];
 
+const commonSacubitrilValsartanAliases = [
+  'sacubitril/valsartan',
+  'sacubitril valsartan',
+] as const;
+
 const batch04ArbArniAliases: Record<string, string[]> = {
-  'MED-losartan': ['losartan potassium'],
+  'MED-losartan': ['losartan', 'losartan potassium'],
   'MED-candesartan': ['candesartan', 'candesartan cilexetil'],
   'MED-olmesartan': ['olmesartan', 'olmesartan medoxomil'],
-  'MED-sacubitril-valsartan': ['sacubitril and valsartan', 'sacubitril valsartan'],
+  'MED-sacubitril-valsartan': [
+    ...commonSacubitrilValsartanAliases,
+    'Novugen sacubitril valsartan tablet',
+    'Novugen sacubitril and valsartan tablet',
+    'ANDA213611',
+  ],
+  'MED-sacubitril-valsartan-entresto-tablet': [
+    ...commonSacubitrilValsartanAliases,
+    'Entresto tablet',
+    'Entresto tablets',
+    'sacubitril valsartan Entresto tablet',
+    'NDA207620',
+  ],
+  'MED-sacubitril-valsartan-entresto-sprinkle': [
+    ...commonSacubitrilValsartanAliases,
+    'Entresto Sprinkle',
+    'Entresto oral pellets',
+    'Entresto pellets',
+    'sacubitril valsartan oral pellets',
+    'NDA218591',
+  ],
 };
+
+function canonicalArbArniName(medicationId: string, genericName: string): string {
+  if (medicationId === 'MED-sacubitril-valsartan') {
+    return 'Sacubitril and valsartan tablet (Novugen ANDA213611)';
+  }
+  if (medicationId === 'MED-sacubitril-valsartan-entresto-tablet') {
+    return 'Entresto sacubitril/valsartan tablet';
+  }
+  if (medicationId === 'MED-sacubitril-valsartan-entresto-sprinkle') {
+    return 'Entresto Sprinkle sacubitril/valsartan oral pellets';
+  }
+  return genericName.charAt(0).toUpperCase() + genericName.slice(1);
+}
 
 export const batch04ArbArniMedications: MedicationRecord[] = batch04ArbArniIdentityDefinitions.map((definition) => ({
   id: definition.medicationId,
-  canonicalName: definition.genericName
-    .split(/([/ ])/)
-    .map((part) => (/^[a-z]/.test(part) ? part.charAt(0).toUpperCase() + part.slice(1) : part))
-    .join(''),
+  canonicalName: canonicalArbArniName(definition.medicationId, definition.genericName),
   genericName: definition.genericName,
-  brandNames: [],
+  brandNames: definition.brandName ? [definition.brandName] : [],
   aliases: batch04ArbArniAliases[definition.medicationId] ?? [],
   ingredientIds: [...definition.ingredientIds],
   drugClassIds: [definition.drugClassId],
