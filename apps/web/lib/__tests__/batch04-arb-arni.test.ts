@@ -74,10 +74,11 @@ describe('Batch 04 ARB/ARNI review routing', () => {
     }
   });
 
-  it.each(procedures)('routes sacubitril/valsartan as one review-only product for %s', (procedureCode) => {
+  it.each(procedures)('fails sacubitril/valsartan closed to local-policy review for %s', (procedureCode) => {
     const event = evaluate('MED-sacubitril-valsartan', procedureCode);
-    expect(event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(event.disposition).toBe('LOCAL_POLICY_REQUIRED');
     expect(event.outputSnapshot.timingRule).toBeUndefined();
+    expect(event.reasonCodes).toContain('REQUIRED_POLICY_NOT_RESOLVED');
     expect(event.ruleRefs).toContainEqual({ id: 'RULE-B4-ARNI-PRODUCT-REVIEW-001', version: 1 });
   });
 });
