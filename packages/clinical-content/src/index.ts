@@ -1,10 +1,19 @@
 import { batch03ReviewRules as baseBatch03ReviewRules } from './rules.js';
+import { batch03IncretinIdentityEvidence as baseBatch03IncretinIdentityEvidence } from './batch03-incretin-identity-evidence.js';
+import {
+  batch03HistoricalIncretinIdentityEvidence,
+  batch03HistoricalIncretinReviewRules,
+} from './batch03-historical-incretin-identity-evidence.js';
 import { batch03Sglt2CombinationIdentityEvidence as baseBatch03Sglt2CombinationIdentityEvidence } from './batch03-sglt2-combination-identity-evidence.js';
 import { batch03QternIdentityEvidence, batch03QternReviewRules } from './batch03-qtern-identity-evidence.js';
 
 export { firstClinicalContentEvidence } from './evidence.js';
 export { firstReleaseCandidateRules } from './rules.js';
-export const batch03ReviewRules = [...baseBatch03ReviewRules, ...batch03QternReviewRules];
+export const batch03ReviewRules = [
+  ...baseBatch03ReviewRules,
+  ...batch03QternReviewRules,
+  ...batch03HistoricalIncretinReviewRules,
+];
 export {
   antithromboticCandidateRules as antithromboticBaseCandidateRules,
   antithromboticEvidence,
@@ -121,13 +130,22 @@ export {
 } from './batch03-semaglutide-identity-evidence.js';
 export type { Batch03SemaglutideIdentityDefinition } from './batch03-semaglutide-identity-evidence.js';
 export {
-  batch03IncretinIdentityEvidence,
   batch03IncretinIdentityDefinitions,
   batch03IncretinIdentitySources,
   batch03IncretinIdentityAtoms,
   batch03TirzepatideProcedureReviewAtoms,
 } from './batch03-incretin-identity-evidence.js';
 export type { Batch03IncretinIdentityDefinition } from './batch03-incretin-identity-evidence.js';
+export {
+  batch03HistoricalIncretinIdentityDefinitions,
+  batch03HistoricalIncretinIdentitySources,
+  batch03HistoricalIncretinIdentityAtoms,
+  batch03HistoricalIncretinMarketingStatusAtoms,
+} from './batch03-historical-incretin-identity-evidence.js';
+export { batch03HistoricalIncretinReviewRules };
+export type {
+  Batch03HistoricalIncretinIdentityDefinition,
+} from './batch03-historical-incretin-identity-evidence.js';
 export {
   batch03FixedCombinationIdentityEvidence,
   batch03FixedCombinationIdentityDefinitions,
@@ -154,6 +172,19 @@ export {
   batch03QternProcedureReviewAtoms,
 } from './batch03-qtern-identity-evidence.js';
 export type { Batch03QternIdentityDefinition } from './batch03-qtern-identity-evidence.js';
+
+export const batch03IncretinIdentityEvidence = {
+  ...baseBatch03IncretinIdentityEvidence,
+  generatedAt: batch03HistoricalIncretinIdentityEvidence.generatedAt,
+  sources: [
+    ...baseBatch03IncretinIdentityEvidence.sources,
+    ...batch03HistoricalIncretinIdentityEvidence.sources,
+  ],
+  atoms: [
+    ...baseBatch03IncretinIdentityEvidence.atoms,
+    ...batch03HistoricalIncretinIdentityEvidence.atoms,
+  ],
+};
 
 export const batch03Sglt2CombinationIdentityEvidence = {
   ...baseBatch03Sglt2CombinationIdentityEvidence,
