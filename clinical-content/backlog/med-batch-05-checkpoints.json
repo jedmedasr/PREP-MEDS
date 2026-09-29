@@ -4,7 +4,7 @@
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "baseBranch": "med-batch-04-cardiovascular-core",
   "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
-  "updatedAt": "2026-09-29T17:02:00Z",
+  "updatedAt": "2026-09-29T19:16:00Z",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -80,6 +80,23 @@
       "jobId": 109517129628,
       "conclusion": "success",
       "scope": "Schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build."
+    },
+    "H_REPRIORITIZED_ORAL_ANTICOAGULANT_LABEL_HARDENING": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
+      "completed": [
+        "Added direct DailyMed label evidence for dabigatran capsules, edoxaban/SAVAYSA tablets, and warfarin tablets.",
+        "Preserved renal function, indication, recent thrombosis, concomitant antithrombotic, mechanical-valve, formulation, procedure-risk, bridging, and restart uncertainty.",
+        "All sources and atoms remain DRAFT; candidate and shadow pathways remain clinician-review-only with no timing rule or production activation."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 274,
+        "workflowRunId": 36614814447,
+        "jobId": 109565009370,
+        "conclusion": "success",
+        "verifiedHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328"
+      }
     }
   },
   "evidenceState": {
@@ -96,7 +113,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Statin core: atorvastatin, rosuvastatin, simvastatin, pravastatin, lovastatin, and pitavastatin; preserve formulation distinctions and review-only routing.",
+  "nextWorkItem": "High-priority antiplatelet direct-label hardening: aspirin, dipyridamole, aspirin/extended-release dipyridamole whole-product identity, cilostazol, and ticlopidine; keep timing review-only and fail closed.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,

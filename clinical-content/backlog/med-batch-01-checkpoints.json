@@ -2,14 +2,16 @@
   "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
   "branch": "med-batch-01-antithrombotics",
   "pullRequest": 11,
-  "updatedAt": "2026-09-18T00:58:45Z",
+  "updatedAt": "2026-09-29T19:16:00Z",
   "engineeringStatus": "COMPLETE",
   "clinicalStatus": "HUMAN_REVIEW_REQUIRED",
   "completionMeaning": "Engineering checkpoint completion for draft shadow content, not clinical approval or a complete drug-specific timing protocol.",
   "checkpoints": {
     "A_EVIDENCE_AUDIT": {
       "status": "COMPLETE",
-      "commits": ["8cee6c4947650f2067e51a43b2d782831c1a5be5"],
+      "commits": [
+        "8cee6c4947650f2067e51a43b2d782831c1a5be5"
+      ],
       "notes": "Prior automated evidence audit recorded; clinical source-by-source verification, locators, label versions, applicability and policy reconciliation remain required before adoption."
     },
     "B_TERMINOLOGY_AUDIT": {
@@ -22,7 +24,9 @@
     },
     "C_RULE_AUDIT": {
       "status": "COMPLETE",
-      "commits": ["e9577bde43fc2dae8c8df1d41c09f48639bbb60f"],
+      "commits": [
+        "e9577bde43fc2dae8c8df1d41c09f48639bbb60f"
+      ],
       "notes": "Shadow-rule evidence links and restart ownership hardened; explicit mechanical-valve, DAPT, recent-thrombosis and concurrent-antithrombotic reasons added. Review-only broad framework references do not establish drug-specific timing support."
     },
     "D_TEST_AUDIT": {
@@ -50,6 +54,28 @@
       "status": "COMPLETE",
       "commits": [],
       "notes": "PR #11 updated with repair details, verified workflow, scope, clinical limitations and Batch 02 handoff. PR remains open and unmerged; no clinical activation. Metadata-only PR updates do not create a Git commit."
+    },
+    "H_ORAL_ANTICOAGULANT_DIRECT_LABEL_HARDENING": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
+      "commits": [
+        "fa7e94f9de17409fe0dba3904688fc1160dac328"
+      ],
+      "notes": "Added direct DailyMed label provenance for dabigatran capsules, SAVAYSA/edoxaban tablets, and warfarin tablets; preserved renal, indication, mechanical-valve, concomitant-antithrombotic, formulation, procedure-risk, bridging, and restart uncertainty. No autonomous timing, dosing, substitution, availability, or activation.",
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 274,
+        "workflowRunId": 36614814447,
+        "jobId": 109565009370,
+        "conclusion": "success",
+        "verifiedHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "ci": {
@@ -68,11 +94,11 @@
     "scopeNote": "Receipt applies to the exact verified code head. This subsequent checkpoint-only commit must also have its own CI result inspected before advancement. Never infer green CI for a newer head from this receipt."
   },
   "lastWorkTrigger": "LIVE_CHAT",
-  "nextCheckpoint": null,
+  "nextCheckpoint": "I_ANTIPLATELET_DIRECT_LABEL_HARDENING",
   "nextBatch": {
-    "batchId": "MED-BATCH-02-DIABETES-CORE",
-    "branch": "med-batch-02-diabetes-core",
-    "action": "Inspect and preserve existing partial work, reconcile the audited Batch 01 dependency without overwriting changes, establish Batch 02 checkpoints, and prioritize any failing CI."
+    "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
+    "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+    "action": "Harden aspirin, dipyridamole, aspirin/extended-release dipyridamole whole-product, cilostazol, and ticlopidine with direct authoritative provenance and review-only regressions."
   },
   "clinicalReviewDependencies": [
     "Primary-source locators, label versions and evidence applicability still require accountable clinical verification.",

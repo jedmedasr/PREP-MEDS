@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T13:43:00Z",
+  "generatedAt": "2026-09-29T19:16:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
-    "activeBranch": "med-batch-04-cardiovascular-core",
-    "basedOnHeadSha": "72321b8544dc010a7b1e11c63180e5c339ed38e6",
+    "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
+    "basedOnHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -99,7 +99,38 @@
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "priorityHardening": {
+        "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+        "oralAnticoagulants": {
+          "status": "ENGINEERING_VERIFIED",
+          "verifiedHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
+          "completed": [
+            "dabigatran capsule direct-label provenance",
+            "edoxaban/SAVAYSA direct-label provenance",
+            "warfarin tablet direct-label provenance"
+          ],
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        "nextCluster": {
+          "priority": 1,
+          "name": "Antiplatelet direct-label hardening",
+          "medications": [
+            "aspirin",
+            "dipyridamole",
+            "aspirin/extended-release dipyridamole",
+            "cilostazol",
+            "ticlopidine"
+          ],
+          "constraints": [
+            "preserve aspirin indication distinctions",
+            "preserve monotherapy versus DAPT/concomitant-antithrombotic context",
+            "preserve extended-release and whole-product combination identity",
+            "no autonomous interruption or restart timing"
+          ]
+        }
+      },
+      "nextEngineeringWork": "Complete the high-priority antiplatelet direct-label hardening cluster before lower peri-procedural-impact medication work."
     },
     {
       "batchId": "MED-BATCH-02-DIABETES-CORE",
