@@ -4,8 +4,8 @@
   "branch": "med-batch-04-cardiovascular-core",
   "baseBranch": "med-batch-03-sglt2-glp1",
   "baseVerifiedHeadSha": "0c7f59959383a641b8c6704b7a823e0fa4c0e8cd",
-  "updatedAt": "2026-09-29T08:20:00Z",
-  "updatedAtBasis": "ACE inhibitor, ARB/ARNI, and beta-blocker core clusters are engineering-verified. The beta-blocker cluster passed exact-head quality run #233 at 9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35.",
+  "updatedAt": "2026-09-29T08:36:00Z",
+  "updatedAtBasis": "ACE inhibitor, ARB/ARNI, beta-blocker, and dihydropyridine calcium-channel-blocker clusters are engineering-verified. The DHP CCB cluster passed exact-head quality run #241 at 275fc265ced74540f4b6acf24cf9cdd8b8ed2fcf.",
   "engineeringStatus": "PARTIALLY_VERIFIED",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -14,45 +14,45 @@
   "productionActivationStatus": "NOT_ACTIVE",
   "checkpoints": {
     "A_SCOPE_AND_EVIDENCE_AUDIT": {
-      "status": "RAAS_AND_BETA_CORE_COMPLETE_NEXT_CLUSTER_PENDING",
+      "status": "RAAS_BETA_DHP_CCB_COMPLETE_NEXT_CLUSTER_PENDING",
       "scope": "DRAFT/review-required cardiovascular blood-pressure, RAAS, beta-blocker, calcium-channel-blocker, diuretic, and other antihypertensive identity/evidence reconciliation for EGD, colonoscopy, and combined procedures. Local anesthesia policy and clinically approved timing remain separately governed.",
       "completed": [
         "Verified representative current direct DailyMed provenance for oral lisinopril, enalapril, benazepril, ramipril, and captopril generic ACE-inhibitor identities.",
         "Reconciled six standalone ARB identities and three source/formulation-distinct sacubitril/valsartan whole-product identities against direct DailyMed labeling.",
-        "Preserved generic Novugen sacubitril/valsartan tablet, Entresto film-coated tablet, and Entresto Sprinkle pellet identities; bare ARNI wording fails closed as ambiguous.",
-        "Reconciled eight oral beta-blocker identities: metoprolol tartrate, metoprolol succinate extended release, carvedilol, atenolol, propranolol, bisoprolol, nadolol, and labetalol.",
-        "Preserved metoprolol formulation ambiguity: bare metoprolol fails closed while explicit tartrate versus succinate extended-release wording resolves to distinct identities.",
-        "Preserved AHA/ACC perioperative beta-blocker evidence as review provenance without creating an autonomous outpatient-endoscopy timing rule."
+        "Reconciled eight oral beta-blocker identities and preserved metoprolol tartrate versus succinate extended-release ambiguity.",
+        "Reconciled four dihydropyridine calcium-channel-blocker identities: amlodipine tablet, nifedipine capsule, nifedipine extended-release tablet, and felodipine extended-release tablet.",
+        "Preserved nifedipine formulation ambiguity: bare nifedipine fails closed while explicit capsule versus extended-release wording resolves deterministically.",
+        "Kept DHP CCB procedure handling review-only; direct product labeling was not converted into autonomous continue/hold/restart timing."
       ],
       "remaining": [
-        "Reconcile calcium-channel blockers with formulation-aware identities for amlodipine, nifedipine, diltiazem, verapamil, and felodipine; preserve IR/ER distinctions where current authoritative sources support them.",
+        "Reconcile non-dihydropyridine calcium-channel blockers with formulation-aware identities for diltiazem and verapamil, including standard versus extended-release distinctions and product-specific ER complexity where authoritative labeling requires it.",
         "Then reconcile diuretics and the remaining antihypertensive cluster including clonidine route distinctions, hydralazine, minoxidil, doxazosin, and prazosin."
       ]
     },
     "B_TERMINOLOGY_AUDIT": {
-      "status": "RAAS_AND_BETA_CORE_ENGINEERING_VERIFIED",
-      "notes": "ACE and standalone ARB generic identities resolve deterministically. Sacubitril/valsartan remains an indivisible source/formulation-distinct product family with ambiguous bare wording. Beta-blocker terminology contains eight explicit identities; bare metoprolol is AMBIGUOUS across tartrate and succinate ER while explicit formulations resolve deterministically. No substitution or market availability is inferred."
+      "status": "RAAS_BETA_DHP_CCB_ENGINEERING_VERIFIED",
+      "notes": "RAAS identities preserve ARNI source/formulation ambiguity. Beta-blocker terminology preserves metoprolol tartrate versus succinate ER ambiguity. DHP CCB terminology contains amlodipine, nifedipine capsule, nifedipine ER, and felodipine ER; bare nifedipine is AMBIGUOUS and explicit formulations resolve. No substitution or market availability is inferred."
     },
     "C_RULE_AUDIT": {
-      "status": "RAAS_AND_BETA_CORE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-      "notes": "ACE inhibitor, ARB, and ARNI guards remain timing-free LOCAL_POLICY_REQUIRED rules. RULE-B4-BETA-BLOCKER-PRODUCT-REVIEW-001 routes the eight explicit beta-blocker identities to CLINICIAN_REVIEW_REQUIRED, requires MOD-stable-chronic-use, references existing AHA/ACC beta-blocker evidence, and contains no timing rule. The legacy formulation-unspecified metoprolol continuation rule remains historically preserved but is excluded from assembled review content. Production activeRules remain empty."
+      "status": "RAAS_BETA_DHP_CCB_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "notes": "RAAS guards remain timing-free LOCAL_POLICY_REQUIRED rules. RULE-B4-BETA-BLOCKER-PRODUCT-REVIEW-001 and RULE-B4-DHP-CCB-PRODUCT-REVIEW-001 route explicit identities to CLINICIAN_REVIEW_REQUIRED with no timing rule. Legacy formulation-unspecified metoprolol continuation behavior remains historically preserved but excluded from assembled review content. Production activeRules remain empty."
     },
     "D_TEST_AUDIT": {
       "status": "PASS_EXACT_HEAD",
-      "notes": "Evidence regressions pin beta-blocker source provenance and governance flags. Web regressions enforce metoprolol formulation ambiguity, explicit product resolution, legacy-rule isolation, and timing-free clinician-review routing across EGD, colonoscopy, and combined procedures. Exact-head workflow run #233 / run 36541857215 / job 109318929319 passed schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression tests, and production web build at 9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35."
+      "notes": "DHP CCB evidence regressions pin four direct DailyMed source records and non-authorizing governance flags. Web regressions enforce nifedipine formulation ambiguity, explicit resolution, production-rule isolation, and timing-free clinician-review routing across EGD, colonoscopy, and combined procedures. Exact-head workflow run #241 / run 36543181848 / job 109323219824 passed schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression tests, and production web build at 275fc265ced74540f4b6acf24cf9cdd8b8ed2fcf."
     },
     "E_INTEGRATION_AUDIT": {
-      "status": "RAAS_AND_BETA_CORE_ENGINEERING_VERIFIED",
-      "notes": "ACE, ARB/ARNI, and beta-blocker evidence, terminology, shadow-rule assembly, source reconciliation notes, and regressions are integrated. No production clinical rule, dose arithmetic, formulation conversion, substitution, market-availability inference, or autonomous peri-procedural timing interval was activated."
+      "status": "RAAS_BETA_DHP_CCB_ENGINEERING_VERIFIED",
+      "notes": "ACE, ARB/ARNI, beta-blocker, and DHP CCB evidence, terminology, shadow-rule assembly, source reconciliation notes, and regressions are integrated. No production clinical rule, dose arithmetic, formulation conversion, substitution, market-availability inference, or autonomous peri-procedural timing interval was activated."
     },
     "F_CI_REPAIR": {
       "status": "PASS",
-      "testedHeadSha": "9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35",
-      "workflowRunNumber": 233,
-      "workflowRunId": 36541857215,
-      "jobId": 109318929319,
+      "testedHeadSha": "275fc265ced74540f4b6acf24cf9cdd8b8ed2fcf",
+      "workflowRunNumber": 241,
+      "workflowRunId": 36543181848,
+      "jobId": 109323219824,
       "conclusion": "success",
-      "previousRepairContext": "ARB/ARNI stale evidence assertions were repaired without weakening safeguards before the beta-blocker expansion."
+      "previousRepairContext": "ARB/ARNI stale evidence assertions were repaired without weakening safeguards before subsequent Batch 04 expansion."
     },
     "G_PR_FINALIZATION": {
       "status": "DRAFT_PR_OPEN",
@@ -83,20 +83,26 @@
       "bisoprolol": "Micro Labs / SETID c3ee566c-74c4-45f4-a947-526a7313e326 / SPL 1 / effective 2026-03-11 / ANDA218303",
       "nadolol": "Zydus / SETID a0a38f9b-268d-4463-881d-5bee6cd92e8a / SPL 6 / effective 2024-01-02 / ANDA207761",
       "labetalol": "BluePoint / SETID e4562c70-f245-4dbe-8fe1-0bb64a91a315 / SPL 5 / effective 2026-06-04 / ANDA074787"
+    },
+    "dhpCcbSourceState": {
+      "amlodipine": "Ascend / SETID 3f4703c0-0b9e-41a0-8b70-da26683d9ed2 / SPL 20 / effective 2024-06-21 / ANDA078925 / oral tablet",
+      "nifedipineCapsule": "Heritage/Avet / SETID b8b8cfee-ea71-44c2-81af-675efecfdf15 / SPL 17 / effective 2023-08-03 / ANDA202644 / oral capsule",
+      "nifedipineEr": "Ingenus / SETID 4d3e11d2-d320-45d3-96c8-48322202b504 / SPL 6 / effective 2026-03-30 / ANDA210614 / oral film-coated extended-release tablet",
+      "felodipineEr": "Heritage/Avet / SETID 0bef7cf2-012b-4804-ac93-0a8b333035db / SPL 8 / effective 2026-08-11 / ANDA201964 / oral extended-release tablet"
     }
   },
   "ci": {
     "status": "PASS",
-    "testedHeadSha": "9c5a50d35413f122c4b4f0e9bfd9bce2a4c0ea35",
+    "testedHeadSha": "275fc265ced74540f4b6acf24cf9cdd8b8ed2fcf",
     "workflowName": "quality",
-    "workflowRunNumber": 233,
-    "workflowRunId": 36541857215,
-    "jobId": 109318929319,
+    "workflowRunNumber": 241,
+    "workflowRunId": 36543181848,
+    "jobId": 109323219824,
     "conclusion": "success",
-    "scope": "Beta-blocker cluster plus prior Batch 04 content; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
+    "scope": "DHP calcium-channel-blocker cluster plus prior Batch 04 content; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
   },
   "blockers": [],
-  "nextWorkItem": "Implement the calcium-channel-blocker cluster with authoritative source reconciliation and formulation-aware terminology for amlodipine, nifedipine, diltiazem, verapamil, and felodipine. Preserve IR/ER ambiguity where clinically relevant and keep peri-procedural behavior review-only unless governed evidence supports more.",
+  "nextWorkItem": "Implement the non-dihydropyridine calcium-channel-blocker cluster with authoritative source reconciliation and formulation-aware terminology for diltiazem and verapamil. Preserve standard versus extended-release ambiguity and do not collapse distinct ER products unless their source/formulation identity model is demonstrably equivalent.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
