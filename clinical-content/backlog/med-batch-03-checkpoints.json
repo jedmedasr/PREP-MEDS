@@ -1,213 +1,137 @@
 {
   "batchId": "MED-BATCH-03-SGLT2-GLP1",
-  "status": "IN_PROGRESS",
+  "status": "ENGINEERING_COMPLETE_REVIEW_REQUIRED",
   "branch": "med-batch-03-sglt2-glp1",
   "baseBranch": "med-batch-02-diabetes-core",
   "baseVerifiedHeadSha": "99ca14608dc3046ea21813277e20edb7f52bb55f",
-  "updatedAt": "2026-09-29T02:25:30Z",
-  "updatedAtBasis": "Historical/discontinued QTERNMET XR was integrated as a formulation-distinct whole-product identity with DailyMed and 2026 FDA Orange Book provenance and passed exact-head quality run #197 at 27dc0ba73d26afdaf1c5362d9ed3f321382fe0d4.",
-  "engineeringStatus": "IN_PROGRESS",
-  "clinicalReviewStatus": "PENDING",
-  "localPolicyReviewStatus": "PENDING",
+  "updatedAt": "2026-09-29T07:03:00Z",
+  "updatedAtBasis": "Batch 03 medication/product engineering is complete through the current incretin expansion cluster at b231687c53fe25a7cfa6c2db11c3586b5de51a92. Exact-head quality run #206 passed schema validation, strict TypeScript, isolated insulin regression, full unit/regression tests, and the production web build.",
+  "engineeringStatus": "ENGINEERING_COMPLETE",
+  "clinicalReviewStatus": "REVIEW_REQUIRED",
+  "localPolicyReviewStatus": "REVIEW_REQUIRED",
   "mergeStatus": "NOT_MERGED",
   "deploymentStatus": "NOT_DEPLOYED",
   "productionActivationStatus": "NOT_ACTIVE",
-  "checkpoints": {
-    "A_SCOPE_AND_EVIDENCE_AUDIT": {
-      "status": "IN_PROGRESS",
-      "scope": "DRAFT/review-required SGLT2 and GLP-1 product/formulation identity and evidence reconciliation for EGD, colonoscopy, and combined procedures. Clinical timing rules remain separately governed.",
-      "completed": [
-        "Reconciled current FARXIGA manufacturer source to SPL 49 while retaining prior SPL 46 provenance.",
-        "Added direct manufacturer BRENZAVVY SPL 9 identity while retaining prior repackaged/generic bexagliflozin provenance.",
-        "Added current INVOKANA/canagliflozin SPL 32 identity.",
-        "Preserved JARDIANCE SPL 31 and STEGLATRO SPL 17 current manufacturer identities.",
-        "Verified from current primary labeling that SGLT2 temporary-interruption language is scoped to surgery or procedures associated with prolonged fasting; no class-wide endoscopy action is inferred.",
-        "Verified current semaglutide labeling requires distinct Ozempic injection, Ozempic oral, Rybelsus oral, Wegovy injection, and Wegovy oral product/route identities; bare semaglutide and route-unspecified Ozempic/Wegovy must remain ambiguous.",
-        "Encoded five semaglutide product/route identity definitions from current manufacturer labeling without dose, substitution, availability, or peri-procedural action claims.",
-        "Verified current Mounjaro SPL 40 and Zepbound SPL 40 tirzepatide product identities with distinct indication boundaries.",
-        "Verified Byetta SPL 26 immediate-release exenatide and Bydureon BCise SPL 39 extended-release exenatide formulation identities.",
-        "Verified Saxenda SPL 22 and current Cipla liraglutide SPL 6 weight-management identity records.",
-        "Verified current Victoza manufacturer identity: Novo Nordisk SETID 5a9ef4ea-c76a-4d34-a604-27c5b505f5a4, SPL 31, effective 2025-10-14, NDA022341.",
-        "Added tirzepatide-specific procedure-review evidence from current Mounjaro/Zepbound labels; both state delayed gastric emptying/aspiration risk and insufficient data to define a mitigation strategy, so no autonomous hold interval is encoded.",
-        "Resolved current Trulicity manufacturer version anchor to Eli Lilly USPI TRU-0021-USPI-20260312 (revised March 2026), DailyMed manufacturer SETID 463050bd-2b1c-40f5-b3c3-0a04bb433309, BLA125469; the lagging searchable SPL sequence number is intentionally not asserted.",
-        "Verified current SOLIQUA 100/33 manufacturer labeling: Sanofi-Aventis U.S. LLC / DailyMed SETID 4bba538b-cf7c-4310-ae8f-cb711ed21bcc / SPL 25 / effective 2026-03-18 / BLA208673.",
-        "Verified current XULTOPHY 100/3.6 manufacturer labeling: Novo Nordisk / DailyMed SETID 21335fe4-d395-4501-ac2a-2f20d7520da9 / SPL 14 / effective 2025-10-14 / BLA208583.",
-        "Verified current GLYXAMBI manufacturer labeling: Boehringer Ingelheim / DailyMed SETID ddbab689-f76c-488c-9613-4168d41dd730 / SPL 23 / effective 2026-01-20 / NDA206073.",
-        "Verified current XIGDUO XR manufacturer labeling: AstraZeneca / DailyMed SETID ac8a0f7b-9f69-4495-abbc-3a47cd75a859 / SPL 40 / effective 2026-08-11 / NDA205649.",
-        "Verified current SEGLUROMET manufacturer labeling: Merck / DailyMed SETID a6aeb99a-ce49-4125-90ce-642df3f1ebad / SPL 20 / effective 2026-08-11 / NDA209806.",
-        "Verified current STEGLUJAN manufacturer labeling: Merck / DailyMed SETID c2c553d8-5a9d-4366-bf53-8bdb5a876d19 / SPL 24 / effective 2026-06-03 / NDA209805.",
-        "Resolved current SYNJARDY IR labeling: Boehringer Ingelheim / DailyMed SETID 0fdd0255-0055-65f3-b2c0-db8fbb87beae / SPL 23 / effective 2026-08-25 / NDA206111.",
-        "Resolved current SYNJARDY XR labeling separately from IR: Boehringer Ingelheim / DailyMed SETID 8006ba29-ee3a-f852-a9bb-c8ec9b41cf66 / SPL 18 / effective 2026-08-11 / NDA208658.",
-        "Resolved current TRIJARDY XR labeling: Boehringer Ingelheim / DailyMed SETID 71873567-9594-452a-bb92-34a129adecac / SPL 11 / effective 2026-08-24 / NDA212614.",
-        "Resolved current INVOKAMET/INVOKAMET XR labeling: Janssen Pharmaceuticals / DailyMed SETID 6868666b-c25e-40d1-9d1f-306bbe9390c1 / SPL 32 / effective 2026-08-24, with NDA204353 for INVOKAMET immediate-release and NDA205879 for INVOKAMET XR extended-release.",
-        "Reconciled historical branded QTERN from AstraZeneca DailyMed SETID 423c489c-085b-4320-b892-7868ebd6dc6b / SPL 32 / effective 2026-06-03 / NDA209091 while retaining listed marketing-end metadata through 2026-02-28.",
-        "Reconciled current authenticated DailyMed identity for generic dapagliflozin+saxagliptin ANDA211533: Novadoz SETID 1cfa51fd-8406-404c-b2a8-0fc1068675fb / SPL 1 / DailyMed updated 2026-04-08; no marketing-end date was listed in the authenticated rows used.",
-        "Reconciled FDA application-level identity for dapagliflozin+saxagliptin ANDA211537 / Torrent / approved 2026-04-06 without inventing a manufacturer SETID/SPL or commercial-availability state.",
-        "Reconciled historical QTERNMET XR / NDA210874 from AstraZeneca DailyMed SETID cfffcbfe-dcd9-4001-963e-a99e67390116 (label revised 2020-01; listed marketing start/end 2020-06-01) and FDA Orange Book 46th Edition (2026), which lists all four NDA210874 presentations on the Discontinued Drug Product List. No SPL version or current availability was inferred."
-      ],
-      "remaining": [
-        "Audit remaining standalone GLP-1/GIP/metabolic identities not yet represented, beginning with lixisenatide/ADLYXIN and grouping adjacent historical products only when authoritative provenance supports the same model.",
-        "Reconcile evolving/conflicting GLP-1 endoscopy evidence and local policy without creating an autonomous universal hold rule."
-      ]
-    },
-    "B_TERMINOLOGY_AUDIT": {
-      "status": "IN_PROGRESS",
-      "commits": [
-        "5a3e3f03741d6fad459fbb4f38d121cbff504739",
-        "d6e6228c392315d6f052c8d82cac64eb0de0fdc5",
-        "6ad8c2781500ee2a8bc0540814144ceca901c3f8",
-        "a14d48f3c3f29cef6d74a6fc88310161078265d9",
-        "22436d86a8ac091f4fab366d4061964c73f813cf",
-        "1a43a927331456037f62144d01368f10d1900658",
-        "15074ceacada8c364c720a7ea6836dcf9061e351",
-        "ab3cd6b9b29973f9818cd8356b280df680b0355d",
-        "a6b87643e19ad8943731d5e8dd0826b902bddaf4",
-        "052f9971680fd2d73668f0b744f76410d533518b",
-        "2e5924b2eabd0776a6c5e618b73c2e418e527c17",
-        "476c2360fdc950ae78764b35d4d76f77929c0d80",
-        "eaa3a90eeaea10b12ed4e5f675164db7e563c7ae",
-        "3c609db2f5cb97655b5dd1c9549bab2022e196d8",
-        "14ace51c21ed263e0503481b2e83ee61b3451085",
-        "0d877ce371077f09241bfde04a91da38a23c3560",
-        "94f7d0651b00d1f5c1e5eeac6362417d6de80db0",
-        "3025bbcbe948a4f6902317d4f6d87453f66d85ea",
-        "27dc0ba73d26afdaf1c5362d9ed3f321382fe0d4"
-      ],
-      "currentSglt2Products": [
-        "empagliflozin/Jardiance",
-        "dapagliflozin/Farxiga",
-        "ertugliflozin/Steglatro",
-        "bexagliflozin/Brenzavvy",
-        "canagliflozin/Invokana"
-      ],
-      "notes": "Eight tirzepatide/exenatide/liraglutide/dulaglutide product/formulation identities are searchable. Bare tirzepatide, exenatide, liraglutide, and dulaglutide remain product/formulation unspecified; explicit brands/formulations resolve only to source-linked identities. Fixed insulin/GLP-1 combinations remain indivisible two-ingredient identities. Nine verified SGLT2 fixed combinations are source-linked as whole products, including formulation-distinct INVOKAMET IR/XR. QTERN reconciliation includes three source-distinct dapagliflozin+saxagliptin identities plus historical/discontinued QTERNMET XR as a distinct extended-release triple-combination identity. Bare dapagliflozin+saxagliptin wording and release-unspecified dapagliflozin+saxagliptin+metformin wording fail closed. Search resolution does not authorize component splitting, substitution, dose conversion, availability inference, or peri-procedural timing.",
-      "semaglutideIdentityDefinitions": [
-        "Ozempic / subcutaneous injection",
-        "Ozempic / oral tablet",
-        "Rybelsus / oral tablet",
-        "Wegovy / subcutaneous injection",
-        "Wegovy / oral tablet"
-      ],
-      "incretinIdentityDefinitions": [
-        "Mounjaro / tirzepatide / diabetes",
-        "Zepbound / tirzepatide / weight-management-or-OSA",
-        "Byetta / exenatide immediate-release / diabetes",
-        "Bydureon BCise / exenatide extended-release / diabetes",
-        "Victoza / liraglutide / diabetes",
-        "Saxenda / liraglutide / weight management",
-        "Generic liraglutide injection / current weight-management labeling",
-        "Trulicity / dulaglutide / diabetes"
-      ]
-    },
-    "C_RULE_AUDIT": {
-      "status": "IN_PROGRESS",
-      "notes": "Explicit tirzepatide products use RULE-B3-TIRZEPATIDE-PRODUCT-REVIEW-001 with current-label procedure-review evidence and no timing rule. Explicit exenatide/liraglutide/dulaglutide products use RULE-B3-GLP1-PRODUCT-REVIEW-001 with the existing multisociety GLP-1 review evidence and no timing rule. Production rules remain empty. Fixed insulin/GLP-1 combinations use RULE-B3-FIXED-INSULIN-GLP1-PRODUCT-REVIEW-001 with product-label procedure-review evidence and no timing rule. Nine source-reconciled SGLT2 combinations use the existing product review guard with no timing rule. QTERN/ANDA211533/ANDA211537 use RULE-B3-DAPA-SAXA-PRODUCT-REVIEW-001; historical QTERNMET XR uses RULE-B3-QTERNMET-XR-PRODUCT-REVIEW-001. Both are clinician-review-only and timing-free.",
-      "commits": [
-        "ab3cd6b9b29973f9818cd8356b280df680b0355d",
-        "160df73054cde62135007d9b14bf9b729138132f",
-        "90a63e0b735a83a0c717db81657a25415510e55f",
-        "94f7d0651b00d1f5c1e5eeac6362417d6de80db0",
-        "3025bbcbe948a4f6902317d4f6d87453f66d85ea",
-        "27dc0ba73d26afdaf1c5362d9ed3f321382fe0d4"
-      ]
-    },
-    "D_TEST_AUDIT": {
-      "status": "IN_PROGRESS",
-      "commits": [
-        "d6e6228c392315d6f052c8d82cac64eb0de0fdc5",
-        "a14d48f3c3f29cef6d74a6fc88310161078265d9",
-        "a6b87643e19ad8943731d5e8dd0826b902bddaf4",
-        "2e5924b2eabd0776a6c5e618b73c2e418e527c17",
-        "13199f4fc6305ee06e74946d07a47c136094f344",
-        "83235e5ee20d812b63f0a4b20d59ffb478b501d6",
-        "02e54548a3c6be42920cbc721256d0983887cd6d",
-        "db130f7c3802d8e0dd4f78435b3a4f2d0bf65804",
-        "94f7d0651b00d1f5c1e5eeac6362417d6de80db0",
-        "3025bbcbe948a4f6902317d4f6d87453f66d85ea",
-        "27dc0ba73d26afdaf1c5362d9ed3f321382fe0d4"
-      ],
-      "notes": "Evidence and web tests cover current/historical source provenance, product/formulation/component identity, generic ambiguity, activeRules isolation, and clinician-review routing across all three procedure types. QTERN regressions verify SPL32/NDA209091 historical-brand provenance, ANDA211533 SPL1 provenance, the explicit no-SPL source gap for ANDA211537, and review-only/no-timing routing. QTERNMET XR regressions verify historical DailyMed SETID/NDA provenance, explicit non-assertion of an unauthenticated SPL version, Orange Book discontinued status for products 001-004, triple-component XR identity, release-unspecified ambiguity, and timing-free review routing across all three procedures."
-    },
-    "E_INTEGRATION_AUDIT": {
-      "status": "IN_PROGRESS",
-      "notes": "Batch 03 review-only terminology/evidence now includes semaglutide route/product identities, eight other incretin identities, SOLIQUA/XULTOPHY, nine verified SGLT2 combinations, three QTERN/dapagliflozin+saxagliptin source-distinct identities, and historical/discontinued QTERNMET XR. Production activeRules remain empty. No patient-specific insulin arithmetic, component conversion, substitution, commercial-availability inference, or autonomous peri-procedural timing was added.",
-      "commits": [
-        "15074ceacada8c364c720a7ea6836dcf9061e351",
-        "ab3cd6b9b29973f9818cd8356b280df680b0355d",
-        "a6b87643e19ad8943731d5e8dd0826b902bddaf4",
-        "3c609db2f5cb97655b5dd1c9549bab2022e196d8",
-        "160df73054cde62135007d9b14bf9b729138132f",
-        "0d877ce371077f09241bfde04a91da38a23c3560",
-        "90a63e0b735a83a0c717db81657a25415510e55f",
-        "db130f7c3802d8e0dd4f78435b3a4f2d0bf65804",
-        "94f7d0651b00d1f5c1e5eeac6362417d6de80db0",
-        "3025bbcbe948a4f6902317d4f6d87453f66d85ea",
-        "27dc0ba73d26afdaf1c5362d9ed3f321382fe0d4"
-      ]
-    },
-    "F_CI_REPAIR": {
-      "status": "PASS_EXACT_HEAD_CI"
-    },
-    "G_PR_FINALIZATION": {
-      "status": "NOT_STARTED"
-    }
-  },
-  "evidenceState": {
-    "jurisdiction": "US",
+  "scope": {
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
     "lifecycle": "DRAFT",
-    "primarySourceFamilies": [
-      "FDA/DailyMed manufacturer labeling",
-      "FDA application/Orange Book approval and marketing-status records"
-    ],
-    "currentSglt2SourceState": {
-      "jardiance": "SPL 31",
-      "farxiga": "SPL 49",
-      "steglatro": "SPL 17",
-      "brenzavvy": "SPL 9",
-      "invokana": "SPL 32"
-    },
-    "currentSglt2CombinationSourceState": {
-      "invokamet": "SETID 6868666b-c25e-40d1-9d1f-306bbe9390c1 / SPL 32 / effective 2026-08-24 / NDA204353 / immediate-release",
-      "invokametXr": "SETID 6868666b-c25e-40d1-9d1f-306bbe9390c1 / SPL 32 / effective 2026-08-24 / NDA205879 / extended-release",
-      "qternHistorical": "SETID 423c489c-085b-4320-b892-7868ebd6dc6b / SPL 32 / effective 2026-06-03 / NDA209091 / latest listed marketing-end date 2026-02-28",
-      "dapagliflozinSaxagliptinAnda211533": "SETID 1cfa51fd-8406-404c-b2a8-0fc1068675fb / SPL 1 / DailyMed updated 2026-04-08 / ANDA211533 / no listed marketing-end date in authenticated rows",
-      "dapagliflozinSaxagliptinAnda211537": "FDA approved 2026-04-06 / ANDA211537 / Torrent Pharmaceuticals Limited / no current manufacturer SPL authenticated; availability not inferred",
-      "qternmetXrHistorical": "SETID cfffcbfe-dcd9-4001-963e-a99e67390116 / label revised 2020-01 / NDA210874 / listed marketing start/end 2020-06-01 / SPL version not asserted; FDA Orange Book 46th Edition (2026) lists products 001-004 as DISCONTINUED"
-    },
-    "marketAvailabilityAsserted": false,
-    "clinicalApprovalGranted": false,
-    "currentSemaglutideSourceState": {
-      "ozempicInjection": "SETID adec4fd2-6858-4c99-91d4-531f5f2a2d79 / SPL 20 / effective 2026-06-01 / NDA209637",
-      "ozempicRybelsusOral": "SETID 27f15fac-7d98-4114-a2ec-92494a91da98 / SPL 13 / effective 2026-01-30 / NDA213051",
-      "wegovyInjectionAndOral": "SETID ee06186f-2aa3-4990-a760-757579d8f77b / SPL 19 / effective 2026-06-18 / NDA215256 and NDA218316"
-    },
-    "currentIncretinSourceState": {
-      "mounjaro": "SETID d2d7da5d-ad07-4228-955f-cf7e355c8cc0 / SPL 40 / effective 2026-08-27 / NDA215866",
-      "zepbound": "SETID 487cd7e7-434c-4925-99fa-aa80b1cc776b / SPL 40 / effective 2026-08-28 / NDA217806",
-      "byetta": "SETID 53d03c03-ebf7-418d-88a8-533eabd2ee4f / SPL 26 / effective 2025-09-02 / NDA021773",
-      "bydureonBcise": "SETID 2d18cfc4-e0de-4814-a712-c1b7c504bff5 / SPL 39 / effective 2025-05-28 / NDA209210",
-      "saxenda": "SETID 3946d389-0926-4f77-a708-0acb8153b143 / SPL 22 / effective 2026-02-25 / NDA206321",
-      "genericLiraglutideWeightManagement": "SETID 22c86976-9657-4dd0-8fff-0c3f3f08357c / SPL 6 / effective 2026-06-18 / ANDA217234",
-      "victoza": "SETID 5a9ef4ea-c76a-4d34-a604-27c5b505f5a4 / SPL 31 / effective 2025-10-14 / NDA022341",
-      "trulicity": "Eli Lilly USPI TRU-0021-USPI-20260312 / revised 2026-03 / DailyMed manufacturer SETID 463050bd-2b1c-40f5-b3c3-0a04bb433309 / BLA125469; SPL sequence number not asserted because the searchable DailyMed index lags the current manufacturer USPI"
-    }
+    "clinicalDecisionAuthority": "DETERMINISTIC_RULE_ENGINE",
+    "productionRulesActivated": false
   },
-  "ci": {
-    "status": "PASS",
-    "testedHeadSha": "27dc0ba73d26afdaf1c5362d9ed3f321382fe0d4",
-    "workflowRunId": 36512423069,
-    "jobId": 109227279949,
-    "lastSuccessfulReceipt": {
+  "completedClusters": [
+    {
+      "clusterId": "B3-SGLT2-STANDALONE",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["empagliflozin/Jardiance", "dapagliflozin/Farxiga", "canagliflozin/Invokana", "ertugliflozin/Steglatro", "bexagliflozin/Brenzavvy"],
+      "notes": "Current manufacturer identities and append-only historical provenance are represented; manufacturer temporary-interruption language was not converted into a universal endoscopy timing rule."
+    },
+    {
+      "clusterId": "B3-SEMAGLUTIDE",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Ozempic injection", "Ozempic oral", "Rybelsus oral", "Wegovy injection", "Wegovy oral"],
+      "notes": "Route/product distinctions are explicit; bare semaglutide and route-unspecified Ozempic/Wegovy fail closed."
+    },
+    {
+      "clusterId": "B3-OTHER-CURRENT-INCRETINS",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Mounjaro", "Zepbound", "Byetta", "Bydureon BCise", "Victoza", "Saxenda", "current generic liraglutide weight-management labeling", "Trulicity"],
+      "notes": "Product/formulation/indication boundaries are source-linked and review-only. Tirzepatide label evidence preserves aspiration uncertainty without a timing rule."
+    },
+    {
+      "clusterId": "B3-FIXED-INSULIN-GLP1",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Soliqua 100/33", "Xultophy 100/3.6"],
+      "notes": "Fixed combinations remain indivisible whole-product identities; no insulin arithmetic, component splitting, substitution, or timing instruction is authorized."
+    },
+    {
+      "clusterId": "B3-SGLT2-COMBINATIONS",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Glyxambi", "Xigduo XR", "Segluromet", "Steglujan", "Synjardy", "Synjardy XR", "Trijardy XR", "Invokamet", "Invokamet XR"],
+      "notes": "IR/XR distinctions are preserved. INVOKAMET and INVOKAMET XR share current Janssen SETID 6868666b-c25e-40d1-9d1f-306bbe9390c1 / SPL 32 / effective 2026-08-24 but preserve NDA204353 versus NDA205879 whole-product provenance."
+    },
+    {
+      "clusterId": "B3-DAPA-SAXA-QTERN",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["historical Qtern NDA209091", "current dapagliflozin+saxagliptin ANDA211533", "FDA application identity ANDA211537", "historical/discontinued Qternmet XR NDA210874"],
       "verifiedHeadSha": "27dc0ba73d26afdaf1c5362d9ed3f321382fe0d4",
       "workflowRunId": 36512423069,
       "jobId": 109227279949,
-      "scope": "Historical/discontinued QTERNMET XR cluster; schema validation, strict TypeScript, source identity, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed"
+      "notes": "Commercial availability is not inferred from FDA approval/listing. Qternmet XR preserves historical DailyMed identity and 2026 Orange Book discontinued status without inventing an SPL version."
     },
-    "note": "Exact-head implementation CI passed. This checkpoint-only follow-up commit does not alter executable clinical content."
+    {
+      "clusterId": "B3-HISTORICAL-STANDALONE-INCRETINS",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Adlyxin/lixisenatide", "Tanzeum/albiglutide"],
+      "verifiedHeadSha": "8d7edf3dbc960d6b81013aa1e0821453759e51a0",
+      "workflowRunId": 36532020220,
+      "jobId": 109287591846,
+      "notes": "Historical DailyMed product identity is preserved separately from FDA Purple Book Disc status; no real-time inventory claim is made."
+    },
+    {
+      "clusterId": "B3-CURRENT-INCRETIN-EXPANSION",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Amneal unbranded exenatide injection / ANDA206697", "Foundayo/orforglipron / NDA220934"],
+      "implementationCommit": "b231687c53fe25a7cfa6c2db11c3586b5de51a92",
+      "verifiedHeadSha": "b231687c53fe25a7cfa6c2db11c3586b5de51a92",
+      "workflowRunId": 36534111389,
+      "jobId": 109294148136,
+      "sourceState": {
+        "exenatide": "Amneal / DailyMed SETID e6cb5c8f-e97f-4a6a-95a4-939fd2393949 / SPL 17 / effective 2026-05-27 / ANDA206697 / subcutaneous injection",
+        "foundayo": "Eli Lilly / DailyMed SETID 8ac446c5-feba-474f-a103-23facb9b5c62 / SPL 10 / effective 2026-07-29 / NDA220934 / oral film-coated tablet"
+      },
+      "terminologyState": "Bare exenatide and bare orforglipron remain ambiguous; explicit Amneal/ANDA206697 and Foundayo/NDA220934 wording resolves only to source-linked identities.",
+      "reviewRuleState": "RULE-B3-CURRENT-INCRETIN-EXPANSION-REVIEW-001 routes both products to CLINICIAN_REVIEW_REQUIRED for EGD, colonoscopy, and combined procedures with no timingRule.",
+      "testState": "Evidence provenance, ambiguity, explicit resolution, production-rule isolation, three-procedure review routing, and timing-free behavior passed."
+    }
+  ],
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "primarySourceFamilies": ["FDA/DailyMed manufacturer labeling", "FDA Orange Book/Purple Book/application records", "2024 AGA/ASA/ASMBS/ISPCOP/SAGES multisociety GLP-1 clinical practice guidance"],
+    "glp1ProcedureReconciliation": "The 2024 multisociety guidance supports individualized shared decision-making and risk stratification rather than a universal hold. Current product labels for tirzepatide, Amneal exenatide, and Foundayo preserve delayed-gastric-emptying/aspiration provenance and state that available data are insufficient to determine whether modified fasting or temporary discontinuation mitigates risk. PREP-MEDS therefore retains review-only routing and no universal autonomous hold interval.",
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "timingRuleAuthorizedFromBatch03ProductLabels": false
+  },
+  "terminologyState": {
+    "status": "ENGINEERING_VERIFIED",
+    "failClosedExamples": ["IR versus XR unspecified", "generic combination matching multiple products", "route-unspecified semaglutide", "bare exenatide across product/formulation/source identities", "bare orforglipron versus explicit Foundayo", "historical branded versus current generic product provenance"],
+    "fixedCombinationBehavior": "Whole-product identity with component ingredients preserved; no automatic component splitting."
+  },
+  "ruleState": {
+    "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+    "productionActiveRules": "EMPTY_FOR_NEW_BATCH03_CONTENT",
+    "glp1UniversalHoldRule": false,
+    "sglt2UniversalEndoscopyTimingRuleFromManufacturerLabels": false,
+    "clinicalReviewRequired": true,
+    "localPolicyReviewRequired": true
+  },
+  "testState": {
+    "schemaValidation": "PASS",
+    "strictTypeScript": "PASS",
+    "targetedRegressions": "PASS",
+    "fullUnitRegressionSuite": "PASS",
+    "productionWebBuild": "PASS"
+  },
+  "ci": {
+    "status": "PASS",
+    "testedHeadSha": "b231687c53fe25a7cfa6c2db11c3586b5de51a92",
+    "workflowName": "quality",
+    "workflowRunNumber": 206,
+    "workflowRunId": 36534111389,
+    "jobId": 109294148136,
+    "conclusion": "success",
+    "scope": "Current incretin expansion cluster; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
   },
   "blockers": [],
-  "nextWorkItem": "Audit remaining standalone GLP-1/GIP/metabolic product identities not represented in the current Batch 03 incretin module, beginning with lixisenatide/ADLYXIN. Verify current FDA/DailyMed/Orange Book source and marketing status before encoding; if ADLYXIN is historical/discontinued, consider grouping adjacent historical GLP-1 products only when the same provenance, terminology, and review model applies.",
-  "advanceToNextBatchAllowed": false,
+  "humanGatesRemaining": [
+    "Accountable clinical review of Batch 03 content",
+    "Institutional/local-policy adjudication of GLP-1 peri-procedural workflow",
+    "Merge, deployment, and production activation"
+  ],
+  "nextWorkItem": "Begin Batch 04 draft engineering on a new medication-development branch using the canonical master medication roadmap. Start with a coherent cardiovascular blood-pressure cluster, preserving local anesthesia-policy dependencies and review-only routing where policy is unresolved.",
+  "advanceToNextBatchAllowed": true,
   "productionActivationAllowed": false,
   "pullRequest": 13
 }
