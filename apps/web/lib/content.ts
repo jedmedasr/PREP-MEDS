@@ -26,7 +26,6 @@ import {
   batch04NonDhpCcbIdentityEvidence,
   batch04NonDhpCcbReviewRules,
   batch04ThiazideDiureticIdentityEvidence,
-  batch04LoopDiureticIdentityEvidence,
   batch04ThiazideDiureticReviewRules,
   batch04LoopDiureticIdentityEvidence,
   batch04LoopDiureticReviewRules,
