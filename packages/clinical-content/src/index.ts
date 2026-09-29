@@ -196,6 +196,15 @@ export {
 } from './batch04-ace-inhibitor-evidence.js';
 export type { Batch04AceIdentityDefinition } from './batch04-ace-inhibitor-evidence.js';
 
+export {
+  batch04ArbArniIdentityEvidence,
+  batch04ArbArniIdentityDefinitions,
+  batch04ArbArniIdentitySources,
+  batch04ArbArniIdentityAtoms,
+  batch04ArbArniReviewRules,
+} from './batch04-arb-arni-evidence.js';
+export type { Batch04ArbArniIdentityDefinition } from './batch04-arb-arni-evidence.js';
+
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
   generatedAt: batch03CurrentIncretinExpansionEvidence.generatedAt,
