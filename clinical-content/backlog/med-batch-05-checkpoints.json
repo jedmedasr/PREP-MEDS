@@ -4,7 +4,7 @@
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "baseBranch": "med-batch-04-cardiovascular-core",
   "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
-  "updatedAt": "2026-09-29T19:31:00Z",
+  "updatedAt": "2026-09-29T20:03:00Z",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -114,6 +114,23 @@
         "conclusion": "success",
         "verifiedHeadSha": "835595fea9a3d3b0945f5a4a75027d84f022c498"
       }
+    },
+    "K_REPRIORITIZED_INJECTABLE_ANTICOAGULANT_HARDENING": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "5960969597176d3eecd74744152f372443a2e4b2",
+      "completed": [
+        "Added direct DailyMed label evidence for enoxaparin, unfractionated heparin injection, fondaparinux, and dalteparin.",
+        "Preserved intent, indication, renal, route, non-substitution, recent-thrombosis, concomitant-antithrombotic, procedure-risk, bridging, and restart uncertainty.",
+        "All antithrombotic hardening remains DRAFT and clinician-review-only with no timing rule or production activation."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 278,
+        "workflowRunId": 36622106274,
+        "jobId": 109589801130,
+        "conclusion": "success",
+        "verifiedHeadSha": "5960969597176d3eecd74744152f372443a2e4b2"
+      }
     }
   },
   "evidenceState": {
@@ -130,7 +147,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Complete injectable anticoagulant direct-label hardening in priority order: enoxaparin, unfractionated heparin, fondaparinux, then dalteparin; preserve therapeutic/prophylactic intent, renal context, and timing/restart uncertainty.",
+  "nextWorkItem": "Inventory remaining high-value peri-procedural/anesthesia-sensitive gaps (pain/OUD, stimulants/MAOIs, chronic systemic steroids, transplant/immunosuppression) before statins; implement only concrete missing identities/evidence.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,

@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T19:31:00Z",
+  "generatedAt": "2026-09-29T20:03:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "835595fea9a3d3b0945f5a4a75027d84f022c498",
+    "basedOnHeadSha": "5960969597176d3eecd74744152f372443a2e4b2",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -101,7 +101,7 @@
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
       "priorityHardening": {
-        "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+        "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
         "oralAnticoagulants": {
           "status": "ENGINEERING_VERIFIED",
           "verifiedHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
@@ -114,18 +114,18 @@
         },
         "nextCluster": {
           "priority": 1,
-          "name": "Injectable anticoagulant direct-label hardening",
-          "medications": [
-            "enoxaparin",
-            "unfractionated heparin",
-            "fondaparinux",
-            "dalteparin"
+          "name": "Remaining anesthesia-sensitive medication inventory",
+          "medicationClasses": [
+            "pain and OUD therapies",
+            "stimulants and MAOIs",
+            "chronic systemic steroids",
+            "transplant and immunosuppression"
           ],
           "constraints": [
-            "preserve therapeutic versus prophylactic intent",
-            "preserve renal-function and indication context",
-            "preserve recent-thrombotic-event and concomitant-antithrombotic context",
-            "no autonomous interruption, bridging, or restart timing"
+            "inventory before implementation",
+            "preserve indication, route, release, and combination ambiguity",
+            "no universal hold or restart rule",
+            "defer statins until higher-value gaps are exhausted"
           ]
         },
         "antiplatelets": {
@@ -139,9 +139,20 @@
             "ticlopidine tablet provenance"
           ],
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        "injectableAnticoagulants": {
+          "status": "ENGINEERING_VERIFIED",
+          "verifiedHeadSha": "5960969597176d3eecd74744152f372443a2e4b2",
+          "completed": [
+            "enoxaparin/LOVENOX direct-label provenance",
+            "unfractionated heparin injection direct-label provenance",
+            "fondaparinux/ARIXTRA direct-label provenance",
+            "dalteparin/FRAGMIN direct-label provenance"
+          ],
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       },
-      "nextEngineeringWork": "Complete injectable anticoagulant direct-label hardening before lower peri-procedural-impact medication work."
+      "nextEngineeringWork": "Antithrombotic direct-label hardening is engineering-verified. Inventory the next anesthesia-sensitive classes and implement only genuine gaps."
     },
     {
       "batchId": "MED-BATCH-02-DIABETES-CORE",
