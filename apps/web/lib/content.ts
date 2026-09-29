@@ -10,10 +10,19 @@ import {
   diabetesCoreReleaseMetadata,
   diabetesWorkflowRules,
   diabetesWorkflowMetadata,
+  batch03ReviewRules,
+  batch03SemaglutideIdentityEvidence,
+  batch03IncretinIdentityEvidence,
+  batch03FixedCombinationIdentityEvidence,
+  batch03Sglt2CombinationIdentityEvidence,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
 import { diabetesCoreIngredients, diabetesSearchMedications, diabetesModifierDefinitions } from './diabetes-workflow-content';
+import { batch03SemaglutideSearchMedications } from './batch03-semaglutide';
+import { batch03IncretinIngredients, batch03IncretinSearchMedications } from './batch03-incretin';
+import { batch03FixedCombinationIngredients, batch03FixedCombinationMedications } from './batch03-fixed-combinations';
+import { batch03Sglt2CombinationIngredients, batch03Sglt2CombinationMedications } from './batch03-sglt2-combinations';
 
 export interface UiModifierDefinition {
   id: string;
@@ -31,7 +40,7 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'med-batch-02-diabetes-integration-1',
+  version: 'med-batch-03-sglt2-combination-terminology-1',
   generatedAt: '2026-09-18T01:15:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
@@ -40,6 +49,9 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     { id: 'ING-aspirin', canonicalName: 'Aspirin', aliases: ['ASA', 'acetylsalicylic acid'] },
     ...antithromboticIngredients,
     ...diabetesCoreIngredients,
+    ...batch03IncretinIngredients,
+    ...batch03FixedCombinationIngredients,
+    ...batch03Sglt2CombinationIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -86,7 +98,10 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...antithromboticMedications,
     ...diabetesSearchMedications,
     { id: 'MED-empagliflozin', canonicalName: 'Empagliflozin', ingredientIds: ['ING-empagliflozin'], drugClassIds: ['CLS-sglt2-inhibitor'] },
-    { id: 'MED-semaglutide', canonicalName: 'Semaglutide', ingredientIds: ['ING-semaglutide'], drugClassIds: ['CLS-glp1-receptor-agonist'] },
+    ...batch03SemaglutideSearchMedications,
+    ...batch03IncretinSearchMedications,
+    ...batch03FixedCombinationMedications,
+    ...batch03Sglt2CombinationMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-metoprolol', canonicalName: 'Metoprolol', ingredientIds: ['ING-metoprolol'], drugClassIds: ['CLS-beta-blocker'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
@@ -103,8 +118,17 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...firstReleaseCandidateRules.filter((rule) => !rule.scope.medicationIds?.includes('MED-insulin-glargine')),
   ...antithromboticCandidateRules,
   ...diabetesWorkflowRules,
+  ...batch03ReviewRules,
 ];
-export const clinicalReviewEvidenceBundles = [firstClinicalContentEvidence, antithromboticEvidence, diabetesCoreEvidence] as const;
+export const clinicalReviewEvidenceBundles = [
+  firstClinicalContentEvidence,
+  antithromboticEvidence,
+  diabetesCoreEvidence,
+  batch03SemaglutideIdentityEvidence,
+  batch03IncretinIdentityEvidence,
+  batch03FixedCombinationIdentityEvidence,
+  batch03Sglt2CombinationIdentityEvidence,
+] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
 export function isShadowContentMode(): boolean {

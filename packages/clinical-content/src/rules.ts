@@ -208,3 +208,129 @@ export const firstReleaseCandidateRules: ClinicalRule[] = [
     priority: 10,
   },
 ];
+
+export const batch03ReviewRules: ClinicalRule[] = [
+  {
+    id: 'RULE-B3-TIRZEPATIDE-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Explicit tirzepatide product requires clinician review pending procedure-management adjudication',
+    scope: {
+      medicationIds: [
+        'MED-tirzepatide-mounjaro',
+        'MED-tirzepatide-zepbound',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [
+      { id: 'EVD-B3-MOUNJARO-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-ZEPBOUND-PROCEDURE-REVIEW', version: 1 },
+    ],
+    status: 'TECHNICALLY_TESTED',
+    priority: 50,
+  },
+  {
+    id: 'RULE-B3-GLP1-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Explicit exenatide/liraglutide/dulaglutide product requires clinician review pending GLP-1 policy adjudication',
+    scope: {
+      medicationIds: [
+        'MED-exenatide-byetta',
+        'MED-exenatide-bydureon-bcise',
+        'MED-liraglutide-victoza',
+        'MED-liraglutide-saxenda',
+        'MED-liraglutide-generic-weight-management',
+        'MED-dulaglutide-trulicity',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [{ id: 'EVD-GLP1-HIGH-RISK-REVIEW-2024', version: 1 }],
+    status: 'TECHNICALLY_TESTED',
+    priority: 50,
+  },
+  {
+    id: 'RULE-B3-FIXED-INSULIN-GLP1-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Fixed insulin/GLP-1 combination product requires integrated clinician review',
+    scope: {
+      medicationIds: [
+        'MED-insulin-glargine-lixisenatide-soliqua',
+        'MED-insulin-degludec-liraglutide-xultophy',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [
+      { id: 'EVD-B3-SOLIQUA-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-XULTOPHY-PROCEDURE-REVIEW', version: 1 },
+    ],
+    status: 'TECHNICALLY_TESTED',
+    // Explicit fixed-combination identity must outrank generic component-class
+    // workflow rules so the indivisible product is reviewed as a whole.
+    priority: 20,
+  },
+  {
+    id: 'RULE-B3-SGLT2-COMBINATION-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Verified SGLT2 fixed-combination product requires integrated clinician review',
+    scope: {
+      medicationIds: [
+        'MED-empagliflozin-linagliptin-glyxambi',
+        'MED-dapagliflozin-metformin-xigduo-xr',
+        'MED-ertugliflozin-metformin-segluromet',
+        'MED-ertugliflozin-sitagliptin-steglujan',
+        'MED-empagliflozin-metformin-synjardy',
+        'MED-empagliflozin-metformin-synjardy-xr',
+        'MED-empagliflozin-linagliptin-metformin-trijardy-xr',
+        'MED-canagliflozin-metformin-invokamet',
+        'MED-canagliflozin-metformin-invokamet-xr',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [
+      { id: 'EVD-B3-GLYXAMBI-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-XIGDUO-XR-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-SEGLUROMET-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-STEGLUJAN-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-SYNJARDY-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-SYNJARDY-XR-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-TRIJARDY-XR-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-INVOKAMET-PROCEDURE-REVIEW', version: 1 },
+      { id: 'EVD-B3-INVOKAMET-XR-PROCEDURE-REVIEW', version: 1 },
+    ],
+    status: 'TECHNICALLY_TESTED',
+    // Product identity must outrank generic SGLT2/metformin/DPP-4 class rules.
+    priority: 20,
+  },
+  {
+    id: 'RULE-B3-SEMAGLUTIDE-PRODUCT-REVIEW-001',
+    version: 1,
+    name: 'Explicit semaglutide product/route requires clinician review pending GLP-1 policy adjudication',
+    scope: {
+      medicationIds: [
+        'MED-semaglutide-ozempic-injection',
+        'MED-semaglutide-ozempic-oral',
+        'MED-semaglutide-rybelsus-oral',
+        'MED-semaglutide-wegovy-injection',
+        'MED-semaglutide-wegovy-oral',
+      ],
+      procedureCodes: [...procedures],
+    },
+    requiredModifierIds: [],
+    disposition: 'CLINICIAN_REVIEW_REQUIRED',
+    restartOwner: 'CLINICIAN_REVIEW',
+    evidenceRefs: [{ id: 'EVD-GLP1-HIGH-RISK-REVIEW-2024', version: 1 }],
+    status: 'TECHNICALLY_TESTED',
+    priority: 50,
+  },
+];

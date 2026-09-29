@@ -1,0 +1,137 @@
+{
+  "batchId": "MED-BATCH-03-SGLT2-GLP1",
+  "status": "ENGINEERING_COMPLETE_REVIEW_REQUIRED",
+  "branch": "med-batch-03-sglt2-glp1",
+  "baseBranch": "med-batch-02-diabetes-core",
+  "baseVerifiedHeadSha": "99ca14608dc3046ea21813277e20edb7f52bb55f",
+  "updatedAt": "2026-09-29T07:03:00Z",
+  "updatedAtBasis": "Batch 03 medication/product engineering is complete through the current incretin expansion cluster at b231687c53fe25a7cfa6c2db11c3586b5de51a92. Exact-head quality run #206 passed schema validation, strict TypeScript, isolated insulin regression, full unit/regression tests, and the production web build.",
+  "engineeringStatus": "ENGINEERING_COMPLETE",
+  "clinicalReviewStatus": "REVIEW_REQUIRED",
+  "localPolicyReviewStatus": "REVIEW_REQUIRED",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "scope": {
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "lifecycle": "DRAFT",
+    "clinicalDecisionAuthority": "DETERMINISTIC_RULE_ENGINE",
+    "productionRulesActivated": false
+  },
+  "completedClusters": [
+    {
+      "clusterId": "B3-SGLT2-STANDALONE",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["empagliflozin/Jardiance", "dapagliflozin/Farxiga", "canagliflozin/Invokana", "ertugliflozin/Steglatro", "bexagliflozin/Brenzavvy"],
+      "notes": "Current manufacturer identities and append-only historical provenance are represented; manufacturer temporary-interruption language was not converted into a universal endoscopy timing rule."
+    },
+    {
+      "clusterId": "B3-SEMAGLUTIDE",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Ozempic injection", "Ozempic oral", "Rybelsus oral", "Wegovy injection", "Wegovy oral"],
+      "notes": "Route/product distinctions are explicit; bare semaglutide and route-unspecified Ozempic/Wegovy fail closed."
+    },
+    {
+      "clusterId": "B3-OTHER-CURRENT-INCRETINS",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Mounjaro", "Zepbound", "Byetta", "Bydureon BCise", "Victoza", "Saxenda", "current generic liraglutide weight-management labeling", "Trulicity"],
+      "notes": "Product/formulation/indication boundaries are source-linked and review-only. Tirzepatide label evidence preserves aspiration uncertainty without a timing rule."
+    },
+    {
+      "clusterId": "B3-FIXED-INSULIN-GLP1",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Soliqua 100/33", "Xultophy 100/3.6"],
+      "notes": "Fixed combinations remain indivisible whole-product identities; no insulin arithmetic, component splitting, substitution, or timing instruction is authorized."
+    },
+    {
+      "clusterId": "B3-SGLT2-COMBINATIONS",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Glyxambi", "Xigduo XR", "Segluromet", "Steglujan", "Synjardy", "Synjardy XR", "Trijardy XR", "Invokamet", "Invokamet XR"],
+      "notes": "IR/XR distinctions are preserved. INVOKAMET and INVOKAMET XR share current Janssen SETID 6868666b-c25e-40d1-9d1f-306bbe9390c1 / SPL 32 / effective 2026-08-24 but preserve NDA204353 versus NDA205879 whole-product provenance."
+    },
+    {
+      "clusterId": "B3-DAPA-SAXA-QTERN",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["historical Qtern NDA209091", "current dapagliflozin+saxagliptin ANDA211533", "FDA application identity ANDA211537", "historical/discontinued Qternmet XR NDA210874"],
+      "verifiedHeadSha": "27dc0ba73d26afdaf1c5362d9ed3f321382fe0d4",
+      "workflowRunId": 36512423069,
+      "jobId": 109227279949,
+      "notes": "Commercial availability is not inferred from FDA approval/listing. Qternmet XR preserves historical DailyMed identity and 2026 Orange Book discontinued status without inventing an SPL version."
+    },
+    {
+      "clusterId": "B3-HISTORICAL-STANDALONE-INCRETINS",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Adlyxin/lixisenatide", "Tanzeum/albiglutide"],
+      "verifiedHeadSha": "8d7edf3dbc960d6b81013aa1e0821453759e51a0",
+      "workflowRunId": 36532020220,
+      "jobId": 109287591846,
+      "notes": "Historical DailyMed product identity is preserved separately from FDA Purple Book Disc status; no real-time inventory claim is made."
+    },
+    {
+      "clusterId": "B3-CURRENT-INCRETIN-EXPANSION",
+      "status": "ENGINEERING_VERIFIED",
+      "identities": ["Amneal unbranded exenatide injection / ANDA206697", "Foundayo/orforglipron / NDA220934"],
+      "implementationCommit": "b231687c53fe25a7cfa6c2db11c3586b5de51a92",
+      "verifiedHeadSha": "b231687c53fe25a7cfa6c2db11c3586b5de51a92",
+      "workflowRunId": 36534111389,
+      "jobId": 109294148136,
+      "sourceState": {
+        "exenatide": "Amneal / DailyMed SETID e6cb5c8f-e97f-4a6a-95a4-939fd2393949 / SPL 17 / effective 2026-05-27 / ANDA206697 / subcutaneous injection",
+        "foundayo": "Eli Lilly / DailyMed SETID 8ac446c5-feba-474f-a103-23facb9b5c62 / SPL 10 / effective 2026-07-29 / NDA220934 / oral film-coated tablet"
+      },
+      "terminologyState": "Bare exenatide and bare orforglipron remain ambiguous; explicit Amneal/ANDA206697 and Foundayo/NDA220934 wording resolves only to source-linked identities.",
+      "reviewRuleState": "RULE-B3-CURRENT-INCRETIN-EXPANSION-REVIEW-001 routes both products to CLINICIAN_REVIEW_REQUIRED for EGD, colonoscopy, and combined procedures with no timingRule.",
+      "testState": "Evidence provenance, ambiguity, explicit resolution, production-rule isolation, three-procedure review routing, and timing-free behavior passed."
+    }
+  ],
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "primarySourceFamilies": ["FDA/DailyMed manufacturer labeling", "FDA Orange Book/Purple Book/application records", "2024 AGA/ASA/ASMBS/ISPCOP/SAGES multisociety GLP-1 clinical practice guidance"],
+    "glp1ProcedureReconciliation": "The 2024 multisociety guidance supports individualized shared decision-making and risk stratification rather than a universal hold. Current product labels for tirzepatide, Amneal exenatide, and Foundayo preserve delayed-gastric-emptying/aspiration provenance and state that available data are insufficient to determine whether modified fasting or temporary discontinuation mitigates risk. PREP-MEDS therefore retains review-only routing and no universal autonomous hold interval.",
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "timingRuleAuthorizedFromBatch03ProductLabels": false
+  },
+  "terminologyState": {
+    "status": "ENGINEERING_VERIFIED",
+    "failClosedExamples": ["IR versus XR unspecified", "generic combination matching multiple products", "route-unspecified semaglutide", "bare exenatide across product/formulation/source identities", "bare orforglipron versus explicit Foundayo", "historical branded versus current generic product provenance"],
+    "fixedCombinationBehavior": "Whole-product identity with component ingredients preserved; no automatic component splitting."
+  },
+  "ruleState": {
+    "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+    "productionActiveRules": "EMPTY_FOR_NEW_BATCH03_CONTENT",
+    "glp1UniversalHoldRule": false,
+    "sglt2UniversalEndoscopyTimingRuleFromManufacturerLabels": false,
+    "clinicalReviewRequired": true,
+    "localPolicyReviewRequired": true
+  },
+  "testState": {
+    "schemaValidation": "PASS",
+    "strictTypeScript": "PASS",
+    "targetedRegressions": "PASS",
+    "fullUnitRegressionSuite": "PASS",
+    "productionWebBuild": "PASS"
+  },
+  "ci": {
+    "status": "PASS",
+    "testedHeadSha": "b231687c53fe25a7cfa6c2db11c3586b5de51a92",
+    "workflowName": "quality",
+    "workflowRunNumber": 206,
+    "workflowRunId": 36534111389,
+    "jobId": 109294148136,
+    "conclusion": "success",
+    "scope": "Current incretin expansion cluster; schema validation, strict TypeScript, isolated inhaled-insulin regression, full unit/regression suite, and production web build passed."
+  },
+  "blockers": [],
+  "humanGatesRemaining": [
+    "Accountable clinical review of Batch 03 content",
+    "Institutional/local-policy adjudication of GLP-1 peri-procedural workflow",
+    "Merge, deployment, and production activation"
+  ],
+  "nextWorkItem": "Begin Batch 04 draft engineering on a new medication-development branch using the canonical master medication roadmap. Start with a coherent cardiovascular blood-pressure cluster, preserving local anesthesia-policy dependencies and review-only routing where policy is unresolved.",
+  "advanceToNextBatchAllowed": true,
+  "productionActivationAllowed": false,
+  "pullRequest": 13
+}
