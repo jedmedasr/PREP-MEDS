@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T14:50:00Z",
+  "updatedAt": "2026-09-30T16:00:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -164,6 +164,36 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "F_PARKINSON_COMT_ADJUNCTS_AND_WHOLE_PRODUCT": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "bd5930634200aa1145ac4bf4e6592f12d7ff85bd",
+      "products": [
+        "entacapone oral tablet",
+        "tolcapone oral tablet",
+        "ONGENTYS opicapone oral capsule",
+        "carbidopa/levodopa/entacapone film-coated oral tablet"
+      ],
+      "preservation": [
+        "Entacapone, tolcapone, and opicapone remain distinct adjunct identities; carbidopa/levodopa/entacapone remains a whole combination-product identity.",
+        "Bare entacapone fails closed across the single-ingredient and whole-product identities.",
+        "Current levodopa/carbidopa formulation and regimen, wearing-off context, dyskinesia, hepatic function and tolcapone liver-risk context, blood pressure, concomitant MAO inhibitors, withdrawal/hyperpyrexia-confusion risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, component or whole-product conversion, dose conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 311,
+        "workflowRunId": 36740445191,
+        "jobId": 109973132702,
+        "conclusion": "success",
+        "verifiedHeadSha": "bd5930634200aa1145ac4bf4e6592f12d7ff85bd",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -180,7 +210,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Rasagiline and XADAGO safinamide identities are engineering-verified with existing selegiline boundaries preserved. Next inventory COMT inhibitors—entacapone, tolcapone, opicapone/ONGENTYS, and carbidopa/levodopa/entacapone whole-product identities—implementing only genuine gaps.",
+  "nextWorkItem": "Parkinson COMT adjunct and carbidopa/levodopa/entacapone whole-product identities are engineering-verified. Next inventory remaining high-value neurologic/anesthesia-sensitive gaps, beginning with amantadine route/release products and antiepileptic withdrawal-sensitive identities, implementing only genuine gaps.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }

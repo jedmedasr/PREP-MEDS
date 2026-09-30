@@ -1016,7 +1016,8 @@
         "Duopa",
         "Inbrija",
         "Neupro",
-        "Xadago"
+        "Xadago",
+        "Ongentys"
       ],
       "importantFormulationDistinctions": [
         "opioid IR/ER",
@@ -1030,7 +1031,8 @@
         "rotigotine extended-release transdermal patch",
         "pramipexole immediate-release versus extended-release oral tablets",
         "ropinirole immediate-release versus extended-release film-coated oral tablets",
-        "rasagiline versus XADAGO safinamide indication-specific oral identities"
+        "rasagiline versus XADAGO safinamide indication-specific oral identities",
+        "single-ingredient COMT adjuncts versus carbidopa/levodopa/entacapone whole-product identity"
       ],
       "routeDistinctions": [
         "oral",
@@ -1050,7 +1052,8 @@
       ],
       "combinationProductDistinctions": [
         "buprenorphine/naloxone and opioid/acetaminophen products as whole identities",
-        "carbidopa/levodopa products remain whole combination identities across route, form, release, and device contexts"
+        "carbidopa/levodopa products remain whole combination identities across route, form, release, and device contexts",
+        "carbidopa/levodopa/entacapone remains a whole-product identity distinct from entacapone alone"
       ],
       "developmentStatus": "IN_PROGRESS",
       "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
@@ -1156,9 +1159,27 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-PARKINSON-COMT-ADJUNCTS-WHOLE-PRODUCT",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "bd5930634200aa1145ac4bf4e6592f12d7ff85bd",
+          "products": [
+            "entacapone oral tablet",
+            "tolcapone oral tablet",
+            "ONGENTYS opicapone oral capsule",
+            "carbidopa/levodopa/entacapone film-coated oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 311,
+            "workflowRunId": 36740445191,
+            "jobId": 109973132702,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Parkinson MAO-B adjunct identities are engineering-verified with existing selegiline coverage preserved. Next inventory COMT inhibitors—entacapone, tolcapone, opicapone/ONGENTYS, and carbidopa/levodopa/entacapone whole-product identities—implementing only genuine gaps and keeping timing review-only."
+      "nextEngineeringWork": "Parkinson COMT adjunct and whole-product identities are engineering-verified. Next inventory remaining high-value neurologic/anesthesia-sensitive gaps, beginning with amantadine route/release products and antiepileptic withdrawal-sensitive identities; implement only genuine gaps and keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
