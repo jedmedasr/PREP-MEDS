@@ -23,3 +23,6 @@ Scope: medication-reconciliation identity and review-only routing; no autonomous
 - Bare ingredient names are intentionally ambiguous where multiple modeled route/form/release identities exist.
 - Chronicity, indication, dose/duration, recent interruption or dose change, HPA-axis suppression, adrenal insufficiency, infection, glycemic effects, procedure stress, and ability to take oral medication require accountable clinician/local-policy review.
 - Evidence does not assert current market availability, patient-specific product, interchangeability, route/form conversion, or any timing.
+
+- Dexamethasone oral tablet: DailyMed SETID `bf8acfdb-8dc8-4a69-90b0-33c680c421d6`, ANDA087916, current label published 2026-05-25.
+- Dexamethasone sodium phosphate injection: DailyMed SETID `0277cc0a-2fd4-4605-a310-b613be84ee26`, ANDA087702, current label published 2026-01-23; labeled IV/IM routes (additional local injection routes are outside this scoped peri-procedural identity).

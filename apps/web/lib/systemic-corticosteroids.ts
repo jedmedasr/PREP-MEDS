@@ -6,6 +6,7 @@ export const systemicCorticosteroidIngredients: IngredientRecord[] = [
   { id: 'ING-prednisolone', canonicalName: 'Prednisolone' },
   { id: 'ING-methylprednisolone', canonicalName: 'Methylprednisolone' },
   { id: 'ING-hydrocortisone', canonicalName: 'Hydrocortisone' },
+  { id: 'ING-dexamethasone', canonicalName: 'Dexamethasone' },
 ];
 
 const recordById: Record<string, Omit<MedicationRecord, 'id' | 'ingredientIds'>> = {
@@ -17,6 +18,8 @@ const recordById: Record<string, Omit<MedicationRecord, 'id' | 'ingredientIds'>>
   'MED-solu-medrol-methylprednisolone-sodium-succinate-injection': { canonicalName: 'SOLU-MEDROL methylprednisolone sodium succinate injection', genericName: 'methylprednisolone sodium succinate injection', brandNames: ['Solu-Medrol'], aliases: ['methylprednisolone', 'methylprednisolone injection', 'Solu-Medrol', 'Solu-Medrol injection'], drugClassIds: ['CLS-systemic-corticosteroid', 'CLS-glucocorticoid'] },
   'MED-cortef-hydrocortisone-oral-tablet': { canonicalName: 'CORTEF hydrocortisone oral tablet', genericName: 'hydrocortisone oral', brandNames: ['Cortef'], aliases: ['hydrocortisone', 'hydrocortisone tablet', 'Cortef', 'Cortef tablet'], drugClassIds: ['CLS-systemic-corticosteroid', 'CLS-glucocorticoid'] },
   'MED-solu-cortef-hydrocortisone-sodium-succinate-injection': { canonicalName: 'SOLU-CORTEF hydrocortisone sodium succinate injection', genericName: 'hydrocortisone sodium succinate injection', brandNames: ['Solu-Cortef'], aliases: ['hydrocortisone', 'hydrocortisone injection', 'Solu-Cortef', 'Solu-Cortef injection'], drugClassIds: ['CLS-systemic-corticosteroid', 'CLS-glucocorticoid'] },
+  'MED-dexamethasone-oral-tablet': { canonicalName: 'Dexamethasone oral tablet', genericName: 'dexamethasone oral', aliases: ['dexamethasone', 'dexamethasone tablet', 'oral dexamethasone tablet'], drugClassIds: ['CLS-systemic-corticosteroid', 'CLS-glucocorticoid'] },
+  'MED-dexamethasone-sodium-phosphate-injection': { canonicalName: 'Dexamethasone sodium phosphate injection', genericName: 'dexamethasone sodium phosphate injection', aliases: ['dexamethasone', 'dexamethasone injection', 'dexamethasone sodium phosphate injection'], drugClassIds: ['CLS-systemic-corticosteroid', 'CLS-glucocorticoid'] },
 };
 
 export const systemicCorticosteroidMedications: MedicationRecord[] =

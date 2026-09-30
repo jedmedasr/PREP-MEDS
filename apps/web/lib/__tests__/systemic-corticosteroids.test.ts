@@ -14,6 +14,8 @@ const medicationIds = [
   'MED-solu-medrol-methylprednisolone-sodium-succinate-injection',
   'MED-cortef-hydrocortisone-oral-tablet',
   'MED-solu-cortef-hydrocortisone-sodium-succinate-injection',
+  'MED-dexamethasone-oral-tablet',
+  'MED-dexamethasone-sodium-phosphate-injection',
 ] as const;
 
 function evaluate(medicationId: string, procedureCode: ProcedureCode) {
@@ -28,7 +30,7 @@ function evaluate(medicationId: string, procedureCode: ProcedureCode) {
 }
 
 describe('systemic corticosteroid terminology', () => {
-  it('assembles valid terminology and preserves eight explicit identities', () => {
+  it('assembles valid terminology and preserves ten explicit identities', () => {
     expect(validateTerminologyDataset(terminologyDataset)).toEqual([]);
     for (const medicationId of medicationIds) expect(index.getMedicationById(medicationId)).toBeDefined();
   });
@@ -41,12 +43,14 @@ describe('systemic corticosteroid terminology', () => {
     ['Solu-Medrol injection', 'MED-solu-medrol-methylprednisolone-sodium-succinate-injection'],
     ['Cortef tablet', 'MED-cortef-hydrocortisone-oral-tablet'],
     ['Solu-Cortef injection', 'MED-solu-cortef-hydrocortisone-sodium-succinate-injection'],
+    ['dexamethasone tablet', 'MED-dexamethasone-oral-tablet'],
+    ['dexamethasone injection', 'MED-dexamethasone-sodium-phosphate-injection'],
   ])('resolves explicit wording %s to %s', (query, expectedId) => {
     const result = index.resolve(query);
     expect(result.status).toBe('RESOLVED');
     expect(result.medication?.id).toBe(expectedId);
   });
-  it.each(['prednisone', 'prednisolone', 'methylprednisolone', 'hydrocortisone'])('fails bare %s closed across route/form/release identities', (query) => {
+  it.each(['prednisone', 'prednisolone', 'methylprednisolone', 'hydrocortisone', 'dexamethasone'])('fails bare %s closed across route/form/release identities', (query) => {
     for (const limit of [1, 10]) {
       const result = index.resolve(query, { limit });
       expect(result.status).toBe('AMBIGUOUS');
