@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-29T21:18:00Z",
+  "updatedAt": "2026-09-30T13:03:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -71,6 +71,40 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "C_PARKINSON_DOPAMINERGIC_CORE_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "1bd6e5892571e27b2bac472387ac1a0f1712f649",
+      "products": [
+        "carbidopa/levodopa immediate-release oral tablet",
+        "carbidopa/levodopa extended-release oral tablet",
+        "RYTARY carbidopa/levodopa extended-release oral capsule",
+        "CREXONT carbidopa/levodopa extended-release oral capsule",
+        "DUOPA carbidopa/levodopa enteral suspension",
+        "INBRIJA levodopa inhalation powder capsule",
+        "NEUPRO rotigotine extended-release transdermal patch"
+      ],
+      "preservation": [
+        "Bare carbidopa/levodopa, levodopa, tablet-only, and shared extended-release capsule wording fail closed across eligible identities.",
+        "Immediate-release tablet, extended-release tablet, RYTARY, CREXONT, DUOPA, INBRIJA, and NEUPRO remain route/form/release/device-specific identities.",
+        "INBRIJA capsules remain inhaler-only rather than swallowed; DUOPA remains enteral-pump specific.",
+        "Current regimen, oral tolerance, OFF-state and withdrawal risk, device/access status, pulmonary status, concomitant therapy, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, dose/release/route/device conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 305,
+        "workflowRunId": 36718550141,
+        "jobId": 109897482209,
+        "conclusion": "success",
+        "verifiedHeadSha": "1bd6e5892571e27b2bac472387ac1a0f1712f649",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -87,7 +121,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "OUD/chronic-opioid priority identities are engineering-verified. Inventory the next anesthesia-sensitive stimulant/MAOI cluster; implement only concrete evidence or terminology gaps.",
+  "nextWorkItem": "Parkinson core route/form/release/device identities are engineering-verified. Next inventory oral dopamine agonist immediate- versus extended-release products, beginning with pramipexole and ropinirole; implement only genuine direct-label gaps.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
