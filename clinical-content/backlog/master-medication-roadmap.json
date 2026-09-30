@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-30T07:03:00Z",
+  "generatedAt": "2026-09-30T07:24:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "c5bfbac4f0493dd3cc0a61e53da07e69b17ec9a3",
+    "basedOnHeadSha": "5aff73f4de401fe788a2f49cdd767f545bdf81d4",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -1376,9 +1376,25 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B11-AZATHIOPRINE-ROUTE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "5aff73f4de401fe788a2f49cdd767f545bdf81d4",
+          "products": [
+            "IMURAN azathioprine oral tablet",
+            "azathioprine sodium intravenous injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 300,
+            "workflowRunId": 36680405256,
+            "jobId": 109774375802,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Tacrolimus, cyclosporine, mTOR inhibitors, and mycophenolate identity gaps are engineering-verified. Next inventory azathioprine and remaining high-value immunosuppression identities; implement only genuine direct-label gaps."
+      "nextEngineeringWork": "Prioritized transplant-immunosuppression identities are engineering-verified. Defer lower peri-procedural-impact DMARD breadth until anesthesia-sensitive gaps are closed."
     },
     {
       "batchId": "MED-BATCH-12-HIV-HEPATITIS-ANTIINFECTIVE-ONCOLOGY",
@@ -1487,7 +1503,8 @@
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "nextEngineeringWork": "Inventory anesthesia-sensitive weight-loss identities beginning with phentermine, QSYMIA phentermine/topiramate extended release, CONTRAVE naltrexone/bupropion extended release, and orlistat products; preserve indication, release, combination, opioid-exposure, and timing uncertainty."
     },
     {
       "batchId": "MED-BATCH-14-OTC-SUPPLEMENTS-CANNABINOIDS",

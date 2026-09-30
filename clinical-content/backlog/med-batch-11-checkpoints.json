@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T07:03:00Z",
+  "updatedAt": "2026-09-30T07:24:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -132,6 +132,33 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "E_AZATHIOPRINE_ROUTE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "5aff73f4de401fe788a2f49cdd767f545bdf81d4",
+      "products": [
+        "IMURAN azathioprine oral tablet",
+        "azathioprine sodium intravenous injection"
+      ],
+      "preservation": [
+        "IMURAN oral tablet and azathioprine sodium intravenous injection remain distinct route/form identities; bare azathioprine fails closed.",
+        "Transplant versus autoimmune indication, multidrug regimen, last dose, TPMT/NUDT15 status, blood counts, organ function, interactions, infection, GI toxicity, malignancy risk, and oral tolerance remain specialist/clinician reviewed.",
+        "No autonomous continuation, interruption, dose arithmetic, conversion, substitution, route/form change, monitoring target, interaction management, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 300,
+        "workflowRunId": 36680405256,
+        "jobId": 109774375802,
+        "conclusion": "success",
+        "verifiedHeadSha": "5aff73f4de401fe788a2f49cdd767f545bdf81d4",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -145,7 +172,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory azathioprine and remaining high-value immunosuppression identities; implement only concrete direct-label terminology/evidence gaps and keep interruption, infection, monitoring, wound-healing, and restart decisions review-only.",
+  "nextWorkItem": "Prioritized transplant-immunosuppression identity hardening is engineering-verified. Defer remaining routinely continued DMARD breadth; next inventory anesthesia-sensitive weight-loss/sympathomimetic identities beginning with phentermine and whole-product combinations.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
