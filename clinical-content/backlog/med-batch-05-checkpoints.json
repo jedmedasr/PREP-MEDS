@@ -4,7 +4,7 @@
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "baseBranch": "med-batch-04-cardiovascular-core",
   "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
-  "updatedAt": "2026-09-29T21:18:00Z",
+  "updatedAt": "2026-09-30T01:00:00Z",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -177,6 +177,29 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "N_REPRIORITIZED_STIMULANT_FORM_RELEASE_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+      "completed": [
+        "Added six direct DailyMed stimulant identities spanning ADDERALL IR/XR, VYVANSE capsule/chewable, and RITALIN IR/CONCERTA ER.",
+        "Preserved mixed-salt whole-product identity, form/release ambiguity, and labeled indication context.",
+        "All evidence remains DRAFT and all pathways remain clinician-review-only with no autonomous continuation, interruption, substitution, conversion, anesthesia plan, or restart timing."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 284,
+        "workflowRunId": 36652389410,
+        "jobId": 109689266783,
+        "conclusion": "success",
+        "verifiedHeadSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -193,7 +216,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory stimulants and monoamine oxidase inhibitors for genuine route/release/combination gaps and anesthesia-sensitive review requirements; do not create universal hold/restart rules.",
+  "nextWorkItem": "Build the genuine monoamine-oxidase-inhibitor route/form gap: phenelzine, tranylcypromine, isocarboxazid oral tablets and EMSAM selegiline transdermal system; preserve MAOI subtype, interacting-medication, anesthetic/vasopressor, discontinuation, and restart uncertainty.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,

@@ -1,0 +1,59 @@
+{
+  "batchId": "MED-BATCH-07-PSYCHIATRY",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-09-30T01:00:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_STIMULANT_FORM_RELEASE_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+      "products": [
+        "ADDERALL mixed amphetamine salts immediate-release oral tablet",
+        "ADDERALL XR mixed amphetamine salts extended-release oral capsule",
+        "VYVANSE lisdexamfetamine oral capsule",
+        "VYVANSE lisdexamfetamine chewable oral tablet",
+        "RITALIN methylphenidate immediate-release oral tablet",
+        "CONCERTA methylphenidate extended-release oral tablet"
+      ],
+      "preservation": [
+        "ADDERALL immediate-release tablet and ADDERALL XR extended-release capsule remain distinct whole-product mixed-salt identities.",
+        "VYVANSE capsule and chewable tablet remain distinct; RITALIN immediate-release and CONCERTA extended-release tablets remain distinct.",
+        "Indication, prescribed-versus-nonmedical use, cardiovascular/hemodynamic status, serotonergic or sympathomimetic co-therapy, MAOI exposure, and anesthesia/vasopressor planning remain clinician/local-policy reviewed.",
+        "No substitution, dose or release conversion, continuation, interruption, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 284,
+        "workflowRunId": 36652389410,
+        "jobId": 109689266783,
+        "conclusion": "success",
+        "verifiedHeadSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "lifecycle": "DRAFT",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "formulationConversionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Build the genuine monoamine-oxidase-inhibitor route/form gap: phenelzine, tranylcypromine, isocarboxazid oral tablets and EMSAM selegiline transdermal system; preserve MAOI subtype, interacting-medication, anesthetic/vasopressor, discontinuation, and restart uncertainty.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}

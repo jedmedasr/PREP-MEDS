@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T21:18:00Z",
+  "generatedAt": "2026-09-30T01:00:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+    "basedOnHeadSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -672,7 +672,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Priority override active: inventory stimulants/MAOIs, chronic systemic steroids, and transplant/immunosuppression for genuine anesthesia-sensitive gaps before statins.",
+      "nextEngineeringWork": "Priority override active: complete MAOI route/form hardening, then chronic systemic steroids and transplant/immunosuppression before statins.",
       "completedClusters": [
         {
           "clusterId": "B5-CLASS-III-ANTIARRHYTHMIC-ROUTE-FORM",
@@ -906,17 +906,40 @@
         "IR/SR/XL where clinically relevant"
       ],
       "combinationProductDistinctions": [],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B7-STIMULANT-FORM-RELEASE-INDICATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+          "products": [
+            "ADDERALL mixed amphetamine salts immediate-release oral tablet",
+            "ADDERALL XR mixed amphetamine salts extended-release oral capsule",
+            "VYVANSE lisdexamfetamine oral capsule",
+            "VYVANSE lisdexamfetamine chewable oral tablet",
+            "RITALIN methylphenidate immediate-release oral tablet",
+            "CONCERTA methylphenidate extended-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 284,
+            "workflowRunId": 36652389410,
+            "jobId": 109689266783,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Build the genuine monoamine-oxidase-inhibitor route/form gap: phenelzine, tranylcypromine, isocarboxazid oral tablets and EMSAM selegiline transdermal system; preserve MAOI subtype, interacting-medication, anesthetic/vasopressor, discontinuation, and restart uncertainty."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
