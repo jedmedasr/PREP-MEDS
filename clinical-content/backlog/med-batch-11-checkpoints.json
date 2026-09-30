@@ -1,0 +1,59 @@
+{
+  "batchId": "MED-BATCH-11-RHEUM-IMMUNOSUPPRESSION-TRANSPLANT",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-09-30T02:43:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_TACROLIMUS_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "e3b1d30ca46cf21dc8605d7595fd27e6a6527db5",
+      "products": [
+        "PROGRAF tacrolimus immediate-release oral capsule",
+        "PROGRAF tacrolimus granules for oral suspension",
+        "PROGRAF tacrolimus intravenous injection",
+        "ASTAGRAF XL tacrolimus extended-release oral capsule",
+        "ENVARSUS XR tacrolimus extended-release oral tablet"
+      ],
+      "preservation": [
+        "PROGRAF capsule, oral-suspension granules, and intravenous injection remain distinct.",
+        "ASTAGRAF XL extended-release capsules and ENVARSUS XR extended-release tablets remain distinct from each other and from immediate-release tacrolimus; bare tacrolimus fails closed.",
+        "Transplanted organ, time since transplant, rejection history, current multidrug regimen, last dose, therapeutic drug monitoring, renal/hepatic function, interacting drugs, infection status, and oral tolerance remain transplant-team/clinician reviewed.",
+        "No autonomous continuation, interruption, missed-dose instruction, dose arithmetic, conversion, substitution, route/form change, monitoring target, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 292,
+        "workflowRunId": 36658105175,
+        "jobId": 109706689946,
+        "conclusion": "success",
+        "verifiedHeadSha": "e3b1d30ca46cf21dc8605d7595fd27e6a6527db5",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "lifecycle": "DRAFT",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "routeConversionAuthorized": false,
+    "formulationConversionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Inventory cyclosporine modified versus nonmodified oral products and intravenous identity; preserve non-bioequivalence and fail closed without conversion or timing instructions.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}
