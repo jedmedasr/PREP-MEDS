@@ -57,6 +57,8 @@ import {
   mtorInhibitorReviewRules,
   mycophenolateIdentityEvidence,
   mycophenolateReviewRules,
+  azathioprineIdentityEvidence,
+  azathioprineReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -85,6 +87,7 @@ import { tacrolimusIngredients, tacrolimusMedications } from './tacrolimus';
 import { cyclosporineIngredients, cyclosporineMedications } from './cyclosporine';
 import { mtorInhibitorIngredients, mtorInhibitorMedications } from './mtor-inhibitors';
 import { mycophenolateIngredients, mycophenolateMedications } from './mycophenolate';
+import { azathioprineIngredients, azathioprineMedications } from './azathioprine';
 
 export interface UiModifierDefinition {
   id: string;
@@ -135,6 +138,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...cyclosporineIngredients,
     ...mtorInhibitorIngredients,
     ...mycophenolateIngredients,
+    ...azathioprineIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -206,6 +210,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...cyclosporineMedications,
     ...mtorInhibitorMedications,
     ...mycophenolateMedications,
+    ...azathioprineMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -248,6 +253,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...cyclosporineReviewRules,
   ...mtorInhibitorReviewRules,
   ...mycophenolateReviewRules,
+  ...azathioprineReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -278,6 +284,7 @@ export const clinicalReviewEvidenceBundles = [
   cyclosporineIdentityEvidence,
   mtorInhibitorIdentityEvidence,
   mycophenolateIdentityEvidence,
+  azathioprineIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 

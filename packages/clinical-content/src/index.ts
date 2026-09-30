@@ -413,3 +413,13 @@ export {
   mycophenolateReviewRules,
 } from './mycophenolate-evidence.js';
 export type { MycophenolateIdentityDefinition } from './mycophenolate-evidence.js';
+
+
+export {
+  azathioprineIdentityEvidence,
+  azathioprineIdentityDefinitions,
+  azathioprineIdentitySources,
+  azathioprineIdentityAtoms,
+  azathioprineReviewRules,
+} from './azathioprine-evidence.js';
+export type { AzathioprineIdentityDefinition } from './azathioprine-evidence.js';
