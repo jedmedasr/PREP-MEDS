@@ -7,7 +7,8 @@ type MedicationId =
   | 'MED-phenelzine-sulfate-oral-tablet'
   | 'MED-parnate-tranylcypromine-film-coated-oral-tablet'
   | 'MED-marplan-isocarboxazid-oral-tablet'
-  | 'MED-emsam-selegiline-transdermal-system';
+  | 'MED-emsam-selegiline-transdermal-system'
+  | 'MED-selegiline-hydrochloride-oral-tablet';
 type IngredientId = 'ING-phenelzine' | 'ING-tranylcypromine' | 'ING-isocarboxazid' | 'ING-selegiline';
 
 export interface PeriproceduralMaoiIdentityDefinition {
@@ -16,7 +17,7 @@ export interface PeriproceduralMaoiIdentityDefinition {
   genericName: string;
   dosageForm: string;
   route: 'ORAL' | 'TRANSDERMAL';
-  maoiContext: 'NONSELECTIVE_IRREVERSIBLE_MAOI' | 'TRANSDERMAL_MAOI';
+  maoiContext: 'NONSELECTIVE_IRREVERSIBLE_MAOI' | 'TRANSDERMAL_MAOI' | 'SELECTIVE_MAO_B_ADJUNCT';
   indicationContext: string;
   evidenceRef: { id: string; version: number };
 }
@@ -26,6 +27,7 @@ export const periproceduralMaoiIdentityDefinitions: PeriproceduralMaoiIdentityDe
   { medicationId: 'MED-parnate-tranylcypromine-film-coated-oral-tablet', ingredientId: 'ING-tranylcypromine', genericName: 'tranylcypromine sulfate', dosageForm: 'TABLET, FILM COATED', route: 'ORAL', maoiContext: 'NONSELECTIVE_IRREVERSIBLE_MAOI', indicationContext: 'MDD AFTER INADEQUATE RESPONSE TO OTHER ANTIDEPRESSANTS', evidenceRef: { id: 'EVD-PARNATE-ORAL-TABLET-IDENTITY', version: 1 } },
   { medicationId: 'MED-marplan-isocarboxazid-oral-tablet', ingredientId: 'ING-isocarboxazid', genericName: 'isocarboxazid', dosageForm: 'TABLET', route: 'ORAL', maoiContext: 'NONSELECTIVE_IRREVERSIBLE_MAOI', indicationContext: 'DEPRESSION; NOT FIRST-CHOICE THERAPY', evidenceRef: { id: 'EVD-MARPLAN-ORAL-TABLET-IDENTITY', version: 1 } },
   { medicationId: 'MED-emsam-selegiline-transdermal-system', ingredientId: 'ING-selegiline', genericName: 'selegiline transdermal', dosageForm: 'TRANSDERMAL SYSTEM', route: 'TRANSDERMAL', maoiContext: 'TRANSDERMAL_MAOI', indicationContext: 'MAJOR DEPRESSIVE DISORDER', evidenceRef: { id: 'EVD-EMSAM-TRANSDERMAL-IDENTITY', version: 1 } },
+  { medicationId: 'MED-selegiline-hydrochloride-oral-tablet', ingredientId: 'ING-selegiline', genericName: 'selegiline hydrochloride', dosageForm: 'TABLET', route: 'ORAL', maoiContext: 'SELECTIVE_MAO_B_ADJUNCT', indicationContext: 'ADJUNCT TO LEVODOPA/CARBIDOPA IN PARKINSON DISEASE WITH DETERIORATING RESPONSE', evidenceRef: { id: 'EVD-SELEGILINE-ORAL-TABLET-IDENTITY', version: 1 } },
 ];
 
 const sourceData: Array<{ medicationId: MedicationId; id: string; publisher: string; setId: string; effectiveDate: string; applicationNumber: string }> = [
@@ -33,6 +35,7 @@ const sourceData: Array<{ medicationId: MedicationId; id: string; publisher: str
   { medicationId: 'MED-parnate-tranylcypromine-film-coated-oral-tablet', id: 'SRC-PARNATE-ADVANZ-NDA012342', publisher: 'Advanz Pharma (US) Corp.; DailyMed', setId: 'b72d8187-dfcc-4ea0-b5e9-c0be95b69a27', effectiveDate: '2013-01-14', applicationNumber: 'NDA012342' },
   { medicationId: 'MED-marplan-isocarboxazid-oral-tablet', id: 'SRC-MARPLAN-VALIDUS-NDA011961', publisher: 'Validus Pharmaceuticals LLC; DailyMed', setId: 'ac387aa0-3f04-4865-a913-db6ed6f4fdc5', effectiveDate: '1959-07-01', applicationNumber: 'NDA011961' },
   { medicationId: 'MED-emsam-selegiline-transdermal-system', id: 'SRC-EMSAM-NOVEN-NDA021336', publisher: 'Noven Pharmaceuticals, Inc.; DailyMed', setId: 'b891bd9f-fdb8-4862-89c5-ecdd700398a3', effectiveDate: '2006-02-27', applicationNumber: 'NDA021336' },
+  { medicationId: 'MED-selegiline-hydrochloride-oral-tablet', id: 'SRC-SELEGILINE-ORAL-APOTEX-ANDA074871', publisher: 'Apotex Corp.; DailyMed', setId: '2aa9f8ee-6a86-6cf1-bec7-6a1ffa5e1ae2', effectiveDate: '1997-07-06', applicationNumber: 'ANDA074871' },
 ];
 const definitionByMedication = new Map(periproceduralMaoiIdentityDefinitions.map((definition) => [definition.medicationId, definition]));
 
@@ -64,7 +67,7 @@ export const periproceduralMaoiIdentityAtoms: EvidenceAtom[] = periproceduralMao
   locator: { section: 'Indications and Usage; Description; Contraindications; Product Information; Marketing Information' },
   limitations: [
     'The source authenticates ingredient, route, dosage form, MAOI context, and label indication context only; it does not authenticate a patient-specific manufacturer, NDC, package, strength, or current commercial availability.',
-    'Phenelzine, tranylcypromine, isocarboxazid, and EMSAM are not interchangeable; EMSAM transdermal selegiline must not resolve from bare selegiline because oral MAO-B-inhibitor identities are outside this cluster.',
+    'Phenelzine, tranylcypromine, and isocarboxazid are not interchangeable; EMSAM transdermal selegiline and oral selegiline MAO-B adjunct therapy remain distinct route, indication, and subtype identities.',
     'Concomitant serotonergic, sympathomimetic, opioid, dextromethorphan, anesthetic, and vasopressor exposure; dose; dietary context; cardiovascular status; and psychiatric risk require accountable clinician review.',
     'No autonomous continuation, interruption, taper, washout, substitution, anesthetic/vasopressor plan, or restart timing is supported by this identity evidence.',
   ],

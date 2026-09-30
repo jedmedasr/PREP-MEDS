@@ -5,7 +5,7 @@ import { activeRules, clinicalReviewRules, terminologyDataset } from '../content
 
 const index = new TerminologyIndex(terminologyDataset);
 const procedures: ProcedureCode[] = ['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY'];
-const medicationIds = ['MED-phenelzine-sulfate-oral-tablet', 'MED-parnate-tranylcypromine-film-coated-oral-tablet', 'MED-marplan-isocarboxazid-oral-tablet', 'MED-emsam-selegiline-transdermal-system'] as const;
+const medicationIds = ['MED-phenelzine-sulfate-oral-tablet', 'MED-parnate-tranylcypromine-film-coated-oral-tablet', 'MED-marplan-isocarboxazid-oral-tablet', 'MED-emsam-selegiline-transdermal-system', 'MED-selegiline-hydrochloride-oral-tablet'] as const;
 
 function evaluate(medicationId: string, procedureCode: ProcedureCode) {
   const medication = index.getMedicationById(medicationId);
@@ -19,7 +19,7 @@ function evaluate(medicationId: string, procedureCode: ProcedureCode) {
 }
 
 describe('periprocedural MAOI terminology', () => {
-  it('assembles valid terminology and preserves four explicit identities', () => {
+  it('assembles valid terminology and preserves five explicit identities', () => {
     expect(validateTerminologyDataset(terminologyDataset)).toEqual([]);
     for (const medicationId of medicationIds) expect(index.getMedicationById(medicationId)).toBeDefined();
   });
@@ -28,15 +28,19 @@ describe('periprocedural MAOI terminology', () => {
     ['Parnate', 'MED-parnate-tranylcypromine-film-coated-oral-tablet'],
     ['Marplan', 'MED-marplan-isocarboxazid-oral-tablet'],
     ['Emsam patch', 'MED-emsam-selegiline-transdermal-system'],
+    ['oral selegiline', 'MED-selegiline-hydrochloride-oral-tablet'],
   ])('resolves explicit wording %s to %s', (query, expectedId) => {
     const result = index.resolve(query);
     expect(result.status).toBe('RESOLVED');
     expect(result.medication?.id).toBe(expectedId);
   });
-  it('does not over-resolve bare selegiline to the transdermal antidepressant identity', () => {
-    const result = index.resolve('selegiline');
-    expect(result.status).not.toBe('RESOLVED');
-    expect(result.medication).toBeUndefined();
+  it('fails bare selegiline closed across oral MAO-B and transdermal antidepressant identities', () => {
+    for (const limit of [1, 10]) {
+      const result = index.resolve('selegiline', { limit });
+      expect(result.status).toBe('AMBIGUOUS');
+      expect(result.medication).toBeUndefined();
+      expect(result.ingredientIds).toEqual([]);
+    }
   });
 });
 
