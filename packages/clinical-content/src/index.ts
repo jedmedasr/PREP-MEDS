@@ -453,3 +453,13 @@ export {
   parkinsonOralDopamineAgonistReviewRules,
 } from './parkinson-oral-dopamine-agonist-evidence.js';
 export type { ParkinsonOralDopamineAgonistIdentityDefinition } from './parkinson-oral-dopamine-agonist-evidence.js';
+
+
+export {
+  parkinsonMaobAdjunctIdentityEvidence,
+  parkinsonMaobAdjunctIdentityDefinitions,
+  parkinsonMaobAdjunctIdentitySources,
+  parkinsonMaobAdjunctIdentityAtoms,
+  parkinsonMaobAdjunctReviewRules,
+} from './parkinson-maob-adjunct-evidence.js';
+export type { ParkinsonMaobAdjunctIdentityDefinition } from './parkinson-maob-adjunct-evidence.js';

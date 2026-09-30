@@ -65,6 +65,8 @@ import {
   parkinsonCoreReviewRules,
   parkinsonOralDopamineAgonistIdentityEvidence,
   parkinsonOralDopamineAgonistReviewRules,
+  parkinsonMaobAdjunctIdentityEvidence,
+  parkinsonMaobAdjunctReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -97,6 +99,7 @@ import { azathioprineIngredients, azathioprineMedications } from './azathioprine
 import { weightManagementIngredients, weightManagementMedications } from './weight-management';
 import { parkinsonCoreIngredients, parkinsonCoreMedications } from './parkinson-core';
 import { parkinsonOralDopamineAgonistIngredients, parkinsonOralDopamineAgonistMedications } from './parkinson-oral-dopamine-agonists';
+import { parkinsonMaobAdjunctIngredients, parkinsonMaobAdjunctMedications } from './parkinson-maob-adjuncts';
 
 export interface UiModifierDefinition {
   id: string;
@@ -114,8 +117,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'parkinson-oral-dopamine-agonist-review-1',
-  generatedAt: '2026-09-30T13:25:00Z',
+  version: 'parkinson-maob-adjunct-review-1',
+  generatedAt: '2026-09-30T14:47:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -151,6 +154,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...weightManagementIngredients,
     ...parkinsonCoreIngredients,
     ...parkinsonOralDopamineAgonistIngredients,
+    ...parkinsonMaobAdjunctIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -226,6 +230,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...weightManagementMedications,
     ...parkinsonCoreMedications,
     ...parkinsonOralDopamineAgonistMedications,
+    ...parkinsonMaobAdjunctMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -272,6 +277,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...weightManagementReviewRules,
   ...parkinsonCoreReviewRules,
   ...parkinsonOralDopamineAgonistReviewRules,
+  ...parkinsonMaobAdjunctReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -306,6 +312,7 @@ export const clinicalReviewEvidenceBundles = [
   weightManagementIdentityEvidence,
   parkinsonCoreIdentityEvidence,
   parkinsonOralDopamineAgonistIdentityEvidence,
+  parkinsonMaobAdjunctIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
