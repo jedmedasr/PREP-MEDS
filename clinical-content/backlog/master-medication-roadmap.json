@@ -1015,7 +1015,8 @@
         "Crexont",
         "Duopa",
         "Inbrija",
-        "Neupro"
+        "Neupro",
+        "Xadago"
       ],
       "importantFormulationDistinctions": [
         "opioid IR/ER",
@@ -1028,7 +1029,8 @@
         "levodopa inhalation capsule versus swallowed oral capsule",
         "rotigotine extended-release transdermal patch",
         "pramipexole immediate-release versus extended-release oral tablets",
-        "ropinirole immediate-release versus extended-release film-coated oral tablets"
+        "ropinirole immediate-release versus extended-release film-coated oral tablets",
+        "rasagiline versus XADAGO safinamide indication-specific oral identities"
       ],
       "routeDistinctions": [
         "oral",
@@ -1138,9 +1140,25 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-PARKINSON-MAOB-ADJUNCTS",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "97de3b1f08f331abe5432437db08c22c73ee714e",
+          "products": [
+            "rasagiline mesylate oral tablet",
+            "XADAGO safinamide mesylate film-coated oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 309,
+            "workflowRunId": 36732965330,
+            "jobId": 109947149901,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Oral dopamine-agonist IR/ER identities are engineering-verified. Next inventory remaining Parkinson adjunct identities—rasagiline/safinamide and COMT inhibitors—while reconciling existing selegiline coverage before adding anything; preserve indication and interaction uncertainty and keep timing review-only."
+      "nextEngineeringWork": "Parkinson MAO-B adjunct identities are engineering-verified with existing selegiline coverage preserved. Next inventory COMT inhibitors—entacapone, tolcapone, opicapone/ONGENTYS, and carbidopa/levodopa/entacapone whole-product identities—implementing only genuine gaps and keeping timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",

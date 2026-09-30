@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T13:39:00Z",
+  "updatedAt": "2026-09-30T14:50:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -136,6 +136,34 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "E_PARKINSON_MAOB_ADJUNCTS": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "97de3b1f08f331abe5432437db08c22c73ee714e",
+      "products": [
+        "rasagiline mesylate oral tablet",
+        "XADAGO safinamide mesylate film-coated oral tablet"
+      ],
+      "preservation": [
+        "Rasagiline and safinamide remain distinct from one another and from existing oral-tablet and transdermal-system selegiline identities.",
+        "Rasagiline monotherapy/adjunct labeling is not generalized to XADAGO's adjunct-to-levodopa/carbidopa off-episode context or to a patient-specific indication.",
+        "Hepatic function, blood pressure, current dopaminergic regimen, withdrawal/NMS-like risk, concomitant MAO inhibitors, serotonergic drugs, opioids, sympathomimetics, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 309,
+        "workflowRunId": 36732965330,
+        "jobId": 109947149901,
+        "conclusion": "success",
+        "verifiedHeadSha": "97de3b1f08f331abe5432437db08c22c73ee714e",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -152,7 +180,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Oral dopamine-agonist IR/ER identities are engineering-verified. Next inventory remaining Parkinson adjunct identities—rasagiline/safinamide and COMT inhibitors—reconciling existing selegiline coverage first.",
+  "nextWorkItem": "Rasagiline and XADAGO safinamide identities are engineering-verified with existing selegiline boundaries preserved. Next inventory COMT inhibitors—entacapone, tolcapone, opicapone/ONGENTYS, and carbidopa/levodopa/entacapone whole-product identities—implementing only genuine gaps.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
