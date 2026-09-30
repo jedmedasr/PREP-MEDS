@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-30T02:43:00Z",
+  "generatedAt": "2026-09-30T06:03:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "e3b1d30ca46cf21dc8605d7595fd27e6a6527db5",
+    "basedOnHeadSha": "2e83305bd4be9783049fa3978b19befc34483765",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -1320,9 +1320,27 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B11-CYCLOSPORINE-MODIFIED-NONMODIFIED-ROUTE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "2e83305bd4be9783049fa3978b19befc34483765",
+          "products": [
+            "SANDIMMUNE cyclosporine nonmodified oral capsule",
+            "SANDIMMUNE cyclosporine intravenous injection",
+            "NEORAL cyclosporine modified oral capsule",
+            "NEORAL cyclosporine modified oral solution"
+          ],
+          "ci": {
+            "workflowRunNumber": 294,
+            "workflowRunId": 36675791854,
+            "jobId": 109760343983,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Tacrolimus route/form/release identity gaps are engineering-verified. Next inventory cyclosporine modified versus nonmodified oral products and intravenous identity; implement only genuine direct-label gaps."
+      "nextEngineeringWork": "Tacrolimus and cyclosporine identity gaps are engineering-verified. Next inventory sirolimus tablet/oral solution and everolimus/ZORTRESS tablet identities; implement only genuine direct-label gaps."
     },
     {
       "batchId": "MED-BATCH-12-HIV-HEPATITIS-ANTIINFECTIVE-ONCOLOGY",

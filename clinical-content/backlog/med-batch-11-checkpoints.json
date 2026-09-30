@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T02:43:00Z",
+  "updatedAt": "2026-09-30T06:03:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -40,6 +40,36 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "B_CYCLOSPORINE_MODIFIED_NONMODIFIED_ROUTE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "2e83305bd4be9783049fa3978b19befc34483765",
+      "products": [
+        "SANDIMMUNE cyclosporine nonmodified oral capsule",
+        "SANDIMMUNE cyclosporine intravenous injection",
+        "NEORAL cyclosporine modified oral capsule",
+        "NEORAL cyclosporine modified oral solution"
+      ],
+      "preservation": [
+        "Modified and nonmodified oral cyclosporine remain distinct and are not treated as bioequivalent or interchangeable.",
+        "SANDIMMUNE oral capsule versus intravenous injection and NEORAL modified capsule versus oral solution remain route/form distinct; bare cyclosporine and formulation-unspecified capsule terms fail closed.",
+        "Transplanted organ or nontransplant indication, time since transplant, rejection history, multidrug regimen, last dose, concentration monitoring, renal/hepatic function, interactions, infection status, and oral tolerance remain transplant-team/clinician reviewed.",
+        "No autonomous continuation, interruption, missed-dose instruction, dose arithmetic, bioequivalent conversion, substitution, route/form change, monitoring target, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 294,
+        "workflowRunId": 36675791854,
+        "jobId": 109760343983,
+        "conclusion": "success",
+        "verifiedHeadSha": "2e83305bd4be9783049fa3978b19befc34483765",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -53,7 +83,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory cyclosporine modified versus nonmodified oral products and intravenous identity; preserve non-bioequivalence and fail closed without conversion or timing instructions.",
+  "nextWorkItem": "Inventory mTOR-inhibitor immunosuppression beginning with sirolimus tablet versus oral solution and everolimus/ZORTRESS tablet identities; keep interruption, monitoring, interaction, wound-healing, and restart decisions review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
