@@ -383,3 +383,13 @@ export {
   tacrolimusReviewRules,
 } from './tacrolimus-evidence.js';
 export type { TacrolimusIdentityDefinition } from './tacrolimus-evidence.js';
+
+
+export {
+  cyclosporineIdentityEvidence,
+  cyclosporineIdentityDefinitions,
+  cyclosporineIdentitySources,
+  cyclosporineIdentityAtoms,
+  cyclosporineReviewRules,
+} from './cyclosporine-evidence.js';
+export type { CyclosporineIdentityDefinition } from './cyclosporine-evidence.js';
