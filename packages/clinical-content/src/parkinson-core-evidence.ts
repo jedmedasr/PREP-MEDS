@@ -55,7 +55,7 @@ export const parkinsonCoreIdentitySources: SourceDocument[] = sourceData.map((so
     externalIdentifier: `DailyMed SETID ${source.setId}${source.applicationNumber ? `; ${source.applicationNumber}` : ''}`,
     jurisdiction: 'US', language: 'en', retrievedAt, lifecycle: 'DRAFT',
     metadata: {
-      setId: source.setId, applicationNumber: source.applicationNumber, route: definition.route,
+      setId: source.setId, applicationNumber: source.applicationNumber ?? null, route: definition.route,
       dosageForm: definition.dosageForm, releaseProfile: definition.releaseProfile,
       deliveryContext: definition.deliveryContext, representativeIdentityOnly: true,
       indicationNotInferred: true, currentRegimenNotInferred: true, offStateNotInferred: true,
