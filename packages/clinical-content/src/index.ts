@@ -473,3 +473,12 @@ export {
   parkinsonComtReviewRules,
 } from './parkinson-comt-evidence.js';
 export type { ParkinsonComtIdentityDefinition } from './parkinson-comt-evidence.js';
+
+export {
+  parkinsonAmantadineIdentityEvidence,
+  parkinsonAmantadineIdentityDefinitions,
+  parkinsonAmantadineIdentitySources,
+  parkinsonAmantadineIdentityAtoms,
+  parkinsonAmantadineReviewRules,
+} from './parkinson-amantadine-evidence.js';
+export type { ParkinsonAmantadineIdentityDefinition } from './parkinson-amantadine-evidence.js';
