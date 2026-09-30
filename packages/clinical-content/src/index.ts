@@ -463,3 +463,13 @@ export {
   parkinsonMaobAdjunctReviewRules,
 } from './parkinson-maob-adjunct-evidence.js';
 export type { ParkinsonMaobAdjunctIdentityDefinition } from './parkinson-maob-adjunct-evidence.js';
+
+
+export {
+  parkinsonComtIdentityEvidence,
+  parkinsonComtIdentityDefinitions,
+  parkinsonComtIdentitySources,
+  parkinsonComtIdentityAtoms,
+  parkinsonComtReviewRules,
+} from './parkinson-comt-evidence.js';
+export type { ParkinsonComtIdentityDefinition } from './parkinson-comt-evidence.js';
