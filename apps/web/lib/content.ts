@@ -53,6 +53,8 @@ import {
   tacrolimusReviewRules,
   cyclosporineIdentityEvidence,
   cyclosporineReviewRules,
+  mtorInhibitorIdentityEvidence,
+  mtorInhibitorReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -79,6 +81,7 @@ import { periproceduralMaoiIngredients, periproceduralMaoiMedications } from './
 import { systemicCorticosteroidIngredients, systemicCorticosteroidMedications } from './systemic-corticosteroids';
 import { tacrolimusIngredients, tacrolimusMedications } from './tacrolimus';
 import { cyclosporineIngredients, cyclosporineMedications } from './cyclosporine';
+import { mtorInhibitorIngredients, mtorInhibitorMedications } from './mtor-inhibitors';
 
 export interface UiModifierDefinition {
   id: string;
@@ -127,6 +130,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...systemicCorticosteroidIngredients,
     ...tacrolimusIngredients,
     ...cyclosporineIngredients,
+    ...mtorInhibitorIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -196,6 +200,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...systemicCorticosteroidMedications,
     ...tacrolimusMedications,
     ...cyclosporineMedications,
+    ...mtorInhibitorMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -236,6 +241,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...systemicCorticosteroidReviewRules,
   ...tacrolimusReviewRules,
   ...cyclosporineReviewRules,
+  ...mtorInhibitorReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -264,6 +270,7 @@ export const clinicalReviewEvidenceBundles = [
   systemicCorticosteroidIdentityEvidence,
   tacrolimusIdentityEvidence,
   cyclosporineIdentityEvidence,
+  mtorInhibitorIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 

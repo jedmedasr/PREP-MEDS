@@ -393,3 +393,13 @@ export {
   cyclosporineReviewRules,
 } from './cyclosporine-evidence.js';
 export type { CyclosporineIdentityDefinition } from './cyclosporine-evidence.js';
+
+
+export {
+  mtorInhibitorIdentityEvidence,
+  mtorInhibitorIdentityDefinitions,
+  mtorInhibitorIdentitySources,
+  mtorInhibitorIdentityAtoms,
+  mtorInhibitorReviewRules,
+} from './mtor-inhibitor-evidence.js';
+export type { MtorInhibitorIdentityDefinition } from './mtor-inhibitor-evidence.js';
