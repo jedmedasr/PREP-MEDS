@@ -423,3 +423,13 @@ export {
   azathioprineReviewRules,
 } from './azathioprine-evidence.js';
 export type { AzathioprineIdentityDefinition } from './azathioprine-evidence.js';
+
+
+export {
+  weightManagementIdentityEvidence,
+  weightManagementIdentityDefinitions,
+  weightManagementIdentitySources,
+  weightManagementIdentityAtoms,
+  weightManagementReviewRules,
+} from './weight-management-evidence.js';
+export type { WeightManagementIdentityDefinition } from './weight-management-evidence.js';
