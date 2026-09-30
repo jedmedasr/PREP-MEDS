@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-30T01:18:00Z",
+  "generatedAt": "2026-09-30T02:18:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+    "basedOnHeadSha": "5fad05bcae462213b90093968eebe16b019e7918",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -26,8 +26,8 @@
   "counters": {
     "totalBatches": 14,
     "engineeringVerifiedBatches": 3,
-    "inProgressBatches": 1,
-    "plannedBatches": 10,
+    "inProgressBatches": 2,
+    "plannedBatches": 9,
     "clinicallyApprovedBatches": 0,
     "localPolicyApprovedBatches": 0
   },
@@ -1144,17 +1144,44 @@
       "combinationProductDistinctions": [
         "combination contraceptives"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B9-CHRONIC-SYSTEMIC-CORTICOSTEROID-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "5fad05bcae462213b90093968eebe16b019e7918",
+          "products": [
+            "prednisone immediate-release oral tablet",
+            "prednisone delayed-release oral tablet",
+            "prednisolone oral tablet",
+            "prednisolone sodium phosphate oral solution",
+            "MEDROL methylprednisolone oral tablet",
+            "SOLU-MEDROL methylprednisolone sodium succinate injection",
+            "CORTEF hydrocortisone oral tablet",
+            "SOLU-CORTEF hydrocortisone sodium succinate injection",
+            "dexamethasone oral tablet",
+            "dexamethasone sodium phosphate injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 290,
+            "workflowRunId": 36657544395,
+            "jobId": 109705019427,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Chronic systemic corticosteroid identity gaps are engineering-verified. Next inventory transplant immunosuppression, beginning with tacrolimus IR/ER and route distinctions; implement only genuine gaps."
     },
     {
       "batchId": "MED-BATCH-10-PULMONARY-ALLERGY",
