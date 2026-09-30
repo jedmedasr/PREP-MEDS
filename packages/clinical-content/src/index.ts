@@ -433,3 +433,13 @@ export {
   weightManagementReviewRules,
 } from './weight-management-evidence.js';
 export type { WeightManagementIdentityDefinition } from './weight-management-evidence.js';
+
+
+export {
+  parkinsonCoreIdentityEvidence,
+  parkinsonCoreIdentityDefinitions,
+  parkinsonCoreIdentitySources,
+  parkinsonCoreIdentityAtoms,
+  parkinsonCoreReviewRules,
+} from './parkinson-core-evidence.js';
+export type { ParkinsonCoreIdentityDefinition } from './parkinson-core-evidence.js';

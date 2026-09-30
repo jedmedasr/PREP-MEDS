@@ -61,6 +61,8 @@ import {
   azathioprineReviewRules,
   weightManagementIdentityEvidence,
   weightManagementReviewRules,
+  parkinsonCoreIdentityEvidence,
+  parkinsonCoreReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -91,6 +93,7 @@ import { mtorInhibitorIngredients, mtorInhibitorMedications } from './mtor-inhib
 import { mycophenolateIngredients, mycophenolateMedications } from './mycophenolate';
 import { azathioprineIngredients, azathioprineMedications } from './azathioprine';
 import { weightManagementIngredients, weightManagementMedications } from './weight-management';
+import { parkinsonCoreIngredients, parkinsonCoreMedications } from './parkinson-core';
 
 export interface UiModifierDefinition {
   id: string;
@@ -108,8 +111,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'weight-management-anesthesia-review-1',
-  generatedAt: '2026-09-30T12:05:00Z',
+  version: 'parkinson-core-anesthesia-review-1',
+  generatedAt: '2026-09-30T12:50:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -143,6 +146,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...mycophenolateIngredients,
     ...azathioprineIngredients,
     ...weightManagementIngredients,
+    ...parkinsonCoreIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -216,6 +220,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...mycophenolateMedications,
     ...azathioprineMedications,
     ...weightManagementMedications,
+    ...parkinsonCoreMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -260,6 +265,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...mycophenolateReviewRules,
   ...azathioprineReviewRules,
   ...weightManagementReviewRules,
+  ...parkinsonCoreReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -292,6 +298,7 @@ export const clinicalReviewEvidenceBundles = [
   mycophenolateIdentityEvidence,
   azathioprineIdentityEvidence,
   weightManagementIdentityEvidence,
+  parkinsonCoreIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
