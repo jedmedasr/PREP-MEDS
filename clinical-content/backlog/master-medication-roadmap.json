@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-30T07:24:00Z",
+  "generatedAt": "2026-09-30T12:12:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -1493,18 +1493,40 @@
       "combinationProductDistinctions": [
         "phentermine/topiramate and naltrexone/bupropion whole-product identities"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
-      "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "DIRECT_LABEL_EVIDENCE_RECONCILED",
+      "terminologyStatus": "IMPLEMENTED",
+      "ruleReviewStatus": "TECHNICALLY_TESTED_REVIEW_REQUIRED",
+      "testingStatus": "PASSED",
+      "engineeringVerificationStatus": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Inventory anesthesia-sensitive weight-loss identities beginning with phentermine, QSYMIA phentermine/topiramate extended release, CONTRAVE naltrexone/bupropion extended release, and orlistat products; preserve indication, release, combination, opioid-exposure, and timing uncertainty."
+      "nextEngineeringWork": "Weight-management identities are engineering-verified. Next inventory Parkinson/dopaminergic route-form-release identities for anesthesia-sensitive reconciliation before lower-impact bone, gout, DMARD, or statin breadth.",
+      "completedClusters": [
+        {
+          "clusterId": "B13-WEIGHT-MANAGEMENT-ANESTHESIA-SENSITIVE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "fc1f082b2c79c0e6e7a1c29215b2a1995700c301",
+          "products": [
+            "phentermine hydrochloride oral capsule",
+            "phentermine hydrochloride oral tablet",
+            "QSYMIA phentermine/topiramate extended-release oral capsule",
+            "CONTRAVE naltrexone/bupropion extended-release oral tablet",
+            "XENICAL orlistat 120 mg prescription oral capsule",
+            "ALLI orlistat 60 mg OTC oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 302,
+            "workflowRunId": 36711487885,
+            "jobId": 109874090564,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ]
     },
     {
       "batchId": "MED-BATCH-14-OTC-SUPPLEMENTS-CANNABINOIDS",
