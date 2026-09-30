@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T01:00:00Z",
+  "updatedAt": "2026-09-30T01:18:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -41,6 +41,44 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "B_MAOI_ROUTE_FORM_SUBTYPE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+      "products": [
+        "phenelzine sulfate oral tablet",
+        "PARNATE tranylcypromine sulfate film-coated oral tablet",
+        "MARPLAN isocarboxazid oral tablet",
+        "EMSAM selegiline transdermal system",
+        "selegiline hydrochloride oral tablet (MAO-B adjunct context)"
+      ],
+      "preservation": [
+        "Classic nonselective irreversible oral MAOIs remain distinct from EMSAM transdermal antidepressant and oral selegiline MAO-B adjunct identities.",
+        "Bare selegiline fails closed across oral and transdermal route/indication/subtype identities.",
+        "Interacting medications, dietary context, cardiovascular status, psychiatric risk, anesthetic/vasopressor selection, discontinuation, and restart remain clinician/local-policy reviewed.",
+        "No substitution, route conversion, hold, washout, taper, anesthetic/vasopressor plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 287,
+        "workflowRunId": 36653193848,
+        "jobId": 109691759435,
+        "conclusion": "success",
+        "verifiedHeadSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      },
+      "repairReceipt": {
+        "failedRunNumber": 286,
+        "failedRunId": 36652927667,
+        "failedJobId": 109690946948,
+        "cause": "Bare selegiline initially resolved to EMSAM instead of failing closed across route/indication contexts.",
+        "repairCommit": "21ff190689ec8e880bce4ad5177ac06600f0cce0"
+      }
     }
   },
   "evidenceState": {
@@ -53,7 +91,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Build the genuine monoamine-oxidase-inhibitor route/form gap: phenelzine, tranylcypromine, isocarboxazid oral tablets and EMSAM selegiline transdermal system; preserve MAOI subtype, interacting-medication, anesthetic/vasopressor, discontinuation, and restart uncertainty.",
+  "nextWorkItem": "Inventory and build chronic systemic corticosteroid identities with route/form distinctions and review-only adrenal-suppression/stress-dose context; do not create autonomous steroid interruption or supplementation rules.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }

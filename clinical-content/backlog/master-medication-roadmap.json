@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-30T01:00:00Z",
+  "generatedAt": "2026-09-30T01:18:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+    "basedOnHeadSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -672,7 +672,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Priority override active: complete MAOI route/form hardening, then chronic systemic steroids and transplant/immunosuppression before statins.",
+      "nextEngineeringWork": "Priority override active: inventory chronic systemic steroids, then transplant/immunosuppression before statins.",
       "completedClusters": [
         {
           "clusterId": "B5-CLASS-III-ANTIARRHYTHMIC-ROUTE-FORM",
@@ -937,9 +937,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-MAOI-ROUTE-FORM-SUBTYPE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+          "products": [
+            "phenelzine sulfate oral tablet",
+            "PARNATE tranylcypromine sulfate film-coated oral tablet",
+            "MARPLAN isocarboxazid oral tablet",
+            "EMSAM selegiline transdermal system",
+            "selegiline hydrochloride oral tablet (MAO-B adjunct context)"
+          ],
+          "ci": {
+            "workflowRunNumber": 287,
+            "workflowRunId": 36653193848,
+            "jobId": 109691759435,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Build the genuine monoamine-oxidase-inhibitor route/form gap: phenelzine, tranylcypromine, isocarboxazid oral tablets and EMSAM selegiline transdermal system; preserve MAOI subtype, interacting-medication, anesthetic/vasopressor, discontinuation, and restart uncertainty."
+      "nextEngineeringWork": "Stimulant and MAOI anesthesia-sensitive identity gaps are engineering-verified. Next inventory chronic systemic corticosteroids; implement only concrete route/form/adrenal-context gaps."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",

@@ -4,7 +4,7 @@
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "baseBranch": "med-batch-04-cardiovascular-core",
   "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
-  "updatedAt": "2026-09-30T01:00:00Z",
+  "updatedAt": "2026-09-30T01:18:00Z",
   "engineeringStatus": "IN_PROGRESS",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
@@ -200,6 +200,29 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "O_REPRIORITIZED_MAOI_ROUTE_FORM_SUBTYPE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+      "completed": [
+        "Added direct DailyMed identities for phenelzine, PARNATE/tranylcypromine, MARPLAN/isocarboxazid, EMSAM transdermal selegiline, and oral selegiline MAO-B adjunct therapy.",
+        "Preserved classic-MAOI versus oral-MAO-B versus transdermal-antidepressant context; bare selegiline fails closed.",
+        "All evidence remains DRAFT and all pathways remain clinician-review-only with no autonomous interruption, washout, taper, substitution, anesthetic/vasopressor plan, or restart timing."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 287,
+        "workflowRunId": 36653193848,
+        "jobId": 109691759435,
+        "conclusion": "success",
+        "verifiedHeadSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -216,7 +239,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Build the genuine monoamine-oxidase-inhibitor route/form gap: phenelzine, tranylcypromine, isocarboxazid oral tablets and EMSAM selegiline transdermal system; preserve MAOI subtype, interacting-medication, anesthetic/vasopressor, discontinuation, and restart uncertainty.",
+  "nextWorkItem": "Inventory and build chronic systemic corticosteroid identities with route/form distinctions and review-only adrenal-suppression/stress-dose context; do not create autonomous steroid interruption or supplementation rules.",
   "advanceToNextClusterAllowed": true,
   "advanceToNextBatchAllowed": false,
   "productionActivationAllowed": false,
