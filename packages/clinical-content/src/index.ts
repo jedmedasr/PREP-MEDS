@@ -443,3 +443,13 @@ export {
   parkinsonCoreReviewRules,
 } from './parkinson-core-evidence.js';
 export type { ParkinsonCoreIdentityDefinition } from './parkinson-core-evidence.js';
+
+
+export {
+  parkinsonOralDopamineAgonistIdentityEvidence,
+  parkinsonOralDopamineAgonistIdentityDefinitions,
+  parkinsonOralDopamineAgonistIdentitySources,
+  parkinsonOralDopamineAgonistIdentityAtoms,
+  parkinsonOralDopamineAgonistReviewRules,
+} from './parkinson-oral-dopamine-agonist-evidence.js';
+export type { ParkinsonOralDopamineAgonistIdentityDefinition } from './parkinson-oral-dopamine-agonist-evidence.js';
