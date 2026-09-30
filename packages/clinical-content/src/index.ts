@@ -343,3 +343,13 @@ export {
   periproceduralMethadoneNaltrexoneReviewRules,
 } from './periprocedural-methadone-naltrexone-evidence.js';
 export type { PeriproceduralMethadoneNaltrexoneIdentityDefinition } from './periprocedural-methadone-naltrexone-evidence.js';
+
+
+export {
+  periproceduralStimulantIdentityEvidence,
+  periproceduralStimulantIdentityDefinitions,
+  periproceduralStimulantIdentitySources,
+  periproceduralStimulantIdentityAtoms,
+  periproceduralStimulantReviewRules,
+} from './periprocedural-stimulant-evidence.js';
+export type { PeriproceduralStimulantIdentityDefinition } from './periprocedural-stimulant-evidence.js';
