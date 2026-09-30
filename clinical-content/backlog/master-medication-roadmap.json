@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-30T13:03:00Z",
+  "generatedAt": "2026-09-30T13:39:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "1bd6e5892571e27b2bac472387ac1a0f1712f649",
+    "basedOnHeadSha": "d756f3439c7ee316ce9eda97aba7847b076d3287",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -1026,7 +1026,9 @@
         "carbidopa/levodopa immediate-release tablet versus extended-release tablet and branded extended-release capsules",
         "enteral pump suspension versus oral products",
         "levodopa inhalation capsule versus swallowed oral capsule",
-        "rotigotine extended-release transdermal patch"
+        "rotigotine extended-release transdermal patch",
+        "pramipexole immediate-release versus extended-release oral tablets",
+        "ropinirole immediate-release versus extended-release film-coated oral tablets"
       ],
       "routeDistinctions": [
         "oral",
@@ -1041,7 +1043,8 @@
       ],
       "releaseFormDistinctions": [
         "IR/ER where clinically relevant",
-        "carbidopa/levodopa IR tablet versus ER tablet/capsule; rotigotine ER patch"
+        "carbidopa/levodopa IR tablet versus ER tablet/capsule; rotigotine ER patch",
+        "oral dopamine agonist IR versus ER identities"
       ],
       "combinationProductDistinctions": [
         "buprenorphine/naloxone and opioid/acetaminophen products as whole identities",
@@ -1117,9 +1120,27 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ORAL-DOPAMINE-AGONIST-IR-ER",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "d756f3439c7ee316ce9eda97aba7847b076d3287",
+          "products": [
+            "pramipexole dihydrochloride immediate-release oral tablet",
+            "pramipexole dihydrochloride extended-release oral tablet",
+            "ropinirole hydrochloride immediate-release film-coated oral tablet",
+            "ropinirole hydrochloride extended-release film-coated oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 307,
+            "workflowRunId": 36724759433,
+            "jobId": 109918662398,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Parkinson core route/form/release/device identities are engineering-verified. Next inventory oral dopamine agonist immediate- versus extended-release identities, beginning with pramipexole and ropinirole; implement only genuine direct-label gaps and keep timing review-only."
+      "nextEngineeringWork": "Oral dopamine-agonist IR/ER identities are engineering-verified. Next inventory remaining Parkinson adjunct identities—rasagiline/safinamide and COMT inhibitors—while reconciling existing selegiline coverage before adding anything; preserve indication and interaction uncertainty and keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",

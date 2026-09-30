@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T13:03:00Z",
+  "updatedAt": "2026-09-30T13:39:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -105,6 +105,37 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "D_ORAL_DOPAMINE_AGONIST_IR_ER": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "d756f3439c7ee316ce9eda97aba7847b076d3287",
+      "products": [
+        "pramipexole dihydrochloride immediate-release oral tablet",
+        "pramipexole dihydrochloride extended-release oral tablet",
+        "ropinirole hydrochloride immediate-release film-coated oral tablet",
+        "ropinirole hydrochloride extended-release film-coated oral tablet"
+      ],
+      "preservation": [
+        "Bare pramipexole and ropinirole wording fails closed across immediate- and extended-release products.",
+        "Immediate-release and extended-release identities remain separate with no substitution, dose mapping, or release conversion.",
+        "Immediate-release Parkinson/RLS label context is not generalized to Parkinson-specific extended-release products or to a patient-specific indication.",
+        "Renal function, somnolence, orthostasis, hallucinations, impulse-control symptoms, withdrawal risk, concomitant therapy, smoking/CYP1A2 context for ropinirole, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 307,
+        "workflowRunId": 36724759433,
+        "jobId": 109918662398,
+        "conclusion": "success",
+        "verifiedHeadSha": "d756f3439c7ee316ce9eda97aba7847b076d3287",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -121,7 +152,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Parkinson core route/form/release/device identities are engineering-verified. Next inventory oral dopamine agonist immediate- versus extended-release products, beginning with pramipexole and ropinirole; implement only genuine direct-label gaps.",
+  "nextWorkItem": "Oral dopamine-agonist IR/ER identities are engineering-verified. Next inventory remaining Parkinson adjunct identities—rasagiline/safinamide and COMT inhibitors—reconciling existing selegiline coverage first.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
