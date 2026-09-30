@@ -353,3 +353,13 @@ export {
   periproceduralStimulantReviewRules,
 } from './periprocedural-stimulant-evidence.js';
 export type { PeriproceduralStimulantIdentityDefinition } from './periprocedural-stimulant-evidence.js';
+
+
+export {
+  periproceduralMaoiIdentityEvidence,
+  periproceduralMaoiIdentityDefinitions,
+  periproceduralMaoiIdentitySources,
+  periproceduralMaoiIdentityAtoms,
+  periproceduralMaoiReviewRules,
+} from './periprocedural-maoi-evidence.js';
+export type { PeriproceduralMaoiIdentityDefinition } from './periprocedural-maoi-evidence.js';
