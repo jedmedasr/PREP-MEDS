@@ -363,3 +363,13 @@ export {
   periproceduralMaoiReviewRules,
 } from './periprocedural-maoi-evidence.js';
 export type { PeriproceduralMaoiIdentityDefinition } from './periprocedural-maoi-evidence.js';
+
+
+export {
+  systemicCorticosteroidIdentityEvidence,
+  systemicCorticosteroidIdentityDefinitions,
+  systemicCorticosteroidIdentitySources,
+  systemicCorticosteroidIdentityAtoms,
+  systemicCorticosteroidReviewRules,
+} from './systemic-corticosteroid-evidence.js';
+export type { SystemicCorticosteroidIdentityDefinition } from './systemic-corticosteroid-evidence.js';

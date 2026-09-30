@@ -47,6 +47,8 @@ import {
   periproceduralStimulantReviewRules,
   periproceduralMaoiIdentityEvidence,
   periproceduralMaoiReviewRules,
+  systemicCorticosteroidIdentityEvidence,
+  systemicCorticosteroidReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -70,6 +72,7 @@ import { periproceduralBuprenorphineIngredients, periproceduralBuprenorphineMedi
 import { periproceduralMethadoneNaltrexoneIngredients, periproceduralMethadoneNaltrexoneMedications } from './periprocedural-methadone-naltrexone';
 import { periproceduralStimulantIngredients, periproceduralStimulantMedications } from './periprocedural-stimulants';
 import { periproceduralMaoiIngredients, periproceduralMaoiMedications } from './periprocedural-maois';
+import { systemicCorticosteroidIngredients, systemicCorticosteroidMedications } from './systemic-corticosteroids';
 
 export interface UiModifierDefinition {
   id: string;
@@ -115,6 +118,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralMethadoneNaltrexoneIngredients,
     ...periproceduralStimulantIngredients,
     ...periproceduralMaoiIngredients,
+    ...systemicCorticosteroidIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -181,6 +185,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralMethadoneNaltrexoneMedications,
     ...periproceduralStimulantMedications,
     ...periproceduralMaoiMedications,
+    ...systemicCorticosteroidMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -218,6 +223,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...periproceduralMethadoneNaltrexoneReviewRules,
   ...periproceduralStimulantReviewRules,
   ...periproceduralMaoiReviewRules,
+  ...systemicCorticosteroidReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -243,6 +249,7 @@ export const clinicalReviewEvidenceBundles = [
   periproceduralMethadoneNaltrexoneIdentityEvidence,
   periproceduralStimulantIdentityEvidence,
   periproceduralMaoiIdentityEvidence,
+  systemicCorticosteroidIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
