@@ -373,3 +373,13 @@ export {
   systemicCorticosteroidReviewRules,
 } from './systemic-corticosteroid-evidence.js';
 export type { SystemicCorticosteroidIdentityDefinition } from './systemic-corticosteroid-evidence.js';
+
+
+export {
+  tacrolimusIdentityEvidence,
+  tacrolimusIdentityDefinitions,
+  tacrolimusIdentitySources,
+  tacrolimusIdentityAtoms,
+  tacrolimusReviewRules,
+} from './tacrolimus-evidence.js';
+export type { TacrolimusIdentityDefinition } from './tacrolimus-evidence.js';

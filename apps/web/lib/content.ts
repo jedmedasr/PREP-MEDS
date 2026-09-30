@@ -49,6 +49,8 @@ import {
   periproceduralMaoiReviewRules,
   systemicCorticosteroidIdentityEvidence,
   systemicCorticosteroidReviewRules,
+  tacrolimusIdentityEvidence,
+  tacrolimusReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -73,6 +75,7 @@ import { periproceduralMethadoneNaltrexoneIngredients, periproceduralMethadoneNa
 import { periproceduralStimulantIngredients, periproceduralStimulantMedications } from './periprocedural-stimulants';
 import { periproceduralMaoiIngredients, periproceduralMaoiMedications } from './periprocedural-maois';
 import { systemicCorticosteroidIngredients, systemicCorticosteroidMedications } from './systemic-corticosteroids';
+import { tacrolimusIngredients, tacrolimusMedications } from './tacrolimus';
 
 export interface UiModifierDefinition {
   id: string;
@@ -119,6 +122,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralStimulantIngredients,
     ...periproceduralMaoiIngredients,
     ...systemicCorticosteroidIngredients,
+    ...tacrolimusIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -186,6 +190,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralStimulantMedications,
     ...periproceduralMaoiMedications,
     ...systemicCorticosteroidMedications,
+    ...tacrolimusMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -224,6 +229,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...periproceduralStimulantReviewRules,
   ...periproceduralMaoiReviewRules,
   ...systemicCorticosteroidReviewRules,
+  ...tacrolimusReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -250,6 +256,7 @@ export const clinicalReviewEvidenceBundles = [
   periproceduralStimulantIdentityEvidence,
   periproceduralMaoiIdentityEvidence,
   systemicCorticosteroidIdentityEvidence,
+  tacrolimusIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
