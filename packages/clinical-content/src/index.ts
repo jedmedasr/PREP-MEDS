@@ -403,3 +403,13 @@ export {
   mtorInhibitorReviewRules,
 } from './mtor-inhibitor-evidence.js';
 export type { MtorInhibitorIdentityDefinition } from './mtor-inhibitor-evidence.js';
+
+
+export {
+  mycophenolateIdentityEvidence,
+  mycophenolateIdentityDefinitions,
+  mycophenolateIdentitySources,
+  mycophenolateIdentityAtoms,
+  mycophenolateReviewRules,
+} from './mycophenolate-evidence.js';
+export type { MycophenolateIdentityDefinition } from './mycophenolate-evidence.js';

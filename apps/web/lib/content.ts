@@ -55,6 +55,8 @@ import {
   cyclosporineReviewRules,
   mtorInhibitorIdentityEvidence,
   mtorInhibitorReviewRules,
+  mycophenolateIdentityEvidence,
+  mycophenolateReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -82,6 +84,7 @@ import { systemicCorticosteroidIngredients, systemicCorticosteroidMedications } 
 import { tacrolimusIngredients, tacrolimusMedications } from './tacrolimus';
 import { cyclosporineIngredients, cyclosporineMedications } from './cyclosporine';
 import { mtorInhibitorIngredients, mtorInhibitorMedications } from './mtor-inhibitors';
+import { mycophenolateIngredients, mycophenolateMedications } from './mycophenolate';
 
 export interface UiModifierDefinition {
   id: string;
@@ -131,6 +134,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...tacrolimusIngredients,
     ...cyclosporineIngredients,
     ...mtorInhibitorIngredients,
+    ...mycophenolateIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -201,6 +205,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...tacrolimusMedications,
     ...cyclosporineMedications,
     ...mtorInhibitorMedications,
+    ...mycophenolateMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -242,6 +247,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...tacrolimusReviewRules,
   ...cyclosporineReviewRules,
   ...mtorInhibitorReviewRules,
+  ...mycophenolateReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -271,6 +277,7 @@ export const clinicalReviewEvidenceBundles = [
   tacrolimusIdentityEvidence,
   cyclosporineIdentityEvidence,
   mtorInhibitorIdentityEvidence,
+  mycophenolateIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
