@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-30T06:44:00Z",
+  "generatedAt": "2026-09-30T07:03:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "9a6daadac343948d603bd0bae7d80c81e3b4da07",
+    "basedOnHeadSha": "c5bfbac4f0493dd3cc0a61e53da07e69b17ec9a3",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -1357,9 +1357,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B11-MYCOPHENOLATE-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "c5bfbac4f0493dd3cc0a61e53da07e69b17ec9a3",
+          "products": [
+            "CELLCEPT mycophenolate mofetil oral capsule",
+            "CELLCEPT mycophenolate mofetil oral tablet",
+            "CELLCEPT mycophenolate mofetil oral suspension",
+            "CELLCEPT mycophenolate mofetil intravenous injection",
+            "MYFORTIC mycophenolic acid delayed-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 298,
+            "workflowRunId": 36678095627,
+            "jobId": 109767391166,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Tacrolimus, cyclosporine, and mTOR-inhibitor identity gaps are engineering-verified. Next inventory CELLCEPT mycophenolate mofetil versus MYFORTIC mycophenolic acid delayed-release identities; implement only genuine direct-label gaps."
+      "nextEngineeringWork": "Tacrolimus, cyclosporine, mTOR inhibitors, and mycophenolate identity gaps are engineering-verified. Next inventory azathioprine and remaining high-value immunosuppression identities; implement only genuine direct-label gaps."
     },
     {
       "batchId": "MED-BATCH-12-HIV-HEPATITIS-ANTIINFECTIVE-ONCOLOGY",

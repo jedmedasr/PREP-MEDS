@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T06:44:00Z",
+  "updatedAt": "2026-09-30T07:03:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -101,6 +101,37 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "D_MYCOPHENOLATE_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "c5bfbac4f0493dd3cc0a61e53da07e69b17ec9a3",
+      "products": [
+        "CELLCEPT mycophenolate mofetil oral capsule",
+        "CELLCEPT mycophenolate mofetil oral tablet",
+        "CELLCEPT mycophenolate mofetil oral suspension",
+        "CELLCEPT mycophenolate mofetil intravenous injection",
+        "MYFORTIC mycophenolic acid delayed-release oral tablet"
+      ],
+      "preservation": [
+        "CELLCEPT capsule, tablet, oral suspension, and intravenous injection remain distinct route/form identities.",
+        "MYFORTIC delayed-release mycophenolic acid remains distinct from mycophenolate mofetil; label-supported non-interchangeability is preserved and no conversion or substitution is authorized.",
+        "Bare mycophenolate, mycophenolate mofetil, and CELLCEPT terms fail closed.",
+        "Indication, transplant organ/history, multidrug regimen, last dose, blood counts, organ function, interactions, infection, GI risk, wound healing, and oral tolerance remain specialist/clinician reviewed; no autonomous interruption or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 298,
+        "workflowRunId": 36678095627,
+        "jobId": 109767391166,
+        "conclusion": "success",
+        "verifiedHeadSha": "c5bfbac4f0493dd3cc0a61e53da07e69b17ec9a3",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -114,7 +145,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory antimetabolite immunosuppression beginning with CELLCEPT mycophenolate mofetil versus MYFORTIC mycophenolic acid delayed-release identities; preserve non-interchangeability and keep interruption, monitoring, infection, wound-healing, and restart decisions review-only.",
+  "nextWorkItem": "Inventory azathioprine and remaining high-value immunosuppression identities; implement only concrete direct-label terminology/evidence gaps and keep interruption, infection, monitoring, wound-healing, and restart decisions review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
