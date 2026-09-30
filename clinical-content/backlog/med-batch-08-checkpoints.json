@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T16:00:00Z",
+  "updatedAt": "2026-09-30T18:12:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -194,6 +194,37 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "G_PARKINSON_AMANTADINE_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "d41bee9dd72822fc2772d9242cf02f0c7f890f4c",
+      "products": [
+        "amantadine hydrochloride immediate-release oral capsule",
+        "amantadine hydrochloride immediate-release oral tablet",
+        "amantadine hydrochloride oral solution",
+        "GOCOVRI amantadine extended-release coated-pellet oral capsule",
+        "OSMOLEX ER amantadine extended-release oral tablet"
+      ],
+      "preservation": [
+        "Immediate-release capsule, immediate-release tablet, oral solution, GOCOVRI extended-release coated-pellet capsule, and OSMOLEX ER extended-release tablet remain distinct identities; bare amantadine fails closed across them.",
+        "Generic immediate-release labeling spans materially different indications; patient indication is not inferred, and GOCOVRI is not treated as substitutable with other amantadine products.",
+        "Renal function, indication, current dopaminergic regimen, hallucinations/confusion, orthostasis, somnolence, impulse-control concerns, withdrawal/hyperpyrexia-confusion/NMS-like risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, dose or formulation conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 319,
+        "workflowRunId": 36755757394,
+        "jobId": 110025452724,
+        "conclusion": "success",
+        "verifiedHeadSha": "d41bee9dd72822fc2772d9242cf02f0c7f890f4c",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -210,7 +241,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Parkinson COMT adjunct and carbidopa/levodopa/entacapone whole-product identities are engineering-verified. Next inventory remaining high-value neurologic/anesthesia-sensitive gaps, beginning with amantadine route/release products and antiepileptic withdrawal-sensitive identities, implementing only genuine gaps.",
+  "nextWorkItem": "Parkinson amantadine route/form/release identities are engineering-verified. Next inventory withdrawal-sensitive antiepileptic identities, beginning with levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, phenytoin, and phenobarbital; implement only genuine gaps and keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
