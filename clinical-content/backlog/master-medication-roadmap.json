@@ -1177,9 +1177,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-PARKINSON-AMANTADINE-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "d41bee9dd72822fc2772d9242cf02f0c7f890f4c",
+          "products": [
+            "amantadine hydrochloride immediate-release oral capsule",
+            "amantadine hydrochloride immediate-release oral tablet",
+            "amantadine hydrochloride oral solution",
+            "GOCOVRI amantadine extended-release coated-pellet oral capsule",
+            "OSMOLEX ER amantadine extended-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 319,
+            "workflowRunId": 36755757394,
+            "jobId": 110025452724,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Parkinson COMT adjunct and whole-product identities are engineering-verified. Next inventory remaining high-value neurologic/anesthesia-sensitive gaps, beginning with amantadine route/release products and antiepileptic withdrawal-sensitive identities; implement only genuine gaps and keep timing review-only."
+      "nextEngineeringWork": "Amantadine route/form/release identities are engineering-verified. Next inventory withdrawal-sensitive antiepileptic identities, beginning with levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, phenytoin, and phenobarbital; implement only genuine gaps and keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
