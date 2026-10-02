@@ -1032,7 +1032,8 @@
         "pramipexole immediate-release versus extended-release oral tablets",
         "ropinirole immediate-release versus extended-release film-coated oral tablets",
         "rasagiline versus XADAGO safinamide indication-specific oral identities",
-        "single-ingredient COMT adjuncts versus carbidopa/levodopa/entacapone whole-product identity"
+        "single-ingredient COMT adjuncts versus carbidopa/levodopa/entacapone whole-product identity",
+        "levetiracetam immediate-release oral tablet, oral solution, intravenous concentrate, extended-release tablet, and tablet for oral suspension"
       ],
       "routeDistinctions": [
         "oral",
@@ -1043,12 +1044,14 @@
         "subcutaneous",
         "intramuscular",
         "enteral",
-        "oral inhalation"
+        "oral inhalation",
+        "intravenous"
       ],
       "releaseFormDistinctions": [
         "IR/ER where clinically relevant",
         "carbidopa/levodopa IR tablet versus ER tablet/capsule; rotigotine ER patch",
-        "oral dopamine agonist IR versus ER identities"
+        "oral dopamine agonist IR versus ER identities",
+        "levetiracetam immediate-release versus extended-release identities"
       ],
       "combinationProductDistinctions": [
         "buprenorphine/naloxone and opioid/acetaminophen products as whole identities",
@@ -1196,9 +1199,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-LEVETIRACETAM-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "f4e12c61e093e63fe3a99dda1ee0faae3eb8e1e3",
+          "products": [
+            "KEPPRA levetiracetam immediate-release film-coated oral tablet",
+            "KEPPRA levetiracetam oral solution",
+            "KEPPRA levetiracetam intravenous concentrate",
+            "KEPPRA XR levetiracetam extended-release film-coated oral tablet",
+            "SPRITAM levetiracetam tablet for oral suspension"
+          ],
+          "ci": {
+            "workflowRunNumber": 331,
+            "workflowRunId": 37068958965,
+            "jobId": 111043573055,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Amantadine route/form/release identities are engineering-verified. Next inventory withdrawal-sensitive antiepileptic identities, beginning with levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, phenytoin, and phenobarbital; implement only genuine gaps and keep timing review-only."
+      "nextEngineeringWork": "Levetiracetam route/form/release identities are engineering-verified. Next inventory lacosamide route/form distinctions, then topiramate, zonisamide, oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
