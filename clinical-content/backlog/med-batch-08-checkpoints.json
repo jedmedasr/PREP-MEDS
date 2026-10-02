@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-02T23:15:00Z",
+  "updatedAt": "2026-10-03T00:15:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -283,6 +283,37 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "J_ANTIEPILEPTIC_TOPIRAMATE_FORM_RELEASE_WHOLE_PRODUCT": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "2242032cc7a6a9bb1774024b101db59214eacd8b",
+      "products": [
+        "TOPAMAX topiramate coated oral tablet",
+        "TOPAMAX topiramate sprinkle capsule",
+        "EPRONTIA topiramate oral solution",
+        "QUDEXY XR topiramate extended-release oral capsule",
+        "TROKENDI XR topiramate extended-release oral capsule"
+      ],
+      "preservation": [
+        "Immediate-release tablet, sprinkle capsule, oral solution, QUDEXY XR, and TROKENDI XR remain distinct identities; bare topiramate, bare TOPAMAX, and non-product-specific extended-release wording fail closed.",
+        "Existing QSYMIA phentermine/topiramate remains a whole combination-product identity and is not decomposed into standalone medication decisions.",
+        "Indication, seizure/migraine context, last dose, adherence, renal function, bicarbonate/metabolic-acidosis risk, hydration status, concomitant carbonic-anhydrase inhibitors, oral feasibility, withdrawal risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No form/release conversion, whole-product decomposition, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 350,
+        "workflowRunId": 37079709844,
+        "jobId": 111077299060,
+        "conclusion": "success",
+        "verifiedHeadSha": "2242032cc7a6a9bb1774024b101db59214eacd8b",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -299,7 +330,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Levetiracetam and lacosamide are engineering-verified. Next inventory topiramate route/form/release and whole-product boundaries, then zonisamide, oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only.",
+  "nextWorkItem": "Levetiracetam, lacosamide, and topiramate are engineering-verified. Next inventory zonisamide formulation gaps, then oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
