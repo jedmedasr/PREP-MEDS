@@ -500,3 +500,12 @@ export {
   antiepilepticLacosamideReviewRules,
 } from './antiepileptic-lacosamide-evidence.js';
 export type { AntiepilepticLacosamideIdentityDefinition } from './antiepileptic-lacosamide-evidence.js';
+
+export {
+  antiepilepticTopiramateIdentityEvidence,
+  antiepilepticTopiramateIdentityDefinitions,
+  antiepilepticTopiramateIdentitySources,
+  antiepilepticTopiramateIdentityAtoms,
+  antiepilepticTopiramateReviewRules,
+} from './antiepileptic-topiramate-evidence.js';
+export type { AntiepilepticTopiramateIdentityDefinition } from './antiepileptic-topiramate-evidence.js';
