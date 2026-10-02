@@ -482,3 +482,12 @@ export {
   parkinsonAmantadineReviewRules,
 } from './parkinson-amantadine-evidence.js';
 export type { ParkinsonAmantadineIdentityDefinition } from './parkinson-amantadine-evidence.js';
+
+export {
+  antiepilepticLevetiracetamIdentityEvidence,
+  antiepilepticLevetiracetamIdentityDefinitions,
+  antiepilepticLevetiracetamIdentitySources,
+  antiepilepticLevetiracetamIdentityAtoms,
+  antiepilepticLevetiracetamReviewRules,
+} from './antiepileptic-levetiracetam-evidence.js';
+export type { AntiepilepticLevetiracetamIdentityDefinition } from './antiepileptic-levetiracetam-evidence.js';
