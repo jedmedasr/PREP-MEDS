@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T18:12:00Z",
+  "updatedAt": "2026-10-02T21:55:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -225,6 +225,36 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "H_ANTIEPILEPTIC_LEVETIRACETAM_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "f4e12c61e093e63fe3a99dda1ee0faae3eb8e1e3",
+      "products": [
+        "KEPPRA levetiracetam immediate-release film-coated oral tablet",
+        "KEPPRA levetiracetam oral solution",
+        "KEPPRA levetiracetam intravenous concentrate",
+        "KEPPRA XR levetiracetam extended-release film-coated oral tablet",
+        "SPRITAM levetiracetam tablet for oral suspension"
+      ],
+      "preservation": [
+        "Immediate-release oral tablet, oral solution, intravenous concentrate, KEPPRA XR extended-release tablet, and SPRITAM tablet for oral suspension remain distinct identities; bare levetiracetam and bare KEPPRA fail closed.",
+        "Seizure indication and control, current route/form/release and regimen, last dose and adherence, renal function, behavioral status, oral feasibility, withdrawal/status-epilepticus risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "Intravenous labeling is retained only as route/form provenance; no oral-to-intravenous conversion, dose equivalence, substitution, interruption, taper, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 331,
+        "workflowRunId": 37068958965,
+        "jobId": 111043573055,
+        "conclusion": "success",
+        "verifiedHeadSha": "f4e12c61e093e63fe3a99dda1ee0faae3eb8e1e3",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -241,7 +271,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Parkinson amantadine route/form/release identities are engineering-verified. Next inventory withdrawal-sensitive antiepileptic identities, beginning with levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, phenytoin, and phenobarbital; implement only genuine gaps and keep timing review-only.",
+  "nextWorkItem": "Levetiracetam route/form/release identities are engineering-verified. Next inventory lacosamide route/form distinctions, then topiramate, zonisamide, oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
