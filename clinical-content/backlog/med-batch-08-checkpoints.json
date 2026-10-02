@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-02T21:55:00Z",
+  "updatedAt": "2026-10-02T23:15:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -255,6 +255,34 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "I_ANTIEPILEPTIC_LACOSAMIDE_ROUTE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "0b847b2b2e365a0433c89c96ef59d1777904d1f4",
+      "products": [
+        "VIMPAT lacosamide film-coated oral tablet",
+        "VIMPAT lacosamide oral solution",
+        "VIMPAT lacosamide intravenous injection"
+      ],
+      "preservation": [
+        "Film-coated oral tablet, oral solution, and intravenous injection remain distinct identities; bare lacosamide and bare VIMPAT fail closed.",
+        "Seizure indication/control, last dose, adherence, renal/hepatic function, cardiac history and conduction risk, concomitant conduction-affecting medication, oral feasibility, withdrawal risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No oral/intravenous conversion, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 340,
+        "workflowRunId": 37074752355,
+        "jobId": 111062029780,
+        "conclusion": "success",
+        "verifiedHeadSha": "0b847b2b2e365a0433c89c96ef59d1777904d1f4",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -271,7 +299,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Levetiracetam route/form/release identities are engineering-verified. Next inventory lacosamide route/form distinctions, then topiramate, zonisamide, oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only.",
+  "nextWorkItem": "Levetiracetam and lacosamide are engineering-verified. Next inventory topiramate route/form/release and whole-product boundaries, then zonisamide, oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
