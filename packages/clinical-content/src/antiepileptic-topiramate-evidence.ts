@@ -29,7 +29,7 @@ export const antiepilepticTopiramateIdentityDefinitions: AntiepilepticTopiramate
   { medicationId: 'MED-trokendi-xr-topiramate-er-oral-capsule', ingredientIds: ['ING-topiramate'], genericName: 'TROKENDI XR topiramate', dosageForm: 'CAPSULE, EXTENDED RELEASE', route: 'ORAL', releaseContext: 'EXTENDED_RELEASE', productContext: 'TROKENDI_XR', evidenceRef: { id: 'EVD-TROKENDI-XR-TOPIRAMATE-ER-CAPSULE-IDENTITY', version: 1 } },
 ];
 
-const sourceData: Array<{ medicationId: MedicationId; id: string; publisher: string; setId: string; effectiveDate: string; applicationNumber: string; labelVersion?: number }> = [
+const sourceData: Array<{ medicationId: MedicationId; id: string; publisher: string; setId: string; effectiveDate: string; applicationNumber: string; labelVersion: number }> = [
   { medicationId: 'MED-topamax-topiramate-coated-oral-tablet', id: 'SRC-TOPAMAX-TABLET-JANSSEN-NDA020505', publisher: 'Janssen Pharmaceuticals, Inc.; DailyMed', setId: '21628112-0c47-11df-95b3-498d55d89593', effectiveDate: '2026-03-12', applicationNumber: 'NDA020505', labelVersion: 30 },
   { medicationId: 'MED-topamax-topiramate-sprinkle-capsule', id: 'SRC-TOPAMAX-SPRINKLE-JANSSEN-NDA020844', publisher: 'Janssen Pharmaceuticals, Inc.; DailyMed', setId: '21628112-0c47-11df-95b3-498d55d89593', effectiveDate: '2026-03-12', applicationNumber: 'NDA020844', labelVersion: 30 },
   { medicationId: 'MED-eprontia-topiramate-oral-solution', id: 'SRC-EPRONTIA-AZURITY-NDA214679', publisher: 'Azurity Pharmaceuticals, Inc.; DailyMed', setId: 'e2a4df59-fead-4a01-9021-9eda02c48010', effectiveDate: '2025-11-13', applicationNumber: 'NDA214679', labelVersion: 8 },
