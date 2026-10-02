@@ -491,3 +491,12 @@ export {
   antiepilepticLevetiracetamReviewRules,
 } from './antiepileptic-levetiracetam-evidence.js';
 export type { AntiepilepticLevetiracetamIdentityDefinition } from './antiepileptic-levetiracetam-evidence.js';
+
+export {
+  antiepilepticLacosamideIdentityEvidence,
+  antiepilepticLacosamideIdentityDefinitions,
+  antiepilepticLacosamideIdentitySources,
+  antiepilepticLacosamideIdentityAtoms,
+  antiepilepticLacosamideReviewRules,
+} from './antiepileptic-lacosamide-evidence.js';
+export type { AntiepilepticLacosamideIdentityDefinition } from './antiepileptic-lacosamide-evidence.js';
