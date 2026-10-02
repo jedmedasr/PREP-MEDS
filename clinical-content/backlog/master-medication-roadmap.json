@@ -1034,7 +1034,8 @@
         "rasagiline versus XADAGO safinamide indication-specific oral identities",
         "single-ingredient COMT adjuncts versus carbidopa/levodopa/entacapone whole-product identity",
         "levetiracetam immediate-release oral tablet, oral solution, intravenous concentrate, extended-release tablet, and tablet for oral suspension",
-        "lacosamide film-coated oral tablet, oral solution, and intravenous injection"
+        "lacosamide film-coated oral tablet, oral solution, and intravenous injection",
+        "topiramate immediate-release coated tablet, sprinkle capsule, oral solution, and product-specific extended-release capsules"
       ],
       "routeDistinctions": [
         "oral",
@@ -1052,12 +1053,14 @@
         "IR/ER where clinically relevant",
         "carbidopa/levodopa IR tablet versus ER tablet/capsule; rotigotine ER patch",
         "oral dopamine agonist IR versus ER identities",
-        "levetiracetam immediate-release versus extended-release identities"
+        "levetiracetam immediate-release versus extended-release identities",
+        "topiramate immediate-release versus QUDEXY XR and TROKENDI XR extended-release identities"
       ],
       "combinationProductDistinctions": [
         "buprenorphine/naloxone and opioid/acetaminophen products as whole identities",
         "carbidopa/levodopa products remain whole combination identities across route, form, release, and device contexts",
-        "carbidopa/levodopa/entacapone remains a whole-product identity distinct from entacapone alone"
+        "carbidopa/levodopa/entacapone remains a whole-product identity distinct from entacapone alone",
+        "QSYMIA phentermine/topiramate remains a whole-product identity distinct from standalone topiramate products"
       ],
       "developmentStatus": "IN_PROGRESS",
       "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
@@ -1236,9 +1239,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-TOPIRAMATE-FORM-RELEASE-WHOLE-PRODUCT",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "2242032cc7a6a9bb1774024b101db59214eacd8b",
+          "products": [
+            "TOPAMAX topiramate coated oral tablet",
+            "TOPAMAX topiramate sprinkle capsule",
+            "EPRONTIA topiramate oral solution",
+            "QUDEXY XR topiramate extended-release oral capsule",
+            "TROKENDI XR topiramate extended-release oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 350,
+            "workflowRunId": 37079709844,
+            "jobId": 111077299060,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Levetiracetam and lacosamide are engineering-verified. Next inventory topiramate route/form/release and whole-product boundaries, then zonisamide, oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only."
+      "nextEngineeringWork": "Levetiracetam, lacosamide, and topiramate are engineering-verified. Next inventory zonisamide formulation gaps, then oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
