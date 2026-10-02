@@ -1033,7 +1033,8 @@
         "ropinirole immediate-release versus extended-release film-coated oral tablets",
         "rasagiline versus XADAGO safinamide indication-specific oral identities",
         "single-ingredient COMT adjuncts versus carbidopa/levodopa/entacapone whole-product identity",
-        "levetiracetam immediate-release oral tablet, oral solution, intravenous concentrate, extended-release tablet, and tablet for oral suspension"
+        "levetiracetam immediate-release oral tablet, oral solution, intravenous concentrate, extended-release tablet, and tablet for oral suspension",
+        "lacosamide film-coated oral tablet, oral solution, and intravenous injection"
       ],
       "routeDistinctions": [
         "oral",
@@ -1218,9 +1219,26 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-LACOSAMIDE-ROUTE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "0b847b2b2e365a0433c89c96ef59d1777904d1f4",
+          "products": [
+            "VIMPAT lacosamide film-coated oral tablet",
+            "VIMPAT lacosamide oral solution",
+            "VIMPAT lacosamide intravenous injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 340,
+            "workflowRunId": 37074752355,
+            "jobId": 111062029780,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Levetiracetam route/form/release identities are engineering-verified. Next inventory lacosamide route/form distinctions, then topiramate, zonisamide, oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only."
+      "nextEngineeringWork": "Levetiracetam and lacosamide are engineering-verified. Next inventory topiramate route/form/release and whole-product boundaries, then zonisamide, oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
