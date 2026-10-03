@@ -6,7 +6,7 @@
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "d76d8ddcadd157c773d66502883e4d6826cce0fb",
+    "basedOnHeadSha": "c3977c2378a819a9477c0b59fa7ee48d13dcf7f0",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
