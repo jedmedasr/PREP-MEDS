@@ -527,3 +527,12 @@ export {
   antiepilepticOxcarbazepineReviewRules,
 } from './antiepileptic-oxcarbazepine-evidence.js';
 export type { AntiepilepticOxcarbazepineIdentityDefinition } from './antiepileptic-oxcarbazepine-evidence.js';
+
+export {
+  antiepilepticCarbamazepineIdentityEvidence,
+  antiepilepticCarbamazepineIdentityDefinitions,
+  antiepilepticCarbamazepineIdentitySources,
+  antiepilepticCarbamazepineIdentityAtoms,
+  antiepilepticCarbamazepineReviewRules,
+} from './antiepileptic-carbamazepine-evidence.js';
+export type { AntiepilepticCarbamazepineIdentityDefinition } from './antiepileptic-carbamazepine-evidence.js';
