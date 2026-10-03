@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T17:05:00Z",
+  "updatedAt": "2026-10-03T17:02:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -107,6 +107,39 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "D_PULMONARY_HYPERTENSION_PROSTACYCLIN_ROUTE_FORM_INFUSION_CONTINUITY": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "9377db3573763dfd30007245146a7dd35ad7cde9",
+      "products": [
+        "VELETRI epoprostenol continuous intravenous infusion",
+        "REMODULIN treprostinil continuous subcutaneous or intravenous infusion",
+        "TYVASO treprostinil inhalation solution",
+        "TYVASO DPI treprostinil inhalation powder",
+        "ORENITRAM treprostinil extended-release oral tablet",
+        "UPTRAVI selexipag oral tablet",
+        "UPTRAVI selexipag intravenous injection"
+      ],
+      "preservation": [
+        "Continuous VELETRI and REMODULIN infusion identities remain distinct from inhaled treprostinil, oral extended-release treprostinil, and selexipag products; bare treprostinil fails closed.",
+        "TYVASO solution and TYVASO DPI remain distinct device/form identities; bare Tyvaso fails closed. UPTRAVI oral tablet and intravenous injection remain distinct; bare selexipag/Uptravi fails closed.",
+        "PAH severity, decompensation/right-heart failure, hemodynamics, oxygen/ventilation, hypotension, bleeding/platelet context, hepatic function/interactions, oral feasibility, pump/catheter/device availability, infusion continuity/backup planning, procedure/sedation context, and anesthesia plan remain clinician reviewed.",
+        "No continuation, interruption, transition equation, substitution, route/device conversion, dose arithmetic, infusion rate, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 456,
+        "workflowRunId": 37138779583,
+        "jobId": 111248694244,
+        "conclusion": "success",
+        "verifiedHeadSha": "9377db3573763dfd30007245146a7dd35ad7cde9",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -126,7 +159,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory pulmonary-hypertension therapies for genuine anesthesia-relevant interruption, hemodynamic, route/form, or infusion-continuity gaps; implement only a bounded high-impact set, then proceed to remaining anesthesia-sensitive psych/neurologic inventory.",
+  "nextWorkItem": "Inventory the remaining pulmonary-hypertension PDE5-inhibitor, endothelin-receptor-antagonist, and riociguat identities for genuine hemodynamic, route/form, interaction, or interruption gaps; implement only a bounded high-impact set, then proceed to remaining anesthesia-sensitive psych/neurologic inventory.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
