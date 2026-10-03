@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T06:10:00Z",
+  "generatedAt": "2026-10-03T09:10:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -1007,7 +1007,10 @@
         "COMT inhibitors",
         "triptans",
         "gepants",
-        "migraine preventive biologics"
+        "migraine preventive biologics",
+        "valproic acid",
+        "valproate sodium",
+        "divalproex sodium"
       ],
       "importantBrandedProducts": [
         "Suboxone",
@@ -1017,7 +1020,10 @@
         "Inbrija",
         "Neupro",
         "Xadago",
-        "Ongentys"
+        "Ongentys",
+        "Depakote",
+        "Depakote ER",
+        "Depakote Sprinkles"
       ],
       "importantFormulationDistinctions": [
         "opioid IR/ER",
@@ -1038,7 +1044,8 @@
         "topiramate immediate-release coated tablet, sprinkle capsule, oral solution, and product-specific extended-release capsules",
         "zonisamide oral capsule versus oral suspension",
         "oxcarbazepine immediate-release tablet and suspension versus OXTELLAR XR extended-release tablet",
-        "phenobarbital oral tablet versus oral solution versus phenobarbital sodium parenteral injection"
+        "phenobarbital oral tablet versus oral solution versus phenobarbital sodium parenteral injection",
+        "valproic acid oral capsule and solution, valproate sodium intravenous injection, and divalproex delayed-release tablet, extended-release tablet, and delayed-release sprinkle capsule"
       ],
       "routeDistinctions": [
         "oral",
@@ -1057,7 +1064,8 @@
         "carbidopa/levodopa IR tablet versus ER tablet/capsule; rotigotine ER patch",
         "oral dopamine agonist IR versus ER identities",
         "levetiracetam immediate-release versus extended-release identities",
-        "topiramate immediate-release versus QUDEXY XR and TROKENDI XR extended-release identities"
+        "topiramate immediate-release versus QUDEXY XR and TROKENDI XR extended-release identities",
+        "divalproex delayed-release versus extended-release oral identities"
       ],
       "combinationProductDistinctions": [
         "buprenorphine/naloxone and opioid/acetaminophen products as whole identities",
@@ -1350,9 +1358,29 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-VALPROATE-DIVALPROEX-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "2c10d9bf4e7b00f88135a578670cde99deb41fb7",
+          "products": [
+            "valproic acid oral capsule",
+            "valproic acid oral solution",
+            "valproate sodium intravenous injection",
+            "DEPAKOTE divalproex sodium delayed-release oral tablet",
+            "DEPAKOTE ER divalproex sodium extended-release oral tablet",
+            "DEPAKOTE SPRINKLES divalproex sodium delayed-release oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 410,
+            "workflowRunId": 37111258782,
+            "jobId": 111169468329,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Phenobarbital route/form/salt distinctions are engineering-verified. Next inventory and reconcile valproate/divalproex route and release distinctions; keep timing review-only."
+      "nextEngineeringWork": "Valproate/divalproex route/form/release distinctions are engineering-verified. Inventory gabapentin/pregabalin only for a genuine anesthesia-critical withdrawal/sedation gap; if none, proceed to pulmonary/airway inventory."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
