@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-09-30T01:18:00Z",
+  "updatedAt": "2026-10-03T20:50:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -79,6 +79,51 @@
         "cause": "Bare selegiline initially resolved to EMSAM instead of failing closed across route/indication contexts.",
         "repairCommit": "21ff190689ec8e880bce4ad5177ac06600f0cce0"
       }
+    },
+    "C_LITHIUM_CHEMICAL_FORM_RELEASE_TOXICITY": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3",
+      "products": [
+        "lithium carbonate immediate-release oral tablet",
+        "lithium carbonate immediate-release oral capsule",
+        "LITHOBID lithium carbonate film-coated extended-release oral tablet",
+        "lithium citrate oral solution"
+      ],
+      "preservation": [
+        "Immediate-release lithium carbonate tablet and capsule, LITHOBID extended-release tablet, and lithium citrate solution remain distinct identities.",
+        "Bare lithium and lithium carbonate fail closed across chemical-form, dosage-form, and release identities.",
+        "Renal function, sodium and volume status, bowel preparation and fasting exposure, recent vomiting or diarrhea, serum lithium concentration and timing, toxicity symptoms, interacting medicines, cardiac status, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No substitution, salt/form/release conversion, continuation, interruption, taper, toxicity treatment, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 470,
+        "workflowRunId": 37152868150,
+        "jobId": 111290154714,
+        "conclusion": "success",
+        "verifiedHeadSha": "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      },
+      "repairReceipt": {
+        "failedRunNumbers": [
+          468,
+          469
+        ],
+        "failedRunIds": [
+          37145777086,
+          37152778196
+        ],
+        "cause": "Source metadata initially used an unsupported array value; the first repair then exposed a duplicate assembled evidence import.",
+        "repairCommits": [
+          "4fcc282c0f8fca0e287ddebaba204fb84921feff",
+          "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3"
+        ]
+      }
     }
   },
   "evidenceState": {
@@ -91,7 +136,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory and build chronic systemic corticosteroid identities with route/form distinctions and review-only adrenal-suppression/stress-dose context; do not create autonomous steroid interruption or supplementation rules.",
+  "nextWorkItem": "Inventory chronic benzodiazepine identities for genuine withdrawal, cumulative sedation/respiratory-depression, route/form, and anesthesia-interaction gaps; keep all handling review-only and timing-free.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
