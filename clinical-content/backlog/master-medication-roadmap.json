@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T14:55:00Z",
+  "generatedAt": "2026-10-03T17:05:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -1551,7 +1551,8 @@
         "Breo Ellipta",
         "Dulera",
         "Trelegy Ellipta",
-        "Breztri Aerosphere"
+        "Breztri Aerosphere",
+        "Theo-24"
       ],
       "importantFormulationDistinctions": [
         "MDI versus nebulized",
@@ -1561,16 +1562,20 @@
         "albuterol versus levalbuterol ingredient identity",
         "metered-dose aerosol versus DISKUS or ELLIPTA dry-powder inhaler",
         "ADVAIR HFA aerosol versus ADVAIR DISKUS dry-powder identity",
-        "AEROSPHERE metered aerosol versus ELLIPTA dry-powder triple-controller identity"
+        "AEROSPHERE metered aerosol versus ELLIPTA dry-powder triple-controller identity",
+        "theophylline oral solution versus extended-release tablet versus extended-release capsule",
+        "oral theophylline versus intravenous aminophylline ingredient/complex and route distinction"
       ],
       "routeDistinctions": [
         "inhaled",
         "oral",
         "intranasal",
-        "subcutaneous"
+        "subcutaneous",
+        "intravenous"
       ],
       "releaseFormDistinctions": [
-        "IR/ER where relevant"
+        "IR/ER where relevant",
+        "theophylline non-extended-release oral solution versus extended-release tablet and capsule"
       ],
       "combinationProductDistinctions": [
         "ICS/LABA and triple inhalers as whole products",
@@ -1588,7 +1593,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Inventory remaining pulmonary agents with material anesthesia relevance, prioritizing systemic methylxanthine/theophylline release distinctions and pulmonary-hypertension agents only where a genuine gap exists; do not expand routine allergy medications.",
+      "nextEngineeringWork": "Inventory pulmonary-hypertension therapies for genuine anesthesia-relevant interruption, hemodynamic, route/form, or infusion-continuity gaps; implement only a bounded high-impact set, then proceed to remaining anesthesia-sensitive psych/neurologic inventory.",
       "completedEngineeringClusters": [
         {
           "clusterId": "PULMONARY-RESCUE-ROUTE-FORM-DEVICE-COMBINATION",
@@ -1623,6 +1628,20 @@
           "testedHeadSha": "df40f62f840ee9c3c4a8026b402862b3f833cd6d",
           "workflowRunId": 37120976744,
           "jobId": 111196859202,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "PULMONARY-METHYLXANTHINE-ROUTE-FORM-RELEASE",
+          "medicationIds": [
+            "MED-theophylline-oral-solution",
+            "MED-theophylline-er-oral-tablet",
+            "MED-theo-24-theophylline-er-oral-capsule",
+            "MED-aminophylline-intravenous-injection"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "4ce0e7e4a2c74a93f6e7e4cf1f3a3ab3ee28ffd9",
+          "workflowRunId": 37134796298,
+          "jobId": 111237031076,
           "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ]
