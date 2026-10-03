@@ -632,3 +632,13 @@ export {
   periproceduralBenzodiazepineReviewRules,
 } from './periprocedural-benzodiazepine-evidence.js';
 export type { PeriproceduralBenzodiazepineIdentityDefinition } from './periprocedural-benzodiazepine-evidence.js';
+
+
+export {
+  periproceduralSnriIdentityDefinitions,
+  periproceduralSnriIdentitySources,
+  periproceduralSnriIdentityAtoms,
+  periproceduralSnriIdentityEvidence,
+  periproceduralSnriReviewRules,
+} from './periprocedural-snri-evidence.js';
+export type { PeriproceduralSnriIdentityDefinition } from './periprocedural-snri-evidence.js';

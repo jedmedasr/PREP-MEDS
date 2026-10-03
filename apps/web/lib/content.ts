@@ -50,7 +50,10 @@ import {
   periproceduralLithiumIdentityEvidence,
   periproceduralLithiumReviewRules,
   periproceduralBenzodiazepineIdentityEvidence,
+  periproceduralSnriIdentityEvidence,
   periproceduralBenzodiazepineReviewRules,
+  periproceduralSnriIdentityEvidence,
+  periproceduralSnriReviewRules,
   systemicCorticosteroidIdentityEvidence,
   systemicCorticosteroidReviewRules,
   tacrolimusIdentityEvidence,
@@ -130,6 +133,7 @@ import { periproceduralStimulantIngredients, periproceduralStimulantMedications 
 import { periproceduralMaoiIngredients, periproceduralMaoiMedications } from './periprocedural-maois';
 import { periproceduralLithiumIngredients, periproceduralLithiumMedications } from './periprocedural-lithium';
 import { periproceduralBenzodiazepineIngredients, periproceduralBenzodiazepineMedications } from './periprocedural-benzodiazepines';
+import { periproceduralSnriIngredients, periproceduralSnriMedications } from './periprocedural-snris';
 import { systemicCorticosteroidIngredients, systemicCorticosteroidMedications } from './systemic-corticosteroids';
 import { tacrolimusIngredients, tacrolimusMedications } from './tacrolimus';
 import { cyclosporineIngredients, cyclosporineMedications } from './cyclosporine';
@@ -174,8 +178,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'periprocedural-benzodiazepine-review-1',
-  generatedAt: '2026-10-03T21:43:45Z',
+  version: 'periprocedural-snri-review-1',
+  generatedAt: '2026-10-03T22:44:17Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -204,6 +208,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralMaoiIngredients,
     ...periproceduralLithiumIngredients,
     ...periproceduralBenzodiazepineIngredients,
+    ...periproceduralSnriIngredients,
     ...systemicCorticosteroidIngredients,
     ...tacrolimusIngredients,
     ...cyclosporineIngredients,
@@ -298,6 +303,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralMaoiMedications,
     ...periproceduralLithiumMedications,
     ...periproceduralBenzodiazepineMedications,
+    ...periproceduralSnriMedications,
     ...systemicCorticosteroidMedications,
     ...tacrolimusMedications,
     ...cyclosporineMedications,
@@ -364,6 +370,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...periproceduralMaoiReviewRules,
   ...periproceduralLithiumReviewRules,
   ...periproceduralBenzodiazepineReviewRules,
+  ...periproceduralSnriReviewRules,
   ...systemicCorticosteroidReviewRules,
   ...tacrolimusReviewRules,
   ...cyclosporineReviewRules,
