@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T09:10:00Z",
+  "generatedAt": "2026-10-03T10:10:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -1023,7 +1023,12 @@
         "Ongentys",
         "Depakote",
         "Depakote ER",
-        "Depakote Sprinkles"
+        "Depakote Sprinkles",
+        "Neurontin",
+        "Gralise",
+        "Horizant",
+        "Lyrica",
+        "Lyrica CR"
       ],
       "importantFormulationDistinctions": [
         "opioid IR/ER",
@@ -1045,7 +1050,8 @@
         "zonisamide oral capsule versus oral suspension",
         "oxcarbazepine immediate-release tablet and suspension versus OXTELLAR XR extended-release tablet",
         "phenobarbital oral tablet versus oral solution versus phenobarbital sodium parenteral injection",
-        "valproic acid oral capsule and solution, valproate sodium intravenous injection, and divalproex delayed-release tablet, extended-release tablet, and delayed-release sprinkle capsule"
+        "valproic acid oral capsule and solution, valproate sodium intravenous injection, and divalproex delayed-release tablet, extended-release tablet, and delayed-release sprinkle capsule",
+        "NEURONTIN immediate-release capsule/tablet/solution versus GRALISE extended-release gabapentin, HORIZANT gabapentin-enacarbil prodrug, LYRICA capsule/solution, and LYRICA CR extended-release tablet"
       ],
       "routeDistinctions": [
         "oral",
@@ -1065,7 +1071,9 @@
         "oral dopamine agonist IR versus ER identities",
         "levetiracetam immediate-release versus extended-release identities",
         "topiramate immediate-release versus QUDEXY XR and TROKENDI XR extended-release identities",
-        "divalproex delayed-release versus extended-release oral identities"
+        "divalproex delayed-release versus extended-release oral identities",
+        "gabapentin immediate-release versus GRALISE extended-release",
+        "pregabalin immediate-release versus LYRICA CR extended-release"
       ],
       "combinationProductDistinctions": [
         "buprenorphine/naloxone and opioid/acetaminophen products as whole identities",
@@ -1378,9 +1386,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-GABAPENTINOID-ANESTHESIA-WITHDRAWAL-SEDATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "054e06026a8708cb6ccef0056ebec1d716838bcc",
+          "products": [
+            "NEURONTIN capsule/tablet/oral solution",
+            "GRALISE extended-release tablet",
+            "HORIZANT gabapentin-enacarbil extended-release tablet",
+            "LYRICA capsule/oral solution",
+            "LYRICA CR extended-release tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 420,
+            "workflowRunId": 37114424620,
+            "jobId": 111178339325,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Valproate/divalproex route/form/release distinctions are engineering-verified. Inventory gabapentin/pregabalin only for a genuine anesthesia-critical withdrawal/sedation gap; if none, proceed to pulmonary/airway inventory."
+      "nextEngineeringWork": "Withdrawal-sensitive antiepileptic/neurologic V1 inventory is engineering-complete. Proceed to pulmonary/airway inventory; keep all medication decisions review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
@@ -1540,7 +1567,8 @@
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "nextEngineeringWork": "Inventory controller/rescue inhalers, systemic bronchodilators, and pulmonary-hypertension agents for genuine sedation/anesthesia-relevant route/form/combination gaps; do not expand routine allergy medications without a specific peri-procedural reason."
     },
     {
       "batchId": "MED-BATCH-11-RHEUM-IMMUNOSUPPRESSION-TRANSPLANT",
