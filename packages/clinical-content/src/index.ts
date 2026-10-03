@@ -563,3 +563,12 @@ export {
   antiepilepticValproateReviewRules,
 } from './antiepileptic-valproate-evidence.js';
 export type { AntiepilepticValproateIdentityDefinition } from './antiepileptic-valproate-evidence.js';
+
+export {
+  gabapentinoidIdentityEvidence,
+  gabapentinoidIdentityDefinitions,
+  gabapentinoidIdentityAtoms,
+  gabapentinoidSafetyAtoms,
+  gabapentinoidReviewRules,
+} from './gabapentinoid-evidence.js';
+export type { GabapentinoidIdentityDefinition } from './gabapentinoid-evidence.js';
