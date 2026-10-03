@@ -623,3 +623,12 @@ export {
   periproceduralLithiumReviewRules,
 } from './periprocedural-lithium-evidence.js';
 export type { PeriproceduralLithiumIdentityDefinition } from './periprocedural-lithium-evidence.js';
+
+export {
+  periproceduralBenzodiazepineIdentityDefinitions,
+  periproceduralBenzodiazepineIdentitySources,
+  periproceduralBenzodiazepineIdentityAtoms,
+  periproceduralBenzodiazepineIdentityEvidence,
+  periproceduralBenzodiazepineReviewRules,
+} from './periprocedural-benzodiazepine-evidence.js';
+export type { PeriproceduralBenzodiazepineIdentityDefinition } from './periprocedural-benzodiazepine-evidence.js';
