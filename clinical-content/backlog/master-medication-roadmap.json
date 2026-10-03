@@ -895,7 +895,8 @@
       "importantFormulationDistinctions": [
         "bupropion IR/SR/XL",
         "stimulant IR/ER",
-        "oral versus long-acting injectable antipsychotics"
+        "oral versus long-acting injectable antipsychotics",
+        "lithium carbonate immediate-release tablet/capsule versus LITHOBID extended-release tablet versus lithium citrate oral solution"
       ],
       "routeDistinctions": [
         "oral",
@@ -903,7 +904,8 @@
         "intramuscular"
       ],
       "releaseFormDistinctions": [
-        "IR/SR/XL where clinically relevant"
+        "IR/SR/XL where clinically relevant",
+        "lithium immediate-release versus extended-release identities"
       ],
       "combinationProductDistinctions": [],
       "developmentStatus": "IN_PROGRESS",
@@ -956,9 +958,27 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-LITHIUM-CHEMICAL-FORM-RELEASE-TOXICITY",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3",
+          "products": [
+            "lithium carbonate immediate-release oral tablet",
+            "lithium carbonate immediate-release oral capsule",
+            "LITHOBID lithium carbonate film-coated extended-release oral tablet",
+            "lithium citrate oral solution"
+          ],
+          "ci": {
+            "workflowRunNumber": 470,
+            "workflowRunId": 37152868150,
+            "jobId": 111290154714,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Stimulant and MAOI anesthesia-sensitive identity gaps are engineering-verified. Next inventory chronic systemic corticosteroids; implement only concrete route/form/adrenal-context gaps."
+      "nextEngineeringWork": "Lithium chemical-form/form/release identities are engineering-verified. Next inventory chronic benzodiazepines for genuine withdrawal, cumulative sedation/respiratory-depression, route/form, and anesthesia-interaction gaps; then continue only remaining high-impact psych/neurologic V1 gaps."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
