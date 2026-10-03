@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T17:02:00Z",
+  "updatedAt": "2026-10-03T18:10:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -140,6 +140,46 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "E_PULMONARY_HYPERTENSION_VASODILATOR_ROUTE_FORM_COMBINATION_INTERACTION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "6f5bc761c4c6f4b10fc601c30851d0c1f2b93694",
+      "products": [
+        "REVATIO sildenafil oral tablet",
+        "REVATIO sildenafil oral suspension",
+        "REVATIO sildenafil intravenous injection",
+        "ADCIRCA tadalafil oral tablet",
+        "TRACLEER bosentan oral tablet",
+        "TRACLEER bosentan tablet for oral suspension",
+        "LETAIRIS ambrisentan oral tablet",
+        "OPSUMIT macitentan oral tablet",
+        "OPSYNVI macitentan/tadalafil fixed-combination oral tablet",
+        "ADEMPAS riociguat oral tablet",
+        "WINREVAIR sotatercept-csrk subcutaneous injection kit",
+        "VENTAVIS iloprost inhalation solution",
+        "AURLUMYN iloprost intravenous injection collision guard"
+      ],
+      "preservation": [
+        "REVATIO tablet, suspension, and IV injection and TRACLEER tablet versus tablet-for-suspension remain distinct; nonspecific sildenafil/Revatio and bosentan/Tracleer fail closed.",
+        "OPSYNVI remains a whole macitentan/tadalafil product and is not decomposed; nonspecific macitentan or tadalafil fails closed across single-agent and combination identities.",
+        "VENTAVIS inhaled iloprost remains distinct from non-PAH AURLUMYN intravenous iloprost; nonspecific iloprost fails closed across route and indication.",
+        "PAH/CTEPH severity, decompensation/right-heart failure, hemodynamics, oxygen/ventilation, blood pressure, nitrate/PDE5/sGC/antihypertensive interactions, hepatic/renal function, hemoglobin/platelets/bleeding, pregnancy/REMS, oral feasibility, device access, procedure/sedation context, and anesthesia plan remain clinician reviewed.",
+        "No continuation, interruption, substitution, component splitting, route/form conversion, dose arithmetic, monitoring target, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 465,
+        "workflowRunId": 37141643397,
+        "jobId": 111257145405,
+        "conclusion": "success",
+        "verifiedHeadSha": "6f5bc761c4c6f4b10fc601c30851d0c1f2b93694",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -159,7 +199,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory the remaining pulmonary-hypertension PDE5-inhibitor, endothelin-receptor-antagonist, and riociguat identities for genuine hemodynamic, route/form, interaction, or interruption gaps; implement only a bounded high-impact set, then proceed to remaining anesthesia-sensitive psych/neurologic inventory.",
+  "nextWorkItem": "Pulmonary/airway anesthesia-critical V1 inventory is engineering-complete; defer routine allergy breadth and inventory remaining anesthesia-sensitive psych/neurologic drugs for genuine withdrawal, serotonergic/adrenergic, hemodynamic, or sedation gaps.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
