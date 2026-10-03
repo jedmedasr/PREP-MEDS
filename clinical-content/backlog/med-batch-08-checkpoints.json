@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T01:15:00Z",
+  "updatedAt": "2026-10-03T02:15:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -341,6 +341,34 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "L_ANTIEPILEPTIC_OXCARBAZEPINE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "d76d8ddcadd157c773d66502883e4d6826cce0fb",
+      "products": [
+        "TRILEPTAL oxcarbazepine film-coated oral tablet",
+        "TRILEPTAL oxcarbazepine oral suspension",
+        "OXTELLAR XR oxcarbazepine extended-release oral tablet"
+      ],
+      "preservation": [
+        "TRILEPTAL immediate-release tablet, TRILEPTAL oral suspension, and OXTELLAR XR extended-release tablet remain distinct identities; bare oxcarbazepine and bare TRILEPTAL fail closed.",
+        "Indication, seizure context/control, last dose, adherence, sodium status and hyponatremia risk, renal function, hypersensitivity history, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No release/form conversion, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 369,
+        "workflowRunId": 37091143489,
+        "jobId": 111111567952,
+        "conclusion": "success",
+        "verifiedHeadSha": "d76d8ddcadd157c773d66502883e4d6826cce0fb",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -357,7 +385,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Levetiracetam, lacosamide, topiramate, and zonisamide are engineering-verified. Next inventory oxcarbazepine formulation gaps, then carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only.",
+  "nextWorkItem": "Levetiracetam, lacosamide, topiramate, zonisamide, and oxcarbazepine are engineering-verified. Next inventory carbamazepine only for a genuine live gap, then phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
