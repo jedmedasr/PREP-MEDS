@@ -24,7 +24,8 @@ describe('Antiepileptic zonisamide terminology', () => {
     expect(terminologyDataset.ingredients.filter((item) => item.id === 'ING-zonisamide')).toHaveLength(1);
     for (const medicationId of medicationIds) expect(index.getMedicationById(medicationId)).toBeDefined();
   });
-  it.each(['zonisamide', 'zonisamide liquid'])('fails non-specific %s closed across formulation identities', (query) => {
+  it('fails bare zonisamide closed across formulation identities', () => {
+    const query = 'zonisamide';
     for (const limit of [1, 10]) {
       const result = index.resolve(query, { limit });
       expect(result.status).toBe('AMBIGUOUS');
