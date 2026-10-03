@@ -545,3 +545,12 @@ export {
   antiepilepticPhenytoinReviewRules,
 } from './antiepileptic-phenytoin-evidence.js';
 export type { AntiepilepticPhenytoinIdentityDefinition } from './antiepileptic-phenytoin-evidence.js';
+
+export {
+  antiepilepticPhenobarbitalIdentityEvidence,
+  antiepilepticPhenobarbitalIdentityDefinitions,
+  antiepilepticPhenobarbitalIdentitySources,
+  antiepilepticPhenobarbitalIdentityAtoms,
+  antiepilepticPhenobarbitalReviewRules,
+} from './antiepileptic-phenobarbital-evidence.js';
+export type { AntiepilepticPhenobarbitalIdentityDefinition } from './antiepileptic-phenobarbital-evidence.js';
