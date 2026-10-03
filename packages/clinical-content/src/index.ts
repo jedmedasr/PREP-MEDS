@@ -536,3 +536,12 @@ export {
   antiepilepticCarbamazepineReviewRules,
 } from './antiepileptic-carbamazepine-evidence.js';
 export type { AntiepilepticCarbamazepineIdentityDefinition } from './antiepileptic-carbamazepine-evidence.js';
+
+export {
+  antiepilepticPhenytoinIdentityEvidence,
+  antiepilepticPhenytoinIdentityDefinitions,
+  antiepilepticPhenytoinIdentitySources,
+  antiepilepticPhenytoinIdentityAtoms,
+  antiepilepticPhenytoinReviewRules,
+} from './antiepileptic-phenytoin-evidence.js';
+export type { AntiepilepticPhenytoinIdentityDefinition } from './antiepileptic-phenytoin-evidence.js';
