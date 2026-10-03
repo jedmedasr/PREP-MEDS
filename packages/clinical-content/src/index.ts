@@ -581,3 +581,12 @@ export {
   pulmonaryRescueReviewRules,
 } from './pulmonary-rescue-evidence.js';
 export type { PulmonaryRescueIdentityDefinition } from './pulmonary-rescue-evidence.js';
+
+
+export {
+  pulmonaryControllerCombinationIdentityEvidence,
+  pulmonaryControllerCombinationIdentityDefinitions,
+  pulmonaryControllerCombinationIdentityAtoms,
+  pulmonaryControllerCombinationReviewRules,
+} from './pulmonary-controller-combination-evidence.js';
+export type { PulmonaryControllerCombinationIdentityDefinition } from './pulmonary-controller-combination-evidence.js';
