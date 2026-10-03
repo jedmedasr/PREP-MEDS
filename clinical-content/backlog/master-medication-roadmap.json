@@ -1558,7 +1558,16 @@
         "Tyvaso",
         "Tyvaso DPI",
         "Orenitram",
-        "Uptravi"
+        "Uptravi",
+        "Revatio",
+        "Adcirca",
+        "Tracleer",
+        "Letairis",
+        "Opsumit",
+        "Opsynvi",
+        "Adempas",
+        "Winrevair",
+        "Ventavis"
       ],
       "importantFormulationDistinctions": [
         "MDI versus nebulized",
@@ -1573,7 +1582,12 @@
         "oral theophylline versus intravenous aminophylline ingredient/complex and route distinction",
         "continuous epoprostenol intravenous infusion versus treprostinil subcutaneous/intravenous infusion",
         "treprostinil infusion versus inhalation solution versus dry-powder inhaler versus extended-release oral tablet",
-        "selexipag oral tablet versus intravenous injection"
+        "selexipag oral tablet versus intravenous injection",
+        "REVATIO oral tablet versus oral suspension versus intravenous injection",
+        "TRACLEER film-coated tablet versus tablet for oral suspension",
+        "single-agent macitentan or tadalafil versus OPSYNVI fixed-combination whole product",
+        "VENTAVIS inhaled iloprost versus non-PAH AURLUMYN intravenous iloprost",
+        "WINREVAIR subcutaneous lyophilized injection kit"
       ],
       "routeDistinctions": [
         "inhaled",
@@ -1590,7 +1604,8 @@
       "combinationProductDistinctions": [
         "ICS/LABA and triple inhalers as whole products",
         "Combivent Respimat and ipratropium/albuterol nebulizer solution remain distinct whole products",
-        "ICS/LABA and ICS/LAMA/LABA controller combinations remain distinct whole-product identities and are not split into component instructions"
+        "ICS/LABA and ICS/LAMA/LABA controller combinations remain distinct whole-product identities and are not split into component instructions",
+        "OPSYNVI macitentan/tadalafil remains a whole fixed-combination identity and is not split into component instructions"
       ],
       "developmentStatus": "IN_PROGRESS",
       "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
@@ -1603,7 +1618,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Inventory remaining pulmonary-hypertension PDE5-inhibitor, endothelin-receptor-antagonist, and riociguat identities for genuine hemodynamic, route/form, interaction, or interruption gaps; implement only a bounded high-impact set, then proceed to remaining anesthesia-sensitive psych/neurologic inventory.",
+      "nextEngineeringWork": "Pulmonary/airway anesthesia-critical V1 inventory is engineering-complete. Defer routine allergy and lower-impact pulmonary breadth; inventory remaining anesthesia-sensitive psych/neurologic drugs for genuine withdrawal, serotonergic/adrenergic, hemodynamic, or sedation gaps.",
       "completedEngineeringClusters": [
         {
           "clusterId": "PULMONARY-RESCUE-ROUTE-FORM-DEVICE-COMBINATION",
@@ -1669,6 +1684,29 @@
           "testedHeadSha": "9377db3573763dfd30007245146a7dd35ad7cde9",
           "workflowRunId": 37138779583,
           "jobId": 111248694244,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "PULMONARY-HYPERTENSION-VASODILATOR-ROUTE-FORM-COMBINATION-INTERACTION",
+          "medicationIds": [
+            "MED-revatio-sildenafil-oral-tablet",
+            "MED-revatio-sildenafil-oral-suspension",
+            "MED-revatio-sildenafil-intravenous-injection",
+            "MED-adcirca-tadalafil-oral-tablet",
+            "MED-tracleer-bosentan-oral-tablet",
+            "MED-tracleer-bosentan-tablet-for-oral-suspension",
+            "MED-letairis-ambrisentan-oral-tablet",
+            "MED-opsumit-macitentan-oral-tablet",
+            "MED-opsynvi-macitentan-tadalafil-oral-tablet",
+            "MED-adempas-riociguat-oral-tablet",
+            "MED-winrevair-sotatercept-subcutaneous-injection",
+            "MED-ventavis-iloprost-inhalation-solution",
+            "MED-aurlumyn-iloprost-intravenous-injection"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "6f5bc761c4c6f4b10fc601c30851d0c1f2b93694",
+          "workflowRunId": 37141643397,
+          "jobId": 111257145405,
           "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ]
