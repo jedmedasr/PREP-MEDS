@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T10:10:00Z",
+  "generatedAt": "2026-10-03T10:55:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -26,8 +26,8 @@
   "counters": {
     "totalBatches": 14,
     "engineeringVerifiedBatches": 3,
-    "inProgressBatches": 3,
-    "plannedBatches": 8,
+    "inProgressBatches": 4,
+    "plannedBatches": 7,
     "clinicallyApprovedBatches": 0,
     "localPolicyApprovedBatches": 0
   },
@@ -1539,11 +1539,19 @@
         "dupilumab",
         "tezepelumab"
       ],
-      "importantBrandedProducts": [],
+      "importantBrandedProducts": [
+        "Ventolin HFA",
+        "Xopenex HFA",
+        "Xopenex",
+        "Atrovent HFA",
+        "Combivent Respimat"
+      ],
       "importantFormulationDistinctions": [
         "MDI versus nebulized",
         "inhaler device/formulation identity",
-        "theophylline release forms"
+        "theophylline release forms",
+        "metered-dose aerosol versus Respimat spray versus nebulizer solution",
+        "albuterol versus levalbuterol ingredient identity"
       ],
       "routeDistinctions": [
         "inhaled",
@@ -1555,20 +1563,41 @@
         "IR/ER where relevant"
       ],
       "combinationProductDistinctions": [
-        "ICS/LABA and triple inhalers as whole products"
+        "ICS/LABA and triple inhalers as whole products",
+        "Combivent Respimat and ipratropium/albuterol nebulizer solution remain distinct whole products"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Inventory controller/rescue inhalers, systemic bronchodilators, and pulmonary-hypertension agents for genuine sedation/anesthesia-relevant route/form/combination gaps; do not expand routine allergy medications without a specific peri-procedural reason."
+      "nextEngineeringWork": "Inventory controller inhaler combinations next, prioritizing ICS/LABA and triple inhaler whole-product/device distinctions with material anesthesia/airway relevance; do not expand routine allergy medications.",
+      "completedEngineeringClusters": [
+        {
+          "clusterId": "PULMONARY-RESCUE-ROUTE-FORM-DEVICE-COMBINATION",
+          "medicationIds": [
+            "MED-ventolin-hfa-albuterol-inhalation-aerosol",
+            "MED-albuterol-sulfate-nebulizer-solution",
+            "MED-xopenex-hfa-levalbuterol-inhalation-aerosol",
+            "MED-xopenex-levalbuterol-nebulizer-concentrate",
+            "MED-atrovent-hfa-ipratropium-inhalation-aerosol",
+            "MED-ipratropium-bromide-nebulizer-solution",
+            "MED-combivent-respimat-ipratropium-albuterol-inhalation-spray",
+            "MED-ipratropium-albuterol-nebulizer-solution"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "98a999638df292f84b730db21b6ae6c556f9425a",
+          "workflowRunId": 37117992521,
+          "jobId": 111188422223,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ]
     },
     {
       "batchId": "MED-BATCH-11-RHEUM-IMMUNOSUPPRESSION-TRANSPLANT",
