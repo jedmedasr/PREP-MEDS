@@ -80,7 +80,10 @@ import {
   antiepilepticZonisamideIdentityEvidence,
   antiepilepticZonisamideReviewRules,
   antiepilepticOxcarbazepineIdentityEvidence,
+  antiepilepticCarbamazepineIdentityEvidence,
   antiepilepticOxcarbazepineReviewRules,
+  antiepilepticCarbamazepineIdentityEvidence,
+  antiepilepticCarbamazepineReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -121,6 +124,7 @@ import { antiepilepticLacosamideIngredients, antiepilepticLacosamideMedications 
 import { antiepilepticTopiramateMedications } from './antiepileptic-topiramate';
 import { antiepilepticZonisamideIngredients, antiepilepticZonisamideMedications } from './antiepileptic-zonisamide';
 import { antiepilepticOxcarbazepineIngredients, antiepilepticOxcarbazepineMedications } from './antiepileptic-oxcarbazepine';
+import { antiepilepticCarbamazepineIngredients, antiepilepticCarbamazepineMedications } from './antiepileptic-carbamazepine';
 
 export interface UiModifierDefinition {
   id: string;
@@ -138,7 +142,7 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'antiepileptic-oxcarbazepine-review-1',
+  version: 'antiepileptic-carbamazepine-review-1',
   generatedAt: '2026-10-03T01:55:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
@@ -182,6 +186,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...antiepilepticLacosamideIngredients,
     ...antiepilepticZonisamideIngredients,
     ...antiepilepticOxcarbazepineIngredients,
+    ...antiepilepticCarbamazepineIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -265,6 +270,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...antiepilepticTopiramateMedications,
     ...antiepilepticZonisamideMedications,
     ...antiepilepticOxcarbazepineMedications,
+    ...antiepilepticCarbamazepineMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -319,6 +325,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...antiepilepticTopiramateReviewRules,
   ...antiepilepticZonisamideReviewRules,
   ...antiepilepticOxcarbazepineReviewRules,
+  ...antiepilepticCarbamazepineReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
