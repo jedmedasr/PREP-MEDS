@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T05:00:00Z",
+  "generatedAt": "2026-10-03T06:10:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -1037,7 +1037,8 @@
         "lacosamide film-coated oral tablet, oral solution, and intravenous injection",
         "topiramate immediate-release coated tablet, sprinkle capsule, oral solution, and product-specific extended-release capsules",
         "zonisamide oral capsule versus oral suspension",
-        "oxcarbazepine immediate-release tablet and suspension versus OXTELLAR XR extended-release tablet"
+        "oxcarbazepine immediate-release tablet and suspension versus OXTELLAR XR extended-release tablet",
+        "phenobarbital oral tablet versus oral solution versus phenobarbital sodium parenteral injection"
       ],
       "routeDistinctions": [
         "oral",
@@ -1332,9 +1333,26 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-PHENOBARBITAL-ROUTE-FORM-SALT",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "19b4c38971fe8799ba8cb78d1d700d130b740ca2",
+          "products": [
+            "phenobarbital oral tablet",
+            "phenobarbital oral solution",
+            "phenobarbital sodium parenteral injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 401,
+            "workflowRunId": 37101384289,
+            "jobId": 111141428111,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, carbamazepine, and phenytoin/fosphenytoin are engineering-verified. Next inventory phenobarbital route/form distinctions, then valproate/divalproex; keep timing review-only."
+      "nextEngineeringWork": "Phenobarbital route/form/salt distinctions are engineering-verified. Next inventory and reconcile valproate/divalproex route and release distinctions; keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
