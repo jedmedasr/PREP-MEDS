@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T10:55:00Z",
+  "updatedAt": "2026-10-03T14:55:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -43,6 +43,40 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "B_PULMONARY_CONTROLLER_WHOLE_PRODUCT_DEVICE_COMBINATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "df40f62f840ee9c3c4a8026b402862b3f833cd6d",
+      "products": [
+        "SYMBICORT budesonide/formoterol metered inhalation aerosol",
+        "ADVAIR HFA fluticasone propionate/salmeterol metered inhalation aerosol",
+        "ADVAIR DISKUS fluticasone propionate/salmeterol dry-powder inhaler",
+        "BREO ELLIPTA fluticasone furoate/vilanterol dry-powder inhaler",
+        "DULERA mometasone furoate/formoterol metered inhalation aerosol",
+        "TRELEGY ELLIPTA fluticasone furoate/umeclidinium/vilanterol dry-powder inhaler",
+        "BREZTRI AEROSPHERE budesonide/glycopyrrolate/formoterol metered inhalation aerosol"
+      ],
+      "preservation": [
+        "ICS/LABA and ICS/LAMA/LABA controller combinations remain whole-product identities and are not decomposed into component instructions.",
+        "ADVAIR HFA and ADVAIR DISKUS remain distinct aerosol and dry-powder identities; bare Advair and nonspecific fluticasone propionate/salmeterol wording fail closed.",
+        "Metered-dose aerosol, DISKUS dry powder, ELLIPTA dry powder, and AEROSPHERE aerosol device/form distinctions remain explicit.",
+        "Airway diagnosis/control, recent exacerbation, systemic-steroid/rescue/oxygen/current-symptom and infection context, device availability/technique, rhythm/hemodynamic and anticholinergic context, procedure/sedation context, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, strength or ingredient/device conversion, component splitting, substitution, administration timing, dose arithmetic, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 438,
+        "workflowRunId": 37120976744,
+        "jobId": 111196859202,
+        "conclusion": "success",
+        "verifiedHeadSha": "df40f62f840ee9c3c4a8026b402862b3f833cd6d",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -62,7 +96,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory controller inhaler combinations next, prioritizing ICS/LABA and triple inhaler whole-product/device distinctions with material anesthesia/airway relevance; do not expand routine allergy medications.",
+  "nextWorkItem": "Inventory remaining pulmonary agents with material anesthesia relevance, prioritizing systemic methylxanthine/theophylline release distinctions and pulmonary-hypertension agents only where a genuine gap exists; do not expand routine allergy medications.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
