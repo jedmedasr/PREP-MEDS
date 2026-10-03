@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T09:05:00Z",
+  "updatedAt": "2026-10-03T10:05:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -491,6 +491,40 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "Q_GABAPENTINOID_ANESTHESIA_WITHDRAWAL_SEDATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "054e06026a8708cb6ccef0056ebec1d716838bcc",
+      "products": [
+        "NEURONTIN gabapentin oral capsule",
+        "NEURONTIN gabapentin oral tablet",
+        "NEURONTIN gabapentin oral solution",
+        "GRALISE gabapentin extended-release oral tablet",
+        "HORIZANT gabapentin-enacarbil extended-release oral tablet",
+        "LYRICA pregabalin oral capsule",
+        "LYRICA pregabalin oral solution",
+        "LYRICA CR pregabalin extended-release oral tablet"
+      ],
+      "preservation": [
+        "Immediate-release forms, GRALISE, HORIZANT prodrug, LYRICA immediate-release forms, and LYRICA CR remain distinct; bare gabapentin, NEURONTIN, pregabalin, and LYRICA fail closed.",
+        "FDA respiratory-risk context establishes a genuine anesthesia-review gap for underlying lung disease, advanced age/frailty, opioids, and other CNS depressants without authorizing a timing rule.",
+        "Indication, chronicity, last dose, renal function, seizure history, withdrawal risk, respiratory status, concomitant sedatives, oral feasibility, procedure/sedation context, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, substitution, prodrug/form/release/dose conversion, administration timing, monitoring, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 420,
+        "workflowRunId": 37114424620,
+        "jobId": 111178339325,
+        "conclusion": "success",
+        "verifiedHeadSha": "054e06026a8708cb6ccef0056ebec1d716838bcc",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -507,7 +541,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Valproate/divalproex route/form/release distinctions are engineering-verified. Inventory gabapentin/pregabalin only for a genuine anesthesia-critical withdrawal/sedation gap; if none, proceed to pulmonary/airway inventory.",
+  "nextWorkItem": "Withdrawal-sensitive antiepileptic/neurologic V1 inventory is engineering-complete. Proceed to Batch 10 pulmonary/airway inventory; implement only controller/rescue, systemic bronchodilator, or pulmonary-hypertension route/form/combo gaps with material sedation/anesthesia relevance.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
