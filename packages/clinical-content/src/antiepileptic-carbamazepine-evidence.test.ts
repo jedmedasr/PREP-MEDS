@@ -5,7 +5,7 @@ import {
   antiepilepticCarbamazepineIdentityEvidence,
   antiepilepticCarbamazepineIdentitySources,
   antiepilepticCarbamazepineReviewRules,
-} from './antiepileptic-carbamazepine-evidence';
+} from './antiepileptic-carbamazepine-evidence.js';
 
 describe('antiepileptic carbamazepine evidence', () => {
   it('keeps direct sources, atoms, and identities one-to-one and draft', () => {
