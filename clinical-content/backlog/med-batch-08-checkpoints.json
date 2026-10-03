@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T05:00:00Z",
+  "updatedAt": "2026-10-03T06:05:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -430,6 +430,35 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "O_ANTIEPILEPTIC_PHENOBARBITAL_ROUTE_FORM_SALT": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "19b4c38971fe8799ba8cb78d1d700d130b740ca2",
+      "products": [
+        "phenobarbital oral tablet",
+        "phenobarbital oral solution",
+        "phenobarbital sodium parenteral injection"
+      ],
+      "preservation": [
+        "Oral tablet, oral solution, and parenteral phenobarbital sodium remain distinct; bare phenobarbital fails closed.",
+        "Selected DailyMed SPLs explicitly retain unapproved-drug-other marketing status; FDA approval and current market availability are not asserted.",
+        "Indication, seizure control, chronicity, adherence, hepatic/renal and respiratory status, concomitant sedatives/opioids/alcohol, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician reviewed.",
+        "No continuation, interruption, taper, salt/route/formulation/dose conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 401,
+        "workflowRunId": 37101384289,
+        "jobId": 111141428111,
+        "conclusion": "success",
+        "verifiedHeadSha": "19b4c38971fe8799ba8cb78d1d700d130b740ca2",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -446,7 +475,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, carbamazepine, and phenytoin/fosphenytoin are engineering-verified. Next inventory phenobarbital route/form distinctions, then valproate/divalproex; keep timing review-only.",
+  "nextWorkItem": "Phenobarbital route/form/salt distinctions are engineering-verified. Next inventory and reconcile valproate/divalproex route and release distinctions; keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
