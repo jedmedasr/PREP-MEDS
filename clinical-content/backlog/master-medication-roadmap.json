@@ -1552,7 +1552,13 @@
         "Dulera",
         "Trelegy Ellipta",
         "Breztri Aerosphere",
-        "Theo-24"
+        "Theo-24",
+        "Veletri",
+        "Remodulin",
+        "Tyvaso",
+        "Tyvaso DPI",
+        "Orenitram",
+        "Uptravi"
       ],
       "importantFormulationDistinctions": [
         "MDI versus nebulized",
@@ -1564,7 +1570,10 @@
         "ADVAIR HFA aerosol versus ADVAIR DISKUS dry-powder identity",
         "AEROSPHERE metered aerosol versus ELLIPTA dry-powder triple-controller identity",
         "theophylline oral solution versus extended-release tablet versus extended-release capsule",
-        "oral theophylline versus intravenous aminophylline ingredient/complex and route distinction"
+        "oral theophylline versus intravenous aminophylline ingredient/complex and route distinction",
+        "continuous epoprostenol intravenous infusion versus treprostinil subcutaneous/intravenous infusion",
+        "treprostinil infusion versus inhalation solution versus dry-powder inhaler versus extended-release oral tablet",
+        "selexipag oral tablet versus intravenous injection"
       ],
       "routeDistinctions": [
         "inhaled",
@@ -1575,7 +1584,8 @@
       ],
       "releaseFormDistinctions": [
         "IR/ER where relevant",
-        "theophylline non-extended-release oral solution versus extended-release tablet and capsule"
+        "theophylline non-extended-release oral solution versus extended-release tablet and capsule",
+        "ORENITRAM extended-release oral tablet remains distinct from treprostinil infusion and inhalation products"
       ],
       "combinationProductDistinctions": [
         "ICS/LABA and triple inhalers as whole products",
@@ -1593,7 +1603,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Inventory pulmonary-hypertension therapies for genuine anesthesia-relevant interruption, hemodynamic, route/form, or infusion-continuity gaps; implement only a bounded high-impact set, then proceed to remaining anesthesia-sensitive psych/neurologic inventory.",
+      "nextEngineeringWork": "Inventory remaining pulmonary-hypertension PDE5-inhibitor, endothelin-receptor-antagonist, and riociguat identities for genuine hemodynamic, route/form, interaction, or interruption gaps; implement only a bounded high-impact set, then proceed to remaining anesthesia-sensitive psych/neurologic inventory.",
       "completedEngineeringClusters": [
         {
           "clusterId": "PULMONARY-RESCUE-ROUTE-FORM-DEVICE-COMBINATION",
@@ -1642,6 +1652,23 @@
           "testedHeadSha": "4ce0e7e4a2c74a93f6e7e4cf1f3a3ab3ee28ffd9",
           "workflowRunId": 37134796298,
           "jobId": 111237031076,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "PULMONARY-HYPERTENSION-PROSTACYCLIN-ROUTE-FORM-INFUSION-CONTINUITY",
+          "medicationIds": [
+            "MED-veletri-epoprostenol-intravenous-infusion",
+            "MED-remodulin-treprostinil-subcutaneous-intravenous-infusion",
+            "MED-tyvaso-treprostinil-inhalation-solution",
+            "MED-tyvaso-dpi-treprostinil-inhalation-powder",
+            "MED-orenitram-treprostinil-er-oral-tablet",
+            "MED-uptravi-selexipag-oral-tablet",
+            "MED-uptravi-selexipag-intravenous-injection"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "9377db3573763dfd30007245146a7dd35ad7cde9",
+          "workflowRunId": 37138779583,
+          "jobId": 111248694244,
           "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ]
