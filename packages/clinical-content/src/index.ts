@@ -509,3 +509,12 @@ export {
   antiepilepticTopiramateReviewRules,
 } from './antiepileptic-topiramate-evidence.js';
 export type { AntiepilepticTopiramateIdentityDefinition } from './antiepileptic-topiramate-evidence.js';
+
+export {
+  antiepilepticZonisamideIdentityEvidence,
+  antiepilepticZonisamideIdentityDefinitions,
+  antiepilepticZonisamideIdentitySources,
+  antiepilepticZonisamideIdentityAtoms,
+  antiepilepticZonisamideReviewRules,
+} from './antiepileptic-zonisamide-evidence.js';
+export type { AntiepilepticZonisamideIdentityDefinition } from './antiepileptic-zonisamide-evidence.js';
