@@ -614,3 +614,12 @@ export {
   pulmonaryHypertensionVasodilatorReviewRules,
 } from './pulmonary-hypertension-vasodilator-evidence.js';
 export type { PulmonaryHypertensionVasodilatorIdentityDefinition } from './pulmonary-hypertension-vasodilator-evidence.js';
+
+export {
+  periproceduralLithiumIdentityDefinitions,
+  periproceduralLithiumIdentitySources,
+  periproceduralLithiumIdentityAtoms,
+  periproceduralLithiumIdentityEvidence,
+  periproceduralLithiumReviewRules,
+} from './periprocedural-lithium-evidence.js';
+export type { PeriproceduralLithiumIdentityDefinition } from './periprocedural-lithium-evidence.js';
