@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T10:55:00Z",
+  "generatedAt": "2026-10-03T14:55:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -1544,14 +1544,24 @@
         "Xopenex HFA",
         "Xopenex",
         "Atrovent HFA",
-        "Combivent Respimat"
+        "Combivent Respimat",
+        "Symbicort",
+        "Advair HFA",
+        "Advair Diskus",
+        "Breo Ellipta",
+        "Dulera",
+        "Trelegy Ellipta",
+        "Breztri Aerosphere"
       ],
       "importantFormulationDistinctions": [
         "MDI versus nebulized",
         "inhaler device/formulation identity",
         "theophylline release forms",
         "metered-dose aerosol versus Respimat spray versus nebulizer solution",
-        "albuterol versus levalbuterol ingredient identity"
+        "albuterol versus levalbuterol ingredient identity",
+        "metered-dose aerosol versus DISKUS or ELLIPTA dry-powder inhaler",
+        "ADVAIR HFA aerosol versus ADVAIR DISKUS dry-powder identity",
+        "AEROSPHERE metered aerosol versus ELLIPTA dry-powder triple-controller identity"
       ],
       "routeDistinctions": [
         "inhaled",
@@ -1564,7 +1574,8 @@
       ],
       "combinationProductDistinctions": [
         "ICS/LABA and triple inhalers as whole products",
-        "Combivent Respimat and ipratropium/albuterol nebulizer solution remain distinct whole products"
+        "Combivent Respimat and ipratropium/albuterol nebulizer solution remain distinct whole products",
+        "ICS/LABA and ICS/LAMA/LABA controller combinations remain distinct whole-product identities and are not split into component instructions"
       ],
       "developmentStatus": "IN_PROGRESS",
       "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
@@ -1577,7 +1588,7 @@
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Inventory controller inhaler combinations next, prioritizing ICS/LABA and triple inhaler whole-product/device distinctions with material anesthesia/airway relevance; do not expand routine allergy medications.",
+      "nextEngineeringWork": "Inventory remaining pulmonary agents with material anesthesia relevance, prioritizing systemic methylxanthine/theophylline release distinctions and pulmonary-hypertension agents only where a genuine gap exists; do not expand routine allergy medications.",
       "completedEngineeringClusters": [
         {
           "clusterId": "PULMONARY-RESCUE-ROUTE-FORM-DEVICE-COMBINATION",
@@ -1595,6 +1606,23 @@
           "testedHeadSha": "98a999638df292f84b730db21b6ae6c556f9425a",
           "workflowRunId": 37117992521,
           "jobId": 111188422223,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "PULMONARY-CONTROLLER-WHOLE-PRODUCT-DEVICE-COMBINATION",
+          "medicationIds": [
+            "MED-symbicort-budesonide-formoterol-metered-aerosol",
+            "MED-advair-hfa-fluticasone-salmeterol-metered-aerosol",
+            "MED-advair-diskus-fluticasone-salmeterol-dry-powder",
+            "MED-breo-ellipta-fluticasone-vilanterol-dry-powder",
+            "MED-dulera-mometasone-formoterol-metered-aerosol",
+            "MED-trelegy-ellipta-fluticasone-umeclidinium-vilanterol-dry-powder",
+            "MED-breztri-aerosphere-budesonide-glycopyrrolate-formoterol-metered-aerosol"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "df40f62f840ee9c3c4a8026b402862b3f833cd6d",
+          "workflowRunId": 37120976744,
+          "jobId": 111196859202,
           "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ]
