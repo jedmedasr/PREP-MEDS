@@ -46,7 +46,6 @@ import {
   periproceduralStimulantIdentityEvidence,
   periproceduralStimulantReviewRules,
   periproceduralMaoiIdentityEvidence,
-  periproceduralLithiumIdentityEvidence,
   periproceduralMaoiReviewRules,
   periproceduralLithiumIdentityEvidence,
   periproceduralLithiumReviewRules,
