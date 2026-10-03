@@ -369,6 +369,37 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "M_ANTIEPILEPTIC_CARBAMAZEPINE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "c3977c2378a819a9477c0b59fa7ee48d13dcf7f0",
+      "products": [
+        "TEGRETOL carbamazepine conventional oral tablet",
+        "TEGRETOL carbamazepine oral suspension",
+        "carbamazepine chewable oral tablet",
+        "TEGRETOL XR carbamazepine extended-release oral tablet",
+        "CARBATROL carbamazepine extended-release oral capsule",
+        "EQUETRO carbamazepine extended-release oral capsule"
+      ],
+      "preservation": [
+        "Conventional tablet, chewable tablet, suspension, TEGRETOL XR extended-release tablet, CARBATROL extended-release capsule, and EQUETRO extended-release capsule remain distinct identities; bare carbamazepine, bare TEGRETOL, and non-product-specific extended-release capsule wording fail closed.",
+        "Indication, seizure context/control, last dose, adherence, sodium status, blood counts, hepatic/renal function, ancestry/HLA context, hypersensitivity, interacting drugs/autoinduction, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No form/release conversion, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 381,
+        "workflowRunId": 37095047658,
+        "jobId": 111123164399,
+        "conclusion": "success",
+        "verifiedHeadSha": "c3977c2378a819a9477c0b59fa7ee48d13dcf7f0",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -385,7 +416,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Levetiracetam, lacosamide, topiramate, zonisamide, and oxcarbazepine are engineering-verified. Next inventory carbamazepine only for a genuine live gap, then phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; keep timing review-only.",
+  "nextWorkItem": "Levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, and carbamazepine are engineering-verified. Next inventory phenytoin/fosphenytoin route/form distinctions, then phenobarbital and valproate/divalproex; keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
