@@ -598,3 +598,11 @@ export {
   pulmonaryMethylxanthineReviewRules,
 } from './pulmonary-methylxanthine-evidence.js';
 export type { PulmonaryMethylxanthineIdentityDefinition } from './pulmonary-methylxanthine-evidence.js';
+
+export {
+  pulmonaryHypertensionProstacyclinIdentityEvidence,
+  pulmonaryHypertensionProstacyclinIdentityDefinitions,
+  pulmonaryHypertensionProstacyclinIdentityAtoms,
+  pulmonaryHypertensionProstacyclinReviewRules,
+} from './pulmonary-hypertension-prostacyclin-evidence.js';
+export type { PulmonaryHypertensionProstacyclinIdentityDefinition } from './pulmonary-hypertension-prostacyclin-evidence.js';
