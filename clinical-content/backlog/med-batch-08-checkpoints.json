@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T00:15:00Z",
+  "updatedAt": "2026-10-03T01:15:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -314,6 +314,33 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "K_ANTIEPILEPTIC_ZONISAMIDE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "953166abc8c97ac3e2c9f4e5890047b3bf1aa7d2",
+      "products": [
+        "ZONEGRAN zonisamide oral capsule",
+        "ZONISADE zonisamide oral suspension"
+      ],
+      "preservation": [
+        "ZONEGRAN capsule and ZONISADE oral suspension remain distinct identities; bare zonisamide fails closed.",
+        "Indication, seizure context/control, last dose, adherence, renal function, bicarbonate/metabolic-acidosis risk, hydration and kidney-stone risk, sulfonamide hypersensitivity, concomitant carbonic-anhydrase inhibitors, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No formulation conversion, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 360,
+        "workflowRunId": 37083670894,
+        "jobId": 111089399383,
+        "conclusion": "success",
+        "verifiedHeadSha": "953166abc8c97ac3e2c9f4e5890047b3bf1aa7d2",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -330,7 +357,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Levetiracetam, lacosamide, and topiramate are engineering-verified. Next inventory zonisamide formulation gaps, then oxcarbazepine, carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only.",
+  "nextWorkItem": "Levetiracetam, lacosamide, topiramate, and zonisamide are engineering-verified. Next inventory oxcarbazepine formulation gaps, then carbamazepine if a live gap exists, phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; implement only genuine gaps and keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
