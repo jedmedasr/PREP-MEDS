@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T04:00:00Z",
+  "generatedAt": "2026-10-03T05:00:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "c3977c2378a819a9477c0b59fa7ee48d13dcf7f0",
+    "basedOnHeadSha": "1f6a6c1689686e8f7bc80f2b6c0faaf1625435f8",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -1313,9 +1313,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-PHENYTOIN-FOSPHENYTOIN-ROUTE-FORM-SALT-PRODRUG",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "1f6a6c1689686e8f7bc80f2b6c0faaf1625435f8",
+          "products": [
+            "DILANTIN extended phenytoin sodium oral capsule",
+            "DILANTIN INFATABS phenytoin chewable oral tablet",
+            "DILANTIN-125 phenytoin oral suspension",
+            "phenytoin sodium parenteral injection",
+            "CEREBYX fosphenytoin sodium parenteral injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 392,
+            "workflowRunId": 37097995646,
+            "jobId": 111131757530,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, and carbamazepine are engineering-verified. Next inventory phenytoin/fosphenytoin route/form distinctions, then phenobarbital and valproate/divalproex; keep timing review-only."
+      "nextEngineeringWork": "Levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, carbamazepine, and phenytoin/fosphenytoin are engineering-verified. Next inventory phenobarbital route/form distinctions, then valproate/divalproex; keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
