@@ -80,7 +80,6 @@ import {
   antiepilepticZonisamideIdentityEvidence,
   antiepilepticZonisamideReviewRules,
   antiepilepticOxcarbazepineIdentityEvidence,
-  antiepilepticCarbamazepineIdentityEvidence,
   antiepilepticOxcarbazepineReviewRules,
   antiepilepticCarbamazepineIdentityEvidence,
   antiepilepticCarbamazepineReviewRules,
@@ -368,6 +367,7 @@ export const clinicalReviewEvidenceBundles = [
   antiepilepticTopiramateIdentityEvidence,
   antiepilepticZonisamideIdentityEvidence,
   antiepilepticOxcarbazepineIdentityEvidence,
+  antiepilepticCarbamazepineIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
