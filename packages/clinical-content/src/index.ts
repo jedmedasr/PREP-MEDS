@@ -518,3 +518,12 @@ export {
   antiepilepticZonisamideReviewRules,
 } from './antiepileptic-zonisamide-evidence.js';
 export type { AntiepilepticZonisamideIdentityDefinition } from './antiepileptic-zonisamide-evidence.js';
+
+export {
+  antiepilepticOxcarbazepineIdentityEvidence,
+  antiepilepticOxcarbazepineIdentityDefinitions,
+  antiepilepticOxcarbazepineIdentitySources,
+  antiepilepticOxcarbazepineIdentityAtoms,
+  antiepilepticOxcarbazepineReviewRules,
+} from './antiepileptic-oxcarbazepine-evidence.js';
+export type { AntiepilepticOxcarbazepineIdentityDefinition } from './antiepileptic-oxcarbazepine-evidence.js';
