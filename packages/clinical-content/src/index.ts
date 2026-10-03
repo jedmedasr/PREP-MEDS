@@ -606,3 +606,11 @@ export {
   pulmonaryHypertensionProstacyclinReviewRules,
 } from './pulmonary-hypertension-prostacyclin-evidence.js';
 export type { PulmonaryHypertensionProstacyclinIdentityDefinition } from './pulmonary-hypertension-prostacyclin-evidence.js';
+
+export {
+  pulmonaryHypertensionVasodilatorIdentityEvidence,
+  pulmonaryHypertensionVasodilatorIdentityDefinitions,
+  pulmonaryHypertensionVasodilatorIdentityAtoms,
+  pulmonaryHypertensionVasodilatorReviewRules,
+} from './pulmonary-hypertension-vasodilator-evidence.js';
+export type { PulmonaryHypertensionVasodilatorIdentityDefinition } from './pulmonary-hypertension-vasodilator-evidence.js';
