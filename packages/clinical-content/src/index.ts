@@ -572,3 +572,12 @@ export {
   gabapentinoidReviewRules,
 } from './gabapentinoid-evidence.js';
 export type { GabapentinoidIdentityDefinition } from './gabapentinoid-evidence.js';
+
+
+export {
+  pulmonaryRescueIdentityEvidence,
+  pulmonaryRescueIdentityDefinitions,
+  pulmonaryRescueIdentityAtoms,
+  pulmonaryRescueReviewRules,
+} from './pulmonary-rescue-evidence.js';
+export type { PulmonaryRescueIdentityDefinition } from './pulmonary-rescue-evidence.js';
