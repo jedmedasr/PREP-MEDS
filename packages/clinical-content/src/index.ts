@@ -590,3 +590,11 @@ export {
   pulmonaryControllerCombinationReviewRules,
 } from './pulmonary-controller-combination-evidence.js';
 export type { PulmonaryControllerCombinationIdentityDefinition } from './pulmonary-controller-combination-evidence.js';
+
+export {
+  pulmonaryMethylxanthineIdentityEvidence,
+  pulmonaryMethylxanthineIdentityDefinitions,
+  pulmonaryMethylxanthineIdentityAtoms,
+  pulmonaryMethylxanthineReviewRules,
+} from './pulmonary-methylxanthine-evidence.js';
+export type { PulmonaryMethylxanthineIdentityDefinition } from './pulmonary-methylxanthine-evidence.js';
