@@ -93,6 +93,8 @@ import {
   gabapentinoidReviewRules,
   pulmonaryRescueIdentityEvidence,
   pulmonaryRescueReviewRules,
+  pulmonaryControllerCombinationIdentityEvidence,
+  pulmonaryControllerCombinationReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -139,6 +141,7 @@ import { antiepilepticPhenobarbitalIngredients, antiepilepticPhenobarbitalMedica
 import { antiepilepticValproateIngredients, antiepilepticValproateMedications } from './antiepileptic-valproate';
 import { gabapentinoidIngredients, gabapentinoidMedications } from './gabapentinoids';
 import { pulmonaryRescueIngredients, pulmonaryRescueMedications } from './pulmonary-rescue';
+import { pulmonaryControllerCombinationIngredients, pulmonaryControllerCombinationMedications } from './pulmonary-controller-combinations';
 
 export interface UiModifierDefinition {
   id: string;
@@ -156,8 +159,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'pulmonary-rescue-review-1',
-  generatedAt: '2026-10-03T10:55:00Z',
+  version: 'pulmonary-controller-combination-review-1',
+  generatedAt: '2026-10-03T12:15:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -206,6 +209,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...antiepilepticValproateIngredients,
     ...gabapentinoidIngredients,
     ...pulmonaryRescueIngredients,
+    ...pulmonaryControllerCombinationIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -295,6 +299,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...antiepilepticValproateMedications,
     ...gabapentinoidMedications,
     ...pulmonaryRescueMedications,
+    ...pulmonaryControllerCombinationMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -355,6 +360,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...antiepilepticValproateReviewRules,
   ...gabapentinoidReviewRules,
   ...pulmonaryRescueReviewRules,
+  ...pulmonaryControllerCombinationReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -403,6 +409,7 @@ export const clinicalReviewEvidenceBundles = [
   antiepilepticValproateIdentityEvidence,
   gabapentinoidIdentityEvidence,
   pulmonaryRescueIdentityEvidence,
+  pulmonaryControllerCombinationIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
