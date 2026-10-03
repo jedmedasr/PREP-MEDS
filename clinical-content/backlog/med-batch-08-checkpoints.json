@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T04:00:00Z",
+  "updatedAt": "2026-10-03T05:00:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -400,6 +400,36 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "N_ANTIEPILEPTIC_PHENYTOIN_FOSPHENYTOIN_ROUTE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "1f6a6c1689686e8f7bc80f2b6c0faaf1625435f8",
+      "products": [
+        "DILANTIN extended phenytoin sodium oral capsule",
+        "DILANTIN INFATABS phenytoin chewable oral tablet",
+        "DILANTIN-125 phenytoin oral suspension",
+        "phenytoin sodium parenteral injection",
+        "CEREBYX fosphenytoin sodium parenteral injection"
+      ],
+      "preservation": [
+        "Extended phenytoin sodium capsule, phenytoin free-acid chewable tablet and suspension, parenteral phenytoin sodium, and parenteral fosphenytoin sodium remain distinct; bare phenytoin and DILANTIN fail closed.",
+        "Indication, seizure control, last dose/adherence, serum concentration, albumin, renal/hepatic function, cardiac status, interacting drugs, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No salt/prodrug/route/form/release conversion, phenytoin-equivalent arithmetic, dose equivalence, substitution, continuation, interruption, taper, timing, monitoring target, or restart is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 392,
+        "workflowRunId": 37097995646,
+        "jobId": 111131757530,
+        "conclusion": "success",
+        "verifiedHeadSha": "1f6a6c1689686e8f7bc80f2b6c0faaf1625435f8",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -416,7 +446,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, and carbamazepine are engineering-verified. Next inventory phenytoin/fosphenytoin route/form distinctions, then phenobarbital and valproate/divalproex; keep timing review-only.",
+  "nextWorkItem": "Levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, carbamazepine, and phenytoin/fosphenytoin are engineering-verified. Next inventory phenobarbital route/form distinctions, then valproate/divalproex; keep timing review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
