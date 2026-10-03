@@ -554,3 +554,12 @@ export {
   antiepilepticPhenobarbitalReviewRules,
 } from './antiepileptic-phenobarbital-evidence.js';
 export type { AntiepilepticPhenobarbitalIdentityDefinition } from './antiepileptic-phenobarbital-evidence.js';
+
+export {
+  antiepilepticValproateIdentityEvidence,
+  antiepilepticValproateIdentityDefinitions,
+  antiepilepticValproateIdentitySources,
+  antiepilepticValproateIdentityAtoms,
+  antiepilepticValproateReviewRules,
+} from './antiepileptic-valproate-evidence.js';
+export type { AntiepilepticValproateIdentityDefinition } from './antiepileptic-valproate-evidence.js';
