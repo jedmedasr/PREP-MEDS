@@ -50,7 +50,6 @@ import {
   periproceduralLithiumIdentityEvidence,
   periproceduralLithiumReviewRules,
   periproceduralBenzodiazepineIdentityEvidence,
-  periproceduralSnriIdentityEvidence,
   periproceduralBenzodiazepineReviewRules,
   periproceduralSnriIdentityEvidence,
   periproceduralSnriReviewRules,
