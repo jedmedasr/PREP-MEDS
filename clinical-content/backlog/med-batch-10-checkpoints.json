@@ -1,0 +1,68 @@
+{
+  "batchId": "MED-BATCH-10-PULMONARY-ALLERGY",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-10-03T10:55:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_PULMONARY_RESCUE_ROUTE_FORM_DEVICE_COMBINATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "98a999638df292f84b730db21b6ae6c556f9425a",
+      "products": [
+        "VENTOLIN HFA albuterol sulfate metered inhalation aerosol",
+        "albuterol sulfate nebulizer solution concentrate",
+        "XOPENEX HFA levalbuterol tartrate metered inhalation aerosol",
+        "XOPENEX levalbuterol hydrochloride nebulizer solution concentrate",
+        "ATROVENT HFA ipratropium bromide metered inhalation aerosol",
+        "ipratropium bromide nebulizer solution",
+        "COMBIVENT RESPIMAT ipratropium/albuterol metered inhalation spray",
+        "ipratropium/albuterol nebulizer solution"
+      ],
+      "preservation": [
+        "Metered-dose inhalers, Respimat spray, and nebulizer solutions remain distinct identities; bare albuterol, levalbuterol/XOPENEX, and ipratropium fail closed across route/form/device contexts.",
+        "COMBIVENT RESPIMAT and ipratropium/albuterol nebulizer solution remain distinct whole combination products and are not decomposed into component instructions.",
+        "Airway diagnosis/control, recent exacerbation, rescue use frequency, oxygen/current symptoms, device availability/technique, rhythm/hemodynamic context, anticholinergic precautions, procedure/sedation context, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, mixing, dilution, ingredient/device conversion, component splitting, dose arithmetic, substitution, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 429,
+        "workflowRunId": 37117992521,
+        "jobId": 111188422223,
+        "conclusion": "success",
+        "verifiedHeadSha": "98a999638df292f84b730db21b6ae6c556f9425a",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "primarySourceFamilies": [
+      "FDA/DailyMed direct prescription labeling"
+    ],
+    "representativeIdentityOnly": true,
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "deviceConversionAuthorized": false,
+    "componentSplittingAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Inventory controller inhaler combinations next, prioritizing ICS/LABA and triple inhaler whole-product/device distinctions with material anesthesia/airway relevance; do not expand routine allergy medications.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}
