@@ -33,7 +33,7 @@ export const periproceduralLithiumIdentitySources: SourceDocument[] = [
     sourceUrl: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0e6b0a2d-b79c-44d8-b785-5267df9e8f72',
     externalIdentifier: 'DailyMed SETID 0e6b0a2d-b79c-44d8-b785-5267df9e8f72; NDA017812',
     jurisdiction: 'US', language: 'en', retrievedAt, lifecycle: 'DRAFT',
-    metadata: { setId: '0e6b0a2d-b79c-44d8-b785-5267df9e8f72', applicationNumber: 'NDA017812', route: 'ORAL', dosageForms: ['TABLET', 'CAPSULE', 'SOLUTION'], representativeIdentityOnly: true, marketAvailabilityAsserted: false, substitutionAuthorized: false, saltConversionAuthorized: false, formulationConversionAuthorized: false, clinicalApprovalGranted: false, timingRuleAuthorized: false },
+    metadata: { setId: '0e6b0a2d-b79c-44d8-b785-5267df9e8f72', applicationNumber: 'NDA017812', route: 'ORAL', dosageForms: 'TABLET; CAPSULE; SOLUTION', representativeIdentityOnly: true, marketAvailabilityAsserted: false, substitutionAuthorized: false, saltConversionAuthorized: false, formulationConversionAuthorized: false, clinicalApprovalGranted: false, timingRuleAuthorized: false },
   },
   {
     id: 'SRC-LITHOBID-ANI-NDA018027', version: 1, sourceType: 'FDA_LABEL',
