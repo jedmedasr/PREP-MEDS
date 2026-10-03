@@ -99,6 +99,8 @@ import {
   pulmonaryMethylxanthineReviewRules,
   pulmonaryHypertensionProstacyclinIdentityEvidence,
   pulmonaryHypertensionProstacyclinReviewRules,
+  pulmonaryHypertensionVasodilatorIdentityEvidence,
+  pulmonaryHypertensionVasodilatorReviewRules,
 } from '@prep-meds/clinical-content';
 import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
@@ -148,6 +150,7 @@ import { pulmonaryRescueIngredients, pulmonaryRescueMedications } from './pulmon
 import { pulmonaryControllerCombinationIngredients, pulmonaryControllerCombinationMedications } from './pulmonary-controller-combinations';
 import { pulmonaryMethylxanthineIngredients, pulmonaryMethylxanthineMedications } from './pulmonary-methylxanthines';
 import { pulmonaryHypertensionProstacyclinIngredients, pulmonaryHypertensionProstacyclinMedications } from './pulmonary-hypertension-prostacyclins';
+import { pulmonaryHypertensionVasodilatorIngredients, pulmonaryHypertensionVasodilatorMedications } from './pulmonary-hypertension-vasodilators';
 
 export interface UiModifierDefinition {
   id: string;
@@ -165,8 +168,8 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'pulmonary-hypertension-prostacyclin-review-1',
-  generatedAt: '2026-10-03T16:50:00Z',
+  version: 'pulmonary-hypertension-vasodilator-review-1',
+  generatedAt: '2026-10-03T17:48:00Z',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
     { id: 'ING-warfarin', canonicalName: 'Warfarin', aliases: ['coumadin', 'jantoven'] },
@@ -218,6 +221,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...pulmonaryControllerCombinationIngredients,
     ...pulmonaryMethylxanthineIngredients,
     ...pulmonaryHypertensionProstacyclinIngredients,
+    ...pulmonaryHypertensionVasodilatorIngredients,
     { id: 'ING-empagliflozin', canonicalName: 'Empagliflozin' },
     { id: 'ING-semaglutide', canonicalName: 'Semaglutide' },
     { id: 'ING-insulin-glargine', canonicalName: 'Insulin glargine' },
@@ -310,6 +314,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...pulmonaryControllerCombinationMedications,
     ...pulmonaryMethylxanthineMedications,
     ...pulmonaryHypertensionProstacyclinMedications,
+    ...pulmonaryHypertensionVasodilatorMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
   ],
@@ -373,6 +378,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...pulmonaryControllerCombinationReviewRules,
   ...pulmonaryMethylxanthineReviewRules,
   ...pulmonaryHypertensionProstacyclinReviewRules,
+  ...pulmonaryHypertensionVasodilatorReviewRules,
 ];
 export const clinicalReviewEvidenceBundles = [
   firstClinicalContentEvidence,
@@ -424,6 +430,7 @@ export const clinicalReviewEvidenceBundles = [
   pulmonaryControllerCombinationIdentityEvidence,
   pulmonaryMethylxanthineIdentityEvidence,
   pulmonaryHypertensionProstacyclinIdentityEvidence,
+  pulmonaryHypertensionVasodilatorIdentityEvidence,
 ] as const;
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
