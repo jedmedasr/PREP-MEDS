@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T02:15:00Z",
+  "generatedAt": "2026-10-03T04:00:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -1293,9 +1293,29 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-CARBAMAZEPINE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "c3977c2378a819a9477c0b59fa7ee48d13dcf7f0",
+          "products": [
+            "TEGRETOL carbamazepine conventional oral tablet",
+            "TEGRETOL carbamazepine oral suspension",
+            "carbamazepine chewable oral tablet",
+            "TEGRETOL XR carbamazepine extended-release oral tablet",
+            "CARBATROL carbamazepine extended-release oral capsule",
+            "EQUETRO carbamazepine extended-release oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 381,
+            "workflowRunId": 37095047658,
+            "jobId": 111123164399,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Levetiracetam, lacosamide, topiramate, zonisamide, and oxcarbazepine are engineering-verified. Next inventory carbamazepine only for a genuine live gap, then phenytoin/fosphenytoin, phenobarbital, and valproate/divalproex; keep timing review-only."
+      "nextEngineeringWork": "Levetiracetam, lacosamide, topiramate, zonisamide, oxcarbazepine, and carbamazepine are engineering-verified. Next inventory phenytoin/fosphenytoin route/form distinctions, then phenobarbital and valproate/divalproex; keep timing review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
