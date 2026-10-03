@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T17:05:00Z",
+  "generatedAt": "2026-10-03T21:49:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -896,7 +896,8 @@
         "bupropion IR/SR/XL",
         "stimulant IR/ER",
         "oral versus long-acting injectable antipsychotics",
-        "lithium carbonate immediate-release tablet/capsule versus LITHOBID extended-release tablet versus lithium citrate oral solution"
+        "lithium carbonate immediate-release tablet/capsule versus LITHOBID extended-release tablet versus lithium citrate oral solution",
+        "alprazolam immediate-release versus XANAX XR; lorazepam oral versus IM/IV; clonazepam conventional versus orally disintegrating tablet"
       ],
       "routeDistinctions": [
         "oral",
@@ -976,9 +977,31 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-BENZODIAZEPINE-ROUTE-FORM-RELEASE-WITHDRAWAL-SEDATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "23b3adff54a41577b986885bc658ca5f58e4724f",
+          "products": [
+            "XANAX alprazolam immediate-release oral tablet",
+            "XANAX XR alprazolam extended-release oral tablet",
+            "ATIVAN lorazepam oral tablet",
+            "ATIVAN lorazepam intramuscular/intravenous injection",
+            "KLONOPIN clonazepam oral tablet",
+            "clonazepam orally disintegrating tablet",
+            "diazepam intramuscular/intravenous injection",
+            "RESTORIL temazepam oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 473,
+            "workflowRunId": 37156635022,
+            "jobId": 111301254999,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Lithium chemical-form/form/release identities are engineering-verified. Next inventory chronic benzodiazepines for genuine withdrawal, cumulative sedation/respiratory-depression, route/form, and anesthesia-interaction gaps; then continue only remaining high-impact psych/neurologic V1 gaps."
+      "nextEngineeringWork": "Chronic benzodiazepine identity/form/release/route gaps are engineering-verified. Next inventory remaining anesthesia-sensitive antidepressant and antipsychotic identities for genuine withdrawal, serotonergic/adrenergic, QT/hemodynamic, and sedation gaps; then proceed to bounded OTC/herbal review before V1 reconciliation."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",

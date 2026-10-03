@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T20:50:00Z",
+  "updatedAt": "2026-10-03T21:49:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -124,6 +124,40 @@
           "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3"
         ]
       }
+    },
+    "D_BENZODIAZEPINE_ROUTE_FORM_RELEASE_WITHDRAWAL_SEDATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "23b3adff54a41577b986885bc658ca5f58e4724f",
+      "products": [
+        "XANAX alprazolam immediate-release oral tablet",
+        "XANAX XR alprazolam extended-release oral tablet",
+        "ATIVAN lorazepam oral tablet",
+        "ATIVAN lorazepam intramuscular/intravenous injection",
+        "KLONOPIN clonazepam oral tablet",
+        "clonazepam orally disintegrating tablet",
+        "diazepam intramuscular/intravenous injection",
+        "RESTORIL temazepam oral capsule"
+      ],
+      "preservation": [
+        "Alprazolam immediate-release versus extended-release, lorazepam oral versus parenteral, and clonazepam conventional versus orally disintegrating identities remain distinct and bare names fail closed where ambiguous.",
+        "Diazepam injection is explicitly bounded and does not assert oral diazepam coverage; midazolam and acute procedural-sedation ordering remain outside the chronic home-medication cluster.",
+        "Duration/use pattern, indication, last dose, dependence/tolerance, withdrawal/seizure history, age/frailty, organ function, respiratory risk, concomitant CNS depressants, anesthesia plan, and transport remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, dose/route/form/release conversion, procedural sedation plan, transport decision, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 473,
+        "workflowRunId": 37156635022,
+        "jobId": 111301254999,
+        "conclusion": "success",
+        "verifiedHeadSha": "23b3adff54a41577b986885bc658ca5f58e4724f",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -136,7 +170,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory chronic benzodiazepine identities for genuine withdrawal, cumulative sedation/respiratory-depression, route/form, and anesthesia-interaction gaps; keep all handling review-only and timing-free.",
+  "nextWorkItem": "Inventory remaining anesthesia-sensitive psych/neurologic drugs, starting antidepressant and antipsychotic identities where abrupt cessation, serotonergic/adrenergic interaction, QT/hemodynamic instability, or withdrawal materially affects peri-procedural review; implement only genuine gaps.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
