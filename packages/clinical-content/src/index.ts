@@ -660,3 +660,12 @@ export {
   periproceduralQuetiapineOlanzapineReviewRules,
 } from './periprocedural-quetiapine-olanzapine-evidence.js';
 export type { PeriproceduralQuetiapineOlanzapineIdentityDefinition } from './periprocedural-quetiapine-olanzapine-evidence.js';
+
+export {
+  periproceduralAripiprazoleHaloperidolIdentityDefinitions,
+  periproceduralAripiprazoleHaloperidolIdentitySources,
+  periproceduralAripiprazoleHaloperidolIdentityAtoms,
+  periproceduralAripiprazoleHaloperidolIdentityEvidence,
+  periproceduralAripiprazoleHaloperidolReviewRules,
+} from './periprocedural-aripiprazole-haloperidol-evidence.js';
+export type { PeriproceduralAripiprazoleHaloperidolIdentityDefinition } from './periprocedural-aripiprazole-haloperidol-evidence.js';
