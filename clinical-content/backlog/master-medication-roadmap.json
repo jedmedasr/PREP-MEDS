@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-03T21:49:00Z",
+  "generatedAt": "2026-10-04T01:49:33Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "1f6a6c1689686e8f7bc80f2b6c0faaf1625435f8",
+    "basedOnHeadSha": "e17fdc5ec549604a3d44dc1a25391c30c15b2a83",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -897,7 +897,8 @@
         "stimulant IR/ER",
         "oral versus long-acting injectable antipsychotics",
         "lithium carbonate immediate-release tablet/capsule versus LITHOBID extended-release tablet versus lithium citrate oral solution",
-        "alprazolam immediate-release versus XANAX XR; lorazepam oral versus IM/IV; clonazepam conventional versus orally disintegrating tablet"
+        "alprazolam immediate-release versus XANAX XR; lorazepam oral versus IM/IV; clonazepam conventional versus orally disintegrating tablet",
+        "venlafaxine immediate-release oral tablet versus extended-release oral capsule; desvenlafaxine extended-release tablet; duloxetine delayed-release capsule"
       ],
       "routeDistinctions": [
         "oral",
@@ -906,7 +907,8 @@
       ],
       "releaseFormDistinctions": [
         "IR/SR/XL where clinically relevant",
-        "lithium immediate-release versus extended-release identities"
+        "lithium immediate-release versus extended-release identities",
+        "SNRI immediate-release, extended-release, and delayed-release identities"
       ],
       "combinationProductDistinctions": [],
       "developmentStatus": "IN_PROGRESS",
@@ -999,9 +1001,27 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-SNRI-FORM-RELEASE-DISCONTINUATION-SEROTONERGIC-HEMODYNAMIC",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "e17fdc5ec549604a3d44dc1a25391c30c15b2a83",
+          "products": [
+            "venlafaxine immediate-release oral tablet",
+            "venlafaxine extended-release oral capsule",
+            "desvenlafaxine extended-release oral tablet",
+            "duloxetine delayed-release oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 477,
+            "workflowRunId": 37169315321,
+            "jobId": 111338839185,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Chronic benzodiazepine identity/form/release/route gaps are engineering-verified. Next inventory remaining anesthesia-sensitive antidepressant and antipsychotic identities for genuine withdrawal, serotonergic/adrenergic, QT/hemodynamic, and sedation gaps; then proceed to bounded OTC/herbal review before V1 reconciliation."
+      "nextEngineeringWork": "SNRI form/release identities are engineering-verified. Next inventory remaining anesthesia-sensitive antipsychotic identities for genuine oral-versus-LAI, QT/hemodynamic, sedation, withdrawal, and interaction gaps; then proceed to bounded OTC/herbal review before V1 reconciliation."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",

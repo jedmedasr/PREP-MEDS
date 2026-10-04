@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-03T21:49:00Z",
+  "updatedAt": "2026-10-04T01:49:33Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -158,6 +158,55 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "E_SNRI_FORM_RELEASE_DISCONTINUATION_SEROTONERGIC_HEMODYNAMIC": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "e17fdc5ec549604a3d44dc1a25391c30c15b2a83",
+      "products": [
+        "venlafaxine immediate-release oral tablet",
+        "venlafaxine extended-release oral capsule",
+        "desvenlafaxine extended-release oral tablet",
+        "duloxetine delayed-release oral capsule"
+      ],
+      "preservation": [
+        "Venlafaxine immediate-release tablet and extended-release capsule remain distinct; bare venlafaxine fails closed across release and dosage-form identities.",
+        "Desvenlafaxine extended-release tablet and duloxetine delayed-release capsule preserve their release-form identities.",
+        "Indication, treatment duration and adherence, withdrawal/discontinuation risk, serotonergic co-therapy, blood pressure and cardiovascular status, bleeding context, organ function, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No substitution, release/form conversion, continuation, interruption, taper, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 477,
+        "workflowRunId": 37169315321,
+        "jobId": 111338839185,
+        "conclusion": "success",
+        "verifiedHeadSha": "e17fdc5ec549604a3d44dc1a25391c30c15b2a83",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      },
+      "repairReceipt": {
+        "failedRunNumbers": [
+          475,
+          476
+        ],
+        "failedRunIds": [
+          37159697462,
+          37162997768
+        ],
+        "failedJobIds": [
+          111310397978,
+          111320141078
+        ],
+        "cause": "The first exact-head run exposed a duplicate evidence import; the second exposed shared venlafaxine aliases and a missing assembled evidence-bundle entry.",
+        "repairCommits": [
+          "682716d7f4861bb704e30f0d4642fa3604a5831a",
+          "e17fdc5ec549604a3d44dc1a25391c30c15b2a83"
+        ]
+      }
     }
   },
   "evidenceState": {
@@ -170,7 +219,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory remaining anesthesia-sensitive psych/neurologic drugs, starting antidepressant and antipsychotic identities where abrupt cessation, serotonergic/adrenergic interaction, QT/hemodynamic instability, or withdrawal materially affects peri-procedural review; implement only genuine gaps.",
+  "nextWorkItem": "Inventory remaining anesthesia-sensitive antipsychotic identities, prioritizing oral versus long-acting injectable distinctions and genuine QT/hemodynamic, sedation, withdrawal, and interaction review gaps; keep all routing fail-closed and review-only.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
