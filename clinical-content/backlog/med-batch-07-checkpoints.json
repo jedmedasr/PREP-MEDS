@@ -239,6 +239,38 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "G_QUETIAPINE_OLANZAPINE_ROUTE_FORM_RELEASE_SEDATION_HEMODYNAMIC": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "177211944427fd8347a8019cec06f7266fb9a511",
+      "products": [
+        "quetiapine conventional oral tablet",
+        "SEROQUEL XR quetiapine extended-release oral tablet",
+        "ZYPREXA olanzapine oral tablet",
+        "ZYPREXA ZYDIS olanzapine orally disintegrating tablet",
+        "ZYPREXA INTRAMUSCULAR olanzapine injection powder for solution",
+        "ZYPREXA RELPREVV olanzapine extended-release intramuscular injection"
+      ],
+      "preservation": [
+        "Quetiapine conventional and extended-release oral tablets remain distinct; nonspecific quetiapine fails closed.",
+        "Olanzapine conventional oral tablet, orally disintegrating tablet, non-extended-release intramuscular powder for solution, and ZYPREXA RELPREVV extended-release intramuscular injection remain distinct; nonspecific olanzapine fails closed.",
+        "Indication, psychiatric stability, last administration, relapse or withdrawal risk, orthostatic/hemodynamic and cardiac status, sedation/cognitive-motor effects, seizure risk, interacting medicines, ZYPREXA RELPREVV post-injection delirium/sedation syndrome context, and anesthesia plan remain clinician/psychiatry/pharmacy/local-policy reviewed.",
+        "No substitution, route/form/release conversion, continuation, interruption, dose or administration change, monitoring plan, anesthesia plan, procedural timing, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 481,
+        "workflowRunId": 37175555835,
+        "jobId": 111357311901,
+        "conclusion": "success",
+        "verifiedHeadSha": "177211944427fd8347a8019cec06f7266fb9a511",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -251,7 +283,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Continue the bounded antipsychotic inventory with quetiapine immediate-release versus extended-release and olanzapine oral/ODT versus long-acting injectable distinctions where direct labeling supports genuine anesthesia-relevant hemodynamic, sedation, withdrawal, or interaction review gaps.",
+  "nextWorkItem": "Inventory remaining anesthesia-sensitive antipsychotic gaps, prioritizing aripiprazole oral/ODT versus long-acting injectable and haloperidol oral/acute intramuscular versus decanoate identities; implement only direct-label-supported route/form/release gaps, then proceed to bounded OTC/herbal review before V1 reconciliation.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }

@@ -899,7 +899,8 @@
         "lithium carbonate immediate-release tablet/capsule versus LITHOBID extended-release tablet versus lithium citrate oral solution",
         "alprazolam immediate-release versus XANAX XR; lorazepam oral versus IM/IV; clonazepam conventional versus orally disintegrating tablet",
         "venlafaxine immediate-release oral tablet versus extended-release oral capsule; desvenlafaxine extended-release tablet; duloxetine delayed-release capsule",
-        "risperidone conventional tablet, oral solution, and orally disintegrating tablet versus RISPERDAL CONSTA intramuscular and PERSERIS/UZEDY subcutaneous extended-release injections"
+        "risperidone conventional tablet, oral solution, and orally disintegrating tablet versus RISPERDAL CONSTA intramuscular and PERSERIS/UZEDY subcutaneous extended-release injections",
+        "quetiapine conventional oral tablet versus SEROQUEL XR extended-release tablet; olanzapine conventional oral tablet versus ZYPREXA ZYDIS ODT, ZYPREXA INTRAMUSCULAR powder for solution, and ZYPREXA RELPREVV extended-release intramuscular injection"
       ],
       "routeDistinctions": [
         "oral",
@@ -911,7 +912,8 @@
         "IR/SR/XL where clinically relevant",
         "lithium immediate-release versus extended-release identities",
         "SNRI immediate-release, extended-release, and delayed-release identities",
-        "risperidone oral immediate/non-extended-release forms versus branded long-acting injectable products"
+        "risperidone oral immediate/non-extended-release forms versus branded long-acting injectable products",
+        "quetiapine conventional versus extended-release oral tablets; olanzapine non-extended-release oral/ODT/IM identities versus ZYPREXA RELPREVV extended-release IM identity"
       ],
       "combinationProductDistinctions": [],
       "developmentStatus": "IN_PROGRESS",
@@ -1042,9 +1044,29 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-QUETIAPINE-OLANZAPINE-ROUTE-FORM-RELEASE-SEDATION-HEMODYNAMIC",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "177211944427fd8347a8019cec06f7266fb9a511",
+          "products": [
+            "quetiapine conventional oral tablet",
+            "SEROQUEL XR quetiapine extended-release oral tablet",
+            "ZYPREXA olanzapine oral tablet",
+            "ZYPREXA ZYDIS olanzapine orally disintegrating tablet",
+            "ZYPREXA INTRAMUSCULAR olanzapine injection powder for solution",
+            "ZYPREXA RELPREVV olanzapine extended-release intramuscular injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 481,
+            "workflowRunId": 37175555835,
+            "jobId": 111357311901,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Risperidone oral/LAI route-form-release identities are engineering-verified. Continue the bounded antipsychotic inventory with quetiapine IR/XR and olanzapine oral/ODT/LAI distinctions where genuine anesthesia-relevant gaps remain; then proceed to bounded OTC/herbal review before V1 reconciliation."
+      "nextEngineeringWork": "Quetiapine and olanzapine route/form/release identities are engineering-verified. Inventory remaining anesthesia-sensitive antipsychotic gaps, prioritizing aripiprazole oral/ODT/LAI and haloperidol oral/acute IM/decanoate distinctions; implement only genuine direct-label-supported gaps, then proceed to bounded OTC/herbal review before V1 reconciliation."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
