@@ -900,7 +900,8 @@
         "alprazolam immediate-release versus XANAX XR; lorazepam oral versus IM/IV; clonazepam conventional versus orally disintegrating tablet",
         "venlafaxine immediate-release oral tablet versus extended-release oral capsule; desvenlafaxine extended-release tablet; duloxetine delayed-release capsule",
         "risperidone conventional tablet, oral solution, and orally disintegrating tablet versus RISPERDAL CONSTA intramuscular and PERSERIS/UZEDY subcutaneous extended-release injections",
-        "quetiapine conventional oral tablet versus SEROQUEL XR extended-release tablet; olanzapine conventional oral tablet versus ZYPREXA ZYDIS ODT, ZYPREXA INTRAMUSCULAR powder for solution, and ZYPREXA RELPREVV extended-release intramuscular injection"
+        "quetiapine conventional oral tablet versus SEROQUEL XR extended-release tablet; olanzapine conventional oral tablet versus ZYPREXA ZYDIS ODT, ZYPREXA INTRAMUSCULAR powder for solution, and ZYPREXA RELPREVV extended-release intramuscular injection",
+        "aripiprazole conventional tablet and ODT versus ABILIFY MAINTENA/ASIMTUFII and ARISTADA/ARISTADA INITIO extended-release IM products; haloperidol tablet/solution versus lactate immediate-release IM and decanoate long-acting IM"
       ],
       "routeDistinctions": [
         "oral",
@@ -913,7 +914,8 @@
         "lithium immediate-release versus extended-release identities",
         "SNRI immediate-release, extended-release, and delayed-release identities",
         "risperidone oral immediate/non-extended-release forms versus branded long-acting injectable products",
-        "quetiapine conventional versus extended-release oral tablets; olanzapine non-extended-release oral/ODT/IM identities versus ZYPREXA RELPREVV extended-release IM identity"
+        "quetiapine conventional versus extended-release oral tablets; olanzapine non-extended-release oral/ODT/IM identities versus ZYPREXA RELPREVV extended-release IM identity",
+        "aripiprazole oral versus branded extended-release IM products; haloperidol immediate/non-extended-release oral and lactate IM versus decanoate long-acting IM"
       ],
       "combinationProductDistinctions": [],
       "developmentStatus": "IN_PROGRESS",
@@ -1064,9 +1066,33 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-ARIPIPRAZOLE-HALOPERIDOL-ROUTE-FORM-RELEASE-CHEMICAL-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "6864251f1e38bfa4ddfd8c9a2223252090979d09",
+          "products": [
+            "ABILIFY aripiprazole oral tablet",
+            "aripiprazole orally disintegrating tablet",
+            "ABILIFY MAINTENA aripiprazole extended-release intramuscular injection",
+            "ABILIFY ASIMTUFII aripiprazole extended-release intramuscular injection",
+            "ARISTADA aripiprazole lauroxil extended-release intramuscular injection",
+            "ARISTADA INITIO aripiprazole lauroxil extended-release intramuscular initiation product",
+            "haloperidol oral tablet",
+            "haloperidol oral solution concentrate",
+            "haloperidol lactate immediate-release intramuscular injection",
+            "haloperidol decanoate long-acting intramuscular injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 483,
+            "workflowRunId": 37178327664,
+            "jobId": 111365545210,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Quetiapine and olanzapine route/form/release identities are engineering-verified. Inventory remaining anesthesia-sensitive antipsychotic gaps, prioritizing aripiprazole oral/ODT/LAI and haloperidol oral/acute IM/decanoate distinctions; implement only genuine direct-label-supported gaps, then proceed to bounded OTC/herbal review before V1 reconciliation."
+      "nextEngineeringWork": "Aripiprazole and haloperidol route/form/release/chemical-form identities are engineering-verified. Inventory clozapine form/withdrawal/hemodynamic/sedation/aspiration and ziprasidone oral/acute-IM/QT gaps; implement only genuine direct-label-supported identities, then reconcile any remaining high-impact antidepressant gap before bounded OTC/herbal review."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
