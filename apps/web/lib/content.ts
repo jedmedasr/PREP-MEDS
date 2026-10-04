@@ -424,6 +424,7 @@ export const clinicalReviewEvidenceBundles = [
   periproceduralMaoiIdentityEvidence,
   periproceduralLithiumIdentityEvidence,
   periproceduralBenzodiazepineIdentityEvidence,
+  periproceduralSnriIdentityEvidence,
   systemicCorticosteroidIdentityEvidence,
   tacrolimusIdentityEvidence,
   cyclosporineIdentityEvidence,
