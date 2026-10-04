@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-04T02:55:00Z",
+  "updatedAt": "2026-10-04T06:25:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -308,6 +308,37 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "I_CLOZAPINE_ZIPRASIDONE_FORM_CHEMICAL_FORM_WITHDRAWAL_QT_SEDATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "f592523394cb00db69dd9d8a17136ac1b3c74d00",
+      "products": [
+        "clozapine conventional oral tablet",
+        "clozapine orally disintegrating tablet",
+        "VERSACLOZ clozapine oral suspension",
+        "GEODON ziprasidone hydrochloride oral capsule",
+        "GEODON ziprasidone mesylate intramuscular injection"
+      ],
+      "preservation": [
+        "Clozapine conventional tablet, orally disintegrating tablet, and VERSACLOZ oral suspension remain distinct; nonspecific clozapine fails closed.",
+        "GEODON oral ziprasidone hydrochloride capsule and acute intramuscular ziprasidone mesylate injection remain distinct chemical-form/route identities; nonspecific ziprasidone or Geodon fails closed.",
+        "Psychiatric stability, interruption or missed-dose history, relapse/cholinergic-rebound risk, severe neutropenia, myocarditis/cardiomyopathy, orthostatic/hemodynamic status, seizure, gastrointestinal hypomotility, sedation, hypersalivation/swallowing/aspiration, QT/cardiac/electrolyte, serotonergic, interacting-medication, and anesthesia context remain clinician/psychiatry/pharmacy/local-policy reviewed.",
+        "No initiation, substitution, salt/route/form conversion, continuation, interruption, taper, dose or administration change, monitoring plan, anesthesia plan, procedural timing, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 485,
+        "workflowRunId": 37184081107,
+        "jobId": 111382282497,
+        "conclusion": "success",
+        "verifiedHeadSha": "f592523394cb00db69dd9d8a17136ac1b3c74d00",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -320,7 +351,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory the remaining high-impact antipsychotic gaps, prioritizing clozapine form/withdrawal/hemodynamic/sedation/aspiration context and ziprasidone oral versus acute intramuscular/QT distinctions; implement only direct-label-supported identities, then reconcile any remaining high-impact antidepressant gap before bounded OTC/herbal review.",
+  "nextWorkItem": "Reconcile the remaining high-impact antidepressant gap, prioritizing tricyclic-antidepressant cardiac/anticholinergic/hemodynamic context and bupropion immediate-/sustained-/extended-release distinctions only where direct-label-supported and anesthesia-relevant; then begin bounded OTC/herbal review.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }

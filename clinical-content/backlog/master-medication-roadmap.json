@@ -1090,9 +1090,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-CLOZAPINE-ZIPRASIDONE-FORM-CHEMICAL-FORM-WITHDRAWAL-QT-SEDATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "f592523394cb00db69dd9d8a17136ac1b3c74d00",
+          "products": [
+            "clozapine conventional oral tablet",
+            "clozapine orally disintegrating tablet",
+            "VERSACLOZ clozapine oral suspension",
+            "GEODON ziprasidone hydrochloride oral capsule",
+            "GEODON ziprasidone mesylate intramuscular injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 485,
+            "workflowRunId": 37184081107,
+            "jobId": 111382282497,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Aripiprazole and haloperidol route/form/release/chemical-form identities are engineering-verified. Inventory clozapine form/withdrawal/hemodynamic/sedation/aspiration and ziprasidone oral/acute-IM/QT gaps; implement only genuine direct-label-supported identities, then reconcile any remaining high-impact antidepressant gap before bounded OTC/herbal review."
+      "nextEngineeringWork": "Clozapine and ziprasidone form/chemical-form/withdrawal/QT/sedation identities are engineering-verified. Reconcile the remaining high-impact antidepressant gap, prioritizing tricyclic-antidepressant cardiac/anticholinergic/hemodynamic context and bupropion release distinctions only where direct-label-supported and anesthesia-relevant; then begin bounded OTC/herbal review."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
