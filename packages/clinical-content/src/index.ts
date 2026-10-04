@@ -651,3 +651,12 @@ export {
   periproceduralRisperidoneReviewRules,
 } from './periprocedural-risperidone-evidence.js';
 export type { PeriproceduralRisperidoneIdentityDefinition } from './periprocedural-risperidone-evidence.js';
+
+export {
+  periproceduralQuetiapineOlanzapineIdentityDefinitions,
+  periproceduralQuetiapineOlanzapineIdentitySources,
+  periproceduralQuetiapineOlanzapineIdentityAtoms,
+  periproceduralQuetiapineOlanzapineIdentityEvidence,
+  periproceduralQuetiapineOlanzapineReviewRules,
+} from './periprocedural-quetiapine-olanzapine-evidence.js';
+export type { PeriproceduralQuetiapineOlanzapineIdentityDefinition } from './periprocedural-quetiapine-olanzapine-evidence.js';
