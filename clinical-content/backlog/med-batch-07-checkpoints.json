@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-04T01:49:33Z",
+  "updatedAt": "2026-10-04T02:55:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -207,6 +207,38 @@
           "e17fdc5ec549604a3d44dc1a25391c30c15b2a83"
         ]
       }
+    },
+    "F_RISPERIDONE_ORAL_LAI_ROUTE_FORM_RELEASE_HEMODYNAMIC_SEDATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "43e957b03376d827006f8c26588a86872b9613f9",
+      "products": [
+        "risperidone oral tablet",
+        "risperidone oral solution",
+        "risperidone orally disintegrating tablet",
+        "RISPERDAL CONSTA risperidone extended-release intramuscular injection",
+        "PERSERIS risperidone extended-release subcutaneous injection",
+        "UZEDY risperidone extended-release subcutaneous injection"
+      ],
+      "preservation": [
+        "Conventional oral tablet, oral solution, orally disintegrating tablet, long-acting intramuscular, and extended-release subcutaneous identities remain distinct; nonspecific risperidone fails closed.",
+        "RISPERDAL CONSTA, PERSERIS, and UZEDY remain distinct whole-product long-acting injectable identities and are not inferred to be interchangeable.",
+        "Indication, psychiatric stability, last administration, relapse or withdrawal risk, orthostatic/fall and cardiac status, sedation/cognitive-motor effects, swallowing risk, organ function, interacting medicines, and anesthesia plan remain clinician/psychiatry/pharmacy/local-policy reviewed.",
+        "No substitution, route/form/release conversion, continuation, interruption, dose change, anesthesia plan, procedural timing, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 479,
+        "workflowRunId": 37172432516,
+        "jobId": 111347962115,
+        "conclusion": "success",
+        "verifiedHeadSha": "43e957b03376d827006f8c26588a86872b9613f9",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -219,7 +251,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory remaining anesthesia-sensitive antipsychotic identities, prioritizing oral versus long-acting injectable distinctions and genuine QT/hemodynamic, sedation, withdrawal, and interaction review gaps; keep all routing fail-closed and review-only.",
+  "nextWorkItem": "Continue the bounded antipsychotic inventory with quetiapine immediate-release versus extended-release and olanzapine oral/ODT versus long-acting injectable distinctions where direct labeling supports genuine anesthesia-relevant hemodynamic, sedation, withdrawal, or interaction review gaps.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }

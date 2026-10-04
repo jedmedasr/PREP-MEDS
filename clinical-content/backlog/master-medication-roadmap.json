@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-04T01:49:33Z",
+  "generatedAt": "2026-10-04T02:55:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "e17fdc5ec549604a3d44dc1a25391c30c15b2a83",
+    "basedOnHeadSha": "43e957b03376d827006f8c26588a86872b9613f9",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -898,17 +898,20 @@
         "oral versus long-acting injectable antipsychotics",
         "lithium carbonate immediate-release tablet/capsule versus LITHOBID extended-release tablet versus lithium citrate oral solution",
         "alprazolam immediate-release versus XANAX XR; lorazepam oral versus IM/IV; clonazepam conventional versus orally disintegrating tablet",
-        "venlafaxine immediate-release oral tablet versus extended-release oral capsule; desvenlafaxine extended-release tablet; duloxetine delayed-release capsule"
+        "venlafaxine immediate-release oral tablet versus extended-release oral capsule; desvenlafaxine extended-release tablet; duloxetine delayed-release capsule",
+        "risperidone conventional tablet, oral solution, and orally disintegrating tablet versus RISPERDAL CONSTA intramuscular and PERSERIS/UZEDY subcutaneous extended-release injections"
       ],
       "routeDistinctions": [
         "oral",
         "transdermal",
-        "intramuscular"
+        "intramuscular",
+        "subcutaneous"
       ],
       "releaseFormDistinctions": [
         "IR/SR/XL where clinically relevant",
         "lithium immediate-release versus extended-release identities",
-        "SNRI immediate-release, extended-release, and delayed-release identities"
+        "SNRI immediate-release, extended-release, and delayed-release identities",
+        "risperidone oral immediate/non-extended-release forms versus branded long-acting injectable products"
       ],
       "combinationProductDistinctions": [],
       "developmentStatus": "IN_PROGRESS",
@@ -1019,9 +1022,29 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-RISPERIDONE-ORAL-LAI-ROUTE-FORM-RELEASE-HEMODYNAMIC-SEDATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "43e957b03376d827006f8c26588a86872b9613f9",
+          "products": [
+            "risperidone oral tablet",
+            "risperidone oral solution",
+            "risperidone orally disintegrating tablet",
+            "RISPERDAL CONSTA extended-release intramuscular injection",
+            "PERSERIS extended-release subcutaneous injection",
+            "UZEDY extended-release subcutaneous injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 479,
+            "workflowRunId": 37172432516,
+            "jobId": 111347962115,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "SNRI form/release identities are engineering-verified. Next inventory remaining anesthesia-sensitive antipsychotic identities for genuine oral-versus-LAI, QT/hemodynamic, sedation, withdrawal, and interaction gaps; then proceed to bounded OTC/herbal review before V1 reconciliation."
+      "nextEngineeringWork": "Risperidone oral/LAI route-form-release identities are engineering-verified. Continue the bounded antipsychotic inventory with quetiapine IR/XR and olanzapine oral/ODT/LAI distinctions where genuine anesthesia-relevant gaps remain; then proceed to bounded OTC/herbal review before V1 reconciliation."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
