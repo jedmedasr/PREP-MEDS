@@ -642,3 +642,12 @@ export {
   periproceduralSnriReviewRules,
 } from './periprocedural-snri-evidence.js';
 export type { PeriproceduralSnriIdentityDefinition } from './periprocedural-snri-evidence.js';
+
+export {
+  periproceduralRisperidoneIdentityDefinitions,
+  periproceduralRisperidoneIdentitySources,
+  periproceduralRisperidoneIdentityAtoms,
+  periproceduralRisperidoneIdentityEvidence,
+  periproceduralRisperidoneReviewRules,
+} from './periprocedural-risperidone-evidence.js';
+export type { PeriproceduralRisperidoneIdentityDefinition } from './periprocedural-risperidone-evidence.js';
