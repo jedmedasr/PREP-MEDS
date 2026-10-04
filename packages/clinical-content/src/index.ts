@@ -669,3 +669,12 @@ export {
   periproceduralAripiprazoleHaloperidolReviewRules,
 } from './periprocedural-aripiprazole-haloperidol-evidence.js';
 export type { PeriproceduralAripiprazoleHaloperidolIdentityDefinition } from './periprocedural-aripiprazole-haloperidol-evidence.js';
+
+export {
+  periproceduralClozapineZiprasidoneIdentityDefinitions,
+  periproceduralClozapineZiprasidoneIdentitySources,
+  periproceduralClozapineZiprasidoneIdentityAtoms,
+  periproceduralClozapineZiprasidoneIdentityEvidence,
+  periproceduralClozapineZiprasidoneReviewRules,
+} from './periprocedural-clozapine-ziprasidone-evidence.js';
+export type { PeriproceduralClozapineZiprasidoneIdentityDefinition } from './periprocedural-clozapine-ziprasidone-evidence.js';

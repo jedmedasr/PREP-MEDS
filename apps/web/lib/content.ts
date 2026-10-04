@@ -56,9 +56,11 @@ import {
   periproceduralRisperidoneIdentityEvidence,
   periproceduralQuetiapineOlanzapineIdentityEvidence,
   periproceduralAripiprazoleHaloperidolIdentityEvidence,
+  periproceduralClozapineZiprasidoneIdentityEvidence,
   periproceduralRisperidoneReviewRules,
   periproceduralQuetiapineOlanzapineReviewRules,
   periproceduralAripiprazoleHaloperidolReviewRules,
+  periproceduralClozapineZiprasidoneReviewRules,
   systemicCorticosteroidIdentityEvidence,
   systemicCorticosteroidReviewRules,
   tacrolimusIdentityEvidence,
@@ -142,6 +144,7 @@ import { periproceduralSnriIngredients, periproceduralSnriMedications } from './
 import { periproceduralRisperidoneIngredients, periproceduralRisperidoneMedications } from './periprocedural-risperidone';
 import { periproceduralQuetiapineOlanzapineIngredients, periproceduralQuetiapineOlanzapineMedications } from './periprocedural-quetiapine-olanzapine';
 import { periproceduralAripiprazoleHaloperidolIngredients, periproceduralAripiprazoleHaloperidolMedications } from './periprocedural-aripiprazole-haloperidol';
+import { periproceduralClozapineZiprasidoneIngredients, periproceduralClozapineZiprasidoneMedications } from './periprocedural-clozapine-ziprasidone';
 import { systemicCorticosteroidIngredients, systemicCorticosteroidMedications } from './systemic-corticosteroids';
 import { tacrolimusIngredients, tacrolimusMedications } from './tacrolimus';
 import { cyclosporineIngredients, cyclosporineMedications } from './cyclosporine';
@@ -186,7 +189,7 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'periprocedural-aripiprazole-haloperidol-review-1',
+  version: 'periprocedural-clozapine-ziprasidone-review-1',
   generatedAt: '${retrievedAt}',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
@@ -220,6 +223,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralRisperidoneIngredients,
     ...periproceduralQuetiapineOlanzapineIngredients,
     ...periproceduralAripiprazoleHaloperidolIngredients,
+    ...periproceduralClozapineZiprasidoneIngredients,
     ...systemicCorticosteroidIngredients,
     ...tacrolimusIngredients,
     ...cyclosporineIngredients,
@@ -318,6 +322,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralRisperidoneMedications,
     ...periproceduralQuetiapineOlanzapineMedications,
     ...periproceduralAripiprazoleHaloperidolMedications,
+    ...periproceduralClozapineZiprasidoneMedications,
     ...systemicCorticosteroidMedications,
     ...tacrolimusMedications,
     ...cyclosporineMedications,
@@ -388,6 +393,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...periproceduralRisperidoneReviewRules,
   ...periproceduralQuetiapineOlanzapineReviewRules,
   ...periproceduralAripiprazoleHaloperidolReviewRules,
+  ...periproceduralClozapineZiprasidoneReviewRules,
   ...systemicCorticosteroidReviewRules,
   ...tacrolimusReviewRules,
   ...cyclosporineReviewRules,
@@ -446,6 +452,7 @@ export const clinicalReviewEvidenceBundles = [
   periproceduralRisperidoneIdentityEvidence,
   periproceduralQuetiapineOlanzapineIdentityEvidence,
   periproceduralAripiprazoleHaloperidolIdentityEvidence,
+  periproceduralClozapineZiprasidoneIdentityEvidence,
   systemicCorticosteroidIdentityEvidence,
   tacrolimusIdentityEvidence,
   cyclosporineIdentityEvidence,
