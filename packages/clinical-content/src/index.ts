@@ -696,3 +696,12 @@ export {
   periproceduralHerbalSupplementReviewRules,
 } from './periprocedural-herbal-supplement-evidence.js';
 export type { PeriproceduralHerbalSupplementIdentityDefinition } from './periprocedural-herbal-supplement-evidence.js';
+
+export {
+  periproceduralCannabinoidIdentityDefinitions,
+  periproceduralCannabinoidIdentitySources,
+  periproceduralCannabinoidIdentityAtoms,
+  periproceduralCannabinoidIdentityEvidence,
+  periproceduralCannabinoidReviewRules,
+} from './periprocedural-cannabinoid-evidence.js';
+export type { PeriproceduralCannabinoidIdentityDefinition } from './periprocedural-cannabinoid-evidence.js';
