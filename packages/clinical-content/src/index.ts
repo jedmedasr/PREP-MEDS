@@ -687,3 +687,12 @@ export {
   periproceduralTcaBupropionReviewRules,
 } from './periprocedural-tca-bupropion-evidence.js';
 export type { PeriproceduralTcaBupropionIdentityDefinition } from './periprocedural-tca-bupropion-evidence.js';
+
+export {
+  periproceduralHerbalSupplementIdentityDefinitions,
+  periproceduralHerbalSupplementIdentitySources,
+  periproceduralHerbalSupplementIdentityAtoms,
+  periproceduralHerbalSupplementIdentityEvidence,
+  periproceduralHerbalSupplementReviewRules,
+} from './periprocedural-herbal-supplement-evidence.js';
+export type { PeriproceduralHerbalSupplementIdentityDefinition } from './periprocedural-herbal-supplement-evidence.js';

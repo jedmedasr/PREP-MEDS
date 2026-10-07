@@ -58,11 +58,13 @@ import {
   periproceduralAripiprazoleHaloperidolIdentityEvidence,
   periproceduralClozapineZiprasidoneIdentityEvidence,
   periproceduralTcaBupropionIdentityEvidence,
+  periproceduralHerbalSupplementIdentityEvidence,
   periproceduralRisperidoneReviewRules,
   periproceduralQuetiapineOlanzapineReviewRules,
   periproceduralAripiprazoleHaloperidolReviewRules,
   periproceduralClozapineZiprasidoneReviewRules,
   periproceduralTcaBupropionReviewRules,
+  periproceduralHerbalSupplementReviewRules,
   systemicCorticosteroidIdentityEvidence,
   systemicCorticosteroidReviewRules,
   tacrolimusIdentityEvidence,
@@ -148,6 +150,7 @@ import { periproceduralQuetiapineOlanzapineIngredients, periproceduralQuetiapine
 import { periproceduralAripiprazoleHaloperidolIngredients, periproceduralAripiprazoleHaloperidolMedications } from './periprocedural-aripiprazole-haloperidol';
 import { periproceduralClozapineZiprasidoneIngredients, periproceduralClozapineZiprasidoneMedications } from './periprocedural-clozapine-ziprasidone';
 import { periproceduralTcaBupropionIngredients, periproceduralTcaBupropionMedications } from './periprocedural-tca-bupropion';
+import { periproceduralHerbalSupplementIngredients, periproceduralHerbalSupplementMedications } from './periprocedural-herbal-supplements';
 import { systemicCorticosteroidIngredients, systemicCorticosteroidMedications } from './systemic-corticosteroids';
 import { tacrolimusIngredients, tacrolimusMedications } from './tacrolimus';
 import { cyclosporineIngredients, cyclosporineMedications } from './cyclosporine';
@@ -192,7 +195,7 @@ export type ClinicalContentState =
 
 // Validate identity integrity at assembly rather than allowing a broken catalog into the API.
 export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
-  version: 'periprocedural-tca-bupropion-review-1',
+  version: 'periprocedural-herbal-supplement-review-1',
   generatedAt: '${retrievedAt}',
   ingredients: [
     { id: 'ING-apixaban', canonicalName: 'Apixaban', aliases: ['eliquis'] },
@@ -228,6 +231,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralAripiprazoleHaloperidolIngredients,
     ...periproceduralClozapineZiprasidoneIngredients,
     ...periproceduralTcaBupropionIngredients,
+    ...periproceduralHerbalSupplementIngredients,
     ...systemicCorticosteroidIngredients,
     ...tacrolimusIngredients,
     ...cyclosporineIngredients,
@@ -328,6 +332,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...periproceduralAripiprazoleHaloperidolMedications,
     ...periproceduralClozapineZiprasidoneMedications,
     ...periproceduralTcaBupropionMedications,
+    ...periproceduralHerbalSupplementMedications,
     ...systemicCorticosteroidMedications,
     ...tacrolimusMedications,
     ...cyclosporineMedications,
@@ -400,6 +405,7 @@ export const clinicalReviewRules: ClinicalRule[] = [
   ...periproceduralAripiprazoleHaloperidolReviewRules,
   ...periproceduralClozapineZiprasidoneReviewRules,
   ...periproceduralTcaBupropionReviewRules,
+  ...periproceduralHerbalSupplementReviewRules,
   ...systemicCorticosteroidReviewRules,
   ...tacrolimusReviewRules,
   ...cyclosporineReviewRules,
@@ -460,6 +466,7 @@ export const clinicalReviewEvidenceBundles = [
   periproceduralAripiprazoleHaloperidolIdentityEvidence,
   periproceduralClozapineZiprasidoneIdentityEvidence,
   periproceduralTcaBupropionIdentityEvidence,
+  periproceduralHerbalSupplementIdentityEvidence,
   systemicCorticosteroidIdentityEvidence,
   tacrolimusIdentityEvidence,
   cyclosporineIdentityEvidence,
