@@ -1,10 +1,10 @@
 {
   "checkpointId": "PREP-MEDS-SHADOW-VALIDATION-FOUNDATION-001",
-  "status": "EXECUTABLE_CASE_BINDING_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-  "recordedAt": "2026-10-07T12:32:00Z",
+  "status": "ENGINEERING_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "recordedAt": "2026-10-07T12:48:00Z",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "verifiedImplementationSha": "425c4d9f40559b5920672961ba44765056378c1a",
+  "verifiedImplementationSha": "a06fe4d4a0e6d30a983f5f178c662393d577c64c",
   "implemented": {
     "domainReviewPackets": [
       "antithrombotics",
@@ -58,13 +58,31 @@
       "evidenceProvenanceAudit": "ATOM_AND_SOURCE_RESOLUTION_ENFORCED",
       "ambiguityHandling": "FAIL_CLOSED",
       "patientInstructions": null
+    },
+    "reviewerHandoff": {
+      "deterministicDomainExports": 8,
+      "humanDecisionRegisterEntries": 26,
+      "accountableRoles": [
+        "GI",
+        "ANESTHESIA",
+        "PHARMACY",
+        "CARDIOLOGY",
+        "ENDOCRINOLOGY",
+        "NEUROLOGY",
+        "PAIN_OUD",
+        "TRANSPLANT",
+        "PRESCRIBER",
+        "LOCAL_GOVERNANCE"
+      ],
+      "status": "ENGINEERING_COMPLETE_HUMAN_REVIEW_REQUIRED",
+      "productionActivationStatus": "NOT_ACTIVE"
     }
   },
   "verification": {
     "workflowName": "quality",
-    "workflowRunNumber": 502,
-    "workflowRunId": 37616086446,
-    "jobId": 112774631559,
+    "workflowRunNumber": 506,
+    "workflowRunId": 37623321159,
+    "jobId": 112798734313,
     "conclusion": "success",
     "gates": {
       "schemaValidation": "SUCCESS",
@@ -82,9 +100,11 @@
     "mergeStatus": "NOT_MERGED",
     "deploymentStatus": "NOT_DEPLOYED"
   },
-  "remainingEngineeringWork": [
-    "Generate deterministic domain reviewer packet exports from executable case results.",
-    "Summarize decision traces, evidence provenance, unresolved modifiers, and local-policy questions by accountable reviewer role.",
-    "Reconcile and record the exact human clinical and local-policy decisions required before activation."
+  "remainingEngineeringWork": [],
+  "remainingHumanWork": [
+    "Adjudicate all 26 activation-blocking clinical and local-policy decisions in shadow-review-decision-register.json.",
+    "Version and test any approved organization/site policies.",
+    "Record clinical approval and local-policy approval separately.",
+    "Complete a separate explicit production-activation review; passing tests do not authorize activation."
   ]
 }
