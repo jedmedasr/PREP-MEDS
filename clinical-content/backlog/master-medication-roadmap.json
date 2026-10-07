@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-07T12:32:00Z",
+  "generatedAt": "2026-10-07T12:48:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "33c56e1ddc6342c732c0736a8200a8f772feef67",
+    "basedOnHeadSha": "2a4f2c6214af25639479fdcb7a1dcdb33e2d4c9f",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -2303,23 +2303,26 @@
     }
   ],
   "shadowValidation": {
-    "status": "EXECUTABLE_CASE_BINDING_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-    "verifiedImplementationSha": "425c4d9f40559b5920672961ba44765056378c1a",
+    "status": "ENGINEERING_COMPLETE_HUMAN_REVIEW_REQUIRED",
+    "verifiedImplementationSha": "a06fe4d4a0e6d30a983f5f178c662393d577c64c",
     "verification": {
       "workflowName": "quality",
-      "workflowRunNumber": 502,
-      "workflowRunId": 37616086446,
-      "jobId": 112774631559,
+      "workflowRunNumber": 506,
+      "workflowRunId": 37623321159,
+      "jobId": 112798734313,
       "conclusion": "success"
     },
     "domainPackets": 8,
     "syntheticCases": 20,
+    "humanDecisionRegisterEntries": 26,
     "terminologyBinding": "LIVE_VERSIONED_DATASET",
     "engineMode": "VALIDATION",
     "evidenceProvenanceAudit": "ATOM_AND_SOURCE_RESOLUTION_ENFORCED",
     "ambiguityHandling": "FAIL_CLOSED",
     "patientInstructionsEnabled": false,
     "productionActivationStatus": "NOT_ACTIVE",
-    "nextWorkItem": "Generate deterministic domain reviewer exports with evidence traces, unresolved modifiers, local-policy questions, and exact human decisions required before activation."
+    "remainingEngineeringWork": [],
+    "nextPhase": "ACCOUNTABLE_HUMAN_CLINICAL_AND_LOCAL_POLICY_REVIEW",
+    "activationRequirement": "All registered human decisions, separately recorded clinical/local-policy approvals, versioned policy tests, and an explicit production-activation review."
   }
 }
