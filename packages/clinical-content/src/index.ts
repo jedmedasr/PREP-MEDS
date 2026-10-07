@@ -678,3 +678,12 @@ export {
   periproceduralClozapineZiprasidoneReviewRules,
 } from './periprocedural-clozapine-ziprasidone-evidence.js';
 export type { PeriproceduralClozapineZiprasidoneIdentityDefinition } from './periprocedural-clozapine-ziprasidone-evidence.js';
+
+export {
+  periproceduralTcaBupropionIdentityDefinitions,
+  periproceduralTcaBupropionIdentitySources,
+  periproceduralTcaBupropionIdentityAtoms,
+  periproceduralTcaBupropionIdentityEvidence,
+  periproceduralTcaBupropionReviewRules,
+} from './periprocedural-tca-bupropion-evidence.js';
+export type { PeriproceduralTcaBupropionIdentityDefinition } from './periprocedural-tca-bupropion-evidence.js';
