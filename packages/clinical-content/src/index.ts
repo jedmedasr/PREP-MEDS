@@ -705,3 +705,5 @@ export {
   periproceduralCannabinoidReviewRules,
 } from './periprocedural-cannabinoid-evidence.js';
 export type { PeriproceduralCannabinoidIdentityDefinition } from './periprocedural-cannabinoid-evidence.js';
+
+export * from './shadow-validation.js';
