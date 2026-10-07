@@ -1,10 +1,10 @@
 {
   "checkpointId": "PREP-MEDS-SHADOW-VALIDATION-FOUNDATION-001",
-  "status": "FOUNDATION_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-  "recordedAt": "2026-10-07T10:53:00Z",
+  "status": "EXECUTABLE_CASE_BINDING_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "recordedAt": "2026-10-07T12:32:00Z",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "verifiedImplementationSha": "7ddd2c7784ab683eb58cdb1a2c1b9104ceafe7a2",
+  "verifiedImplementationSha": "425c4d9f40559b5920672961ba44765056378c1a",
   "implemented": {
     "domainReviewPackets": [
       "antithrombotics",
@@ -17,8 +17,15 @@
       "OTC/herbal"
     ],
     "syntheticCaseCount": 20,
-    "procedureCoverage": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
-    "bleedingRiskCoverage": ["LOW", "HIGH"],
+    "procedureCoverage": [
+      "EGD",
+      "COLONOSCOPY",
+      "EGD_COLONOSCOPY"
+    ],
+    "bleedingRiskCoverage": [
+      "LOW",
+      "HIGH"
+    ],
     "requiredContextsCovered": [
       "renal-function modifier",
       "recent ACS/stent/thrombotic event",
@@ -42,13 +49,22 @@
         "CLINICIAN_REVIEW_REQUIRED",
         "LOCAL_POLICY_REQUIRED"
       ]
+    },
+    "executableBinding": {
+      "terminologyResolver": "LIVE_VERSIONED_DATASET",
+      "engineMode": "VALIDATION",
+      "clinicalRules": "DRAFT_REVIEW_CANDIDATES",
+      "policies": "NO_ACTIVE_LOCAL_POLICIES",
+      "evidenceProvenanceAudit": "ATOM_AND_SOURCE_RESOLUTION_ENFORCED",
+      "ambiguityHandling": "FAIL_CLOSED",
+      "patientInstructions": null
     }
   },
   "verification": {
     "workflowName": "quality",
-    "workflowRunNumber": 498,
-    "workflowRunId": 37609654065,
-    "jobId": 112753530538,
+    "workflowRunNumber": 502,
+    "workflowRunId": 37616086446,
+    "jobId": 112774631559,
     "conclusion": "success",
     "gates": {
       "schemaValidation": "SUCCESS",
@@ -67,9 +83,8 @@
     "deploymentStatus": "NOT_DEPLOYED"
   },
   "remainingEngineeringWork": [
-    "Bind synthetic cases to the terminology resolver and clinical-engine candidate pathways.",
-    "Generate evidence-reference and decision-trace audit records for every executable case.",
-    "Add deterministic review packet export suitable for GI, anesthesia, pharmacy, and domain reviewers.",
+    "Generate deterministic domain reviewer packet exports from executable case results.",
+    "Summarize decision traces, evidence provenance, unresolved modifiers, and local-policy questions by accountable reviewer role.",
     "Reconcile and record the exact human clinical and local-policy decisions required before activation."
   ]
 }
