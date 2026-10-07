@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-04T02:55:00Z",
+  "generatedAt": "2026-10-07T08:46:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
@@ -2224,12 +2224,12 @@
       "combinationProductDistinctions": [
         "multi-ingredient OTC and cannabinoid products remain whole identities until active ingredients are verified"
       ],
-      "developmentStatus": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-      "evidenceStatus": "DRAFT_REVIEW_REQUIRED",
-      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "developmentStatus": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "evidenceStatus": "EVIDENCE_RECONCILED_DRAFT_REVIEW_REQUIRED",
+      "terminologyStatus": "ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PARTIAL_COMPLETE",
-      "engineeringVerificationStatus": "IN_PROGRESS",
+      "testingStatus": "ENGINEERING_VERIFIED",
+      "engineeringVerificationStatus": "ENGINEERING_VERIFIED",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
@@ -2255,9 +2255,28 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B14-CANNABINOID-ROUTE-USE-PATTERN-AND-LABELED-PRODUCTS",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "abfea3c4393e6bd890f8a492c109820f4bcb6288",
+          "identities": [
+            "self-reported inhaled cannabis use pattern",
+            "self-reported oral or edible cannabis use pattern",
+            "EPIDIOLEX cannabidiol oral solution",
+            "MARINOL dronabinol oral capsule",
+            "SYNDROS dronabinol oral solution"
+          ],
+          "ci": {
+            "workflowRunNumber": 492,
+            "workflowRunId": 37595724662,
+            "jobId": 112707749960,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Inventory cannabinoid route/use-pattern ambiguity and anesthesia-relevant interactions; implement only bounded authoritative-evidence-supported identities before the cross-batch V1 reconciliation sweep."
+      "nextEngineeringWork": "Begin the cross-batch V1 reconciliation sweep; defer broad lower-impact medication classes unless a critical defect is identified."
     }
   ]
 }

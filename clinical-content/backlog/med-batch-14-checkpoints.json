@@ -1,9 +1,9 @@
 {
   "batchId": "MED-BATCH-14-OTC-SUPPLEMENTS-CANNABINOIDS",
-  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-07T05:20:00Z",
+  "updatedAt": "2026-10-07T08:46:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -42,6 +42,38 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "B_CANNABINOID_ROUTE_USE_PATTERN_AND_LABELED_PRODUCTS": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "abfea3c4393e6bd890f8a492c109820f4bcb6288",
+      "identities": [
+        "self-reported inhaled cannabis use pattern",
+        "self-reported oral or edible cannabis use pattern",
+        "EPIDIOLEX cannabidiol oral solution",
+        "MARINOL dronabinol oral capsule",
+        "SYNDROS dronabinol oral solution"
+      ],
+      "preservation": [
+        "Self-reported cannabis use patterns are reconciliation concepts, not authenticated products; route, ingredients, potency, purity, dose, frequency, duration, and recency remain unresolved unless explicitly documented.",
+        "Bare cannabis and marijuana inputs are deliberately ambiguous across inhaled and oral use patterns; THC, CBD, cannabinoid oil, and unclear mixtures remain unresolved.",
+        "Consumer CBD is not inferred to be EPIDIOLEX, and MARINOL capsule and SYNDROS solution remain distinct non-interchangeable whole-product identities.",
+        "Cognition or acute-intoxication context, hemodynamic/cardiovascular effects, inhaled airway/respiratory effects, sedation/anesthetic interaction, hepatic and interacting-medication context, withdrawal, and postoperative pain/nausea remain accountable review questions.",
+        "No continuation, interruption, taper, restart, hold interval, substitution, route/form conversion, dosing, anesthesia plan, or procedural timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 492,
+        "workflowRunId": 37595724662,
+        "jobId": 112707749960,
+        "conclusion": "success",
+        "verifiedHeadSha": "abfea3c4393e6bd890f8a492c109820f4bcb6288",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -54,7 +86,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Inventory cannabinoid route/use-pattern ambiguity and clinically material anesthesia interactions; implement only bounded authoritative-evidence-supported identities before the cross-batch V1 reconciliation sweep.",
+  "nextWorkItem": "Begin the cross-batch V1 reconciliation sweep across aliases and brands, route/form/release/combo ambiguity, duplicate concepts, whole-product identity, fail-closed behavior, evidence provenance, and targeted regressions; do not broaden into lower-impact medication classes.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }
