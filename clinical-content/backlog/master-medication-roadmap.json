@@ -2224,17 +2224,40 @@
       "combinationProductDistinctions": [
         "multi-ingredient OTC and cannabinoid products remain whole identities until active ingredients are verified"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "evidenceStatus": "DRAFT_REVIEW_REQUIRED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_COMPLETE",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B14-BOUNDED-HERBAL-BLEEDING-SEDATION-INTERACTION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "976f1cf60b2aecb0120a49e349cdcae2cf2085ac",
+          "products": [
+            "garlic oral dietary supplement",
+            "Ginkgo biloba oral dietary supplement",
+            "Asian ginseng oral dietary supplement",
+            "St. John's wort oral dietary supplement",
+            "valerian oral dietary supplement",
+            "kava oral dietary supplement"
+          ],
+          "ci": {
+            "workflowRunNumber": 489,
+            "workflowRunId": 37572958060,
+            "jobId": 112635470294,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Inventory cannabinoid route/use-pattern ambiguity and anesthesia-relevant interactions; implement only bounded authoritative-evidence-supported identities before the cross-batch V1 reconciliation sweep."
     }
   ]
 }

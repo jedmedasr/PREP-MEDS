@@ -1,0 +1,60 @@
+{
+  "batchId": "MED-BATCH-14-OTC-SUPPLEMENTS-CANNABINOIDS",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-10-07T05:20:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_BOUNDED_HERBAL_BLEEDING_SEDATION_INTERACTION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "976f1cf60b2aecb0120a49e349cdcae2cf2085ac",
+      "products": [
+        "garlic oral dietary supplement",
+        "Ginkgo biloba oral dietary supplement",
+        "Asian ginseng oral dietary supplement",
+        "St. John's wort oral dietary supplement",
+        "valerian oral dietary supplement",
+        "kava oral dietary supplement"
+      ],
+      "preservation": [
+        "Ingredient-level supplement identities do not authenticate a brand, extract, plant part, preparation, purity, potency, combination product, dose, schedule, indication, or availability.",
+        "Proprietary blends and nonspecific herbal-supplement inputs remain unresolved and fail closed.",
+        "Bleeding, clotting, glucose, serotonergic and other drug interactions, sedation burden, chronic-use withdrawal context, hepatic status, procedure risk, and local policy remain accountable clinician/pharmacy/anesthesia/procedural-team review.",
+        "Fish oil was not added to special-handling rules because broad omega-3 evidence does not support generalized increased bleeding; high-dose purified EPA cannot be generalized to unspecified supplements.",
+        "No continuation, interruption, taper, restart, hold interval, substitution, dosing, administration, anesthesia, or procedural timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 489,
+        "workflowRunId": 37572958060,
+        "jobId": 112635470294,
+        "conclusion": "success",
+        "verifiedHeadSha": "976f1cf60b2aecb0120a49e349cdcae2cf2085ac",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "lifecycle": "DRAFT",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "formulationConversionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Inventory cannabinoid route/use-pattern ambiguity and clinically material anesthesia interactions; implement only bounded authoritative-evidence-supported identities before the cross-batch V1 reconciliation sweep.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}
