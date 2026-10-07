@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-07T10:53:00Z",
+  "generatedAt": "2026-10-07T12:32:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "d5551137d3c6df0672e5569959f95ab230e7e1de",
+    "basedOnHeadSha": "33c56e1ddc6342c732c0736a8200a8f772feef67",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -2303,19 +2303,23 @@
     }
   ],
   "shadowValidation": {
-    "status": "FOUNDATION_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
-    "verifiedImplementationSha": "7ddd2c7784ab683eb58cdb1a2c1b9104ceafe7a2",
+    "status": "EXECUTABLE_CASE_BINDING_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+    "verifiedImplementationSha": "425c4d9f40559b5920672961ba44765056378c1a",
     "verification": {
       "workflowName": "quality",
-      "workflowRunNumber": 498,
-      "workflowRunId": 37609654065,
-      "jobId": 112753530538,
+      "workflowRunNumber": 502,
+      "workflowRunId": 37616086446,
+      "jobId": 112774631559,
       "conclusion": "success"
     },
     "domainPackets": 8,
     "syntheticCases": 20,
+    "terminologyBinding": "LIVE_VERSIONED_DATASET",
+    "engineMode": "VALIDATION",
+    "evidenceProvenanceAudit": "ATOM_AND_SOURCE_RESOLUTION_ENFORCED",
+    "ambiguityHandling": "FAIL_CLOSED",
     "patientInstructionsEnabled": false,
     "productionActivationStatus": "NOT_ACTIVE",
-    "nextWorkItem": "Bind synthetic cases to terminology resolution and clinical-engine candidate traces, then export evidence-linked accountable review packets."
+    "nextWorkItem": "Generate deterministic domain reviewer exports with evidence traces, unresolved modifiers, local-policy questions, and exact human decisions required before activation."
   }
 }
