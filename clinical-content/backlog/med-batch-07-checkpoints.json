@@ -3,7 +3,7 @@
   "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
   "branch": "med-batch-05-cardiovascular-rhythm-lipids",
   "pullRequest": 15,
-  "updatedAt": "2026-10-04T06:25:00Z",
+  "updatedAt": "2026-10-07T04:45:00Z",
   "clinicalReviewStatus": "PENDING",
   "localPolicyReviewStatus": "PENDING",
   "mergeStatus": "NOT_MERGED",
@@ -339,6 +339,39 @@
           "productionWebBuild": "SUCCESS"
         }
       }
+    },
+    "J_TCA_BUPROPION_CARDIAC_ANTICHOLINERGIC_HEMODYNAMIC_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "66e53d6853ec3a9edec27d2f5517c8e3729c539b",
+      "products": [
+        "amitriptyline hydrochloride oral tablet",
+        "nortriptyline hydrochloride oral capsule",
+        "imipramine hydrochloride oral tablet",
+        "clomipramine hydrochloride oral capsule",
+        "bupropion hydrochloride immediate-release oral tablet",
+        "WELLBUTRIN SR bupropion hydrochloride sustained-release oral tablet",
+        "bupropion hydrochloride XL extended-release oral tablet"
+      ],
+      "preservation": [
+        "Bupropion immediate-release, SR, and XL identities remain distinct; nonspecific bupropion or Wellbutrin fails closed.",
+        "TCA cardiac/conduction, arrhythmia, orthostatic/hemodynamic, anticholinergic, CNS/sedation, seizure, psychiatric, and interacting-medication context remains clinician/psychiatry/pharmacy/anesthesia/local-policy reviewed.",
+        "Bupropion seizure-risk, blood-pressure/hemodynamic, psychiatric, interacting-medication, release/form, and administration context remains accountable review-only.",
+        "No initiation, continuation, interruption, taper, restart, substitution, release/form conversion, dose conversion, administration change, anesthesia plan, or procedural timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 487,
+        "workflowRunId": 37568322536,
+        "jobId": 112621043676,
+        "conclusion": "success",
+        "verifiedHeadSha": "66e53d6853ec3a9edec27d2f5517c8e3729c539b",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
     }
   },
   "evidenceState": {
@@ -351,7 +384,7 @@
     "timingRuleAuthorized": false
   },
   "blockers": [],
-  "nextWorkItem": "Reconcile the remaining high-impact antidepressant gap, prioritizing tricyclic-antidepressant cardiac/anticholinergic/hemodynamic context and bupropion immediate-/sustained-/extended-release distinctions only where direct-label-supported and anesthesia-relevant; then begin bounded OTC/herbal review.",
+  "nextWorkItem": "Begin the bounded OTC/herbal anesthesia-interaction inventory. Implement only a small authoritative-evidence-supported set with credible bleeding, sedation, hemodynamic, or anesthesia implications; preserve uncertainty and encode no hold timing.",
   "advanceToNextClusterAllowed": true,
   "productionActivationAllowed": false
 }

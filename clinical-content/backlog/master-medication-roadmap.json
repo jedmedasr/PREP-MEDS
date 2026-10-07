@@ -1109,9 +1109,30 @@
             "conclusion": "success"
           },
           "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-TCA-BUPROPION-CARDIAC-ANTICHOLINERGIC-HEMODYNAMIC-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "66e53d6853ec3a9edec27d2f5517c8e3729c539b",
+          "products": [
+            "amitriptyline hydrochloride oral tablet",
+            "nortriptyline hydrochloride oral capsule",
+            "imipramine hydrochloride oral tablet",
+            "clomipramine hydrochloride oral capsule",
+            "bupropion hydrochloride immediate-release oral tablet",
+            "WELLBUTRIN SR bupropion hydrochloride sustained-release oral tablet",
+            "bupropion hydrochloride XL extended-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 487,
+            "workflowRunId": 37568322536,
+            "jobId": 112621043676,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
         }
       ],
-      "nextEngineeringWork": "Clozapine and ziprasidone form/chemical-form/withdrawal/QT/sedation identities are engineering-verified. Reconcile the remaining high-impact antidepressant gap, prioritizing tricyclic-antidepressant cardiac/anticholinergic/hemodynamic context and bupropion release distinctions only where direct-label-supported and anesthesia-relevant; then begin bounded OTC/herbal review."
+      "nextEngineeringWork": "The bounded high-impact antidepressant inventory is engineering-verified for the prioritized TCA and bupropion identities. Begin bounded OTC/herbal inventory; implement only authoritative-evidence-supported bleeding, sedation, hemodynamic, or anesthesia-interaction gaps and encode no autonomous hold timing."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
