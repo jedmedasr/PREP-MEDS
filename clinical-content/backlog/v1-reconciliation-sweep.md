@@ -1,8 +1,11 @@
 # V1 cross-batch reconciliation sweep
 
-Status: `IN_PROGRESS_ENGINEERING_VERIFICATION`  
+Status: `COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED`  
 Governance: `DRAFT / REVIEW_REQUIRED`  
 Production activation: disabled
+
+Verified implementation: `0e2bba965753eaca1e8bb8b91ad597502adb85d3`  
+Exact implementation CI: quality #494, run `37603395372`, job `112732957088`, success
 
 ## Freeze scope
 

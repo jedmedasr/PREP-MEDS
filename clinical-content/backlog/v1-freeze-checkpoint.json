@@ -1,0 +1,67 @@
+{
+  "freezeId": "PREP-MEDS-V1-ANESTHESIA-GI-CRITICAL-FREEZE",
+  "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "frozenAt": "2026-10-07T09:58:00Z",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "frozenImplementationSha": "0e2bba965753eaca1e8bb8b91ad597502adb85d3",
+  "scope": [
+    "antithrombotics",
+    "diabetes, insulin, SGLT2, GLP-1, and GIP identities",
+    "cardiovascular, hemodynamic, and antiarrhythmic identities",
+    "OUD and anesthesia-sensitive pain identities",
+    "chronic systemic corticosteroids and major transplant immunosuppression",
+    "anesthesia-sensitive weight-management identities",
+    "Parkinson and dopaminergic identities",
+    "withdrawal-sensitive antiepileptic and neurologic identities",
+    "pulmonary, airway, and pulmonary-hypertension identities",
+    "high-impact psychotropic identities",
+    "bounded herbal supplements and cannabinoids"
+  ],
+  "reconciliation": {
+    "terminologySchema": "PASS",
+    "canonicalIngredientAndMedicationIdsUnique": true,
+    "routeFormReleaseSaltProdrugAndCombinationAmbiguityCoveredByTargetedRegressions": true,
+    "wholeProductIdentityPreserved": true,
+    "nonspecificIdentityFailClosedRegressions": true,
+    "evidenceAtomSourceReferencesResolved": true,
+    "reviewRuleEvidenceReferencesResolved": true,
+    "productionRulesEmpty": true,
+    "shadowModeExplicit": true
+  },
+  "verification": {
+    "workflowName": "quality",
+    "workflowRunNumber": 494,
+    "workflowRunId": 37603395372,
+    "jobId": 112732957088,
+    "conclusion": "success",
+    "verifiedHeadSha": "0e2bba965753eaca1e8bb8b91ad597502adb85d3",
+    "gates": {
+      "schemaValidation": "SUCCESS",
+      "strictTypecheck": "SUCCESS",
+      "unitAndRegressionTests": "SUCCESS",
+      "productionWebBuild": "SUCCESS"
+    }
+  },
+  "deferredFromMvpUnlessCriticalDefect": [
+    "statins",
+    "gout therapies",
+    "bone-health therapies",
+    "broad DMARD expansion",
+    "routine allergy medications",
+    "low-impact chronic medications",
+    "unrelated broad GI, anti-infective, and oncology expansion"
+  ],
+  "governance": {
+    "evidenceLifecycle": "DRAFT",
+    "clinicalReviewStatus": "REVIEW_REQUIRED",
+    "localPolicyReviewStatus": "REVIEW_REQUIRED",
+    "mergeStatus": "NOT_MERGED",
+    "deploymentStatus": "NOT_DEPLOYED",
+    "productionActivationStatus": "NOT_ACTIVE",
+    "patientInstructionsEnabled": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false
+  },
+  "nextWorkItem": "Transition to engineering the clinical-review and shadow-validation framework without activating production rules or patient instructions."
+}

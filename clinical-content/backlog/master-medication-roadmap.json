@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-07T08:46:00Z",
+  "generatedAt": "2026-10-07T09:58:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "43e957b03376d827006f8c26588a86872b9613f9",
+    "basedOnHeadSha": "0e2bba965753eaca1e8bb8b91ad597502adb85d3",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -38,6 +38,29 @@
     "Market availability is not inferred from FDA approval, DailyMed, Orange Book, or Purple Book listing alone.",
     "New clinical content remains DRAFT/REVIEW_REQUIRED until accountable human approval."
   ],
+  "v1Freeze": {
+    "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+    "frozenImplementationSha": "0e2bba965753eaca1e8bb8b91ad597502adb85d3",
+    "verification": {
+      "workflowName": "quality",
+      "workflowRunNumber": 494,
+      "workflowRunId": 37603395372,
+      "jobId": 112732957088,
+      "conclusion": "success"
+    },
+    "scopeBoundary": "Anesthesia-critical and GI-procedure-critical medication identities are frozen for V1; further medication-universe expansion requires a critical defect.",
+    "deferredFromMvpUnlessCriticalDefect": [
+      "statins",
+      "gout therapies",
+      "bone-health therapies",
+      "broad DMARD expansion",
+      "routine allergy medications",
+      "low-impact chronic medications",
+      "unrelated broad GI, anti-infective, and oncology expansion"
+    ],
+    "governance": "DRAFT_REVIEW_REQUIRED_NOT_ACTIVE",
+    "nextPhase": "CLINICAL_REVIEW_AND_SHADOW_VALIDATION"
+  },
   "batches": [
     {
       "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
