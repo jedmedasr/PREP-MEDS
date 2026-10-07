@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-10-07T09:58:00Z",
+  "generatedAt": "2026-10-07T10:53:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
     "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
-    "basedOnHeadSha": "0e2bba965753eaca1e8bb8b91ad597502adb85d3",
+    "basedOnHeadSha": "d5551137d3c6df0672e5569959f95ab230e7e1de",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -2301,5 +2301,21 @@
       ],
       "nextEngineeringWork": "Begin the cross-batch V1 reconciliation sweep; defer broad lower-impact medication classes unless a critical defect is identified."
     }
-  ]
+  ],
+  "shadowValidation": {
+    "status": "FOUNDATION_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+    "verifiedImplementationSha": "7ddd2c7784ab683eb58cdb1a2c1b9104ceafe7a2",
+    "verification": {
+      "workflowName": "quality",
+      "workflowRunNumber": 498,
+      "workflowRunId": 37609654065,
+      "jobId": 112753530538,
+      "conclusion": "success"
+    },
+    "domainPackets": 8,
+    "syntheticCases": 20,
+    "patientInstructionsEnabled": false,
+    "productionActivationStatus": "NOT_ACTIVE",
+    "nextWorkItem": "Bind synthetic cases to terminology resolution and clinical-engine candidate traces, then export evidence-linked accountable review packets."
+  }
 }
