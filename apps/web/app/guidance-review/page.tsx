@@ -9,7 +9,8 @@ export default function GuidanceReview(){
  const [local,setLocal]=useState("");
  const [preview,setPreview]=useState(false);
  const matches=useMemo(()=>GUIDANCE.filter(g=>(g.label+" "+g.aliases.join(" ")+" "+g.category).toLowerCase().includes(query.toLowerCase())),[query]);
- const g=GUIDANCE.find(x=>x.id===selected)||GUIDANCE[0];
+ const g=GUIDANCE.find(x=>x.id===selected)??GUIDANCE[0];
+ if(!g){return <main style={{maxWidth:1000,margin:"auto",padding:"28px 20px",fontFamily:"system-ui",lineHeight:1.5}}><p>No guidance entries are loaded.</p></main>}
  const renalDependent=["apixaban","rivaroxaban","dabigatran","edoxaban"].includes(g.id);
  const text=g.id==="apixaban"&&risk==="high"?
  ({unknown:"Select a verified creatinine-clearance band to view the ASGE apixaban interval.",over60:"ASGE 2016: interrupt 1–2 days before high-risk endoscopy (CrCl >60 mL/min).",from30:"ASGE 2016: interrupt 3 days before high-risk endoscopy (CrCl 30–59 mL/min).",from15:"ASGE 2016: interrupt 4 days before high-risk endoscopy (CrCl 15–29 mL/min).",under15:"ASGE 2016 table does not provide a validated interval here; specialist-directed plan required."} as Record<string,string>)[crcl] :risk==="high"?g.high:g.low;
