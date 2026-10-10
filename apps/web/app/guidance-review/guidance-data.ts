@@ -6,7 +6,7 @@ export const REFERENCES = {
  CHEST:"https://journal.chestnet.org/article/S0012-3692(22)01359-9/fulltext",
  GLP:"https://pmc.ncbi.nlm.nih.gov/articles/PMC11666732/"
 } as const;
-const entry=(id:string,label:string,aliases:string[],category:string,high:string,low:string,source:string,notes?:string):Guidance=>({id,label,aliases,category,high,low,source,notes});
+const entry=(id:string,label:string,aliases:string[],category:string,high:string,low:string,source:string,notes?:string):Guidance=>notes===undefined?{id,label,aliases,category,high,low,source}:{id,label,aliases,category,high,low,source,notes};
 const doacLow="ASGE 2016 generally allows continuation for low-risk diagnostic endoscopy; ACG/CAG 2022 suggests temporary DOAC interruption for elective endoscopy. Display both, not a fabricated consensus.";
 const p2low="ASGE 2016 generally continues antiplatelet therapy for low-risk endoscopy.";
 const p2note="Do not interrupt recent coronary stent/ACS therapy without cardiology and prescribing-team coordination. ACG/CAG 2022 suggests holding the P2Y12 agent while continuing aspirin for elective DAPT, but reports insufficient evidence for a general P2Y12 monotherapy recommendation.";
