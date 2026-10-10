@@ -2,11 +2,11 @@
   "schemaVersion": "1.0.0",
   "roadmapId": "PREP-MEDS-MASTER-MEDICATION-ROADMAP",
   "authoritativeQueue": true,
-  "generatedAt": "2026-09-29T13:43:00Z",
+  "generatedAt": "2026-10-07T12:48:00Z",
   "sourceOfTruth": {
     "repository": "jedmedasr/PREP-MEDS",
-    "activeBranch": "med-batch-04-cardiovascular-core",
-    "basedOnHeadSha": "72321b8544dc010a7b1e11c63180e5c339ed38e6",
+    "activeBranch": "med-batch-05-cardiovascular-rhythm-lipids",
+    "basedOnHeadSha": "2a4f2c6214af25639479fdcb7a1dcdb33e2d4c9f",
     "notes": [
       "Repository checkpoints and implemented source files override bootstrap assumptions.",
       "Medication inclusion is an engineering roadmap entry, not a clinical recommendation.",
@@ -26,8 +26,8 @@
   "counters": {
     "totalBatches": 14,
     "engineeringVerifiedBatches": 3,
-    "inProgressBatches": 1,
-    "plannedBatches": 10,
+    "inProgressBatches": 4,
+    "plannedBatches": 7,
     "clinicallyApprovedBatches": 0,
     "localPolicyApprovedBatches": 0
   },
@@ -38,6 +38,29 @@
     "Market availability is not inferred from FDA approval, DailyMed, Orange Book, or Purple Book listing alone.",
     "New clinical content remains DRAFT/REVIEW_REQUIRED until accountable human approval."
   ],
+  "v1Freeze": {
+    "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+    "frozenImplementationSha": "0e2bba965753eaca1e8bb8b91ad597502adb85d3",
+    "verification": {
+      "workflowName": "quality",
+      "workflowRunNumber": 494,
+      "workflowRunId": 37603395372,
+      "jobId": 112732957088,
+      "conclusion": "success"
+    },
+    "scopeBoundary": "Anesthesia-critical and GI-procedure-critical medication identities are frozen for V1; further medication-universe expansion requires a critical defect.",
+    "deferredFromMvpUnlessCriticalDefect": [
+      "statins",
+      "gout therapies",
+      "bone-health therapies",
+      "broad DMARD expansion",
+      "routine allergy medications",
+      "low-impact chronic medications",
+      "unrelated broad GI, anti-infective, and oncology expansion"
+    ],
+    "governance": "DRAFT_REVIEW_REQUIRED_NOT_ACTIVE",
+    "nextPhase": "CLINICAL_REVIEW_AND_SHADOW_VALIDATION"
+  },
   "batches": [
     {
       "batchId": "MED-BATCH-01-ANTITHROMBOTICS",
@@ -99,7 +122,60 @@
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "priorityHardening": {
+        "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+        "oralAnticoagulants": {
+          "status": "ENGINEERING_VERIFIED",
+          "verifiedHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
+          "completed": [
+            "dabigatran capsule direct-label provenance",
+            "edoxaban/SAVAYSA direct-label provenance",
+            "warfarin tablet direct-label provenance"
+          ],
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        "nextCluster": {
+          "priority": 1,
+          "name": "Remaining anesthesia-sensitive medication inventory",
+          "medicationClasses": [
+            "pain and OUD therapies",
+            "stimulants and MAOIs",
+            "chronic systemic steroids",
+            "transplant and immunosuppression"
+          ],
+          "constraints": [
+            "inventory before implementation",
+            "preserve indication, route, release, and combination ambiguity",
+            "no universal hold or restart rule",
+            "defer statins until higher-value gaps are exhausted"
+          ]
+        },
+        "antiplatelets": {
+          "status": "ENGINEERING_VERIFIED",
+          "verifiedHeadSha": "835595fea9a3d3b0945f5a4a75027d84f022c498",
+          "completed": [
+            "aspirin indication-boundary provenance",
+            "dipyridamole tablet provenance",
+            "aspirin/extended-release dipyridamole whole-product provenance",
+            "cilostazol tablet provenance",
+            "ticlopidine tablet provenance"
+          ],
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        "injectableAnticoagulants": {
+          "status": "ENGINEERING_VERIFIED",
+          "verifiedHeadSha": "5960969597176d3eecd74744152f372443a2e4b2",
+          "completed": [
+            "enoxaparin/LOVENOX direct-label provenance",
+            "unfractionated heparin injection direct-label provenance",
+            "fondaparinux/ARIXTRA direct-label provenance",
+            "dalteparin/FRAGMIN direct-label provenance"
+          ],
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      },
+      "nextEngineeringWork": "Antithrombotic direct-label hardening is engineering-verified. Inventory the next anesthesia-sensitive classes and implement only genuine gaps."
     },
     {
       "batchId": "MED-BATCH-02-DIABETES-CORE",
@@ -608,18 +684,86 @@
       "combinationProductDistinctions": [
         "clinically relevant lipid combinations"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
       "productionActivationStatus": "NOT_ACTIVE",
-      "nextEngineeringWork": "Antiarrhythmic core: amiodarone, dronedarone, sotalol, flecainide, propafenone, dofetilide, mexiletine, and quinidine; reconcile authoritative route/release identities and retain review-only routing."
+      "nextEngineeringWork": "Priority override active: inventory chronic systemic steroids, then transplant/immunosuppression before statins.",
+      "completedClusters": [
+        {
+          "clusterId": "B5-CLASS-III-ANTIARRHYTHMIC-ROUTE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "3ac08446a372db0e5df0e4b2ff0b3d1ebf2153c1",
+          "products": [
+            "amiodarone oral tablet",
+            "amiodarone intravenous injection",
+            "MULTAQ dronedarone tablet",
+            "standard sotalol tablet",
+            "sotalol AF tablet",
+            "SOTYLIZE oral solution",
+            "sotalol intravenous injection",
+            "TIKOSYN dofetilide capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 268,
+            "workflowRunId": 36586160822,
+            "jobId": 109466936456,
+            "conclusion": "success"
+          }
+        },
+        {
+          "clusterId": "B5-CLASS-I-ANTIARRHYTHMIC-RELEASE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "77848ab332d85cba1b73a5308c112f326a1ad5ab",
+          "products": [
+            "flecainide acetate tablet",
+            "propafenone film-coated tablet",
+            "propafenone extended-release capsule",
+            "mexiletine capsule",
+            "quinidine sulfate tablet",
+            "quinidine gluconate extended-release tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 270,
+            "workflowRunId": 36592953366,
+            "jobId": 109490476245,
+            "conclusion": "success"
+          }
+        },
+        {
+          "clusterId": "B5-OTHER-CARDIAC-ROUTE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "4fd930fe3706c52b45b3bcbb0c2cd9ff8f1c3e86",
+          "products": [
+            "digoxin oral tablet",
+            "digoxin oral solution",
+            "LANOXIN injection solution",
+            "CORLANOR film-coated tablet",
+            "CORLANOR oral solution",
+            "NITROSTAT sublingual tablet",
+            "nitroglycerin lingual spray",
+            "nitroglycerin transdermal patch",
+            "NITRO-BID topical ointment",
+            "isosorbide dinitrate oral tablet",
+            "isosorbide dinitrate sublingual tablet",
+            "isosorbide mononitrate extended-release tablet",
+            "ranolazine extended-release film-coated tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 272,
+            "workflowRunId": 36600731683,
+            "jobId": 109517129628,
+            "conclusion": "success"
+          }
+        }
+      ]
     },
     {
       "batchId": "MED-BATCH-06-GI-BOWEL-IRON-IBD",
@@ -774,28 +918,244 @@
       "importantFormulationDistinctions": [
         "bupropion IR/SR/XL",
         "stimulant IR/ER",
-        "oral versus long-acting injectable antipsychotics"
+        "oral versus long-acting injectable antipsychotics",
+        "lithium carbonate immediate-release tablet/capsule versus LITHOBID extended-release tablet versus lithium citrate oral solution",
+        "alprazolam immediate-release versus XANAX XR; lorazepam oral versus IM/IV; clonazepam conventional versus orally disintegrating tablet",
+        "venlafaxine immediate-release oral tablet versus extended-release oral capsule; desvenlafaxine extended-release tablet; duloxetine delayed-release capsule",
+        "risperidone conventional tablet, oral solution, and orally disintegrating tablet versus RISPERDAL CONSTA intramuscular and PERSERIS/UZEDY subcutaneous extended-release injections",
+        "quetiapine conventional oral tablet versus SEROQUEL XR extended-release tablet; olanzapine conventional oral tablet versus ZYPREXA ZYDIS ODT, ZYPREXA INTRAMUSCULAR powder for solution, and ZYPREXA RELPREVV extended-release intramuscular injection",
+        "aripiprazole conventional tablet and ODT versus ABILIFY MAINTENA/ASIMTUFII and ARISTADA/ARISTADA INITIO extended-release IM products; haloperidol tablet/solution versus lactate immediate-release IM and decanoate long-acting IM"
       ],
       "routeDistinctions": [
         "oral",
         "transdermal",
-        "intramuscular"
+        "intramuscular",
+        "subcutaneous"
       ],
       "releaseFormDistinctions": [
-        "IR/SR/XL where clinically relevant"
+        "IR/SR/XL where clinically relevant",
+        "lithium immediate-release versus extended-release identities",
+        "SNRI immediate-release, extended-release, and delayed-release identities",
+        "risperidone oral immediate/non-extended-release forms versus branded long-acting injectable products",
+        "quetiapine conventional versus extended-release oral tablets; olanzapine non-extended-release oral/ODT/IM identities versus ZYPREXA RELPREVV extended-release IM identity",
+        "aripiprazole oral versus branded extended-release IM products; haloperidol immediate/non-extended-release oral and lactate IM versus decanoate long-acting IM"
       ],
       "combinationProductDistinctions": [],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B7-STIMULANT-FORM-RELEASE-INDICATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+          "products": [
+            "ADDERALL mixed amphetamine salts immediate-release oral tablet",
+            "ADDERALL XR mixed amphetamine salts extended-release oral capsule",
+            "VYVANSE lisdexamfetamine oral capsule",
+            "VYVANSE lisdexamfetamine chewable oral tablet",
+            "RITALIN methylphenidate immediate-release oral tablet",
+            "CONCERTA methylphenidate extended-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 284,
+            "workflowRunId": 36652389410,
+            "jobId": 109689266783,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-MAOI-ROUTE-FORM-SUBTYPE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+          "products": [
+            "phenelzine sulfate oral tablet",
+            "PARNATE tranylcypromine sulfate film-coated oral tablet",
+            "MARPLAN isocarboxazid oral tablet",
+            "EMSAM selegiline transdermal system",
+            "selegiline hydrochloride oral tablet (MAO-B adjunct context)"
+          ],
+          "ci": {
+            "workflowRunNumber": 287,
+            "workflowRunId": 36653193848,
+            "jobId": 109691759435,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-LITHIUM-CHEMICAL-FORM-RELEASE-TOXICITY",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3",
+          "products": [
+            "lithium carbonate immediate-release oral tablet",
+            "lithium carbonate immediate-release oral capsule",
+            "LITHOBID lithium carbonate film-coated extended-release oral tablet",
+            "lithium citrate oral solution"
+          ],
+          "ci": {
+            "workflowRunNumber": 470,
+            "workflowRunId": 37152868150,
+            "jobId": 111290154714,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-BENZODIAZEPINE-ROUTE-FORM-RELEASE-WITHDRAWAL-SEDATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "23b3adff54a41577b986885bc658ca5f58e4724f",
+          "products": [
+            "XANAX alprazolam immediate-release oral tablet",
+            "XANAX XR alprazolam extended-release oral tablet",
+            "ATIVAN lorazepam oral tablet",
+            "ATIVAN lorazepam intramuscular/intravenous injection",
+            "KLONOPIN clonazepam oral tablet",
+            "clonazepam orally disintegrating tablet",
+            "diazepam intramuscular/intravenous injection",
+            "RESTORIL temazepam oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 473,
+            "workflowRunId": 37156635022,
+            "jobId": 111301254999,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-SNRI-FORM-RELEASE-DISCONTINUATION-SEROTONERGIC-HEMODYNAMIC",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "e17fdc5ec549604a3d44dc1a25391c30c15b2a83",
+          "products": [
+            "venlafaxine immediate-release oral tablet",
+            "venlafaxine extended-release oral capsule",
+            "desvenlafaxine extended-release oral tablet",
+            "duloxetine delayed-release oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 477,
+            "workflowRunId": 37169315321,
+            "jobId": 111338839185,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-RISPERIDONE-ORAL-LAI-ROUTE-FORM-RELEASE-HEMODYNAMIC-SEDATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "43e957b03376d827006f8c26588a86872b9613f9",
+          "products": [
+            "risperidone oral tablet",
+            "risperidone oral solution",
+            "risperidone orally disintegrating tablet",
+            "RISPERDAL CONSTA extended-release intramuscular injection",
+            "PERSERIS extended-release subcutaneous injection",
+            "UZEDY extended-release subcutaneous injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 479,
+            "workflowRunId": 37172432516,
+            "jobId": 111347962115,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-QUETIAPINE-OLANZAPINE-ROUTE-FORM-RELEASE-SEDATION-HEMODYNAMIC",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "177211944427fd8347a8019cec06f7266fb9a511",
+          "products": [
+            "quetiapine conventional oral tablet",
+            "SEROQUEL XR quetiapine extended-release oral tablet",
+            "ZYPREXA olanzapine oral tablet",
+            "ZYPREXA ZYDIS olanzapine orally disintegrating tablet",
+            "ZYPREXA INTRAMUSCULAR olanzapine injection powder for solution",
+            "ZYPREXA RELPREVV olanzapine extended-release intramuscular injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 481,
+            "workflowRunId": 37175555835,
+            "jobId": 111357311901,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-ARIPIPRAZOLE-HALOPERIDOL-ROUTE-FORM-RELEASE-CHEMICAL-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "6864251f1e38bfa4ddfd8c9a2223252090979d09",
+          "products": [
+            "ABILIFY aripiprazole oral tablet",
+            "aripiprazole orally disintegrating tablet",
+            "ABILIFY MAINTENA aripiprazole extended-release intramuscular injection",
+            "ABILIFY ASIMTUFII aripiprazole extended-release intramuscular injection",
+            "ARISTADA aripiprazole lauroxil extended-release intramuscular injection",
+            "ARISTADA INITIO aripiprazole lauroxil extended-release intramuscular initiation product",
+            "haloperidol oral tablet",
+            "haloperidol oral solution concentrate",
+            "haloperidol lactate immediate-release intramuscular injection",
+            "haloperidol decanoate long-acting intramuscular injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 483,
+            "workflowRunId": 37178327664,
+            "jobId": 111365545210,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-CLOZAPINE-ZIPRASIDONE-FORM-CHEMICAL-FORM-WITHDRAWAL-QT-SEDATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "f592523394cb00db69dd9d8a17136ac1b3c74d00",
+          "products": [
+            "clozapine conventional oral tablet",
+            "clozapine orally disintegrating tablet",
+            "VERSACLOZ clozapine oral suspension",
+            "GEODON ziprasidone hydrochloride oral capsule",
+            "GEODON ziprasidone mesylate intramuscular injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 485,
+            "workflowRunId": 37184081107,
+            "jobId": 111382282497,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B7-TCA-BUPROPION-CARDIAC-ANTICHOLINERGIC-HEMODYNAMIC-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "66e53d6853ec3a9edec27d2f5517c8e3729c539b",
+          "products": [
+            "amitriptyline hydrochloride oral tablet",
+            "nortriptyline hydrochloride oral capsule",
+            "imipramine hydrochloride oral tablet",
+            "clomipramine hydrochloride oral capsule",
+            "bupropion hydrochloride immediate-release oral tablet",
+            "WELLBUTRIN SR bupropion hydrochloride sustained-release oral tablet",
+            "bupropion hydrochloride XL extended-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 487,
+            "workflowRunId": 37568322536,
+            "jobId": 112621043676,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "The bounded high-impact antidepressant inventory is engineering-verified for the prioritized TCA and bupropion identities. Begin bounded OTC/herbal inventory; implement only authoritative-evidence-supported bleeding, sedation, hemodynamic, or anesthesia-interaction gaps and encode no autonomous hold timing."
     },
     {
       "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
@@ -844,17 +1204,51 @@
         "COMT inhibitors",
         "triptans",
         "gepants",
-        "migraine preventive biologics"
+        "migraine preventive biologics",
+        "valproic acid",
+        "valproate sodium",
+        "divalproex sodium"
       ],
       "importantBrandedProducts": [
-        "Suboxone"
+        "Suboxone",
+        "Rytary",
+        "Crexont",
+        "Duopa",
+        "Inbrija",
+        "Neupro",
+        "Xadago",
+        "Ongentys",
+        "Depakote",
+        "Depakote ER",
+        "Depakote Sprinkles",
+        "Neurontin",
+        "Gralise",
+        "Horizant",
+        "Lyrica",
+        "Lyrica CR"
       ],
       "importantFormulationDistinctions": [
         "opioid IR/ER",
         "fentanyl transdermal",
         "buprenorphine route/formulation",
         "naltrexone oral versus injectable",
-        "carbidopa/levodopa formulations"
+        "carbidopa/levodopa formulations",
+        "carbidopa/levodopa immediate-release tablet versus extended-release tablet and branded extended-release capsules",
+        "enteral pump suspension versus oral products",
+        "levodopa inhalation capsule versus swallowed oral capsule",
+        "rotigotine extended-release transdermal patch",
+        "pramipexole immediate-release versus extended-release oral tablets",
+        "ropinirole immediate-release versus extended-release film-coated oral tablets",
+        "rasagiline versus XADAGO safinamide indication-specific oral identities",
+        "single-ingredient COMT adjuncts versus carbidopa/levodopa/entacapone whole-product identity",
+        "levetiracetam immediate-release oral tablet, oral solution, intravenous concentrate, extended-release tablet, and tablet for oral suspension",
+        "lacosamide film-coated oral tablet, oral solution, and intravenous injection",
+        "topiramate immediate-release coated tablet, sprinkle capsule, oral solution, and product-specific extended-release capsules",
+        "zonisamide oral capsule versus oral suspension",
+        "oxcarbazepine immediate-release tablet and suspension versus OXTELLAR XR extended-release tablet",
+        "phenobarbital oral tablet versus oral solution versus phenobarbital sodium parenteral injection",
+        "valproic acid oral capsule and solution, valproate sodium intravenous injection, and divalproex delayed-release tablet, extended-release tablet, and delayed-release sprinkle capsule",
+        "NEURONTIN immediate-release capsule/tablet/solution versus GRALISE extended-release gabapentin, HORIZANT gabapentin-enacarbil prodrug, LYRICA capsule/solution, and LYRICA CR extended-release tablet"
       ],
       "routeDistinctions": [
         "oral",
@@ -863,25 +1257,354 @@
         "transdermal",
         "intranasal",
         "subcutaneous",
-        "intramuscular"
+        "intramuscular",
+        "enteral",
+        "oral inhalation",
+        "intravenous"
       ],
       "releaseFormDistinctions": [
-        "IR/ER where clinically relevant"
+        "IR/ER where clinically relevant",
+        "carbidopa/levodopa IR tablet versus ER tablet/capsule; rotigotine ER patch",
+        "oral dopamine agonist IR versus ER identities",
+        "levetiracetam immediate-release versus extended-release identities",
+        "topiramate immediate-release versus QUDEXY XR and TROKENDI XR extended-release identities",
+        "divalproex delayed-release versus extended-release oral identities",
+        "gabapentin immediate-release versus GRALISE extended-release",
+        "pregabalin immediate-release versus LYRICA CR extended-release"
       ],
       "combinationProductDistinctions": [
-        "buprenorphine/naloxone and opioid/acetaminophen products as whole identities"
+        "buprenorphine/naloxone and opioid/acetaminophen products as whole identities",
+        "carbidopa/levodopa products remain whole combination identities across route, form, release, and device contexts",
+        "carbidopa/levodopa/entacapone remains a whole-product identity distinct from entacapone alone",
+        "QSYMIA phentermine/topiramate remains a whole-product identity distinct from standalone topiramate products"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B8-BUPRENORPHINE-ROUTE-FORM-INDICATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+          "products": [
+            "buprenorphine sublingual tablet",
+            "SUBOXONE buprenorphine/naloxone soluble film",
+            "ZUBSOLV buprenorphine/naloxone sublingual orally disintegrating tablet",
+            "BELBUCA buprenorphine buccal film",
+            "BUTRANS buprenorphine extended-release transdermal patch",
+            "SUBLOCADE buprenorphine extended-release subcutaneous injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 280,
+            "workflowRunId": 36629110384,
+            "jobId": 109613529284,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-METHADONE-NALTREXONE-ROUTE-FORM-INDICATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+          "products": [
+            "methadone oral tablet",
+            "methadone oral concentrate",
+            "naltrexone film-coated oral tablet",
+            "VIVITROL naltrexone extended-release intramuscular injection kit"
+          ],
+          "ci": {
+            "workflowRunNumber": 282,
+            "workflowRunId": 36629870330,
+            "jobId": 109616069236,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-PARKINSON-DOPAMINERGIC-CORE-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "1bd6e5892571e27b2bac472387ac1a0f1712f649",
+          "products": [
+            "carbidopa/levodopa immediate-release oral tablet",
+            "carbidopa/levodopa extended-release oral tablet",
+            "RYTARY carbidopa/levodopa extended-release oral capsule",
+            "CREXONT carbidopa/levodopa extended-release oral capsule",
+            "DUOPA carbidopa/levodopa enteral suspension",
+            "INBRIJA levodopa inhalation powder capsule",
+            "NEUPRO rotigotine extended-release transdermal patch"
+          ],
+          "ci": {
+            "workflowRunNumber": 305,
+            "workflowRunId": 36718550141,
+            "jobId": 109897482209,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ORAL-DOPAMINE-AGONIST-IR-ER",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "d756f3439c7ee316ce9eda97aba7847b076d3287",
+          "products": [
+            "pramipexole dihydrochloride immediate-release oral tablet",
+            "pramipexole dihydrochloride extended-release oral tablet",
+            "ropinirole hydrochloride immediate-release film-coated oral tablet",
+            "ropinirole hydrochloride extended-release film-coated oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 307,
+            "workflowRunId": 36724759433,
+            "jobId": 109918662398,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-PARKINSON-MAOB-ADJUNCTS",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "97de3b1f08f331abe5432437db08c22c73ee714e",
+          "products": [
+            "rasagiline mesylate oral tablet",
+            "XADAGO safinamide mesylate film-coated oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 309,
+            "workflowRunId": 36732965330,
+            "jobId": 109947149901,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-PARKINSON-COMT-ADJUNCTS-WHOLE-PRODUCT",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "bd5930634200aa1145ac4bf4e6592f12d7ff85bd",
+          "products": [
+            "entacapone oral tablet",
+            "tolcapone oral tablet",
+            "ONGENTYS opicapone oral capsule",
+            "carbidopa/levodopa/entacapone film-coated oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 311,
+            "workflowRunId": 36740445191,
+            "jobId": 109973132702,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-PARKINSON-AMANTADINE-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "d41bee9dd72822fc2772d9242cf02f0c7f890f4c",
+          "products": [
+            "amantadine hydrochloride immediate-release oral capsule",
+            "amantadine hydrochloride immediate-release oral tablet",
+            "amantadine hydrochloride oral solution",
+            "GOCOVRI amantadine extended-release coated-pellet oral capsule",
+            "OSMOLEX ER amantadine extended-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 319,
+            "workflowRunId": 36755757394,
+            "jobId": 110025452724,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-LEVETIRACETAM-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "f4e12c61e093e63fe3a99dda1ee0faae3eb8e1e3",
+          "products": [
+            "KEPPRA levetiracetam immediate-release film-coated oral tablet",
+            "KEPPRA levetiracetam oral solution",
+            "KEPPRA levetiracetam intravenous concentrate",
+            "KEPPRA XR levetiracetam extended-release film-coated oral tablet",
+            "SPRITAM levetiracetam tablet for oral suspension"
+          ],
+          "ci": {
+            "workflowRunNumber": 331,
+            "workflowRunId": 37068958965,
+            "jobId": 111043573055,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-LACOSAMIDE-ROUTE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "0b847b2b2e365a0433c89c96ef59d1777904d1f4",
+          "products": [
+            "VIMPAT lacosamide film-coated oral tablet",
+            "VIMPAT lacosamide oral solution",
+            "VIMPAT lacosamide intravenous injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 340,
+            "workflowRunId": 37074752355,
+            "jobId": 111062029780,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-TOPIRAMATE-FORM-RELEASE-WHOLE-PRODUCT",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "2242032cc7a6a9bb1774024b101db59214eacd8b",
+          "products": [
+            "TOPAMAX topiramate coated oral tablet",
+            "TOPAMAX topiramate sprinkle capsule",
+            "EPRONTIA topiramate oral solution",
+            "QUDEXY XR topiramate extended-release oral capsule",
+            "TROKENDI XR topiramate extended-release oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 350,
+            "workflowRunId": 37079709844,
+            "jobId": 111077299060,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-ZONISAMIDE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "953166abc8c97ac3e2c9f4e5890047b3bf1aa7d2",
+          "products": [
+            "ZONEGRAN zonisamide oral capsule",
+            "ZONISADE zonisamide oral suspension"
+          ],
+          "ci": {
+            "workflowRunNumber": 360,
+            "workflowRunId": 37083670894,
+            "jobId": 111089399383,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-OXCARBAZEPINE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "d76d8ddcadd157c773d66502883e4d6826cce0fb",
+          "products": [
+            "TRILEPTAL oxcarbazepine film-coated oral tablet",
+            "TRILEPTAL oxcarbazepine oral suspension",
+            "OXTELLAR XR oxcarbazepine extended-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 369,
+            "workflowRunId": 37091143489,
+            "jobId": 111111567952,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-CARBAMAZEPINE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "c3977c2378a819a9477c0b59fa7ee48d13dcf7f0",
+          "products": [
+            "TEGRETOL carbamazepine conventional oral tablet",
+            "TEGRETOL carbamazepine oral suspension",
+            "carbamazepine chewable oral tablet",
+            "TEGRETOL XR carbamazepine extended-release oral tablet",
+            "CARBATROL carbamazepine extended-release oral capsule",
+            "EQUETRO carbamazepine extended-release oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 381,
+            "workflowRunId": 37095047658,
+            "jobId": 111123164399,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-PHENYTOIN-FOSPHENYTOIN-ROUTE-FORM-SALT-PRODRUG",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "1f6a6c1689686e8f7bc80f2b6c0faaf1625435f8",
+          "products": [
+            "DILANTIN extended phenytoin sodium oral capsule",
+            "DILANTIN INFATABS phenytoin chewable oral tablet",
+            "DILANTIN-125 phenytoin oral suspension",
+            "phenytoin sodium parenteral injection",
+            "CEREBYX fosphenytoin sodium parenteral injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 392,
+            "workflowRunId": 37097995646,
+            "jobId": 111131757530,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-PHENOBARBITAL-ROUTE-FORM-SALT",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "19b4c38971fe8799ba8cb78d1d700d130b740ca2",
+          "products": [
+            "phenobarbital oral tablet",
+            "phenobarbital oral solution",
+            "phenobarbital sodium parenteral injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 401,
+            "workflowRunId": 37101384289,
+            "jobId": 111141428111,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-ANTIEPILEPTIC-VALPROATE-DIVALPROEX-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "2c10d9bf4e7b00f88135a578670cde99deb41fb7",
+          "products": [
+            "valproic acid oral capsule",
+            "valproic acid oral solution",
+            "valproate sodium intravenous injection",
+            "DEPAKOTE divalproex sodium delayed-release oral tablet",
+            "DEPAKOTE ER divalproex sodium extended-release oral tablet",
+            "DEPAKOTE SPRINKLES divalproex sodium delayed-release oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 410,
+            "workflowRunId": 37111258782,
+            "jobId": 111169468329,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B8-GABAPENTINOID-ANESTHESIA-WITHDRAWAL-SEDATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "054e06026a8708cb6ccef0056ebec1d716838bcc",
+          "products": [
+            "NEURONTIN capsule/tablet/oral solution",
+            "GRALISE extended-release tablet",
+            "HORIZANT gabapentin-enacarbil extended-release tablet",
+            "LYRICA capsule/oral solution",
+            "LYRICA CR extended-release tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 420,
+            "workflowRunId": 37114424620,
+            "jobId": 111178339325,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Withdrawal-sensitive antiepileptic/neurologic V1 inventory is engineering-complete. Proceed to pulmonary/airway inventory; keep all medication decisions review-only."
     },
     {
       "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
@@ -940,17 +1663,44 @@
       "combinationProductDistinctions": [
         "combination contraceptives"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B9-CHRONIC-SYSTEMIC-CORTICOSTEROID-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "5fad05bcae462213b90093968eebe16b019e7918",
+          "products": [
+            "prednisone immediate-release oral tablet",
+            "prednisone delayed-release oral tablet",
+            "prednisolone oral tablet",
+            "prednisolone sodium phosphate oral solution",
+            "MEDROL methylprednisolone oral tablet",
+            "SOLU-MEDROL methylprednisolone sodium succinate injection",
+            "CORTEF hydrocortisone oral tablet",
+            "SOLU-CORTEF hydrocortisone sodium succinate injection",
+            "dexamethasone oral tablet",
+            "dexamethasone sodium phosphate injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 290,
+            "workflowRunId": 36657544395,
+            "jobId": 109705019427,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Chronic systemic corticosteroid identity gaps are engineering-verified. Next inventory transplant immunosuppression, beginning with tacrolimus IR/ER and route distinctions; implement only genuine gaps."
     },
     {
       "batchId": "MED-BATCH-10-PULMONARY-ALLERGY",
@@ -986,35 +1736,177 @@
         "dupilumab",
         "tezepelumab"
       ],
-      "importantBrandedProducts": [],
+      "importantBrandedProducts": [
+        "Ventolin HFA",
+        "Xopenex HFA",
+        "Xopenex",
+        "Atrovent HFA",
+        "Combivent Respimat",
+        "Symbicort",
+        "Advair HFA",
+        "Advair Diskus",
+        "Breo Ellipta",
+        "Dulera",
+        "Trelegy Ellipta",
+        "Breztri Aerosphere",
+        "Theo-24",
+        "Veletri",
+        "Remodulin",
+        "Tyvaso",
+        "Tyvaso DPI",
+        "Orenitram",
+        "Uptravi",
+        "Revatio",
+        "Adcirca",
+        "Tracleer",
+        "Letairis",
+        "Opsumit",
+        "Opsynvi",
+        "Adempas",
+        "Winrevair",
+        "Ventavis"
+      ],
       "importantFormulationDistinctions": [
         "MDI versus nebulized",
         "inhaler device/formulation identity",
-        "theophylline release forms"
+        "theophylline release forms",
+        "metered-dose aerosol versus Respimat spray versus nebulizer solution",
+        "albuterol versus levalbuterol ingredient identity",
+        "metered-dose aerosol versus DISKUS or ELLIPTA dry-powder inhaler",
+        "ADVAIR HFA aerosol versus ADVAIR DISKUS dry-powder identity",
+        "AEROSPHERE metered aerosol versus ELLIPTA dry-powder triple-controller identity",
+        "theophylline oral solution versus extended-release tablet versus extended-release capsule",
+        "oral theophylline versus intravenous aminophylline ingredient/complex and route distinction",
+        "continuous epoprostenol intravenous infusion versus treprostinil subcutaneous/intravenous infusion",
+        "treprostinil infusion versus inhalation solution versus dry-powder inhaler versus extended-release oral tablet",
+        "selexipag oral tablet versus intravenous injection",
+        "REVATIO oral tablet versus oral suspension versus intravenous injection",
+        "TRACLEER film-coated tablet versus tablet for oral suspension",
+        "single-agent macitentan or tadalafil versus OPSYNVI fixed-combination whole product",
+        "VENTAVIS inhaled iloprost versus non-PAH AURLUMYN intravenous iloprost",
+        "WINREVAIR subcutaneous lyophilized injection kit"
       ],
       "routeDistinctions": [
         "inhaled",
         "oral",
         "intranasal",
-        "subcutaneous"
+        "subcutaneous",
+        "intravenous"
       ],
       "releaseFormDistinctions": [
-        "IR/ER where relevant"
+        "IR/ER where relevant",
+        "theophylline non-extended-release oral solution versus extended-release tablet and capsule",
+        "ORENITRAM extended-release oral tablet remains distinct from treprostinil infusion and inhalation products"
       ],
       "combinationProductDistinctions": [
-        "ICS/LABA and triple inhalers as whole products"
+        "ICS/LABA and triple inhalers as whole products",
+        "Combivent Respimat and ipratropium/albuterol nebulizer solution remain distinct whole products",
+        "ICS/LABA and ICS/LAMA/LABA controller combinations remain distinct whole-product identities and are not split into component instructions",
+        "OPSYNVI macitentan/tadalafil remains a whole fixed-combination identity and is not split into component instructions"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "nextEngineeringWork": "Pulmonary/airway anesthesia-critical V1 inventory is engineering-complete. Defer routine allergy and lower-impact pulmonary breadth; inventory remaining anesthesia-sensitive psych/neurologic drugs for genuine withdrawal, serotonergic/adrenergic, hemodynamic, or sedation gaps.",
+      "completedEngineeringClusters": [
+        {
+          "clusterId": "PULMONARY-RESCUE-ROUTE-FORM-DEVICE-COMBINATION",
+          "medicationIds": [
+            "MED-ventolin-hfa-albuterol-inhalation-aerosol",
+            "MED-albuterol-sulfate-nebulizer-solution",
+            "MED-xopenex-hfa-levalbuterol-inhalation-aerosol",
+            "MED-xopenex-levalbuterol-nebulizer-concentrate",
+            "MED-atrovent-hfa-ipratropium-inhalation-aerosol",
+            "MED-ipratropium-bromide-nebulizer-solution",
+            "MED-combivent-respimat-ipratropium-albuterol-inhalation-spray",
+            "MED-ipratropium-albuterol-nebulizer-solution"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "98a999638df292f84b730db21b6ae6c556f9425a",
+          "workflowRunId": 37117992521,
+          "jobId": 111188422223,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "PULMONARY-CONTROLLER-WHOLE-PRODUCT-DEVICE-COMBINATION",
+          "medicationIds": [
+            "MED-symbicort-budesonide-formoterol-metered-aerosol",
+            "MED-advair-hfa-fluticasone-salmeterol-metered-aerosol",
+            "MED-advair-diskus-fluticasone-salmeterol-dry-powder",
+            "MED-breo-ellipta-fluticasone-vilanterol-dry-powder",
+            "MED-dulera-mometasone-formoterol-metered-aerosol",
+            "MED-trelegy-ellipta-fluticasone-umeclidinium-vilanterol-dry-powder",
+            "MED-breztri-aerosphere-budesonide-glycopyrrolate-formoterol-metered-aerosol"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "df40f62f840ee9c3c4a8026b402862b3f833cd6d",
+          "workflowRunId": 37120976744,
+          "jobId": 111196859202,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "PULMONARY-METHYLXANTHINE-ROUTE-FORM-RELEASE",
+          "medicationIds": [
+            "MED-theophylline-oral-solution",
+            "MED-theophylline-er-oral-tablet",
+            "MED-theo-24-theophylline-er-oral-capsule",
+            "MED-aminophylline-intravenous-injection"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "4ce0e7e4a2c74a93f6e7e4cf1f3a3ab3ee28ffd9",
+          "workflowRunId": 37134796298,
+          "jobId": 111237031076,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "PULMONARY-HYPERTENSION-PROSTACYCLIN-ROUTE-FORM-INFUSION-CONTINUITY",
+          "medicationIds": [
+            "MED-veletri-epoprostenol-intravenous-infusion",
+            "MED-remodulin-treprostinil-subcutaneous-intravenous-infusion",
+            "MED-tyvaso-treprostinil-inhalation-solution",
+            "MED-tyvaso-dpi-treprostinil-inhalation-powder",
+            "MED-orenitram-treprostinil-er-oral-tablet",
+            "MED-uptravi-selexipag-oral-tablet",
+            "MED-uptravi-selexipag-intravenous-injection"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "9377db3573763dfd30007245146a7dd35ad7cde9",
+          "workflowRunId": 37138779583,
+          "jobId": 111248694244,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "PULMONARY-HYPERTENSION-VASODILATOR-ROUTE-FORM-COMBINATION-INTERACTION",
+          "medicationIds": [
+            "MED-revatio-sildenafil-oral-tablet",
+            "MED-revatio-sildenafil-oral-suspension",
+            "MED-revatio-sildenafil-intravenous-injection",
+            "MED-adcirca-tadalafil-oral-tablet",
+            "MED-tracleer-bosentan-oral-tablet",
+            "MED-tracleer-bosentan-tablet-for-oral-suspension",
+            "MED-letairis-ambrisentan-oral-tablet",
+            "MED-opsumit-macitentan-oral-tablet",
+            "MED-opsynvi-macitentan-tadalafil-oral-tablet",
+            "MED-adempas-riociguat-oral-tablet",
+            "MED-winrevair-sotatercept-subcutaneous-injection",
+            "MED-ventavis-iloprost-inhalation-solution",
+            "MED-aurlumyn-iloprost-intravenous-injection"
+          ],
+          "status": "ENGINEERING_VERIFIED",
+          "testedHeadSha": "6f5bc761c4c6f4b10fc601c30851d0c1f2b93694",
+          "workflowRunId": 37141643397,
+          "jobId": 111257145405,
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ]
     },
     {
       "batchId": "MED-BATCH-11-RHEUM-IMMUNOSUPPRESSION-TRANSPLANT",
@@ -1059,17 +1951,111 @@
         "IR/ER where relevant"
       ],
       "combinationProductDistinctions": [],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "PARTIAL_ENGINEERING_VERIFIED",
+      "terminologyStatus": "PARTIAL_ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "PARTIAL_PASS_EXACT_HEAD",
+      "engineeringVerificationStatus": "IN_PROGRESS",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B11-TACROLIMUS-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "e3b1d30ca46cf21dc8605d7595fd27e6a6527db5",
+          "products": [
+            "PROGRAF tacrolimus immediate-release oral capsule",
+            "PROGRAF tacrolimus granules for oral suspension",
+            "PROGRAF tacrolimus intravenous injection",
+            "ASTAGRAF XL tacrolimus extended-release oral capsule",
+            "ENVARSUS XR tacrolimus extended-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 292,
+            "workflowRunId": 36658105175,
+            "jobId": 109706689946,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B11-CYCLOSPORINE-MODIFIED-NONMODIFIED-ROUTE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "2e83305bd4be9783049fa3978b19befc34483765",
+          "products": [
+            "SANDIMMUNE cyclosporine nonmodified oral capsule",
+            "SANDIMMUNE cyclosporine intravenous injection",
+            "NEORAL cyclosporine modified oral capsule",
+            "NEORAL cyclosporine modified oral solution"
+          ],
+          "ci": {
+            "workflowRunNumber": 294,
+            "workflowRunId": 36675791854,
+            "jobId": 109760343983,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B11-MTOR-FORM-INDICATION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "9a6daadac343948d603bd0bae7d80c81e3b4da07",
+          "products": [
+            "sirolimus oral tablet",
+            "sirolimus oral solution",
+            "ZORTRESS everolimus transplant oral tablet",
+            "AFINITOR everolimus oncology/TSC oral tablet",
+            "AFINITOR DISPERZ everolimus oncology/TSC tablet for oral suspension"
+          ],
+          "ci": {
+            "workflowRunNumber": 296,
+            "workflowRunId": 36677125672,
+            "jobId": 109764392659,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B11-MYCOPHENOLATE-ROUTE-FORM-RELEASE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "c5bfbac4f0493dd3cc0a61e53da07e69b17ec9a3",
+          "products": [
+            "CELLCEPT mycophenolate mofetil oral capsule",
+            "CELLCEPT mycophenolate mofetil oral tablet",
+            "CELLCEPT mycophenolate mofetil oral suspension",
+            "CELLCEPT mycophenolate mofetil intravenous injection",
+            "MYFORTIC mycophenolic acid delayed-release oral tablet"
+          ],
+          "ci": {
+            "workflowRunNumber": 298,
+            "workflowRunId": 36678095627,
+            "jobId": 109767391166,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B11-AZATHIOPRINE-ROUTE-FORM",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "5aff73f4de401fe788a2f49cdd767f545bdf81d4",
+          "products": [
+            "IMURAN azathioprine oral tablet",
+            "azathioprine sodium intravenous injection"
+          ],
+          "ci": {
+            "workflowRunNumber": 300,
+            "workflowRunId": 36680405256,
+            "jobId": 109774375802,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Prioritized transplant-immunosuppression identities are engineering-verified. Defer lower peri-procedural-impact DMARD breadth until anesthesia-sensitive gaps are closed."
     },
     {
       "batchId": "MED-BATCH-12-HIV-HEPATITIS-ANTIINFECTIVE-ONCOLOGY",
@@ -1168,17 +2154,40 @@
       "combinationProductDistinctions": [
         "phentermine/topiramate and naltrexone/bupropion whole-product identities"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
-      "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "developmentStatus": "IN_PROGRESS",
+      "evidenceStatus": "DIRECT_LABEL_EVIDENCE_RECONCILED",
+      "terminologyStatus": "IMPLEMENTED",
+      "ruleReviewStatus": "TECHNICALLY_TESTED_REVIEW_REQUIRED",
+      "testingStatus": "PASSED",
+      "engineeringVerificationStatus": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "nextEngineeringWork": "Weight-management identities are engineering-verified. Next inventory Parkinson/dopaminergic route-form-release identities for anesthesia-sensitive reconciliation before lower-impact bone, gout, DMARD, or statin breadth.",
+      "completedClusters": [
+        {
+          "clusterId": "B13-WEIGHT-MANAGEMENT-ANESTHESIA-SENSITIVE",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "fc1f082b2c79c0e6e7a1c29215b2a1995700c301",
+          "products": [
+            "phentermine hydrochloride oral capsule",
+            "phentermine hydrochloride oral tablet",
+            "QSYMIA phentermine/topiramate extended-release oral capsule",
+            "CONTRAVE naltrexone/bupropion extended-release oral tablet",
+            "XENICAL orlistat 120 mg prescription oral capsule",
+            "ALLI orlistat 60 mg OTC oral capsule"
+          ],
+          "ci": {
+            "workflowRunNumber": 302,
+            "workflowRunId": 36711487885,
+            "jobId": 109874090564,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ]
     },
     {
       "batchId": "MED-BATCH-14-OTC-SUPPLEMENTS-CANNABINOIDS",
@@ -1238,17 +2247,82 @@
       "combinationProductDistinctions": [
         "multi-ingredient OTC and cannabinoid products remain whole identities until active ingredients are verified"
       ],
-      "developmentStatus": "PLANNED",
-      "evidenceStatus": "SOURCE_RESEARCH",
-      "terminologyStatus": "PLANNED",
+      "developmentStatus": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "evidenceStatus": "EVIDENCE_RECONCILED_DRAFT_REVIEW_REQUIRED",
+      "terminologyStatus": "ENGINEERING_VERIFIED",
       "ruleReviewStatus": "REVIEW_REQUIRED",
-      "testingStatus": "PLANNED",
-      "engineeringVerificationStatus": "PLANNED",
+      "testingStatus": "ENGINEERING_VERIFIED",
+      "engineeringVerificationStatus": "ENGINEERING_VERIFIED",
       "clinicalReviewStatus": "REVIEW_REQUIRED",
       "localPolicyStatus": "REVIEW_REQUIRED",
       "mergeStatus": "NOT_MERGED",
       "deploymentStatus": "NOT_DEPLOYED",
-      "productionActivationStatus": "NOT_ACTIVE"
+      "productionActivationStatus": "NOT_ACTIVE",
+      "completedClusters": [
+        {
+          "clusterId": "B14-BOUNDED-HERBAL-BLEEDING-SEDATION-INTERACTION",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "976f1cf60b2aecb0120a49e349cdcae2cf2085ac",
+          "products": [
+            "garlic oral dietary supplement",
+            "Ginkgo biloba oral dietary supplement",
+            "Asian ginseng oral dietary supplement",
+            "St. John's wort oral dietary supplement",
+            "valerian oral dietary supplement",
+            "kava oral dietary supplement"
+          ],
+          "ci": {
+            "workflowRunNumber": 489,
+            "workflowRunId": 37572958060,
+            "jobId": 112635470294,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        },
+        {
+          "clusterId": "B14-CANNABINOID-ROUTE-USE-PATTERN-AND-LABELED-PRODUCTS",
+          "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+          "implementationSha": "abfea3c4393e6bd890f8a492c109820f4bcb6288",
+          "identities": [
+            "self-reported inhaled cannabis use pattern",
+            "self-reported oral or edible cannabis use pattern",
+            "EPIDIOLEX cannabidiol oral solution",
+            "MARINOL dronabinol oral capsule",
+            "SYNDROS dronabinol oral solution"
+          ],
+          "ci": {
+            "workflowRunNumber": 492,
+            "workflowRunId": 37595724662,
+            "jobId": 112707749960,
+            "conclusion": "success"
+          },
+          "governance": "DRAFT_REVIEW_REQUIRED"
+        }
+      ],
+      "nextEngineeringWork": "Begin the cross-batch V1 reconciliation sweep; defer broad lower-impact medication classes unless a critical defect is identified."
     }
-  ]
+  ],
+  "shadowValidation": {
+    "status": "ENGINEERING_COMPLETE_HUMAN_REVIEW_REQUIRED",
+    "verifiedImplementationSha": "a06fe4d4a0e6d30a983f5f178c662393d577c64c",
+    "verification": {
+      "workflowName": "quality",
+      "workflowRunNumber": 506,
+      "workflowRunId": 37623321159,
+      "jobId": 112798734313,
+      "conclusion": "success"
+    },
+    "domainPackets": 8,
+    "syntheticCases": 20,
+    "humanDecisionRegisterEntries": 26,
+    "terminologyBinding": "LIVE_VERSIONED_DATASET",
+    "engineMode": "VALIDATION",
+    "evidenceProvenanceAudit": "ATOM_AND_SOURCE_RESOLUTION_ENFORCED",
+    "ambiguityHandling": "FAIL_CLOSED",
+    "patientInstructionsEnabled": false,
+    "productionActivationStatus": "NOT_ACTIVE",
+    "remainingEngineeringWork": [],
+    "nextPhase": "ACCOUNTABLE_HUMAN_CLINICAL_AND_LOCAL_POLICY_REVIEW",
+    "activationRequirement": "All registered human decisions, separately recorded clinical/local-policy approvals, versioned policy tests, and an explicit production-activation review."
+  }
 }

@@ -1,0 +1,205 @@
+{
+  "batchId": "MED-BATCH-10-PULMONARY-ALLERGY",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-10-03T18:10:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_PULMONARY_RESCUE_ROUTE_FORM_DEVICE_COMBINATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "98a999638df292f84b730db21b6ae6c556f9425a",
+      "products": [
+        "VENTOLIN HFA albuterol sulfate metered inhalation aerosol",
+        "albuterol sulfate nebulizer solution concentrate",
+        "XOPENEX HFA levalbuterol tartrate metered inhalation aerosol",
+        "XOPENEX levalbuterol hydrochloride nebulizer solution concentrate",
+        "ATROVENT HFA ipratropium bromide metered inhalation aerosol",
+        "ipratropium bromide nebulizer solution",
+        "COMBIVENT RESPIMAT ipratropium/albuterol metered inhalation spray",
+        "ipratropium/albuterol nebulizer solution"
+      ],
+      "preservation": [
+        "Metered-dose inhalers, Respimat spray, and nebulizer solutions remain distinct identities; bare albuterol, levalbuterol/XOPENEX, and ipratropium fail closed across route/form/device contexts.",
+        "COMBIVENT RESPIMAT and ipratropium/albuterol nebulizer solution remain distinct whole combination products and are not decomposed into component instructions.",
+        "Airway diagnosis/control, recent exacerbation, rescue use frequency, oxygen/current symptoms, device availability/technique, rhythm/hemodynamic context, anticholinergic precautions, procedure/sedation context, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, mixing, dilution, ingredient/device conversion, component splitting, dose arithmetic, substitution, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 429,
+        "workflowRunId": 37117992521,
+        "jobId": 111188422223,
+        "conclusion": "success",
+        "verifiedHeadSha": "98a999638df292f84b730db21b6ae6c556f9425a",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "B_PULMONARY_CONTROLLER_WHOLE_PRODUCT_DEVICE_COMBINATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "df40f62f840ee9c3c4a8026b402862b3f833cd6d",
+      "products": [
+        "SYMBICORT budesonide/formoterol metered inhalation aerosol",
+        "ADVAIR HFA fluticasone propionate/salmeterol metered inhalation aerosol",
+        "ADVAIR DISKUS fluticasone propionate/salmeterol dry-powder inhaler",
+        "BREO ELLIPTA fluticasone furoate/vilanterol dry-powder inhaler",
+        "DULERA mometasone furoate/formoterol metered inhalation aerosol",
+        "TRELEGY ELLIPTA fluticasone furoate/umeclidinium/vilanterol dry-powder inhaler",
+        "BREZTRI AEROSPHERE budesonide/glycopyrrolate/formoterol metered inhalation aerosol"
+      ],
+      "preservation": [
+        "ICS/LABA and ICS/LAMA/LABA controller combinations remain whole-product identities and are not decomposed into component instructions.",
+        "ADVAIR HFA and ADVAIR DISKUS remain distinct aerosol and dry-powder identities; bare Advair and nonspecific fluticasone propionate/salmeterol wording fail closed.",
+        "Metered-dose aerosol, DISKUS dry powder, ELLIPTA dry powder, and AEROSPHERE aerosol device/form distinctions remain explicit.",
+        "Airway diagnosis/control, recent exacerbation, systemic-steroid/rescue/oxygen/current-symptom and infection context, device availability/technique, rhythm/hemodynamic and anticholinergic context, procedure/sedation context, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, strength or ingredient/device conversion, component splitting, substitution, administration timing, dose arithmetic, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 438,
+        "workflowRunId": 37120976744,
+        "jobId": 111196859202,
+        "conclusion": "success",
+        "verifiedHeadSha": "df40f62f840ee9c3c4a8026b402862b3f833cd6d",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "C_PULMONARY_METHYLXANTHINE_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "4ce0e7e4a2c74a93f6e7e4cf1f3a3ab3ee28ffd9",
+      "products": [
+        "theophylline anhydrous oral solution",
+        "theophylline anhydrous extended-release oral tablet",
+        "THEO-24 theophylline anhydrous extended-release oral capsule",
+        "aminophylline dihydrate intravenous injection"
+      ],
+      "preservation": [
+        "Oral solution, extended-release tablet, THEO-24 extended-release capsule, and intravenous aminophylline remain distinct ingredient/route/form/release identities; bare theophylline fails closed.",
+        "Aminophylline dihydrate injection is not treated as an automatic ingredient, salt/complex, route, release, or dose conversion from oral theophylline.",
+        "Airway disease/control, acute symptoms, serum concentration, toxicity symptoms, interacting medicines, smoking-status change, fever/sepsis, hepatic/cardiac disease, seizure/arrhythmia risk, oral feasibility, procedure/sedation context, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, substitution, route or release conversion, dose arithmetic, monitoring target, administration timing, infusion instruction, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 447,
+        "workflowRunId": 37134796298,
+        "jobId": 111237031076,
+        "conclusion": "success",
+        "verifiedHeadSha": "4ce0e7e4a2c74a93f6e7e4cf1f3a3ab3ee28ffd9",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "D_PULMONARY_HYPERTENSION_PROSTACYCLIN_ROUTE_FORM_INFUSION_CONTINUITY": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "9377db3573763dfd30007245146a7dd35ad7cde9",
+      "products": [
+        "VELETRI epoprostenol continuous intravenous infusion",
+        "REMODULIN treprostinil continuous subcutaneous or intravenous infusion",
+        "TYVASO treprostinil inhalation solution",
+        "TYVASO DPI treprostinil inhalation powder",
+        "ORENITRAM treprostinil extended-release oral tablet",
+        "UPTRAVI selexipag oral tablet",
+        "UPTRAVI selexipag intravenous injection"
+      ],
+      "preservation": [
+        "Continuous VELETRI and REMODULIN infusion identities remain distinct from inhaled treprostinil, oral extended-release treprostinil, and selexipag products; bare treprostinil fails closed.",
+        "TYVASO solution and TYVASO DPI remain distinct device/form identities; bare Tyvaso fails closed. UPTRAVI oral tablet and intravenous injection remain distinct; bare selexipag/Uptravi fails closed.",
+        "PAH severity, decompensation/right-heart failure, hemodynamics, oxygen/ventilation, hypotension, bleeding/platelet context, hepatic function/interactions, oral feasibility, pump/catheter/device availability, infusion continuity/backup planning, procedure/sedation context, and anesthesia plan remain clinician reviewed.",
+        "No continuation, interruption, transition equation, substitution, route/device conversion, dose arithmetic, infusion rate, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 456,
+        "workflowRunId": 37138779583,
+        "jobId": 111248694244,
+        "conclusion": "success",
+        "verifiedHeadSha": "9377db3573763dfd30007245146a7dd35ad7cde9",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "E_PULMONARY_HYPERTENSION_VASODILATOR_ROUTE_FORM_COMBINATION_INTERACTION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "6f5bc761c4c6f4b10fc601c30851d0c1f2b93694",
+      "products": [
+        "REVATIO sildenafil oral tablet",
+        "REVATIO sildenafil oral suspension",
+        "REVATIO sildenafil intravenous injection",
+        "ADCIRCA tadalafil oral tablet",
+        "TRACLEER bosentan oral tablet",
+        "TRACLEER bosentan tablet for oral suspension",
+        "LETAIRIS ambrisentan oral tablet",
+        "OPSUMIT macitentan oral tablet",
+        "OPSYNVI macitentan/tadalafil fixed-combination oral tablet",
+        "ADEMPAS riociguat oral tablet",
+        "WINREVAIR sotatercept-csrk subcutaneous injection kit",
+        "VENTAVIS iloprost inhalation solution",
+        "AURLUMYN iloprost intravenous injection collision guard"
+      ],
+      "preservation": [
+        "REVATIO tablet, suspension, and IV injection and TRACLEER tablet versus tablet-for-suspension remain distinct; nonspecific sildenafil/Revatio and bosentan/Tracleer fail closed.",
+        "OPSYNVI remains a whole macitentan/tadalafil product and is not decomposed; nonspecific macitentan or tadalafil fails closed across single-agent and combination identities.",
+        "VENTAVIS inhaled iloprost remains distinct from non-PAH AURLUMYN intravenous iloprost; nonspecific iloprost fails closed across route and indication.",
+        "PAH/CTEPH severity, decompensation/right-heart failure, hemodynamics, oxygen/ventilation, blood pressure, nitrate/PDE5/sGC/antihypertensive interactions, hepatic/renal function, hemoglobin/platelets/bleeding, pregnancy/REMS, oral feasibility, device access, procedure/sedation context, and anesthesia plan remain clinician reviewed.",
+        "No continuation, interruption, substitution, component splitting, route/form conversion, dose arithmetic, monitoring target, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 465,
+        "workflowRunId": 37141643397,
+        "jobId": 111257145405,
+        "conclusion": "success",
+        "verifiedHeadSha": "6f5bc761c4c6f4b10fc601c30851d0c1f2b93694",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "primarySourceFamilies": [
+      "FDA/DailyMed direct prescription labeling"
+    ],
+    "representativeIdentityOnly": true,
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "deviceConversionAuthorized": false,
+    "componentSplittingAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Pulmonary/airway anesthesia-critical V1 inventory is engineering-complete; defer routine allergy breadth and inventory remaining anesthesia-sensitive psych/neurologic drugs for genuine withdrawal, serotonergic/adrenergic, hemodynamic, or sedation gaps.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}

@@ -255,6 +255,24 @@ export {
 } from './batch04-other-antihypertensive-evidence.js';
 export type { Batch04OtherAntihypertensiveIdentityDefinition } from './batch04-other-antihypertensive-evidence.js';
 
+export {
+  batch05ClassIIIAntiarrhythmicIdentityEvidence,
+  batch05ClassIIIAntiarrhythmicIdentityDefinitions,
+  batch05ClassIIIAntiarrhythmicIdentitySources,
+  batch05ClassIIIAntiarrhythmicIdentityAtoms,
+  batch05ClassIIIAntiarrhythmicReviewRules,
+} from './batch05-class-iii-antiarrhythmic-evidence.js';
+export type { Batch05ClassIIIAntiarrhythmicIdentityDefinition } from './batch05-class-iii-antiarrhythmic-evidence.js';
+
+export {
+  batch05ClassIAntiarrhythmicIdentityEvidence,
+  batch05ClassIAntiarrhythmicIdentityDefinitions,
+  batch05ClassIAntiarrhythmicIdentitySources,
+  batch05ClassIAntiarrhythmicIdentityAtoms,
+  batch05ClassIAntiarrhythmicReviewRules,
+} from './batch05-class-i-antiarrhythmic-evidence.js';
+export type { Batch05ClassIAntiarrhythmicIdentityDefinition } from './batch05-class-i-antiarrhythmic-evidence.js';
+
 export const batch03IncretinIdentityEvidence = {
   ...baseBatch03IncretinIdentityEvidence,
   generatedAt: batch03CurrentIncretinExpansionEvidence.generatedAt,
@@ -296,3 +314,396 @@ export const firstReleaseMetadata = {
     'MED-atorvastatin',
   ],
 } as const;
+
+export {
+  batch05OtherCardiacIdentityEvidence,
+  batch05OtherCardiacIdentityDefinitions,
+  batch05OtherCardiacIdentitySources,
+  batch05OtherCardiacIdentityAtoms,
+  batch05OtherCardiacReviewRules,
+} from './batch05-other-cardiac-evidence.js';
+export type { Batch05OtherCardiacIdentityDefinition } from './batch05-other-cardiac-evidence.js';
+
+
+export {
+  periproceduralBuprenorphineIdentityEvidence,
+  periproceduralBuprenorphineIdentityDefinitions,
+  periproceduralBuprenorphineIdentitySources,
+  periproceduralBuprenorphineIdentityAtoms,
+  periproceduralBuprenorphineReviewRules,
+} from './periprocedural-buprenorphine-evidence.js';
+export type { PeriproceduralBuprenorphineIdentityDefinition } from './periprocedural-buprenorphine-evidence.js';
+
+
+export {
+  periproceduralMethadoneNaltrexoneIdentityEvidence,
+  periproceduralMethadoneNaltrexoneIdentityDefinitions,
+  periproceduralMethadoneNaltrexoneIdentitySources,
+  periproceduralMethadoneNaltrexoneIdentityAtoms,
+  periproceduralMethadoneNaltrexoneReviewRules,
+} from './periprocedural-methadone-naltrexone-evidence.js';
+export type { PeriproceduralMethadoneNaltrexoneIdentityDefinition } from './periprocedural-methadone-naltrexone-evidence.js';
+
+
+export {
+  periproceduralStimulantIdentityEvidence,
+  periproceduralStimulantIdentityDefinitions,
+  periproceduralStimulantIdentitySources,
+  periproceduralStimulantIdentityAtoms,
+  periproceduralStimulantReviewRules,
+} from './periprocedural-stimulant-evidence.js';
+export type { PeriproceduralStimulantIdentityDefinition } from './periprocedural-stimulant-evidence.js';
+
+
+export {
+  periproceduralMaoiIdentityEvidence,
+  periproceduralMaoiIdentityDefinitions,
+  periproceduralMaoiIdentitySources,
+  periproceduralMaoiIdentityAtoms,
+  periproceduralMaoiReviewRules,
+} from './periprocedural-maoi-evidence.js';
+export type { PeriproceduralMaoiIdentityDefinition } from './periprocedural-maoi-evidence.js';
+
+
+export {
+  systemicCorticosteroidIdentityEvidence,
+  systemicCorticosteroidIdentityDefinitions,
+  systemicCorticosteroidIdentitySources,
+  systemicCorticosteroidIdentityAtoms,
+  systemicCorticosteroidReviewRules,
+} from './systemic-corticosteroid-evidence.js';
+export type { SystemicCorticosteroidIdentityDefinition } from './systemic-corticosteroid-evidence.js';
+
+
+export {
+  tacrolimusIdentityEvidence,
+  tacrolimusIdentityDefinitions,
+  tacrolimusIdentitySources,
+  tacrolimusIdentityAtoms,
+  tacrolimusReviewRules,
+} from './tacrolimus-evidence.js';
+export type { TacrolimusIdentityDefinition } from './tacrolimus-evidence.js';
+
+
+export {
+  cyclosporineIdentityEvidence,
+  cyclosporineIdentityDefinitions,
+  cyclosporineIdentitySources,
+  cyclosporineIdentityAtoms,
+  cyclosporineReviewRules,
+} from './cyclosporine-evidence.js';
+export type { CyclosporineIdentityDefinition } from './cyclosporine-evidence.js';
+
+
+export {
+  mtorInhibitorIdentityEvidence,
+  mtorInhibitorIdentityDefinitions,
+  mtorInhibitorIdentitySources,
+  mtorInhibitorIdentityAtoms,
+  mtorInhibitorReviewRules,
+} from './mtor-inhibitor-evidence.js';
+export type { MtorInhibitorIdentityDefinition } from './mtor-inhibitor-evidence.js';
+
+
+export {
+  mycophenolateIdentityEvidence,
+  mycophenolateIdentityDefinitions,
+  mycophenolateIdentitySources,
+  mycophenolateIdentityAtoms,
+  mycophenolateReviewRules,
+} from './mycophenolate-evidence.js';
+export type { MycophenolateIdentityDefinition } from './mycophenolate-evidence.js';
+
+
+export {
+  azathioprineIdentityEvidence,
+  azathioprineIdentityDefinitions,
+  azathioprineIdentitySources,
+  azathioprineIdentityAtoms,
+  azathioprineReviewRules,
+} from './azathioprine-evidence.js';
+export type { AzathioprineIdentityDefinition } from './azathioprine-evidence.js';
+
+
+export {
+  weightManagementIdentityEvidence,
+  weightManagementIdentityDefinitions,
+  weightManagementIdentitySources,
+  weightManagementIdentityAtoms,
+  weightManagementReviewRules,
+} from './weight-management-evidence.js';
+export type { WeightManagementIdentityDefinition } from './weight-management-evidence.js';
+
+
+export {
+  parkinsonCoreIdentityEvidence,
+  parkinsonCoreIdentityDefinitions,
+  parkinsonCoreIdentitySources,
+  parkinsonCoreIdentityAtoms,
+  parkinsonCoreReviewRules,
+} from './parkinson-core-evidence.js';
+export type { ParkinsonCoreIdentityDefinition } from './parkinson-core-evidence.js';
+
+
+export {
+  parkinsonOralDopamineAgonistIdentityEvidence,
+  parkinsonOralDopamineAgonistIdentityDefinitions,
+  parkinsonOralDopamineAgonistIdentitySources,
+  parkinsonOralDopamineAgonistIdentityAtoms,
+  parkinsonOralDopamineAgonistReviewRules,
+} from './parkinson-oral-dopamine-agonist-evidence.js';
+export type { ParkinsonOralDopamineAgonistIdentityDefinition } from './parkinson-oral-dopamine-agonist-evidence.js';
+
+
+export {
+  parkinsonMaobAdjunctIdentityEvidence,
+  parkinsonMaobAdjunctIdentityDefinitions,
+  parkinsonMaobAdjunctIdentitySources,
+  parkinsonMaobAdjunctIdentityAtoms,
+  parkinsonMaobAdjunctReviewRules,
+} from './parkinson-maob-adjunct-evidence.js';
+export type { ParkinsonMaobAdjunctIdentityDefinition } from './parkinson-maob-adjunct-evidence.js';
+
+
+export {
+  parkinsonComtIdentityEvidence,
+  parkinsonComtIdentityDefinitions,
+  parkinsonComtIdentitySources,
+  parkinsonComtIdentityAtoms,
+  parkinsonComtReviewRules,
+} from './parkinson-comt-evidence.js';
+export type { ParkinsonComtIdentityDefinition } from './parkinson-comt-evidence.js';
+
+export {
+  parkinsonAmantadineIdentityEvidence,
+  parkinsonAmantadineIdentityDefinitions,
+  parkinsonAmantadineIdentitySources,
+  parkinsonAmantadineIdentityAtoms,
+  parkinsonAmantadineReviewRules,
+} from './parkinson-amantadine-evidence.js';
+export type { ParkinsonAmantadineIdentityDefinition } from './parkinson-amantadine-evidence.js';
+
+export {
+  antiepilepticLevetiracetamIdentityEvidence,
+  antiepilepticLevetiracetamIdentityDefinitions,
+  antiepilepticLevetiracetamIdentitySources,
+  antiepilepticLevetiracetamIdentityAtoms,
+  antiepilepticLevetiracetamReviewRules,
+} from './antiepileptic-levetiracetam-evidence.js';
+export type { AntiepilepticLevetiracetamIdentityDefinition } from './antiepileptic-levetiracetam-evidence.js';
+
+export {
+  antiepilepticLacosamideIdentityEvidence,
+  antiepilepticLacosamideIdentityDefinitions,
+  antiepilepticLacosamideIdentitySources,
+  antiepilepticLacosamideIdentityAtoms,
+  antiepilepticLacosamideReviewRules,
+} from './antiepileptic-lacosamide-evidence.js';
+export type { AntiepilepticLacosamideIdentityDefinition } from './antiepileptic-lacosamide-evidence.js';
+
+export {
+  antiepilepticTopiramateIdentityEvidence,
+  antiepilepticTopiramateIdentityDefinitions,
+  antiepilepticTopiramateIdentitySources,
+  antiepilepticTopiramateIdentityAtoms,
+  antiepilepticTopiramateReviewRules,
+} from './antiepileptic-topiramate-evidence.js';
+export type { AntiepilepticTopiramateIdentityDefinition } from './antiepileptic-topiramate-evidence.js';
+
+export {
+  antiepilepticZonisamideIdentityEvidence,
+  antiepilepticZonisamideIdentityDefinitions,
+  antiepilepticZonisamideIdentitySources,
+  antiepilepticZonisamideIdentityAtoms,
+  antiepilepticZonisamideReviewRules,
+} from './antiepileptic-zonisamide-evidence.js';
+export type { AntiepilepticZonisamideIdentityDefinition } from './antiepileptic-zonisamide-evidence.js';
+
+export {
+  antiepilepticOxcarbazepineIdentityEvidence,
+  antiepilepticOxcarbazepineIdentityDefinitions,
+  antiepilepticOxcarbazepineIdentitySources,
+  antiepilepticOxcarbazepineIdentityAtoms,
+  antiepilepticOxcarbazepineReviewRules,
+} from './antiepileptic-oxcarbazepine-evidence.js';
+export type { AntiepilepticOxcarbazepineIdentityDefinition } from './antiepileptic-oxcarbazepine-evidence.js';
+
+export {
+  antiepilepticCarbamazepineIdentityEvidence,
+  antiepilepticCarbamazepineIdentityDefinitions,
+  antiepilepticCarbamazepineIdentitySources,
+  antiepilepticCarbamazepineIdentityAtoms,
+  antiepilepticCarbamazepineReviewRules,
+} from './antiepileptic-carbamazepine-evidence.js';
+export type { AntiepilepticCarbamazepineIdentityDefinition } from './antiepileptic-carbamazepine-evidence.js';
+
+export {
+  antiepilepticPhenytoinIdentityEvidence,
+  antiepilepticPhenytoinIdentityDefinitions,
+  antiepilepticPhenytoinIdentitySources,
+  antiepilepticPhenytoinIdentityAtoms,
+  antiepilepticPhenytoinReviewRules,
+} from './antiepileptic-phenytoin-evidence.js';
+export type { AntiepilepticPhenytoinIdentityDefinition } from './antiepileptic-phenytoin-evidence.js';
+
+export {
+  antiepilepticPhenobarbitalIdentityEvidence,
+  antiepilepticPhenobarbitalIdentityDefinitions,
+  antiepilepticPhenobarbitalIdentitySources,
+  antiepilepticPhenobarbitalIdentityAtoms,
+  antiepilepticPhenobarbitalReviewRules,
+} from './antiepileptic-phenobarbital-evidence.js';
+export type { AntiepilepticPhenobarbitalIdentityDefinition } from './antiepileptic-phenobarbital-evidence.js';
+
+export {
+  antiepilepticValproateIdentityEvidence,
+  antiepilepticValproateIdentityDefinitions,
+  antiepilepticValproateIdentitySources,
+  antiepilepticValproateIdentityAtoms,
+  antiepilepticValproateReviewRules,
+} from './antiepileptic-valproate-evidence.js';
+export type { AntiepilepticValproateIdentityDefinition } from './antiepileptic-valproate-evidence.js';
+
+export {
+  gabapentinoidIdentityEvidence,
+  gabapentinoidIdentityDefinitions,
+  gabapentinoidIdentityAtoms,
+  gabapentinoidSafetyAtoms,
+  gabapentinoidReviewRules,
+} from './gabapentinoid-evidence.js';
+export type { GabapentinoidIdentityDefinition } from './gabapentinoid-evidence.js';
+
+
+export {
+  pulmonaryRescueIdentityEvidence,
+  pulmonaryRescueIdentityDefinitions,
+  pulmonaryRescueIdentityAtoms,
+  pulmonaryRescueReviewRules,
+} from './pulmonary-rescue-evidence.js';
+export type { PulmonaryRescueIdentityDefinition } from './pulmonary-rescue-evidence.js';
+
+
+export {
+  pulmonaryControllerCombinationIdentityEvidence,
+  pulmonaryControllerCombinationIdentityDefinitions,
+  pulmonaryControllerCombinationIdentityAtoms,
+  pulmonaryControllerCombinationReviewRules,
+} from './pulmonary-controller-combination-evidence.js';
+export type { PulmonaryControllerCombinationIdentityDefinition } from './pulmonary-controller-combination-evidence.js';
+
+export {
+  pulmonaryMethylxanthineIdentityEvidence,
+  pulmonaryMethylxanthineIdentityDefinitions,
+  pulmonaryMethylxanthineIdentityAtoms,
+  pulmonaryMethylxanthineReviewRules,
+} from './pulmonary-methylxanthine-evidence.js';
+export type { PulmonaryMethylxanthineIdentityDefinition } from './pulmonary-methylxanthine-evidence.js';
+
+export {
+  pulmonaryHypertensionProstacyclinIdentityEvidence,
+  pulmonaryHypertensionProstacyclinIdentityDefinitions,
+  pulmonaryHypertensionProstacyclinIdentityAtoms,
+  pulmonaryHypertensionProstacyclinReviewRules,
+} from './pulmonary-hypertension-prostacyclin-evidence.js';
+export type { PulmonaryHypertensionProstacyclinIdentityDefinition } from './pulmonary-hypertension-prostacyclin-evidence.js';
+
+export {
+  pulmonaryHypertensionVasodilatorIdentityEvidence,
+  pulmonaryHypertensionVasodilatorIdentityDefinitions,
+  pulmonaryHypertensionVasodilatorIdentityAtoms,
+  pulmonaryHypertensionVasodilatorReviewRules,
+} from './pulmonary-hypertension-vasodilator-evidence.js';
+export type { PulmonaryHypertensionVasodilatorIdentityDefinition } from './pulmonary-hypertension-vasodilator-evidence.js';
+
+export {
+  periproceduralLithiumIdentityDefinitions,
+  periproceduralLithiumIdentitySources,
+  periproceduralLithiumIdentityAtoms,
+  periproceduralLithiumIdentityEvidence,
+  periproceduralLithiumReviewRules,
+} from './periprocedural-lithium-evidence.js';
+export type { PeriproceduralLithiumIdentityDefinition } from './periprocedural-lithium-evidence.js';
+
+export {
+  periproceduralBenzodiazepineIdentityDefinitions,
+  periproceduralBenzodiazepineIdentitySources,
+  periproceduralBenzodiazepineIdentityAtoms,
+  periproceduralBenzodiazepineIdentityEvidence,
+  periproceduralBenzodiazepineReviewRules,
+} from './periprocedural-benzodiazepine-evidence.js';
+export type { PeriproceduralBenzodiazepineIdentityDefinition } from './periprocedural-benzodiazepine-evidence.js';
+
+
+export {
+  periproceduralSnriIdentityDefinitions,
+  periproceduralSnriIdentitySources,
+  periproceduralSnriIdentityAtoms,
+  periproceduralSnriIdentityEvidence,
+  periproceduralSnriReviewRules,
+} from './periprocedural-snri-evidence.js';
+export type { PeriproceduralSnriIdentityDefinition } from './periprocedural-snri-evidence.js';
+
+export {
+  periproceduralRisperidoneIdentityDefinitions,
+  periproceduralRisperidoneIdentitySources,
+  periproceduralRisperidoneIdentityAtoms,
+  periproceduralRisperidoneIdentityEvidence,
+  periproceduralRisperidoneReviewRules,
+} from './periprocedural-risperidone-evidence.js';
+export type { PeriproceduralRisperidoneIdentityDefinition } from './periprocedural-risperidone-evidence.js';
+
+export {
+  periproceduralQuetiapineOlanzapineIdentityDefinitions,
+  periproceduralQuetiapineOlanzapineIdentitySources,
+  periproceduralQuetiapineOlanzapineIdentityAtoms,
+  periproceduralQuetiapineOlanzapineIdentityEvidence,
+  periproceduralQuetiapineOlanzapineReviewRules,
+} from './periprocedural-quetiapine-olanzapine-evidence.js';
+export type { PeriproceduralQuetiapineOlanzapineIdentityDefinition } from './periprocedural-quetiapine-olanzapine-evidence.js';
+
+export {
+  periproceduralAripiprazoleHaloperidolIdentityDefinitions,
+  periproceduralAripiprazoleHaloperidolIdentitySources,
+  periproceduralAripiprazoleHaloperidolIdentityAtoms,
+  periproceduralAripiprazoleHaloperidolIdentityEvidence,
+  periproceduralAripiprazoleHaloperidolReviewRules,
+} from './periprocedural-aripiprazole-haloperidol-evidence.js';
+export type { PeriproceduralAripiprazoleHaloperidolIdentityDefinition } from './periprocedural-aripiprazole-haloperidol-evidence.js';
+
+export {
+  periproceduralClozapineZiprasidoneIdentityDefinitions,
+  periproceduralClozapineZiprasidoneIdentitySources,
+  periproceduralClozapineZiprasidoneIdentityAtoms,
+  periproceduralClozapineZiprasidoneIdentityEvidence,
+  periproceduralClozapineZiprasidoneReviewRules,
+} from './periprocedural-clozapine-ziprasidone-evidence.js';
+export type { PeriproceduralClozapineZiprasidoneIdentityDefinition } from './periprocedural-clozapine-ziprasidone-evidence.js';
+
+export {
+  periproceduralTcaBupropionIdentityDefinitions,
+  periproceduralTcaBupropionIdentitySources,
+  periproceduralTcaBupropionIdentityAtoms,
+  periproceduralTcaBupropionIdentityEvidence,
+  periproceduralTcaBupropionReviewRules,
+} from './periprocedural-tca-bupropion-evidence.js';
+export type { PeriproceduralTcaBupropionIdentityDefinition } from './periprocedural-tca-bupropion-evidence.js';
+
+export {
+  periproceduralHerbalSupplementIdentityDefinitions,
+  periproceduralHerbalSupplementIdentitySources,
+  periproceduralHerbalSupplementIdentityAtoms,
+  periproceduralHerbalSupplementIdentityEvidence,
+  periproceduralHerbalSupplementReviewRules,
+} from './periprocedural-herbal-supplement-evidence.js';
+export type { PeriproceduralHerbalSupplementIdentityDefinition } from './periprocedural-herbal-supplement-evidence.js';
+
+export {
+  periproceduralCannabinoidIdentityDefinitions,
+  periproceduralCannabinoidIdentitySources,
+  periproceduralCannabinoidIdentityAtoms,
+  periproceduralCannabinoidIdentityEvidence,
+  periproceduralCannabinoidReviewRules,
+} from './periprocedural-cannabinoid-evidence.js';
+export type { PeriproceduralCannabinoidIdentityDefinition } from './periprocedural-cannabinoid-evidence.js';
+
+export * from './shadow-validation.js';

@@ -1,0 +1,94 @@
+{
+  "registerId": "PREP-MEDS-V1-HUMAN-CLINICAL-LOCAL-POLICY-DECISIONS",
+  "status": "PENDING_ACCOUNTABLE_HUMAN_REVIEW",
+  "activationBlocking": true,
+  "engineeringInferenceProhibited": true,
+  "patientInstructionsEnabled": false,
+  "clinicalApprovalGranted": false,
+  "localPolicyApprovalGranted": false,
+  "productionActivationGranted": false,
+  "domains": [
+    {
+      "domain": "ANTITHROMBOTICS",
+      "accountableReviewers": ["GI", "ANESTHESIA", "PHARMACY", "CARDIOLOGY", "LOCAL_GOVERNANCE"],
+      "decisions": [
+        "Assign local procedure bleeding-risk categories and escalation ownership.",
+        "Approve renal-function inputs and review thresholds for anticoagulant pathways.",
+        "Define accountable handling of recent ACS/stent, thrombotic events, mechanical valves, DAPT, and bridging questions.",
+        "Approve restart ownership; no restart instruction is currently authorized."
+      ]
+    },
+    {
+      "domain": "DIABETES_GLP1",
+      "accountableReviewers": ["GI", "ANESTHESIA", "PHARMACY", "ENDOCRINOLOGY", "LOCAL_GOVERNANCE"],
+      "decisions": [
+        "Approve local insulin, glucose-monitoring, and hypoglycemia-rescue ownership.",
+        "Approve SGLT2 escalation and ketone-risk workflow without inferring patient-specific timing.",
+        "Approve GLP-1/GIP symptom, escalation-phase, gastric-emptying, and anesthesia risk workflow.",
+        "Define when endocrinology or prescribing-clinician review is mandatory."
+      ]
+    },
+    {
+      "domain": "CARDIOVASCULAR_HEMODYNAMIC",
+      "accountableReviewers": ["GI", "ANESTHESIA", "PHARMACY", "CARDIOLOGY", "LOCAL_GOVERNANCE"],
+      "decisions": [
+        "Approve indication-sensitive RAAS and diuretic pathways.",
+        "Define escalation for arrhythmia, QT, electrolyte, heart-failure, and hemodynamic instability contexts.",
+        "Approve ownership for route/form substitutions; no conversion is currently authorized."
+      ]
+    },
+    {
+      "domain": "NEURO_WITHDRAWAL",
+      "accountableReviewers": ["GI", "ANESTHESIA", "PHARMACY", "NEUROLOGY", "PRESCRIBER", "LOCAL_GOVERNANCE"],
+      "decisions": [
+        "Define escalation for seizure history, missed doses, inability to take the reconciled route/form, and withdrawal risk.",
+        "Approve handling of serotonergic, adrenergic, QT, hemodynamic, and cumulative-sedation interactions.",
+        "Approve prescriber and anesthesia ownership; no interruption, taper, conversion, or restart timing is authorized."
+      ]
+    },
+    {
+      "domain": "OUD_PAIN",
+      "accountableReviewers": ["GI", "ANESTHESIA", "PHARMACY", "PAIN_OUD", "PRESCRIBER", "LOCAL_GOVERNANCE"],
+      "decisions": [
+        "Approve coordination ownership for buprenorphine, methadone, naltrexone, and anticipated peri-procedural analgesia.",
+        "Define escalation for indication, formulation, recent administration, withdrawal, respiratory, and relapse risk.",
+        "Confirm that no autonomous dose, interruption, bridging, substitution, analgesia, or restart instruction is authorized."
+      ]
+    },
+    {
+      "domain": "STEROIDS_IMMUNOSUPPRESSION",
+      "accountableReviewers": ["GI", "ANESTHESIA", "PHARMACY", "TRANSPLANT", "PRESCRIBER", "LOCAL_GOVERNANCE"],
+      "decisions": [
+        "Approve adrenal-risk assessment and stress-dose ownership without inferring dose or duration.",
+        "Define transplant-team escalation for organ, regimen, monitoring, interaction, infection, and oral-intake context.",
+        "Confirm that no missed-dose, substitution, route/form conversion, monitoring target, or restart instruction is authorized."
+      ]
+    },
+    {
+      "domain": "PULMONARY_AIRWAY",
+      "accountableReviewers": ["GI", "ANESTHESIA", "PHARMACY", "PRESCRIBER", "LOCAL_GOVERNANCE"],
+      "decisions": [
+        "Approve airway-symptom and rescue-medication escalation workflow.",
+        "Define device/form reconciliation and availability-verification responsibilities.",
+        "Define pulmonary-hypertension specialist escalation and uninterrupted-infusion safety ownership."
+      ]
+    },
+    {
+      "domain": "OTC_HERBAL",
+      "accountableReviewers": ["GI", "ANESTHESIA", "PHARMACY", "PRESCRIBER", "LOCAL_GOVERNANCE"],
+      "decisions": [
+        "Approve handling of uncertain blend composition, purity, potency, dose, route, and last-use information.",
+        "Define escalation for bleeding, sedation, hemodynamic, serotonergic, hepatic, glucose, and cannabinoid contexts.",
+        "Confirm that no generalized hold timing is authorized for a supplement or cannabinoid pathway."
+      ]
+    }
+  ],
+  "decisionCount": 26,
+  "completionCriteria": [
+    "Every decision is adjudicated by the named accountable human reviewer roles.",
+    "Approved local policies are versioned, scoped to organization/site, and independently tested.",
+    "Clinical approval and local-policy approval are recorded separately.",
+    "A new explicit production-activation review confirms patient-facing language, monitoring, escalation, audit retention, and rollback controls.",
+    "No passing engineering test is treated as approval."
+  ]
+}

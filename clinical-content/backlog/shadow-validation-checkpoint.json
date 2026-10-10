@@ -1,0 +1,110 @@
+{
+  "checkpointId": "PREP-MEDS-SHADOW-VALIDATION-FOUNDATION-001",
+  "status": "ENGINEERING_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "recordedAt": "2026-10-07T12:48:00Z",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "verifiedImplementationSha": "a06fe4d4a0e6d30a983f5f178c662393d577c64c",
+  "implemented": {
+    "domainReviewPackets": [
+      "antithrombotics",
+      "diabetes/GLP-1",
+      "cardiovascular/hemodynamic",
+      "neuro/withdrawal",
+      "OUD/pain",
+      "steroids/immunosuppression",
+      "pulmonary/airway",
+      "OTC/herbal"
+    ],
+    "syntheticCaseCount": 20,
+    "procedureCoverage": [
+      "EGD",
+      "COLONOSCOPY",
+      "EGD_COLONOSCOPY"
+    ],
+    "bleedingRiskCoverage": [
+      "LOW",
+      "HIGH"
+    ],
+    "requiredContextsCovered": [
+      "renal-function modifier",
+      "recent ACS/stent/thrombotic event",
+      "mechanical valve and bridging ambiguity",
+      "insulin, GLP-1, and SGLT2",
+      "OUD therapy",
+      "seizure/withdrawal-sensitive therapy",
+      "chronic systemic steroid",
+      "transplant immunosuppression",
+      "pulmonary-airway and PAH infusion continuity",
+      "OTC/herbal and cannabinoid ambiguity",
+      "route/form/release fail-closed scenarios"
+    ],
+    "auditEnvelope": {
+      "mode": "SHADOW_VALIDATION_ONLY",
+      "patientInstructions": null,
+      "clinicalApprovalGranted": false,
+      "localPolicyApprovalGranted": false,
+      "productionActivationGranted": false,
+      "allowedReviewDispositions": [
+        "CLINICIAN_REVIEW_REQUIRED",
+        "LOCAL_POLICY_REQUIRED"
+      ]
+    },
+    "executableBinding": {
+      "terminologyResolver": "LIVE_VERSIONED_DATASET",
+      "engineMode": "VALIDATION",
+      "clinicalRules": "DRAFT_REVIEW_CANDIDATES",
+      "policies": "NO_ACTIVE_LOCAL_POLICIES",
+      "evidenceProvenanceAudit": "ATOM_AND_SOURCE_RESOLUTION_ENFORCED",
+      "ambiguityHandling": "FAIL_CLOSED",
+      "patientInstructions": null
+    },
+    "reviewerHandoff": {
+      "deterministicDomainExports": 8,
+      "humanDecisionRegisterEntries": 26,
+      "accountableRoles": [
+        "GI",
+        "ANESTHESIA",
+        "PHARMACY",
+        "CARDIOLOGY",
+        "ENDOCRINOLOGY",
+        "NEUROLOGY",
+        "PAIN_OUD",
+        "TRANSPLANT",
+        "PRESCRIBER",
+        "LOCAL_GOVERNANCE"
+      ],
+      "status": "ENGINEERING_COMPLETE_HUMAN_REVIEW_REQUIRED",
+      "productionActivationStatus": "NOT_ACTIVE"
+    }
+  },
+  "verification": {
+    "workflowName": "quality",
+    "workflowRunNumber": 506,
+    "workflowRunId": 37623321159,
+    "jobId": 112798734313,
+    "conclusion": "success",
+    "gates": {
+      "schemaValidation": "SUCCESS",
+      "strictTypecheck": "SUCCESS",
+      "unitAndRegressionTests": "SUCCESS",
+      "productionWebBuild": "SUCCESS"
+    }
+  },
+  "governance": {
+    "contentStatus": "DRAFT_REVIEW_REQUIRED",
+    "patientInstructionsEnabled": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "productionRulesEnabled": false,
+    "mergeStatus": "NOT_MERGED",
+    "deploymentStatus": "NOT_DEPLOYED"
+  },
+  "remainingEngineeringWork": [],
+  "remainingHumanWork": [
+    "Adjudicate all 26 activation-blocking clinical and local-policy decisions in shadow-review-decision-register.json.",
+    "Version and test any approved organization/site policies.",
+    "Record clinical approval and local-policy approval separately.",
+    "Complete a separate explicit production-activation review; passing tests do not authorize activation."
+  ]
+}
