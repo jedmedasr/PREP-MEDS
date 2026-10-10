@@ -29,10 +29,12 @@ interface PatientInstructionView {
   reason?: string;
 }
 
+type ClinicalContentState = 'NO_ACTIVE_CLINICAL_RULES' | 'ACTIVE_RULES_AVAILABLE' | 'SHADOW_REVIEW_RULES';
+
 interface DecisionResponse {
   execution: DecisionExecution;
   patientInstruction: PatientInstructionView;
-  clinicalContentState: 'NO_ACTIVE_CLINICAL_RULES' | 'ACTIVE_RULES_AVAILABLE';
+  clinicalContentState: ClinicalContentState;
 }
 
 type ResultTab = 'staff' | 'clinician' | 'evidence' | 'patient';
@@ -50,6 +52,31 @@ function statusTone(disposition: string): string {
   return 'status status-muted';
 }
 
+function recommendationText(execution: DecisionExecution): string {
+  const event = execution.event;
+  if (event.disposition === 'HOLD_STANDARD') {
+    const rawDays = event.outputSnapshot.timingRule?.preProcedure?.medicationFreeIntervalDaysBeforeProcedure;
+    if (typeof rawDays === 'number') {
+      return `Hold for ${rawDays} full day${rawDays === 1 ? '' : 's'} before the procedure; do not take it on procedure day.`;
+    }
+    return 'Hold before the procedure according to the selected structured rule.';
+  }
+  if (event.disposition === 'CONTINUE') return 'Continue through the procedure under the selected rule.';
+  if (event.disposition === 'CLINICIAN_REVIEW_REQUIRED') return 'Do not issue an automatic hold plan; clinician review is required.';
+  if (event.disposition === 'LOCAL_POLICY_REQUIRED') return 'A local policy decision is required before a hold plan can be issued.';
+  if (event.disposition === 'INSUFFICIENT_INFORMATION') return 'Answer the missing clinical questions before a recommendation can be issued.';
+  return 'No actionable medication rule applies to the current context.';
+}
+
+function restartText(execution: DecisionExecution): string {
+  const owner = execution.event.outputSnapshot.restartOwner;
+  if (!owner || owner === 'NOT_APPLICABLE') return 'No separate restart plan is required by this rule.';
+  if (owner === 'ENDOSCOPIST') return 'Restart timing: endoscopist-directed after the procedure and hemostasis assessment.';
+  if (owner === 'PRESCRIBER') return 'Restart timing: prescribing-clinician directed.';
+  if (owner === 'CLINICIAN_REVIEW') return 'Restart timing requires clinician review.';
+  return 'Restart timing is defined by the structured rule.';
+}
+
 export function ClinicalWorkspace() {
   const [procedure, setProcedure] = useState<ProcedureCode | null>(null);
   const [query, setQuery] = useState('');
@@ -57,7 +84,7 @@ export function ClinicalWorkspace() {
   const [selectedMedication, setSelectedMedication] = useState<SearchHit | null>(null);
   const [questions, setQuestions] = useState<WorkflowQuestion[]>([]);
   const [answers, setAnswers] = useState<Record<string, string | boolean>>({});
-  const [contentState, setContentState] = useState<'NO_ACTIVE_CLINICAL_RULES' | 'ACTIVE_RULES_AVAILABLE' | null>(null);
+  const [contentState, setContentState] = useState<ClinicalContentState | null>(null);
   const [decision, setDecision] = useState<DecisionResponse | null>(null);
   const [tab, setTab] = useState<ResultTab>('staff');
   const [loading, setLoading] = useState(false);
@@ -111,7 +138,7 @@ export function ClinicalWorkspace() {
         if (!response.ok) throw new Error('Question discovery failed.');
         const body = (await response.json()) as {
           questions: WorkflowQuestion[];
-          contentState: 'NO_ACTIVE_CLINICAL_RULES' | 'ACTIVE_RULES_AVAILABLE';
+          contentState: ClinicalContentState;
         };
         setQuestions(body.questions);
         setContentState(body.contentState);
@@ -223,6 +250,11 @@ export function ClinicalWorkspace() {
       {contentState === 'NO_ACTIVE_CLINICAL_RULES' ? (
         <div className="alert alert-info">
           No clinically activated medication rule is loaded yet. Search and workflow functions are available, but the system will not create a hold/continue instruction until governed clinical content is activated.
+        </div>
+      ) : null}
+      {contentState === 'SHADOW_REVIEW_RULES' ? (
+        <div className="alert alert-info">
+          Testing preview: DRAFT / REVIEW REQUIRED clinical rules are enabled. Use this view to validate hold/continue logic; patient-facing instructions remain disabled until clinical and local-policy approval.
         </div>
       ) : null}
 
@@ -347,7 +379,7 @@ export function ClinicalWorkspace() {
           <button className="primary-button" disabled={!canEvaluate} onClick={evaluate}>
             {loading ? 'Evaluating…' : 'Evaluate medication'}
           </button>
-          <span>Production mode uses ACTIVE rules and policies only.</span>
+          <span>{contentState === 'SHADOW_REVIEW_RULES' ? 'Testing DRAFT review rules in deterministic validation mode.' : 'Production mode uses ACTIVE rules and policies only.'}</span>
         </div>
       </section>
 
@@ -370,12 +402,17 @@ export function ClinicalWorkspace() {
           {tab === 'staff' ? (
             <div className="result-grid">
               <div className="result-card prominent">
-                <span className="card-label">Disposition</span>
-                <strong>{decision.execution.event.disposition.replaceAll('_', ' ')}</strong>
-                <p>{decision.execution.event.reasonCodes.length ? decision.execution.event.reasonCodes.join(' · ') : 'No additional reason code.'}</p>
+                <span className="card-label">{decision.clinicalContentState === 'SHADOW_REVIEW_RULES' ? 'Draft recommendation' : 'Recommendation'}</span>
+                <strong>{recommendationText(decision.execution)}</strong>
+                <p>{restartText(decision.execution)}</p>
               </div>
               <div className="result-card">
-                <span className="card-label">Medication</span>
+                <span className="card-label">Disposition</span>
+                <strong>{decision.execution.event.disposition.replaceAll('_', ' ')}</strong>
+                <p>{decision.execution.event.reasonCodes.length ? decision.execution.event.reasonCodes.join(' · ') : 'No safety stop triggered.'}</p>
+              </div>
+              <div className="result-card">
+                <span className="card-label">Medication / procedure</span>
                 <strong>{selectedMedication?.canonicalName}</strong>
                 <p>{procedure?.replaceAll('_', ' + ')}</p>
               </div>
@@ -395,6 +432,8 @@ export function ClinicalWorkspace() {
                 <span>Occurred</span><strong>{decision.execution.event.occurredAt}</strong>
                 <span>Rule refs</span><strong>{decision.execution.event.ruleRefs.map((ref) => `${ref.id}@${ref.version}`).join(', ') || 'None'}</strong>
                 <span>Policy refs</span><strong>{decision.execution.event.policyRefs.map((ref) => `${ref.id}@${ref.version}`).join(', ') || 'None'}</strong>
+                <span>Structured recommendation</span><strong>{recommendationText(decision.execution)}</strong>
+                <span>Restart ownership</span><strong>{restartText(decision.execution)}</strong>
               </div>
               <details>
                 <summary>Decision trace</summary>
