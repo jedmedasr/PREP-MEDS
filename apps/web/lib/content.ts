@@ -379,6 +379,10 @@ export const activePolicies: PolicyOverlay[] = [];
 export const clinicalReviewRules: ClinicalRule[] = [
   ...firstReleaseCandidateRules.filter(
     (rule) =>
+      !rule.scope.medicationIds?.includes('MED-apixaban') &&
+      !rule.scope.medicationIds?.includes('MED-warfarin') &&
+      !rule.scope.medicationIds?.includes('MED-clopidogrel') &&
+      !rule.scope.medicationIds?.includes('MED-aspirin') &&
       !rule.scope.medicationIds?.includes('MED-insulin-glargine') &&
       !rule.scope.medicationIds?.includes('MED-lisinopril') &&
       !rule.scope.medicationIds?.includes('MED-metoprolol'),
@@ -535,6 +539,16 @@ export const modifierDefinitions: Record<string, UiModifierDefinition> = {
       { value: 'VTE', label: 'Venous thromboembolism (DVT/PE)' },
       { value: 'MECHANICAL_HEART_VALVE', label: 'Mechanical heart valve' },
       { value: 'OTHER_UNCLEAR', label: 'Other / unclear' },
+    ],
+  },
+  'MOD-procedure-bleeding-risk': {
+    id: 'MOD-procedure-bleeding-risk',
+    label: 'Planned procedure bleeding risk',
+    description: 'Select the bleeding-risk category for the planned endoscopic procedure/intervention. This drives the DRAFT DOAC interruption interval.',
+    inputType: 'select',
+    options: [
+      { value: 'LOW_MODERATE', label: 'Low-to-moderate bleeding risk' },
+      { value: 'HIGH', label: 'High bleeding risk / therapeutic intervention' },
     ],
   },
   'MOD-antiplatelet-indication': {
