@@ -80,11 +80,166 @@ function auditedEvidenceRefs(rule: ClinicalRule): ClinicalRule['evidenceRefs'] {
 }
 
 /**
- * Shadow-validation rules intentionally remove unresolved policy dependencies from execution.
- * Review-only pathways retain clinician review; the aspirin continuation candidate remains
- * shadow-only. Final patient instructions are blocked by the application's shadow-mode gate.
+ * Shadow-validation rules intentionally remain CLINICAL_REVIEW content.
+ *
+ * The high-impact DOAC pathways below are intentionally actionable in VALIDATION mode so the
+ * product can test its core job: provide a concrete pre-procedure hold recommendation when the
+ * required clinical context is known. They are not ACTIVE production rules, patient-facing output
+ * remains blocked, and restart timing remains endoscopist-owned because GI-specific evidence does
+ * not support one universal post-procedure interval.
  */
-export const antithromboticShadowRules: ClinicalRule[] = antithromboticCandidateRules.map((rule): ClinicalRule => {
+
+const actionableDoacMedicationIds = new Set([
+  'MED-apixaban',
+  'MED-rivaroxaban',
+  'MED-edoxaban',
+  'MED-dabigatran',
+]);
+
+const commonDoacRequiredModifiers = [
+  'MOD-anticoagulation-indication',
+  'MOD-recent-thrombotic-event',
+  'MOD-concomitant-antithrombotic',
+  'MOD-procedure-bleeding-risk',
+];
+
+function actionableDoacHardStops(): HardStop[] {
+  return [
+    hardStop('RECENT_THROMBOTIC_EVENT_REQUIRES_CLINICIAN_REVIEW', 'MOD-recent-thrombotic-event'),
+    hardStop('CONCOMITANT_ANTITHROMBOTIC_REQUIRES_CLINICIAN_REVIEW', 'MOD-concomitant-antithrombotic'),
+    hardStopEquals(
+      'MECHANICAL_HEART_VALVE_REQUIRES_CLINICIAN_REVIEW',
+      'MOD-anticoagulation-indication',
+      'MECHANICAL_HEART_VALVE',
+    ),
+    hardStopEquals(
+      'OTHER_OR_UNCLEAR_ANTICOAGULATION_INDICATION_REQUIRES_CLINICIAN_REVIEW',
+      'MOD-anticoagulation-indication',
+      'OTHER_UNCLEAR',
+    ),
+  ];
+}
+
+function sourceCandidateFor(medicationId: string): ClinicalRule {
+  const source = antithromboticCandidateRules.find((rule) => rule.scope.medicationIds?.includes(medicationId));
+  if (!source) throw new Error(`Missing antithrombotic source candidate for ${medicationId}`);
+  return source;
+}
+
+function actionableEvidenceRefs(
+  medicationId: string,
+  timingEvidenceId: 'EVD-B1-CHEST-FXA-DOAC-BLEED-RISK-TIMING' | 'EVD-B1-CHEST-DABIGATRAN-BLEED-RISK-RENAL-TIMING',
+): ClinicalRule['evidenceRefs'] {
+  const refs = [
+    ...auditedEvidenceRefs(sourceCandidateFor(medicationId)),
+    { id: 'EVD-B1-ACG-DOAC-1-2-DAY-WINDOW', version: 1 },
+    { id: timingEvidenceId, version: 1 },
+  ];
+  const seen = new Set<string>();
+  return refs.filter((ref) => {
+    const key = `${ref.id}@${ref.version}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function holdTiming(days: number, instructionCode: string): NonNullable<ClinicalRule['timingRule']> {
+  return {
+    instructionCode,
+    preProcedure: {
+      medicationFreeIntervalDaysBeforeProcedure: days,
+      intervalDefinition: 'FULL_DAYS_BEFORE_PROCEDURE_WITH_NO_DOAC_DOSES',
+    },
+    procedureDay: { takeMedication: false },
+    restart: {
+      criterionCode: 'RESTART_AFTER_PROCEDURE_HEMOSTASIS_AND_ENDOSCOPIST_REVIEW',
+      autonomousTimingAuthorized: false,
+    },
+  };
+}
+
+function factorXaActionRule(args: {
+  medicationId: 'MED-apixaban' | 'MED-rivaroxaban' | 'MED-edoxaban';
+  displayName: string;
+  bleedingRisk: 'LOW_MODERATE' | 'HIGH';
+  holdDays: 1 | 2;
+}): ClinicalRule {
+  const riskLabel = args.bleedingRisk === 'LOW_MODERATE' ? 'low-to-moderate' : 'high';
+  return {
+    id: `RULE-SHADOW-${args.medicationId.replace('MED-', '').toUpperCase()}-${args.bleedingRisk}-HOLD`,
+    version: 1,
+    name: `${args.displayName} ${riskLabel}-bleeding-risk interruption candidate`,
+    scope: { medicationIds: [args.medicationId], procedureCodes: ['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY'] },
+    requiredModifierIds: [...commonDoacRequiredModifiers],
+    applicability: {
+      op: 'EQUALS',
+      field: 'modifier:MOD-procedure-bleeding-risk',
+      value: args.bleedingRisk,
+    },
+    hardStops: actionableDoacHardStops(),
+    disposition: 'HOLD_STANDARD',
+    timingRule: holdTiming(
+      args.holdDays,
+      `${args.medicationId.replace('MED-', '').toUpperCase()}_WITHHOLD_${args.holdDays}_FULL_DAY${args.holdDays === 1 ? '' : 'S'}_BEFORE_PROCEDURE`,
+    ),
+    restartOwner: 'ENDOSCOPIST',
+    evidenceRefs: actionableEvidenceRefs(args.medicationId, 'EVD-B1-CHEST-FXA-DOAC-BLEED-RISK-TIMING'),
+    status: 'CLINICAL_REVIEW',
+    priority: 20,
+  };
+}
+
+function dabigatranActionRule(args: {
+  bleedingRisk: 'LOW_MODERATE' | 'HIGH';
+  crclBand: 'GE_50' | 'LT_50';
+  holdDays: 1 | 2 | 4;
+}): ClinicalRule {
+  const riskLabel = args.bleedingRisk === 'LOW_MODERATE' ? 'low-to-moderate' : 'high';
+  return {
+    id: `RULE-SHADOW-DABIGATRAN-${args.bleedingRisk}-${args.crclBand}-HOLD`,
+    version: 1,
+    name: `Dabigatran ${riskLabel}-bleeding-risk renal-sensitive interruption candidate`,
+    scope: { medicationIds: ['MED-dabigatran'], procedureCodes: ['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY'] },
+    requiredModifierIds: [...commonDoacRequiredModifiers, 'MOD-verified-crcl-band'],
+    applicability: {
+      op: 'ALL',
+      conditions: [
+        { op: 'EQUALS', field: 'modifier:MOD-procedure-bleeding-risk', value: args.bleedingRisk },
+        { op: 'EQUALS', field: 'modifier:MOD-verified-crcl-band', value: args.crclBand },
+      ],
+    },
+    hardStops: actionableDoacHardStops(),
+    disposition: 'HOLD_STANDARD',
+    timingRule: holdTiming(
+      args.holdDays,
+      `DABIGATRAN_WITHHOLD_${args.holdDays}_FULL_DAY${args.holdDays === 1 ? '' : 'S'}_BEFORE_PROCEDURE`,
+    ),
+    restartOwner: 'ENDOSCOPIST',
+    evidenceRefs: actionableEvidenceRefs('MED-dabigatran', 'EVD-B1-CHEST-DABIGATRAN-BLEED-RISK-RENAL-TIMING'),
+    status: 'CLINICAL_REVIEW',
+    priority: 20,
+  };
+}
+
+export const actionableDoacShadowRules: ClinicalRule[] = [
+  factorXaActionRule({ medicationId: 'MED-apixaban', displayName: 'Apixaban', bleedingRisk: 'LOW_MODERATE', holdDays: 1 }),
+  factorXaActionRule({ medicationId: 'MED-apixaban', displayName: 'Apixaban', bleedingRisk: 'HIGH', holdDays: 2 }),
+  factorXaActionRule({ medicationId: 'MED-rivaroxaban', displayName: 'Rivaroxaban', bleedingRisk: 'LOW_MODERATE', holdDays: 1 }),
+  factorXaActionRule({ medicationId: 'MED-rivaroxaban', displayName: 'Rivaroxaban', bleedingRisk: 'HIGH', holdDays: 2 }),
+  factorXaActionRule({ medicationId: 'MED-edoxaban', displayName: 'Edoxaban', bleedingRisk: 'LOW_MODERATE', holdDays: 1 }),
+  factorXaActionRule({ medicationId: 'MED-edoxaban', displayName: 'Edoxaban', bleedingRisk: 'HIGH', holdDays: 2 }),
+  dabigatranActionRule({ bleedingRisk: 'LOW_MODERATE', crclBand: 'GE_50', holdDays: 1 }),
+  dabigatranActionRule({ bleedingRisk: 'LOW_MODERATE', crclBand: 'LT_50', holdDays: 2 }),
+  dabigatranActionRule({ bleedingRisk: 'HIGH', crclBand: 'GE_50', holdDays: 2 }),
+  dabigatranActionRule({ bleedingRisk: 'HIGH', crclBand: 'LT_50', holdDays: 4 }),
+];
+
+const reviewOnlySourceRules = antithromboticCandidateRules.filter(
+  (rule) => !(rule.scope.medicationIds ?? []).some((id) => actionableDoacMedicationIds.has(id)),
+);
+
+const transformedReviewOnlyRules: ClinicalRule[] = reviewOnlySourceRules.map((rule): ClinicalRule => {
   const extraStops: HardStop[] = [];
   const requiredModifierIds = [...rule.requiredModifierIds];
 
@@ -136,10 +291,13 @@ export const antithromboticShadowRules: ClinicalRule[] = antithromboticCandidate
     status: 'CLINICAL_REVIEW',
   };
 
-  // Preserve absence of optional fields instead of explicitly assigning undefined.
-  // This satisfies exactOptionalPropertyTypes without inventing a fallback owner.
   if (forceClinicianRestart && rule.disposition !== 'CONTINUE') {
     auditedRule.restartOwner = 'CLINICIAN_REVIEW';
   }
   return auditedRule;
 });
+
+export const antithromboticShadowRules: ClinicalRule[] = [
+  ...actionableDoacShadowRules,
+  ...transformedReviewOnlyRules,
+];
