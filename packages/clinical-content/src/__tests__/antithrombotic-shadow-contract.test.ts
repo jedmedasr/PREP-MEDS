@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { evaluateDecision, type ClinicalRule, type ModifierValue } from '@prep-meds/clinical-engine';
-import { antithromboticCandidateRules } from '../antithrombotics.js';
+import { antithromboticCandidateRules, antithromboticEvidence } from '../antithrombotics.js';
 import { actionableDoacShadowRules, antithromboticShadowRules } from '../antithrombotic-shadow.js';
 
 function findRule(rules: ClinicalRule[], medicationId: string): ClinicalRule {
@@ -97,6 +97,39 @@ describe('antithrombotic shadow serialization and ownership contract', () => {
     expect(source.restartOwner).toBe('ENDOSCOPIST');
     expect(source.policyDependencyIds).toContain('POLICY-GI-ANTITHROMBOTIC-TIMING');
     expect(source.timingRule).toBeUndefined();
+  });
+});
+
+describe('actionable DOAC evidence and source-scope safety', () => {
+  it('requires a non-empty exact locator for every evidence atom referenced by an actionable DOAC rule', () => {
+    const atoms = new Map(
+      antithromboticEvidence.atoms.map((atom) => [`${atom.id}@${atom.version}`, atom] as const),
+    );
+
+    for (const rule of actionableDoacShadowRules) {
+      for (const evidenceRef of rule.evidenceRefs) {
+        const atom = atoms.get(`${evidenceRef.id}@${evidenceRef.version}`);
+        expect(atom, `Missing evidence atom for ${rule.id}: ${evidenceRef.id}@${evidenceRef.version}`).toBeDefined();
+        const locatorValues = Object.values(atom?.locator ?? {}).filter(
+          (value) => typeof value === 'string' && value.trim().length > 0,
+        );
+        expect(
+          locatorValues.length,
+          `Actionable evidence ${evidenceRef.id}@${evidenceRef.version} used by ${rule.id} must have an exact locator`,
+        ).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it('fails closed until prolonged-clearance risk is explicitly resolved for factor Xa DOAC timing', () => {
+    const result = evaluate('MED-apixaban', [
+      ...standardDoacModifiers,
+      modifier('MOD-procedure-bleeding-risk', 'LOW_MODERATE'),
+    ]);
+
+    expect(result.event.disposition).toBe('INSUFFICIENT_INFORMATION');
+    expect(result.event.missingModifierIds).toContain('MOD-doac-prolonged-clearance-risk');
+    expect(result.event.outputSnapshot.timingRule).toBeUndefined();
   });
 });
 
