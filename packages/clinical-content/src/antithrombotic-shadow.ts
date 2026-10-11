@@ -100,6 +100,7 @@ const commonDoacRequiredModifiers = [
   'MOD-anticoagulation-indication',
   'MOD-recent-thrombotic-event',
   'MOD-concomitant-antithrombotic',
+  'MOD-doac-prolonged-clearance-risk',
   'MOD-procedure-bleeding-risk',
 ];
 
@@ -107,6 +108,7 @@ function actionableDoacHardStops(): HardStop[] {
   return [
     hardStop('RECENT_THROMBOTIC_EVENT_REQUIRES_CLINICIAN_REVIEW', 'MOD-recent-thrombotic-event'),
     hardStop('CONCOMITANT_ANTITHROMBOTIC_REQUIRES_CLINICIAN_REVIEW', 'MOD-concomitant-antithrombotic'),
+    hardStop('PROLONGED_DOAC_CLEARANCE_RISK_REQUIRES_CLINICIAN_REVIEW', 'MOD-doac-prolonged-clearance-risk'),
     hardStopEquals(
       'MECHANICAL_HEART_VALVE_REQUIRES_CLINICIAN_REVIEW',
       'MOD-anticoagulation-indication',
@@ -130,10 +132,12 @@ function actionableEvidenceRefs(
   medicationId: string,
   timingEvidenceId: 'EVD-B1-CHEST-FXA-DOAC-BLEED-RISK-TIMING' | 'EVD-B1-CHEST-DABIGATRAN-BLEED-RISK-RENAL-TIMING',
 ): ClinicalRule['evidenceRefs'] {
+  void medicationId;
   const refs = [
-    ...auditedEvidenceRefs(sourceCandidateFor(medicationId)),
+    { id: 'EVD-B1-ACG-DOAC-INTERRUPT', version: 1 },
     { id: 'EVD-B1-ACG-DOAC-1-2-DAY-WINDOW', version: 1 },
     { id: timingEvidenceId, version: 1 },
+    { id: 'EVD-B1-ACG-RESTART-UNCERTAIN', version: 1 },
   ];
   const seen = new Set<string>();
   return refs.filter((ref) => {
