@@ -45,6 +45,7 @@ const anticoagContext = [
   known('MOD-anticoagulation-indication', 'ATRIAL_FIBRILLATION'),
   known('MOD-recent-thrombotic-event', false),
   known('MOD-concomitant-antithrombotic', false),
+  known('MOD-doac-prolonged-clearance-risk', false),
 ];
 
 const p2y12Context = [
