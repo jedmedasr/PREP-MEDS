@@ -541,6 +541,12 @@ export const modifierDefinitions: Record<string, UiModifierDefinition> = {
       { value: 'OTHER_UNCLEAR', label: 'Other / unclear' },
     ],
   },
+  'MOD-doac-prolonged-clearance-risk': {
+    id: 'MOD-doac-prolonged-clearance-risk',
+    label: 'Potential prolonged DOAC clearance',
+    description: 'Does the patient have CrCl <30 mL/min, significant hepatic impairment, or a clinically important CYP3A4/P-gp interaction that may prolong DOAC clearance? If yes, standard 1-2 day timing is not issued automatically.',
+    inputType: 'boolean',
+  },
   'MOD-procedure-bleeding-risk': {
     id: 'MOD-procedure-bleeding-risk',
     label: 'Planned procedure bleeding risk',
