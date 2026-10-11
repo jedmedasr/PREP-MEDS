@@ -1,51 +1,48 @@
 "use client";
-import { useState } from "react";
-
-const sources = [
-  { name: "ASGE 2016 — Management of antithrombotic agents", url: "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics" },
-  { name: "ACG/CAG 2022 — Periendoscopic antithrombotic management", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8972207/" },
-];
-const options = [
-  { id: "apixaban", name: "Eliquis (apixaban)", type: "DOAC" },
-  { id: "clopidogrel", name: "Plavix (clopidogrel)", type: "P2Y12 inhibitor" },
-  { id: "ticagrelor", name: "Brilinta (ticagrelor)", type: "P2Y12 inhibitor" },
-  { id: "aspirin", name: "Aspirin", type: "Antiplatelet" },
-];
-export default function GuidanceReview() {
-  const [drug, setDrug] = useState("apixaban");
-  const [risk, setRisk] = useState("high");
-  const [crcl, setCrcl] = useState("over60");
-  const [localText, setLocalText] = useState("");
-  const [localVisible, setLocalVisible] = useState(false);
-  const [query, setQuery] = useState("");
-  const high = risk === "high";
-  const recommendation = drug === "apixaban"
-    ? high ? ({over60:"ASGE 2016: interrupt 1–2 days before high-risk endoscopy (CrCl >60 mL/min).", from30:"ASGE 2016: interrupt 3 days before high-risk endoscopy (CrCl 30–59 mL/min).", from15:"ASGE 2016: interrupt 4 days before high-risk endoscopy (CrCl 15–29 mL/min).", unknown:"Enter creatinine clearance to select an ASGE interval."} as Record<string,string>)[crcl] : "ASGE 2016: suggests continuing DOACs for low-risk endoscopic procedures. ACG/CAG 2022 instead suggests temporary interruption for elective endoscopy; the recommendations differ."
-    : drug === "aspirin" ? "ASGE 2016: generally continue aspirin for endoscopy. ACG/CAG 2022 suggests against interrupting cardiac aspirin for secondary prevention."
-    : high ? drug === "clopidogrel" ? "ASGE 2016: withhold clopidogrel 5–7 days before high-risk endoscopy when interruption is appropriate; generally continue aspirin if used for secondary prevention." : "ASGE 2016: withhold ticagrelor 3–5 days before high-risk endoscopy when interruption is appropriate; generally continue aspirin if used for secondary prevention."
-    : "ASGE 2016: generally continue antiplatelet therapy for low-risk endoscopic procedures.";
-  return <main style={{maxWidth:900,margin:"auto",padding:28,fontFamily:"system-ui",lineHeight:1.55}}>
-    <p style={{color:"#a45100",fontWeight:700}}>CLINICAL EVIDENCE REVIEW · NOT AN APPROVED PATIENT INSTRUCTION</p>
-    <h1>PREP-MEDS · Guideline Recommendations</h1>
-    <p>Published society guidance is visible even while local policy approval is pending. Choose the procedure bleeding-risk category before interpreting a hold interval.</p>
-    <label>Find medication<input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search brand or generic" style={{display:"block",width:"100%",padding:12,marginBottom:12}}/></label>
-    <label>Medication<select value={drug} onChange={e=>setDrug(e.target.value)} style={{display:"block",width:"100%",padding:12,marginBottom:12}}>{options.filter(x=>(x.name+" "+x.type).toLowerCase().includes(query.toLowerCase())||x.id===drug).map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
-    <label>Procedure bleeding risk<select value={risk} onChange={e=>setRisk(e.target.value)} style={{display:"block",width:"100%",padding:12,marginBottom:12}}><option value="high">High bleeding risk (e.g. anticipated polypectomy / EMR)</option><option value="low">Low bleeding risk (e.g. diagnostic endoscopy ± biopsy)</option></select></label>
-    {drug==="apixaban"&&high&&<label>Creatinine clearance (CrCl)<select value={crcl} onChange={e=>setCrcl(e.target.value)} style={{display:"block",width:"100%",padding:12}}><option value="over60">&gt;60 mL/min</option><option value="from30">30–59 mL/min</option><option value="from15">15–29 mL/min</option><option value="unknown">Unknown / outside listed ranges</option></select></label>}
-    <section aria-live="polite" style={{border:"2px solid #446",padding:20,borderRadius:12,marginTop:24}}>
-      <h2>ASGE published recommendation</h2><p style={{fontSize:20,fontWeight:650}}>{recommendation}</p>
-      <p><strong>Scope:</strong> elective GI endoscopy; guideline publication 2016. This is not a patient-specific order.</p>
-      <p><strong>Contemporary cross-check:</strong> ACG/CAG 2022 suggests temporary DOAC interruption for elective procedures, without prescribing ASGE's renal-stratified intervals; it suggests interrupting the P2Y12 component of DAPT while continuing aspirin, and finds insufficient evidence for a blanket recommendation on P2Y12 monotherapy. Recommendations may differ by guideline and clinical scenario.</p>
-      <p><strong>Safety checks before applying:</strong> indication and thrombotic risk, recent VTE/ACS/coronary stent, mechanical valve, other antithrombotics, actual planned intervention, renal function, and prescribing specialist input when indicated. Do not extrapolate the table to CrCl &lt;15 mL/min.</p>
-      <p><strong>Restart:</strong> not automatically specified; confirm adequate hemostasis and individualized procedural/thrombotic risk. ACG/CAG 2022 did not establish a universal same-day versus later restart recommendation.</p>
-    </section>
-    <section style={{marginTop:24,border:"1px solid #777",padding:20,borderRadius:12}}>
-      <h2>Local institutional protocol</h2><p>Separate from society guidance. No institution-specific policy has been approved or loaded.</p>
-      <label>Draft local protocol for reviewer comparison (no PHI)<textarea value={localText} onChange={e=>{setLocalText(e.target.value);setLocalVisible(false)}} rows={4} maxLength={1500} style={{display:"block",width:"100%",padding:10}}/></label>
-      <button type="button" onClick={()=>setLocalVisible(true)} disabled={!localText.trim()} style={{padding:12,marginTop:12}}>Preview local override</button>
-      {localVisible&&<div role="status" style={{marginTop:12,padding:12,border:"2px dashed #a45100"}}><strong>UNAPPROVED LOCAL DRAFT — NOT SAVED</strong><p style={{whiteSpace:"pre-wrap"}}>{localText}</p><p>Requires institution, reviewer, approval date, versioning, and audit trail before publication.</p></div>}
-    </section>
-    <h2>Primary sources</h2><ul>{sources.map(s=><li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a></li>)}</ul>
-    <p><strong>Coverage limitation:</strong> This review page currently covers four example agents, not the entire PREP-MEDS catalog. Guideline excerpts are for clinician review; no patient-specific hold/restart instructions are issued.</p>
-  </main>;
+import {useMemo,useState} from "react";
+import {GUIDANCE,REFERENCES} from "./guidance-data";
+export default function GuidanceReview(){
+ const [query,setQuery]=useState("");
+ const [selected,setSelected]=useState("apixaban");
+ const [risk,setRisk]=useState("high");
+ const [crcl,setCrcl]=useState("unknown");
+ const [local,setLocal]=useState("");
+ const [preview,setPreview]=useState(false);
+ const matches=useMemo(()=>GUIDANCE.filter(g=>(g.label+" "+g.aliases.join(" ")+" "+g.category).toLowerCase().includes(query.toLowerCase())),[query]);
+ const g=GUIDANCE.find(x=>x.id===selected)??GUIDANCE[0];
+ if(!g){return <main style={{maxWidth:1000,margin:"auto",padding:"28px 20px",fontFamily:"system-ui",lineHeight:1.5}}><p>No guidance entries are loaded.</p></main>}
+ const renalDependent=["apixaban","rivaroxaban","dabigatran","edoxaban"].includes(g.id);
+ const text=g.id==="apixaban"&&risk==="high"?
+ ({unknown:"Select a verified creatinine-clearance band to view the ASGE apixaban interval.",over60:"ASGE 2016: interrupt 1–2 days before high-risk endoscopy (CrCl >60 mL/min).",from30:"ASGE 2016: interrupt 3 days before high-risk endoscopy (CrCl 30–59 mL/min).",from15:"ASGE 2016: interrupt 4 days before high-risk endoscopy (CrCl 15–29 mL/min).",under15:"ASGE 2016 table does not provide a validated interval here; specialist-directed plan required."} as Record<string,string>)[crcl] :risk==="high"?g.high:g.low;
+ return <main style={{maxWidth:1000,margin:"auto",padding:"28px 20px",fontFamily:"system-ui",lineHeight:1.5}}>
+ <p style={{fontWeight:800,color:"#a45100"}}>EVIDENCE REVIEW ONLY · NOT APPROVED PATIENT INSTRUCTIONS</p>
+ <h1>PREP-MEDS · Periendoscopic Medication Guidance</h1>
+ <p>Browse {GUIDANCE.length} medication classes/agents and brand aliases. Published guidance remains visible separately from unapproved institutional drafts. A medication entry is not proof of a fully validated patient-specific protocol.</p>
+ <label>Search medication or brand<input value={query} onChange={e=>setQuery(e.target.value)} placeholder="e.g., Eliquis, Ozempic, Jardiance, Lantus" style={{display:"block",width:"100%",padding:12,boxSizing:"border-box"}}/></label>
+ <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:16,marginTop:14}}>
+ <div><label>Medication<select value={matches.some(x=>x.id===selected)?selected:""} onChange={e=>setSelected(e.target.value)} style={{width:"100%",padding:12}}><option value="" disabled>Select matching medication</option>{matches.map(x=><option value={x.id} key={x.id}>{x.label} ({x.aliases.join(", ")})</option>)}</select></label><small>{matches.length} matching entries</small></div>
+ <label>Endoscopic bleeding risk<select value={risk} onChange={e=>setRisk(e.target.value)} style={{display:"block",width:"100%",padding:12}}><option value="high">High-risk intervention</option><option value="low">Low-risk diagnostic procedure</option></select></label>
+ {renalDependent&&<label>CrCl for renal-dependent anticoagulant guidance<select value={crcl} onChange={e=>setCrcl(e.target.value)} style={{display:"block",width:"100%",padding:12}}><option value="unknown">Unknown / not verified</option><option value="over60">&gt;60 mL/min</option><option value="from30">30–59 mL/min</option><option value="from15">15–29 mL/min</option><option value="under15">&lt;15 mL/min</option></select></label>}
+ </div>
+ <section aria-live="polite" style={{border:"2px solid #344e70",padding:20,borderRadius:12,marginTop:22}}>
+ <p style={{margin:0,fontWeight:700,color:"#344e70"}}>PUBLISHED SOCIETY GUIDANCE · {g.category}</p>
+ <h2>{g.label} <span style={{fontSize:15,fontWeight:400}}>({g.aliases.join(", ")})</span></h2>
+ <p style={{fontSize:20,fontWeight:650}}>{text}</p>
+ {renalDependent&&g.id!=="apixaban"&&risk==="high"&&<p style={{fontWeight:700,color:"#9b4e00"}}>Renal-dependent timing shown as a reference table summary only; verify exact CrCl band in the linked primary source before applying. No automated interval selection is available for this agent.</p>}
+ {g.notes&&<p><strong>Specific caution:</strong> {g.notes}</p>}
+ <p><strong>Clinical safeguards:</strong> Verify procedure/intervention, indication, renal function, recent VTE/ACS/stent, concurrent agents, diabetes type, fasting and anesthesia risk as applicable. No automatic patient-specific stop/restart order.</p>
+ <p><strong>Evidence:</strong> <a href={REFERENCES[g.source as keyof typeof REFERENCES]} target="_blank" rel="noopener noreferrer">{g.source} primary guideline</a>. Publication dates and context matter; recommendations may conflict across societies.</p>
+ </section>
+ <section style={{border:"1px solid #888",borderRadius:12,padding:20,marginTop:20}}>
+ <h2>Institution-specific protocol · separate layer</h2>
+ <p>No approved local override is loaded. Entering text here is an <strong>unsaved draft</strong>, not a published hospital policy.</p>
+ <label>Draft local modification (no PHI)<textarea value={local} onChange={e=>{setLocal(e.target.value);setPreview(false)}} maxLength={1500} rows={4} style={{display:"block",width:"100%",boxSizing:"border-box",padding:12}}/></label>
+ <button type="button" disabled={!local.trim()} onClick={()=>setPreview(true)} style={{padding:12,marginTop:12}}>Preview local override</button>
+ {preview&&<div role="status" style={{border:"2px dashed #a45100",padding:14,marginTop:12}}><strong>LOCAL OVERRIDE · DRAFT · NOT SAVED OR APPROVED</strong><p style={{whiteSpace:"pre-wrap"}}>{local}</p><p>Publication requires institution, owner, approver, version, effective date, and audit trail.</p></div>}
+ </section>
+ <h2>Guideline reconciliation and limitations</h2>
+ <p>ASGE 2016 provides explicit antithrombotic intervals, while ACG/CAG 2022 differs on some elective-endoscopy interruption decisions. ADA 2026 addresses perioperative diabetes medication management. Multisociety 2024 GLP-1 guidance emphasizes individualized aspiration-risk mitigation rather than automatic holds. These are <strong>not</strong> interchangeable recommendations.</p>
+ <ul>{Object.entries(REFERENCES).map(([key,url])=><li key={key}><a href={url} target="_blank" rel="noopener noreferrer">{key} source</a></li>)}</ul>
+ <p><strong>Validation status:</strong> Expanded clinician-review catalog, not exhaustive formulary reconciliation or clinically approved decision support. Some entries intentionally identify evidence gaps instead of inventing hold intervals. Local edits are not persisted.</p>
+ </main>
 }
