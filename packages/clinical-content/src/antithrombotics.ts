@@ -285,6 +285,7 @@ function atom(args: {
   authority: number;
   limitations?: string[];
   conflictGroup?: string;
+  locator?: EvidenceAtom['locator'];
 }): EvidenceAtom {
   return {
     id: args.id,
@@ -295,7 +296,7 @@ function atom(args: {
     stance: args.stance,
     evidenceStrength: args.evidenceStrength,
     applicability: args.applicability,
-    locator: {},
+    locator: args.locator ?? {},
     limitations: args.limitations ?? [],
     ...(args.conflictGroup ? { conflictGroup: args.conflictGroup } : {}),
     retrieval: {
@@ -322,6 +323,7 @@ const atoms: EvidenceAtom[] = [
     summary: 'US/Canadian GI guidance favors temporary DOAC interruption but does not establish one universal interval for every drug and patient.',
     keywords: ['DOAC', 'apixaban', 'rivaroxaban', 'edoxaban', 'dabigatran'], concepts: ['doac-interruption'], authority: 100,
     limitations: ['Conditional recommendation with very low certainty.', 'Exact timing and restart remain context dependent.'], conflictGroup: timingConflict,
+    locator: { table: 'Table 2', paragraph: 'Recommendation 13', anchorText: 'For patients on DOACs who are undergoing elective/planned endoscopic GI procedures, we suggest temporarily interrupting DOACs rather than continuing DOACs.' },
   }),
   atom({
     id: 'EVD-B1-ACG-DOAC-1-2-DAY-WINDOW', sourceId: 'SRC-ACG-CAG-ANTITHROMBOTIC-2022-BATCH1',
@@ -332,6 +334,7 @@ const atoms: EvidenceAtom[] = [
     summary: 'The endoscopy-specific ACG/CAG guideline favors temporary DOAC interruption and describes a 1-to-2-day preprocedure window, excluding the procedure day; exact selection within that window remains context dependent.',
     keywords: ['DOAC', 'endoscopy', 'apixaban', 'rivaroxaban', 'edoxaban', 'dabigatran'], concepts: ['doac-interruption', 'endoscopy-timing'], authority: 100,
     limitations: ['Conditional recommendation with very low certainty.', 'Post-endoscopy restart timing is not resolved by this atom.'],
+    locator: { section: 'Anticoagulant interruption vs continuation', paragraph: 'Recommendation 13 - Conclusions', anchorText: 'duration of temporary DOAC interruption before endoscopic procedures associated with favorable outcomes is between 1 and 2 days, excluding the day of the procedure' },
   }),
   atom({
     id: 'EVD-B1-ACG-WARFARIN-CONTINUE', sourceId: 'SRC-ACG-CAG-ANTITHROMBOTIC-2022-BATCH1',
@@ -382,6 +385,7 @@ const atoms: EvidenceAtom[] = [
     applicability: { procedureCodes: [...procedures], contextTags: ['post-procedure-restart'] },
     title: 'Post-endoscopy restart timing is context dependent', summary: 'Actual intervention, hemostasis, bleeding risk, and thrombotic risk inform restart.',
     keywords: ['restart', 'warfarin', 'DOAC', 'P2Y12'], concepts: ['restart-owner'], authority: 100,
+    locator: { table: 'Table 2', paragraph: 'Recommendations 16-18', anchorText: 'could not reach a recommendation for or against resuming the DOAC on the same day of the procedure vs 1-7 d after the procedure' },
   }),
   atom({
     id: 'EVD-B1-CHEST-DOAC-INTERRUPTION', sourceId: 'SRC-CHEST-PERIOP-ANTITHROMBOTIC-2022',
@@ -400,7 +404,8 @@ const atoms: EvidenceAtom[] = [
     title: 'CHEST factor Xa DOAC interruption is bleeding-risk dependent',
     summary: 'For elective procedures, CHEST operationalizes factor Xa DOAC interruption as 1 full day off for low-to-moderate bleeding risk and 2 full days off for high bleeding risk.',
     keywords: ['CHEST', 'apixaban', 'rivaroxaban', 'edoxaban', 'bleeding risk'], concepts: ['doac-timing', 'procedure-risk'], authority: 90,
-    limitations: ['Conditional recommendation with very low certainty.', 'General perioperative guidance; PREP-MEDS applies it only in DRAFT shadow validation alongside GI-specific ACG/CAG evidence.'],
+    limitations: ['Conditional recommendation with very low certainty.', 'General perioperative guidance; PREP-MEDS applies it only in DRAFT shadow validation alongside GI-specific ACG/CAG evidence.', 'Selected patients may require longer interruption when clearance may be prolonged; the actionable rule fails closed for that context.'],
+    locator: { section: 'Section 3: Patients Who Are Receiving a DOAC and Require an Elective Surgery/Procedure', figure: 'Figure 2', paragraph: 'Recommendations 22, 24, and 25 - Guideline Implementation Considerations', anchorText: '1 day off before low-to-moderate-bleed-risk; 2 days off before high-bleed-risk' },
   }),
   atom({
     id: 'EVD-B1-CHEST-DABIGATRAN-BLEED-RISK-RENAL-TIMING', sourceId: 'SRC-CHEST-PERIOP-ANTITHROMBOTIC-2022',
@@ -410,7 +415,8 @@ const atoms: EvidenceAtom[] = [
     title: 'CHEST dabigatran interruption depends on bleeding risk and renal function',
     summary: 'Dabigatran requires a renal-sensitive interruption pathway rather than the factor Xa DOAC schedule.',
     keywords: ['CHEST', 'dabigatran', 'CrCl', 'bleeding risk'], concepts: ['dabigatran-timing', 'renal-function', 'procedure-risk'], authority: 90,
-    limitations: ['Conditional recommendation with very low certainty.', 'CrCl must be a verified clinical value; PREP-MEDS does not calculate it.'],
+    limitations: ['Conditional recommendation with very low certainty.', 'CrCl must be a verified clinical value; PREP-MEDS does not calculate it.', 'CrCl <30 mL/min or other prolonged-clearance contexts require individualized review rather than automatic use of this branch.'],
+    locator: { section: 'Section 3: Patients Who Are Receiving a DOAC and Require an Elective Surgery/Procedure', figure: 'Figure 2', paragraph: 'Recommendation 23 - Guideline Implementation Considerations', anchorText: '1 day off before low-to-moderate-bleed-risk if CrCl >= 50 mL/min; 2 days off before low-to-moderate-bleed-risk if CrCl < 50 mL/min; 2 days off before high-bleed-risk if CrCl >= 50 mL/min; 4 days off before high-bleed-risk if CrCl < 50 mL/min' },
   }),
   atom({
     id: 'EVD-B1-CHEST-NO-DOAC-BRIDGE', sourceId: 'SRC-CHEST-PERIOP-ANTITHROMBOTIC-2022',
