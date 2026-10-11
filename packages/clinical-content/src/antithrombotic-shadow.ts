@@ -122,11 +122,6 @@ function actionableDoacHardStops(): HardStop[] {
   ];
 }
 
-function sourceCandidateFor(medicationId: string): ClinicalRule {
-  const source = antithromboticCandidateRules.find((rule) => rule.scope.medicationIds?.includes(medicationId));
-  if (!source) throw new Error(`Missing antithrombotic source candidate for ${medicationId}`);
-  return source;
-}
 
 function actionableEvidenceRefs(
   medicationId: string,
