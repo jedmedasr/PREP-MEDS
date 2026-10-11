@@ -48,6 +48,7 @@ const standardDoacModifiers = [
   modifier('MOD-anticoagulation-indication', 'ATRIAL_FIBRILLATION'),
   modifier('MOD-recent-thrombotic-event', false),
   modifier('MOD-concomitant-antithrombotic', false),
+  modifier('MOD-doac-prolonged-clearance-risk', false),
 ];
 
 describe('antithrombotic shadow serialization and ownership contract', () => {
@@ -123,7 +124,7 @@ describe('actionable DOAC evidence and source-scope safety', () => {
 
   it('fails closed until prolonged-clearance risk is explicitly resolved for factor Xa DOAC timing', () => {
     const result = evaluate('MED-apixaban', [
-      ...standardDoacModifiers,
+      ...standardDoacModifiers.filter((item) => item.modifierId !== 'MOD-doac-prolonged-clearance-risk'),
       modifier('MOD-procedure-bleeding-risk', 'LOW_MODERATE'),
     ]);
 
