@@ -173,6 +173,7 @@ describe('actionable DOAC shadow guidance', () => {
       modifier('MOD-anticoagulation-indication', 'ATRIAL_FIBRILLATION'),
       modifier('MOD-recent-thrombotic-event', true),
       modifier('MOD-concomitant-antithrombotic', false),
+      modifier('MOD-doac-prolonged-clearance-risk', false),
       modifier('MOD-procedure-bleeding-risk', 'LOW_MODERATE'),
     ]);
 
