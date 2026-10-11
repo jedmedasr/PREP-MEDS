@@ -15,7 +15,7 @@ function known(modifierId: string, value: unknown): ModifierValue {
   };
 }
 
-function evaluateApixaban(bleedingRisk: 'LOW_MODERATE' | 'HIGH', recentThrombosis = false) {
+function evaluateApixaban(bleedingRisk: 'LOW_MODERATE' | 'HIGH', recentThrombosis = false, prolongedClearanceRisk = false) {
   return evaluateDecision({
     decisionEventId: 'DEC-apixaban-integration',
     occurredAt: '2026-10-10T00:00:00Z',
@@ -34,6 +34,7 @@ function evaluateApixaban(bleedingRisk: 'LOW_MODERATE' | 'HIGH', recentThrombosi
         known('MOD-anticoagulation-indication', 'ATRIAL_FIBRILLATION'),
         known('MOD-concomitant-antithrombotic', false),
         known('MOD-recent-thrombotic-event', recentThrombosis),
+        known('MOD-doac-prolonged-clearance-risk', prolongedClearanceRisk),
         known('MOD-procedure-bleeding-risk', bleedingRisk),
       ],
     },
@@ -52,6 +53,8 @@ describe('assembled web antithrombotic actionability', () => {
     expect(required.has('MOD-anticoagulation-indication')).toBe(true);
     expect(required.has('MOD-procedure-bleeding-risk')).toBe(true);
     expect(modifierDefinitions['MOD-procedure-bleeding-risk']).toBeDefined();
+    expect(required.has('MOD-doac-prolonged-clearance-risk')).toBe(true);
+    expect(modifierDefinitions['MOD-doac-prolonged-clearance-risk']).toBeDefined();
   });
 
   it('returns a one-full-day hold candidate for low-to-moderate bleeding risk', () => {
@@ -73,6 +76,13 @@ describe('assembled web antithrombotic actionability', () => {
     expect(result.event.outputSnapshot.timingRule?.preProcedure).toMatchObject({
       medicationFreeIntervalDaysBeforeProcedure: 2,
     });
+  });
+
+  it('fails closed for a prolonged-clearance risk instead of extrapolating the standard interval', () => {
+    const result = evaluateApixaban('LOW_MODERATE', false, true);
+    expect(result.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
+    expect(result.event.reasonCodes).toContain('PROLONGED_DOAC_CLEARANCE_RISK_REQUIRES_CLINICIAN_REVIEW');
+    expect(result.event.outputSnapshot.timingRule).toBeUndefined();
   });
 
   it('fails closed instead of issuing timing after a recent thrombotic event', () => {
