@@ -166,6 +166,7 @@ describe('oral anticoagulant shadow pathways', () => {
       known('MOD-anticoagulation-indication', 'VTE'),
       known('MOD-recent-thrombotic-event', true),
       known('MOD-concomitant-antithrombotic', false),
+      known('MOD-doac-prolonged-clearance-risk', false),
       known('MOD-procedure-bleeding-risk', 'LOW_MODERATE'),
     ]);
     expect(result.event.disposition).toBe('CLINICIAN_REVIEW_REQUIRED');
