@@ -1,0 +1,178 @@
+{
+  "batchId": "MED-BATCH-11-RHEUM-IMMUNOSUPPRESSION-TRANSPLANT",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-09-30T07:24:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_TACROLIMUS_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "e3b1d30ca46cf21dc8605d7595fd27e6a6527db5",
+      "products": [
+        "PROGRAF tacrolimus immediate-release oral capsule",
+        "PROGRAF tacrolimus granules for oral suspension",
+        "PROGRAF tacrolimus intravenous injection",
+        "ASTAGRAF XL tacrolimus extended-release oral capsule",
+        "ENVARSUS XR tacrolimus extended-release oral tablet"
+      ],
+      "preservation": [
+        "PROGRAF capsule, oral-suspension granules, and intravenous injection remain distinct.",
+        "ASTAGRAF XL extended-release capsules and ENVARSUS XR extended-release tablets remain distinct from each other and from immediate-release tacrolimus; bare tacrolimus fails closed.",
+        "Transplanted organ, time since transplant, rejection history, current multidrug regimen, last dose, therapeutic drug monitoring, renal/hepatic function, interacting drugs, infection status, and oral tolerance remain transplant-team/clinician reviewed.",
+        "No autonomous continuation, interruption, missed-dose instruction, dose arithmetic, conversion, substitution, route/form change, monitoring target, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 292,
+        "workflowRunId": 36658105175,
+        "jobId": 109706689946,
+        "conclusion": "success",
+        "verifiedHeadSha": "e3b1d30ca46cf21dc8605d7595fd27e6a6527db5",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "B_CYCLOSPORINE_MODIFIED_NONMODIFIED_ROUTE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "2e83305bd4be9783049fa3978b19befc34483765",
+      "products": [
+        "SANDIMMUNE cyclosporine nonmodified oral capsule",
+        "SANDIMMUNE cyclosporine intravenous injection",
+        "NEORAL cyclosporine modified oral capsule",
+        "NEORAL cyclosporine modified oral solution"
+      ],
+      "preservation": [
+        "Modified and nonmodified oral cyclosporine remain distinct and are not treated as bioequivalent or interchangeable.",
+        "SANDIMMUNE oral capsule versus intravenous injection and NEORAL modified capsule versus oral solution remain route/form distinct; bare cyclosporine and formulation-unspecified capsule terms fail closed.",
+        "Transplanted organ or nontransplant indication, time since transplant, rejection history, multidrug regimen, last dose, concentration monitoring, renal/hepatic function, interactions, infection status, and oral tolerance remain transplant-team/clinician reviewed.",
+        "No autonomous continuation, interruption, missed-dose instruction, dose arithmetic, bioequivalent conversion, substitution, route/form change, monitoring target, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 294,
+        "workflowRunId": 36675791854,
+        "jobId": 109760343983,
+        "conclusion": "success",
+        "verifiedHeadSha": "2e83305bd4be9783049fa3978b19befc34483765",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "C_MTOR_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "9a6daadac343948d603bd0bae7d80c81e3b4da07",
+      "products": [
+        "sirolimus oral tablet",
+        "sirolimus oral solution",
+        "ZORTRESS everolimus transplant oral tablet",
+        "AFINITOR everolimus oncology/TSC oral tablet",
+        "AFINITOR DISPERZ everolimus oncology/TSC tablet for oral suspension"
+      ],
+      "preservation": [
+        "Sirolimus tablet and oral solution remain distinct; label-specific equivalence at one dose is not generalized and does not authorize conversion or substitution.",
+        "ZORTRESS transplant everolimus, AFINITOR oncology/TSC tablets, and AFINITOR DISPERZ tablets for oral suspension remain distinct; bare everolimus and formulation-unspecified terms fail closed.",
+        "Indication, transplant organ/history, multidrug regimen, last dose, concentration monitoring, renal/hepatic function, interactions, infection status, wound healing, and oral tolerance remain specialist/clinician reviewed.",
+        "No autonomous continuation, interruption, missed-dose instruction, dose arithmetic, conversion, substitution, formulation change, monitoring target, wound-healing decision, interaction management, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 296,
+        "workflowRunId": 36677125672,
+        "jobId": 109764392659,
+        "conclusion": "success",
+        "verifiedHeadSha": "9a6daadac343948d603bd0bae7d80c81e3b4da07",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "D_MYCOPHENOLATE_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "c5bfbac4f0493dd3cc0a61e53da07e69b17ec9a3",
+      "products": [
+        "CELLCEPT mycophenolate mofetil oral capsule",
+        "CELLCEPT mycophenolate mofetil oral tablet",
+        "CELLCEPT mycophenolate mofetil oral suspension",
+        "CELLCEPT mycophenolate mofetil intravenous injection",
+        "MYFORTIC mycophenolic acid delayed-release oral tablet"
+      ],
+      "preservation": [
+        "CELLCEPT capsule, tablet, oral suspension, and intravenous injection remain distinct route/form identities.",
+        "MYFORTIC delayed-release mycophenolic acid remains distinct from mycophenolate mofetil; label-supported non-interchangeability is preserved and no conversion or substitution is authorized.",
+        "Bare mycophenolate, mycophenolate mofetil, and CELLCEPT terms fail closed.",
+        "Indication, transplant organ/history, multidrug regimen, last dose, blood counts, organ function, interactions, infection, GI risk, wound healing, and oral tolerance remain specialist/clinician reviewed; no autonomous interruption or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 298,
+        "workflowRunId": 36678095627,
+        "jobId": 109767391166,
+        "conclusion": "success",
+        "verifiedHeadSha": "c5bfbac4f0493dd3cc0a61e53da07e69b17ec9a3",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "E_AZATHIOPRINE_ROUTE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "5aff73f4de401fe788a2f49cdd767f545bdf81d4",
+      "products": [
+        "IMURAN azathioprine oral tablet",
+        "azathioprine sodium intravenous injection"
+      ],
+      "preservation": [
+        "IMURAN oral tablet and azathioprine sodium intravenous injection remain distinct route/form identities; bare azathioprine fails closed.",
+        "Transplant versus autoimmune indication, multidrug regimen, last dose, TPMT/NUDT15 status, blood counts, organ function, interactions, infection, GI toxicity, malignancy risk, and oral tolerance remain specialist/clinician reviewed.",
+        "No autonomous continuation, interruption, dose arithmetic, conversion, substitution, route/form change, monitoring target, interaction management, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 300,
+        "workflowRunId": 36680405256,
+        "jobId": 109774375802,
+        "conclusion": "success",
+        "verifiedHeadSha": "5aff73f4de401fe788a2f49cdd767f545bdf81d4",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "lifecycle": "DRAFT",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "routeConversionAuthorized": false,
+    "formulationConversionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Prioritized transplant-immunosuppression identity hardening is engineering-verified. Defer remaining routinely continued DMARD breadth; next inventory anesthesia-sensitive weight-loss/sympathomimetic identities beginning with phentermine and whole-product combinations.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}

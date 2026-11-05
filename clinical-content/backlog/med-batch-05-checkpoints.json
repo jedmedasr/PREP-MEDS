@@ -1,0 +1,247 @@
+{
+  "batchId": "MED-BATCH-05-CARDIOVASCULAR-RHYTHM-LIPIDS",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "baseBranch": "med-batch-04-cardiovascular-core",
+  "baseVerifiedHeadSha": "a0a795fe298c10d2cbd64a9fb589b753cd8475ba",
+  "updatedAt": "2026-09-30T01:18:00Z",
+  "engineeringStatus": "IN_PROGRESS",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_CLASS_III_ANTIARRHYTHMIC": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "3ac08446a372db0e5df0e4b2ff0b3d1ebf2153c1",
+      "completed": [
+        "Added eight direct-label route/form identities spanning amiodarone, dronedarone, sotalol, and dofetilide.",
+        "Preserved bare amiodarone ambiguity across oral and intravenous routes.",
+        "Preserved bare sotalol ambiguity across standard tablet, AF-labeled tablet, SOTYLIZE solution, and intravenous injection.",
+        "Recorded the sotalol AF label non-substitution distinction and historical/inactivated MULTAQ NDC status without inferring availability.",
+        "Integrated DRAFT evidence, terminology, timing-free clinician-review routing, and regressions; production activeRules remain empty."
+      ]
+    },
+    "B_CI": {
+      "status": "PASS_EXACT_IMPLEMENTATION_HEAD",
+      "testedHeadSha": "3ac08446a372db0e5df0e4b2ff0b3d1ebf2153c1",
+      "workflowName": "quality",
+      "workflowRunNumber": 268,
+      "workflowRunId": 36586160822,
+      "jobId": 109466936456,
+      "conclusion": "success",
+      "scope": "Schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build."
+    },
+    "C_PR": {
+      "status": "DRAFT_PR_OPEN",
+      "pullRequest": 15,
+      "url": "https://github.com/jedmedasr/PREP-MEDS/pull/15"
+    },
+    "D_CLASS_I_ANTIARRHYTHMIC": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "77848ab332d85cba1b73a5308c112f326a1ad5ab",
+      "completed": [
+        "Added six direct-label release/form identities spanning flecainide, propafenone, mexiletine, and quinidine.",
+        "Preserved propafenone film-coated tablet versus extended-release capsule ambiguity.",
+        "Preserved quinidine sulfate conventional tablet versus quinidine gluconate extended-release salt/form ambiguity.",
+        "Retained quinidine sulfate label-listed marketing-end metadata without inferring availability.",
+        "Integrated DRAFT evidence, terminology, timing-free clinician-review routing, and regressions; production activeRules remain empty."
+      ]
+    },
+    "E_CLASS_I_CI": {
+      "status": "PASS_EXACT_IMPLEMENTATION_HEAD",
+      "testedHeadSha": "77848ab332d85cba1b73a5308c112f326a1ad5ab",
+      "workflowName": "quality",
+      "workflowRunNumber": 270,
+      "workflowRunId": 36592953366,
+      "jobId": 109490476245,
+      "conclusion": "success",
+      "scope": "Schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build."
+    },
+    "F_OTHER_CARDIAC_ROUTE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "4fd930fe3706c52b45b3bcbb0c2cd9ff8f1c3e86",
+      "completed": [
+        "Added thirteen direct-label route/form identities spanning digoxin, ivabradine, nitroglycerin, isosorbide dinitrate, isosorbide mononitrate, and ranolazine.",
+        "Preserved digoxin oral tablet, oral solution, and intravenous/intramuscular injection ambiguity.",
+        "Preserved CORLANOR film-coated tablet versus oral solution ambiguity.",
+        "Preserved nitroglycerin sublingual tablet, lingual spray, transdermal patch, and topical ointment ambiguity.",
+        "Preserved isosorbide dinitrate oral versus sublingual ambiguity and explicit extended-release wording for isosorbide mononitrate and ranolazine.",
+        "Integrated DRAFT evidence, terminology, timing-free clinician-review routing, and regressions; production activeRules remain empty."
+      ]
+    },
+    "G_OTHER_CARDIAC_CI": {
+      "status": "PASS_EXACT_IMPLEMENTATION_HEAD",
+      "testedHeadSha": "4fd930fe3706c52b45b3bcbb0c2cd9ff8f1c3e86",
+      "workflowName": "quality",
+      "workflowRunNumber": 272,
+      "workflowRunId": 36600731683,
+      "jobId": 109517129628,
+      "conclusion": "success",
+      "scope": "Schema validation, strict TypeScript, CI source identity, isolated inhaled-insulin regression, full unit/regression tests, and production web build."
+    },
+    "H_REPRIORITIZED_ORAL_ANTICOAGULANT_LABEL_HARDENING": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "fa7e94f9de17409fe0dba3904688fc1160dac328",
+      "completed": [
+        "Added direct DailyMed label evidence for dabigatran capsules, edoxaban/SAVAYSA tablets, and warfarin tablets.",
+        "Preserved renal function, indication, recent thrombosis, concomitant antithrombotic, mechanical-valve, formulation, procedure-risk, bridging, and restart uncertainty.",
+        "All sources and atoms remain DRAFT; candidate and shadow pathways remain clinician-review-only with no timing rule or production activation."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 274,
+        "workflowRunId": 36614814447,
+        "jobId": 109565009370,
+        "conclusion": "success",
+        "verifiedHeadSha": "fa7e94f9de17409fe0dba3904688fc1160dac328"
+      }
+    },
+    "I_REPRIORITIZED_ANTIPLATELET_LABEL_HARDENING": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "835595fea9a3d3b0945f5a4a75027d84f022c498",
+      "completed": [
+        "Added direct DailyMed provenance for aspirin, dipyridamole, aspirin/extended-release dipyridamole, cilostazol, and ticlopidine.",
+        "Preserved aspirin indication boundaries, monotherapy versus DAPT/concomitant-antithrombotic context, recent ACS/stent uncertainty, and AGGRENOX whole-product/release identity.",
+        "All evidence remains DRAFT and all operational timing remains absent or clinician/local-policy reviewed."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 276,
+        "workflowRunId": 36615606269,
+        "jobId": 109567690388,
+        "conclusion": "success",
+        "verifiedHeadSha": "835595fea9a3d3b0945f5a4a75027d84f022c498"
+      }
+    },
+    "K_REPRIORITIZED_INJECTABLE_ANTICOAGULANT_HARDENING": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "5960969597176d3eecd74744152f372443a2e4b2",
+      "completed": [
+        "Added direct DailyMed label evidence for enoxaparin, unfractionated heparin injection, fondaparinux, and dalteparin.",
+        "Preserved intent, indication, renal, route, non-substitution, recent-thrombosis, concomitant-antithrombotic, procedure-risk, bridging, and restart uncertainty.",
+        "All antithrombotic hardening remains DRAFT and clinician-review-only with no timing rule or production activation."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 278,
+        "workflowRunId": 36622106274,
+        "jobId": 109589801130,
+        "conclusion": "success",
+        "verifiedHeadSha": "5960969597176d3eecd74744152f372443a2e4b2"
+      }
+    },
+    "L_REPRIORITIZED_BUPRENORPHINE_ROUTE_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+      "completed": [
+        "Added six direct DailyMed route/form/indication identities: buprenorphine sublingual tablet, SUBOXONE film, ZUBSOLV sublingual tablet, BELBUCA buccal film, BUTRANS extended-release transdermal patch, and SUBLOCADE extended-release subcutaneous injection.",
+        "Preserved bare-buprenorphine ambiguity, buprenorphine/naloxone whole-product identity, film-versus-tablet distinction, route/release distinctions, and OUD-versus-pain indication context.",
+        "All evidence remains DRAFT and all pathways remain clinician-review-only with no autonomous continuation, interruption, dose conversion, sedation, analgesia, or restart timing."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 280,
+        "workflowRunId": 36629110384,
+        "jobId": 109613529284,
+        "conclusion": "success",
+        "verifiedHeadSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "M_REPRIORITIZED_METHADONE_NALTREXONE_ROUTE_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+      "completed": [
+        "Added direct DailyMed identities for methadone oral tablet, methadone oral concentrate, naltrexone film-coated oral tablet, and VIVITROL extended-release intramuscular injection kit.",
+        "Preserved methadone tablet-versus-concentrate and pain-versus-OUD context, plus naltrexone oral-versus-extended-release-IM and alcohol-versus-opioid-relapse/blockade context.",
+        "All evidence remains DRAFT and all pathways remain clinician-review-only with no autonomous continuation, interruption, dose conversion, sedation, analgesia, or restart timing."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 282,
+        "workflowRunId": 36629870330,
+        "jobId": 109616069236,
+        "conclusion": "success",
+        "verifiedHeadSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "N_REPRIORITIZED_STIMULANT_FORM_RELEASE_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+      "completed": [
+        "Added six direct DailyMed stimulant identities spanning ADDERALL IR/XR, VYVANSE capsule/chewable, and RITALIN IR/CONCERTA ER.",
+        "Preserved mixed-salt whole-product identity, form/release ambiguity, and labeled indication context.",
+        "All evidence remains DRAFT and all pathways remain clinician-review-only with no autonomous continuation, interruption, substitution, conversion, anesthesia plan, or restart timing."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 284,
+        "workflowRunId": 36652389410,
+        "jobId": 109689266783,
+        "conclusion": "success",
+        "verifiedHeadSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "O_REPRIORITIZED_MAOI_ROUTE_FORM_SUBTYPE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+      "completed": [
+        "Added direct DailyMed identities for phenelzine, PARNATE/tranylcypromine, MARPLAN/isocarboxazid, EMSAM transdermal selegiline, and oral selegiline MAO-B adjunct therapy.",
+        "Preserved classic-MAOI versus oral-MAO-B versus transdermal-antidepressant context; bare selegiline fails closed.",
+        "All evidence remains DRAFT and all pathways remain clinician-review-only with no autonomous interruption, washout, taper, substitution, anesthetic/vasopressor plan, or restart timing."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 287,
+        "workflowRunId": 36653193848,
+        "jobId": 109691759435,
+        "conclusion": "success",
+        "verifiedHeadSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "primarySourceFamilies": [
+      "FDA/DailyMed direct prescription labeling"
+    ],
+    "representativeIdentityOnly": true,
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Inventory and build chronic systemic corticosteroid identities with route/form distinctions and review-only adrenal-suppression/stress-dose context; do not create autonomous steroid interruption or supplementation rules.",
+  "advanceToNextClusterAllowed": true,
+  "advanceToNextBatchAllowed": false,
+  "productionActivationAllowed": false,
+  "pullRequest": 15
+}

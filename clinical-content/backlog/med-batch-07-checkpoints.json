@@ -1,0 +1,390 @@
+{
+  "batchId": "MED-BATCH-07-PSYCHIATRY",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-10-07T04:45:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_STIMULANT_FORM_RELEASE_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+      "products": [
+        "ADDERALL mixed amphetamine salts immediate-release oral tablet",
+        "ADDERALL XR mixed amphetamine salts extended-release oral capsule",
+        "VYVANSE lisdexamfetamine oral capsule",
+        "VYVANSE lisdexamfetamine chewable oral tablet",
+        "RITALIN methylphenidate immediate-release oral tablet",
+        "CONCERTA methylphenidate extended-release oral tablet"
+      ],
+      "preservation": [
+        "ADDERALL immediate-release tablet and ADDERALL XR extended-release capsule remain distinct whole-product mixed-salt identities.",
+        "VYVANSE capsule and chewable tablet remain distinct; RITALIN immediate-release and CONCERTA extended-release tablets remain distinct.",
+        "Indication, prescribed-versus-nonmedical use, cardiovascular/hemodynamic status, serotonergic or sympathomimetic co-therapy, MAOI exposure, and anesthesia/vasopressor planning remain clinician/local-policy reviewed.",
+        "No substitution, dose or release conversion, continuation, interruption, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 284,
+        "workflowRunId": 36652389410,
+        "jobId": 109689266783,
+        "conclusion": "success",
+        "verifiedHeadSha": "92c25ad9a5c22bafab4dfb576e97bdbd79ec30dd",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "B_MAOI_ROUTE_FORM_SUBTYPE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+      "products": [
+        "phenelzine sulfate oral tablet",
+        "PARNATE tranylcypromine sulfate film-coated oral tablet",
+        "MARPLAN isocarboxazid oral tablet",
+        "EMSAM selegiline transdermal system",
+        "selegiline hydrochloride oral tablet (MAO-B adjunct context)"
+      ],
+      "preservation": [
+        "Classic nonselective irreversible oral MAOIs remain distinct from EMSAM transdermal antidepressant and oral selegiline MAO-B adjunct identities.",
+        "Bare selegiline fails closed across oral and transdermal route/indication/subtype identities.",
+        "Interacting medications, dietary context, cardiovascular status, psychiatric risk, anesthetic/vasopressor selection, discontinuation, and restart remain clinician/local-policy reviewed.",
+        "No substitution, route conversion, hold, washout, taper, anesthetic/vasopressor plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 287,
+        "workflowRunId": 36653193848,
+        "jobId": 109691759435,
+        "conclusion": "success",
+        "verifiedHeadSha": "21ff190689ec8e880bce4ad5177ac06600f0cce0",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      },
+      "repairReceipt": {
+        "failedRunNumber": 286,
+        "failedRunId": 36652927667,
+        "failedJobId": 109690946948,
+        "cause": "Bare selegiline initially resolved to EMSAM instead of failing closed across route/indication contexts.",
+        "repairCommit": "21ff190689ec8e880bce4ad5177ac06600f0cce0"
+      }
+    },
+    "C_LITHIUM_CHEMICAL_FORM_RELEASE_TOXICITY": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3",
+      "products": [
+        "lithium carbonate immediate-release oral tablet",
+        "lithium carbonate immediate-release oral capsule",
+        "LITHOBID lithium carbonate film-coated extended-release oral tablet",
+        "lithium citrate oral solution"
+      ],
+      "preservation": [
+        "Immediate-release lithium carbonate tablet and capsule, LITHOBID extended-release tablet, and lithium citrate solution remain distinct identities.",
+        "Bare lithium and lithium carbonate fail closed across chemical-form, dosage-form, and release identities.",
+        "Renal function, sodium and volume status, bowel preparation and fasting exposure, recent vomiting or diarrhea, serum lithium concentration and timing, toxicity symptoms, interacting medicines, cardiac status, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No substitution, salt/form/release conversion, continuation, interruption, taper, toxicity treatment, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 470,
+        "workflowRunId": 37152868150,
+        "jobId": 111290154714,
+        "conclusion": "success",
+        "verifiedHeadSha": "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      },
+      "repairReceipt": {
+        "failedRunNumbers": [
+          468,
+          469
+        ],
+        "failedRunIds": [
+          37145777086,
+          37152778196
+        ],
+        "cause": "Source metadata initially used an unsupported array value; the first repair then exposed a duplicate assembled evidence import.",
+        "repairCommits": [
+          "4fcc282c0f8fca0e287ddebaba204fb84921feff",
+          "f12d9cd56d25cef2a4fc42a93d80b21ebb61f4e3"
+        ]
+      }
+    },
+    "D_BENZODIAZEPINE_ROUTE_FORM_RELEASE_WITHDRAWAL_SEDATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "23b3adff54a41577b986885bc658ca5f58e4724f",
+      "products": [
+        "XANAX alprazolam immediate-release oral tablet",
+        "XANAX XR alprazolam extended-release oral tablet",
+        "ATIVAN lorazepam oral tablet",
+        "ATIVAN lorazepam intramuscular/intravenous injection",
+        "KLONOPIN clonazepam oral tablet",
+        "clonazepam orally disintegrating tablet",
+        "diazepam intramuscular/intravenous injection",
+        "RESTORIL temazepam oral capsule"
+      ],
+      "preservation": [
+        "Alprazolam immediate-release versus extended-release, lorazepam oral versus parenteral, and clonazepam conventional versus orally disintegrating identities remain distinct and bare names fail closed where ambiguous.",
+        "Diazepam injection is explicitly bounded and does not assert oral diazepam coverage; midazolam and acute procedural-sedation ordering remain outside the chronic home-medication cluster.",
+        "Duration/use pattern, indication, last dose, dependence/tolerance, withdrawal/seizure history, age/frailty, organ function, respiratory risk, concomitant CNS depressants, anesthesia plan, and transport remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, dose/route/form/release conversion, procedural sedation plan, transport decision, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 473,
+        "workflowRunId": 37156635022,
+        "jobId": 111301254999,
+        "conclusion": "success",
+        "verifiedHeadSha": "23b3adff54a41577b986885bc658ca5f58e4724f",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "E_SNRI_FORM_RELEASE_DISCONTINUATION_SEROTONERGIC_HEMODYNAMIC": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "e17fdc5ec549604a3d44dc1a25391c30c15b2a83",
+      "products": [
+        "venlafaxine immediate-release oral tablet",
+        "venlafaxine extended-release oral capsule",
+        "desvenlafaxine extended-release oral tablet",
+        "duloxetine delayed-release oral capsule"
+      ],
+      "preservation": [
+        "Venlafaxine immediate-release tablet and extended-release capsule remain distinct; bare venlafaxine fails closed across release and dosage-form identities.",
+        "Desvenlafaxine extended-release tablet and duloxetine delayed-release capsule preserve their release-form identities.",
+        "Indication, treatment duration and adherence, withdrawal/discontinuation risk, serotonergic co-therapy, blood pressure and cardiovascular status, bleeding context, organ function, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No substitution, release/form conversion, continuation, interruption, taper, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 477,
+        "workflowRunId": 37169315321,
+        "jobId": 111338839185,
+        "conclusion": "success",
+        "verifiedHeadSha": "e17fdc5ec549604a3d44dc1a25391c30c15b2a83",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      },
+      "repairReceipt": {
+        "failedRunNumbers": [
+          475,
+          476
+        ],
+        "failedRunIds": [
+          37159697462,
+          37162997768
+        ],
+        "failedJobIds": [
+          111310397978,
+          111320141078
+        ],
+        "cause": "The first exact-head run exposed a duplicate evidence import; the second exposed shared venlafaxine aliases and a missing assembled evidence-bundle entry.",
+        "repairCommits": [
+          "682716d7f4861bb704e30f0d4642fa3604a5831a",
+          "e17fdc5ec549604a3d44dc1a25391c30c15b2a83"
+        ]
+      }
+    },
+    "F_RISPERIDONE_ORAL_LAI_ROUTE_FORM_RELEASE_HEMODYNAMIC_SEDATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "43e957b03376d827006f8c26588a86872b9613f9",
+      "products": [
+        "risperidone oral tablet",
+        "risperidone oral solution",
+        "risperidone orally disintegrating tablet",
+        "RISPERDAL CONSTA risperidone extended-release intramuscular injection",
+        "PERSERIS risperidone extended-release subcutaneous injection",
+        "UZEDY risperidone extended-release subcutaneous injection"
+      ],
+      "preservation": [
+        "Conventional oral tablet, oral solution, orally disintegrating tablet, long-acting intramuscular, and extended-release subcutaneous identities remain distinct; nonspecific risperidone fails closed.",
+        "RISPERDAL CONSTA, PERSERIS, and UZEDY remain distinct whole-product long-acting injectable identities and are not inferred to be interchangeable.",
+        "Indication, psychiatric stability, last administration, relapse or withdrawal risk, orthostatic/fall and cardiac status, sedation/cognitive-motor effects, swallowing risk, organ function, interacting medicines, and anesthesia plan remain clinician/psychiatry/pharmacy/local-policy reviewed.",
+        "No substitution, route/form/release conversion, continuation, interruption, dose change, anesthesia plan, procedural timing, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 479,
+        "workflowRunId": 37172432516,
+        "jobId": 111347962115,
+        "conclusion": "success",
+        "verifiedHeadSha": "43e957b03376d827006f8c26588a86872b9613f9",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "G_QUETIAPINE_OLANZAPINE_ROUTE_FORM_RELEASE_SEDATION_HEMODYNAMIC": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "177211944427fd8347a8019cec06f7266fb9a511",
+      "products": [
+        "quetiapine conventional oral tablet",
+        "SEROQUEL XR quetiapine extended-release oral tablet",
+        "ZYPREXA olanzapine oral tablet",
+        "ZYPREXA ZYDIS olanzapine orally disintegrating tablet",
+        "ZYPREXA INTRAMUSCULAR olanzapine injection powder for solution",
+        "ZYPREXA RELPREVV olanzapine extended-release intramuscular injection"
+      ],
+      "preservation": [
+        "Quetiapine conventional and extended-release oral tablets remain distinct; nonspecific quetiapine fails closed.",
+        "Olanzapine conventional oral tablet, orally disintegrating tablet, non-extended-release intramuscular powder for solution, and ZYPREXA RELPREVV extended-release intramuscular injection remain distinct; nonspecific olanzapine fails closed.",
+        "Indication, psychiatric stability, last administration, relapse or withdrawal risk, orthostatic/hemodynamic and cardiac status, sedation/cognitive-motor effects, seizure risk, interacting medicines, ZYPREXA RELPREVV post-injection delirium/sedation syndrome context, and anesthesia plan remain clinician/psychiatry/pharmacy/local-policy reviewed.",
+        "No substitution, route/form/release conversion, continuation, interruption, dose or administration change, monitoring plan, anesthesia plan, procedural timing, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 481,
+        "workflowRunId": 37175555835,
+        "jobId": 111357311901,
+        "conclusion": "success",
+        "verifiedHeadSha": "177211944427fd8347a8019cec06f7266fb9a511",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "H_ARIPIPRAZOLE_HALOPERIDOL_ROUTE_FORM_RELEASE_CHEMICAL_FORM_HEMODYNAMIC": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "6864251f1e38bfa4ddfd8c9a2223252090979d09",
+      "products": [
+        "ABILIFY aripiprazole oral tablet",
+        "aripiprazole orally disintegrating tablet",
+        "ABILIFY MAINTENA aripiprazole extended-release intramuscular injection",
+        "ABILIFY ASIMTUFII aripiprazole extended-release intramuscular injection",
+        "ARISTADA aripiprazole lauroxil extended-release intramuscular injection",
+        "ARISTADA INITIO aripiprazole lauroxil extended-release intramuscular initiation product",
+        "haloperidol oral tablet",
+        "haloperidol oral solution concentrate",
+        "haloperidol lactate immediate-release intramuscular injection",
+        "haloperidol decanoate long-acting intramuscular injection"
+      ],
+      "preservation": [
+        "Aripiprazole oral tablet and ODT remain distinct from ABILIFY MAINTENA, ABILIFY ASIMTUFII, ARISTADA, and ARISTADA INITIO long-acting intramuscular products; nonspecific aripiprazole fails closed.",
+        "Aripiprazole and aripiprazole lauroxil remain distinct chemical identities; ARISTADA and ARISTADA INITIO remain distinct whole-product identities and INITIO is not inferred to be a maintenance product or interchangeable with ARISTADA.",
+        "Haloperidol oral tablet, oral solution, lactate immediate-release intramuscular injection, and decanoate long-acting intramuscular injection remain distinct; nonspecific haloperidol fails closed.",
+        "Indication, psychiatric stability, last administration, relapse or withdrawal risk, hemodynamic, cardiac/QT, seizure, dysphagia, sedation/cognitive-motor, extrapyramidal/NMS, interacting-medication, and anesthesia context remain clinician/psychiatry/pharmacy/local-policy reviewed.",
+        "No initiation, substitution, salt/ester/prodrug/route/form/release conversion, continuation, interruption, dose or administration change, monitoring plan, anesthesia plan, procedural timing, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 483,
+        "workflowRunId": 37178327664,
+        "jobId": 111365545210,
+        "conclusion": "success",
+        "verifiedHeadSha": "6864251f1e38bfa4ddfd8c9a2223252090979d09",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "I_CLOZAPINE_ZIPRASIDONE_FORM_CHEMICAL_FORM_WITHDRAWAL_QT_SEDATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "f592523394cb00db69dd9d8a17136ac1b3c74d00",
+      "products": [
+        "clozapine conventional oral tablet",
+        "clozapine orally disintegrating tablet",
+        "VERSACLOZ clozapine oral suspension",
+        "GEODON ziprasidone hydrochloride oral capsule",
+        "GEODON ziprasidone mesylate intramuscular injection"
+      ],
+      "preservation": [
+        "Clozapine conventional tablet, orally disintegrating tablet, and VERSACLOZ oral suspension remain distinct; nonspecific clozapine fails closed.",
+        "GEODON oral ziprasidone hydrochloride capsule and acute intramuscular ziprasidone mesylate injection remain distinct chemical-form/route identities; nonspecific ziprasidone or Geodon fails closed.",
+        "Psychiatric stability, interruption or missed-dose history, relapse/cholinergic-rebound risk, severe neutropenia, myocarditis/cardiomyopathy, orthostatic/hemodynamic status, seizure, gastrointestinal hypomotility, sedation, hypersalivation/swallowing/aspiration, QT/cardiac/electrolyte, serotonergic, interacting-medication, and anesthesia context remain clinician/psychiatry/pharmacy/local-policy reviewed.",
+        "No initiation, substitution, salt/route/form conversion, continuation, interruption, taper, dose or administration change, monitoring plan, anesthesia plan, procedural timing, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 485,
+        "workflowRunId": 37184081107,
+        "jobId": 111382282497,
+        "conclusion": "success",
+        "verifiedHeadSha": "f592523394cb00db69dd9d8a17136ac1b3c74d00",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "J_TCA_BUPROPION_CARDIAC_ANTICHOLINERGIC_HEMODYNAMIC_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "66e53d6853ec3a9edec27d2f5517c8e3729c539b",
+      "products": [
+        "amitriptyline hydrochloride oral tablet",
+        "nortriptyline hydrochloride oral capsule",
+        "imipramine hydrochloride oral tablet",
+        "clomipramine hydrochloride oral capsule",
+        "bupropion hydrochloride immediate-release oral tablet",
+        "WELLBUTRIN SR bupropion hydrochloride sustained-release oral tablet",
+        "bupropion hydrochloride XL extended-release oral tablet"
+      ],
+      "preservation": [
+        "Bupropion immediate-release, SR, and XL identities remain distinct; nonspecific bupropion or Wellbutrin fails closed.",
+        "TCA cardiac/conduction, arrhythmia, orthostatic/hemodynamic, anticholinergic, CNS/sedation, seizure, psychiatric, and interacting-medication context remains clinician/psychiatry/pharmacy/anesthesia/local-policy reviewed.",
+        "Bupropion seizure-risk, blood-pressure/hemodynamic, psychiatric, interacting-medication, release/form, and administration context remains accountable review-only.",
+        "No initiation, continuation, interruption, taper, restart, substitution, release/form conversion, dose conversion, administration change, anesthesia plan, or procedural timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 487,
+        "workflowRunId": 37568322536,
+        "jobId": 112621043676,
+        "conclusion": "success",
+        "verifiedHeadSha": "66e53d6853ec3a9edec27d2f5517c8e3729c539b",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "lifecycle": "DRAFT",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "formulationConversionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Begin the bounded OTC/herbal anesthesia-interaction inventory. Implement only a small authoritative-evidence-supported set with credible bleeding, sedation, hemodynamic, or anesthesia implications; preserve uncertainty and encode no hold timing.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}

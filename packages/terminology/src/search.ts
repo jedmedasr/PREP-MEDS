@@ -125,54 +125,46 @@ export class TerminologyIndex {
 
   resolve(query: string, options: SearchOptions = {}): MedicationResolution {
     const normalizedQuery = normalizeMedicationText(query);
-    const candidates = this.search(query, options);
-    const top = candidates[0];
+    // Candidate display limits must not hide a second exact identity or a close competitor.
+    const allCandidates = this.search(query, { ...options, limit: this.medicationsById.size });
+    const candidates = allCandidates.slice(0, options.limit ?? DEFAULT_LIMIT);
+    const top = allCandidates[0];
 
     if (!top) {
       return {
-        status: 'NOT_FOUND',
-        query,
-        normalizedQuery,
-        ingredientIds: [],
-        candidates: [],
-        reason: 'NO_MATCH',
+        status: 'NOT_FOUND', query, normalizedQuery, ingredientIds: [], candidates, reason: 'NO_MATCH',
       };
     }
 
-    const topMedication = this.getMedicationById(top.medicationId)!;
+    const ambiguous = (): MedicationResolution => ({
+      status: 'AMBIGUOUS', query, normalizedQuery, ingredientIds: [], candidates,
+      reason: 'MULTIPLE_PLAUSIBLE_MATCHES',
+    });
+    if (allCandidates.filter((hit) => hit.matchKind === 'EXACT').length > 1) return ambiguous();
+
+    const topMedication = this.getMedicationById(top.medicationId);
+    if (!topMedication) throw new Error(`Terminology index inconsistency for ${top.medicationId}`);
     if (top.matchKind === 'EXACT') {
       return {
-        status: 'RESOLVED',
-        query,
-        normalizedQuery,
-        medication: topMedication,
-        ingredientIds: [...topMedication.ingredientIds],
-        candidates,
-        reason: 'EXACT_MATCH',
+        status: 'RESOLVED', query, normalizedQuery, medication: topMedication,
+        ingredientIds: [...topMedication.ingredientIds], candidates, reason: 'EXACT_MATCH',
       };
     }
 
-    const second = candidates[1];
+    // A prefix/fuzzy match cannot verify numeric dose, strength, mixture or identifier details.
+    // Keep suggestions for explicit reconciliation instead of silently discarding those details.
+    if (/\d/.test(normalizedQuery)) return ambiguous();
+
+    const second = allCandidates[1];
     const hasConfidenceMargin = top.score >= 760 && (!second || top.score - second.score >= 75);
     if (hasConfidenceMargin) {
       return {
-        status: 'RESOLVED',
-        query,
-        normalizedQuery,
-        medication: topMedication,
-        ingredientIds: [...topMedication.ingredientIds],
-        candidates,
+        status: 'RESOLVED', query, normalizedQuery, medication: topMedication,
+        ingredientIds: [...topMedication.ingredientIds], candidates,
         reason: 'UNAMBIGUOUS_HIGH_CONFIDENCE_MATCH',
       };
     }
 
-    return {
-      status: 'AMBIGUOUS',
-      query,
-      normalizedQuery,
-      ingredientIds: [],
-      candidates,
-      reason: 'MULTIPLE_PLAUSIBLE_MATCHES',
-    };
+    return ambiguous();
   }
 }

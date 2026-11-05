@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
 import type { MedicationContext, ProcedureCode } from '@prep-meds/clinical-engine';
 import { TerminologyIndex } from '@prep-meds/terminology';
-import { activeRules, modifierDefinitions, terminologyDataset } from '@/lib/content';
+import {
+  clinicalContentState,
+  decisionRules,
+  isShadowContentMode,
+  modifierDefinitions,
+  terminologyDataset,
+} from '@/lib/content';
 import { deriveRequiredQuestions } from '@/lib/workflow';
 
 const index = new TerminologyIndex(terminologyDataset);
@@ -27,14 +33,15 @@ export async function POST(request: Request) {
   };
 
   const questions = deriveRequiredQuestions({
-    rules: activeRules,
+    rules: decisionRules(),
     medication: medicationContext,
     procedureCode: body.procedureCode,
     definitions: modifierDefinitions,
+    includeReviewCandidates: isShadowContentMode(),
   });
 
   return NextResponse.json({
     questions,
-    contentState: activeRules.length === 0 ? 'NO_ACTIVE_CLINICAL_RULES' : 'ACTIVE_RULES_AVAILABLE',
+    contentState: clinicalContentState(),
   });
 }

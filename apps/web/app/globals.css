@@ -115,7 +115,6 @@ h1 { margin: 0; max-width: 760px; font-size: clamp(2rem, 4vw, 3.5rem); line-heig
   .provenance-grid { grid-template-columns: 1fr; gap: 3px; }
 }
 
-
 /* Synthetic preparation planner and patient preview */
 .planner{width:min(1180px,calc(100% - 32px));margin:30px auto 48px;color:var(--ink)}
 .planner-heading{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:20px}
