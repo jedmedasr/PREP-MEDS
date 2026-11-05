@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import type { ClinicalRule, DecisionEvent, MedicationContext, ModifierValue } from '@prep-meds/clinical-engine';
-import { deriveRequiredQuestions, normalizeModifierValues, renderPatientInstruction } from '../workflow';
+import {
+  blockedShadowPatientInstruction,
+  deriveRequiredQuestions,
+  normalizeModifierValues,
+  renderPatientInstruction,
+} from '../workflow';
 
 const medication: MedicationContext = {
   medicationId: 'MED-synthetic',
@@ -40,7 +45,7 @@ function event(overrides: Partial<DecisionEvent>): DecisionEvent {
 }
 
 describe('progressive question discovery', () => {
-  it('returns only fields required by active in-scope rules', () => {
+  it('returns only fields required by active in-scope rules in production discovery', () => {
     const questions = deriveRequiredQuestions({
       rules: [activeRule, { ...activeRule, id: 'RULE-draft', status: 'DRAFT', requiredModifierIds: ['MOD-draft'] }],
       medication,
@@ -52,6 +57,20 @@ describe('progressive question discovery', () => {
     });
 
     expect(questions.map((question) => question.id)).toEqual(['MOD-synthetic']);
+  });
+
+  it('can expose non-retired review-candidate questions only when shadow discovery is explicit', () => {
+    const questions = deriveRequiredQuestions({
+      rules: [{ ...activeRule, status: 'TECHNICALLY_TESTED', requiredModifierIds: ['MOD-review'] }],
+      medication,
+      procedureCode: 'COLONOSCOPY',
+      definitions: {
+        'MOD-review': { id: 'MOD-review', label: 'Review input', inputType: 'boolean' },
+      },
+      includeReviewCandidates: true,
+    });
+
+    expect(questions.map((question) => question.id)).toEqual(['MOD-review']);
   });
 });
 
@@ -103,8 +122,14 @@ describe('patient instruction guard', () => {
     expect(result.reason).toBe('MISSING_TIMING_INSTRUCTION');
   });
 
-  it('allows a structured continue result', () => {
+  it('allows a structured continue result only in the approved production renderer', () => {
     const result = renderPatientInstruction(event({ disposition: 'CONTINUE', reasonCodes: [], ruleRefs: [{ id: 'RULE-synthetic', version: 1 }] }));
     expect(result.allowed).toBe(true);
+  });
+
+  it('always blocks patient output for shadow clinical-review content', () => {
+    const result = blockedShadowPatientInstruction();
+    expect(result.allowed).toBe(false);
+    expect(result.reason).toBe('SHADOW_CONTENT_NOT_CLINICALLY_APPROVED');
   });
 });

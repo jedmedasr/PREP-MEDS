@@ -1,8 +1,19 @@
 import { NextResponse } from 'next/server';
 import { evaluateDecision, type ModifierValue, type ProcedureCode } from '@prep-meds/clinical-engine';
 import { TerminologyIndex } from '@prep-meds/terminology';
-import { activePolicies, activeRules, modifierDefinitions, terminologyDataset } from '@/lib/content';
-import { normalizeModifierValues, renderPatientInstruction } from '@/lib/workflow';
+import {
+  activePolicies,
+  clinicalContentState,
+  decisionRules,
+  isShadowContentMode,
+  modifierDefinitions,
+  terminologyDataset,
+} from '@/lib/content';
+import {
+  blockedShadowPatientInstruction,
+  normalizeModifierValues,
+  renderPatientInstruction,
+} from '@/lib/workflow';
 
 const index = new TerminologyIndex(terminologyDataset);
 const procedures = new Set<ProcedureCode>(['EGD', 'COLONOSCOPY', 'EGD_COLONOSCOPY']);
@@ -23,13 +34,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'INVALID_DECISION_CONTEXT' }, { status: 400 });
   }
 
+  const shadowMode = isShadowContentMode();
   const occurredAt = new Date().toISOString();
   const execution = evaluateDecision({
     decisionEventId: `DEC-${crypto.randomUUID()}`,
     occurredAt,
     actorRole: 'MA',
-    engineVersion: 'stage-08-web-1',
-    mode: 'PRODUCTION',
+    engineVersion: shadowMode ? 'stage-08.5-shadow-1' : 'stage-08-web-1',
+    mode: shadowMode ? 'VALIDATION' : 'PRODUCTION',
     context: {
       organizationId: body.organizationId?.trim() || 'ORG-DEMO',
       ...(body.siteId?.trim() ? { siteId: body.siteId.trim() } : {}),
@@ -41,13 +53,16 @@ export async function POST(request: Request) {
       },
       modifiers: normalizeModifierValues(body.modifiers ?? [], modifierDefinitions),
     },
-    rules: activeRules,
+    rules: decisionRules(),
     policies: activePolicies,
   });
 
   return NextResponse.json({
     execution,
-    patientInstruction: renderPatientInstruction(execution.event),
-    clinicalContentState: activeRules.length === 0 ? 'NO_ACTIVE_CLINICAL_RULES' : 'ACTIVE_RULES_AVAILABLE',
+    patientInstruction: shadowMode
+      ? blockedShadowPatientInstruction()
+      : renderPatientInstruction(execution.event),
+    clinicalContentState: clinicalContentState(),
+    shadowMode,
   });
 }
