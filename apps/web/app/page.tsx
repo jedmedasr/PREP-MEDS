@@ -1,4 +1,5 @@
 import { ClinicalWorkspace } from '@/components/ClinicalWorkspace';
+import { PreparationPlanner } from '@/components/PreparationPlanner';
 
 export default function HomePage() {
   const shadowMode = process.env.PREP_MEDS_CONTENT_MODE === 'shadow';
@@ -20,6 +21,7 @@ export default function HomePage() {
           SHADOW CLINICAL-REVIEW MODE — candidate Stage 8.5 rules are not clinically approved. Results are for internal validation only; patient instructions are disabled.
         </div>
       ) : null}
+      <PreparationPlanner />
       <ClinicalWorkspace />
     </>
   );
