@@ -1,0 +1,10 @@
+import { periproceduralLithiumIdentityDefinitions } from '@prep-meds/clinical-content';
+import type { IngredientRecord, MedicationRecord } from '@prep-meds/terminology';
+export const periproceduralLithiumIngredients: IngredientRecord[] = [{ id: 'ING-lithium', canonicalName: 'Lithium', aliases: ['lithium ion'] }];
+const recordById: Record<string, Omit<MedicationRecord, 'id' | 'ingredientIds'>> = {
+  'MED-lithium-carbonate-immediate-release-oral-tablet': { canonicalName: 'Lithium carbonate immediate-release oral tablet', genericName: 'lithium carbonate', aliases: ['lithium', 'lithium carbonate', 'lithium tablet', 'lithium carbonate tablet', 'immediate-release lithium tablet'], drugClassIds: ['CLS-mood-stabilizer', 'CLS-lithium'] },
+  'MED-lithium-carbonate-immediate-release-oral-capsule': { canonicalName: 'Lithium carbonate immediate-release oral capsule', genericName: 'lithium carbonate', aliases: ['lithium', 'lithium carbonate', 'lithium capsule', 'lithium carbonate capsule', 'immediate-release lithium capsule'], drugClassIds: ['CLS-mood-stabilizer', 'CLS-lithium'] },
+  'MED-lithobid-lithium-carbonate-extended-release-oral-tablet': { canonicalName: 'LITHOBID lithium carbonate extended-release oral tablet', genericName: 'lithium carbonate extended-release', brandNames: ['Lithobid'], aliases: ['lithium', 'lithium carbonate', 'Lithobid', 'Lithobid tablet', 'lithium ER tablet', 'lithium extended-release tablet'], drugClassIds: ['CLS-mood-stabilizer', 'CLS-lithium'] },
+  'MED-lithium-citrate-oral-solution': { canonicalName: 'Lithium citrate oral solution', genericName: 'lithium citrate', aliases: ['lithium', 'lithium solution', 'lithium oral solution', 'lithium citrate', 'lithium citrate solution'], drugClassIds: ['CLS-mood-stabilizer', 'CLS-lithium'] },
+};
+export const periproceduralLithiumMedications: MedicationRecord[] = periproceduralLithiumIdentityDefinitions.map((definition) => ({ id: definition.medicationId, ...recordById[definition.medicationId]!, ingredientIds: [definition.ingredientId] }));

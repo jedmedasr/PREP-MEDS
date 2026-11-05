@@ -1,0 +1,64 @@
+{
+  "batchId": "MED-BATCH-09-ENDOCRINE-HORMONAL-UROLOGIC",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-09-30T02:43:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_CHRONIC_SYSTEMIC_CORTICOSTEROID_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "5fad05bcae462213b90093968eebe16b019e7918",
+      "products": [
+        "prednisone immediate-release oral tablet",
+        "prednisone delayed-release oral tablet",
+        "prednisolone oral tablet",
+        "prednisolone sodium phosphate oral solution",
+        "MEDROL methylprednisolone oral tablet",
+        "SOLU-MEDROL methylprednisolone sodium succinate injection",
+        "CORTEF hydrocortisone oral tablet",
+        "SOLU-CORTEF hydrocortisone sodium succinate injection",
+        "dexamethasone oral tablet",
+        "dexamethasone sodium phosphate injection"
+      ],
+      "preservation": [
+        "Prednisone immediate-release and delayed-release tablets remain distinct; prednisolone tablet and sodium-phosphate oral solution remain distinct.",
+        "Oral and injectable methylprednisolone, hydrocortisone, and dexamethasone identities remain route/form distinct; bare ingredient terms fail closed.",
+        "Chronicity, indication, dose and duration, recent interruption or dose change, HPA-axis suppression, adrenal insufficiency, infection, glucose effects, procedure stress, and oral tolerance remain clinician/local-policy reviewed.",
+        "No autonomous continuation, interruption, taper, route/form conversion, supplementation, stress-dose plan, substitution, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 290,
+        "workflowRunId": 36657544395,
+        "jobId": 109705019427,
+        "conclusion": "success",
+        "verifiedHeadSha": "5fad05bcae462213b90093968eebe16b019e7918",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "lifecycle": "DRAFT",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "routeConversionAuthorized": false,
+    "formulationConversionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Chronic systemic corticosteroid cluster complete. Cross-batch priority advanced to transplant immunosuppression; tacrolimus is engineering-verified and cyclosporine is next.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}

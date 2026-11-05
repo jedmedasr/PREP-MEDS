@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "1.0.0",
+  "batchId": "MED-BATCH-13-BONE-GOUT-WEIGHT",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-09-30T12:12:00Z",
+  "governance": {
+    "clinicalReviewStatus": "REVIEW_REQUIRED",
+    "localPolicyStatus": "REVIEW_REQUIRED",
+    "mergeStatus": "NOT_MERGED",
+    "deploymentStatus": "NOT_DEPLOYED",
+    "productionActivationStatus": "NOT_ACTIVE"
+  },
+  "clusters": [
+    {
+      "clusterId": "B13-WEIGHT-MANAGEMENT-ANESTHESIA-SENSITIVE",
+      "implementationSha": "fc1f082b2c79c0e6e7a1c29215b2a1995700c301",
+      "status": "ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "products": [
+        "phentermine hydrochloride oral capsule",
+        "phentermine hydrochloride oral tablet",
+        "QSYMIA phentermine/topiramate extended-release oral capsule",
+        "CONTRAVE naltrexone/bupropion extended-release oral tablet",
+        "XENICAL orlistat 120 mg prescription oral capsule",
+        "ALLI orlistat 60 mg OTC oral capsule"
+      ],
+      "safeguards": [
+        "form/release/combination/regulatory ambiguity preserved",
+        "bare phentermine and orlistat fail closed",
+        "CONTRAVE opioid-exposure and analgesia context review-only",
+        "no autonomous continuation/interruption/taper/restart timing"
+      ],
+      "verification": {
+        "schemaValidation": "passed",
+        "strictTypeScript": "passed",
+        "unitRegressionTests": "passed",
+        "productionWebBuild": "passed"
+      },
+      "ci": {
+        "workflow": "quality",
+        "workflowRunNumber": 302,
+        "workflowRunId": 36711487885,
+        "jobId": 109874090564,
+        "conclusion": "success"
+      }
+    }
+  ],
+  "nextExecutableCluster": "Parkinson/dopaminergic oral, transdermal, and combination-product identity inventory; preserve formulation/release and withdrawal/anesthesia uncertainty."
+}

@@ -1,0 +1,547 @@
+{
+  "batchId": "MED-BATCH-08-PAIN-OUD-NEURO",
+  "status": "IN_PROGRESS_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+  "branch": "med-batch-05-cardiovascular-rhythm-lipids",
+  "pullRequest": 15,
+  "updatedAt": "2026-10-03T10:05:00Z",
+  "clinicalReviewStatus": "PENDING",
+  "localPolicyReviewStatus": "PENDING",
+  "mergeStatus": "NOT_MERGED",
+  "deploymentStatus": "NOT_DEPLOYED",
+  "productionActivationStatus": "NOT_ACTIVE",
+  "checkpoints": {
+    "A_BUPRENORPHINE_ROUTE_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+      "products": [
+        "buprenorphine sublingual tablet",
+        "SUBOXONE buprenorphine/naloxone soluble film",
+        "ZUBSOLV buprenorphine/naloxone sublingual orally disintegrating tablet",
+        "BELBUCA buprenorphine buccal film",
+        "BUTRANS buprenorphine extended-release transdermal patch",
+        "SUBLOCADE buprenorphine extended-release subcutaneous injection"
+      ],
+      "preservation": [
+        "Bare buprenorphine remains ambiguous across sublingual, buccal, transdermal, and subcutaneous products.",
+        "SUBOXONE film and ZUBSOLV tablet remain distinct whole-product buprenorphine/naloxone identities.",
+        "OUD and severe-persistent-pain label contexts remain distinct.",
+        "No substitution, route conversion, dose conversion, interruption, continuation, sedation, analgesia, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 280,
+        "workflowRunId": 36629110384,
+        "jobId": 109613529284,
+        "conclusion": "success",
+        "verifiedHeadSha": "9981cb33a6c0680fd0d0fc61f171b87c53fc1911",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "B_METHADONE_NALTREXONE_ROUTE_FORM_INDICATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+      "products": [
+        "methadone oral tablet",
+        "methadone oral concentrate",
+        "naltrexone film-coated oral tablet",
+        "VIVITROL naltrexone extended-release intramuscular injection kit"
+      ],
+      "preservation": [
+        "Methadone tablet and oral concentrate remain distinct; indication and maintenance status remain clinician-reviewed.",
+        "Naltrexone oral tablet and VIVITROL extended-release IM injection remain distinct; alcohol and opioid contexts remain explicit.",
+        "Current opioid exposure, detoxification/blockade status, QT risk, concomitant sedatives/opioids, and emergency analgesia remain clinician/local-policy reviewed.",
+        "No substitution, dose conversion, continuation, interruption, sedation, analgesia, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 282,
+        "workflowRunId": 36629870330,
+        "jobId": 109616069236,
+        "conclusion": "success",
+        "verifiedHeadSha": "bb8858b20dd9fcc3264f58ec218bdd434c74e451",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "C_PARKINSON_DOPAMINERGIC_CORE_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "1bd6e5892571e27b2bac472387ac1a0f1712f649",
+      "products": [
+        "carbidopa/levodopa immediate-release oral tablet",
+        "carbidopa/levodopa extended-release oral tablet",
+        "RYTARY carbidopa/levodopa extended-release oral capsule",
+        "CREXONT carbidopa/levodopa extended-release oral capsule",
+        "DUOPA carbidopa/levodopa enteral suspension",
+        "INBRIJA levodopa inhalation powder capsule",
+        "NEUPRO rotigotine extended-release transdermal patch"
+      ],
+      "preservation": [
+        "Bare carbidopa/levodopa, levodopa, tablet-only, and shared extended-release capsule wording fail closed across eligible identities.",
+        "Immediate-release tablet, extended-release tablet, RYTARY, CREXONT, DUOPA, INBRIJA, and NEUPRO remain route/form/release/device-specific identities.",
+        "INBRIJA capsules remain inhaler-only rather than swallowed; DUOPA remains enteral-pump specific.",
+        "Current regimen, oral tolerance, OFF-state and withdrawal risk, device/access status, pulmonary status, concomitant therapy, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, dose/release/route/device conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 305,
+        "workflowRunId": 36718550141,
+        "jobId": 109897482209,
+        "conclusion": "success",
+        "verifiedHeadSha": "1bd6e5892571e27b2bac472387ac1a0f1712f649",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "D_ORAL_DOPAMINE_AGONIST_IR_ER": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "d756f3439c7ee316ce9eda97aba7847b076d3287",
+      "products": [
+        "pramipexole dihydrochloride immediate-release oral tablet",
+        "pramipexole dihydrochloride extended-release oral tablet",
+        "ropinirole hydrochloride immediate-release film-coated oral tablet",
+        "ropinirole hydrochloride extended-release film-coated oral tablet"
+      ],
+      "preservation": [
+        "Bare pramipexole and ropinirole wording fails closed across immediate- and extended-release products.",
+        "Immediate-release and extended-release identities remain separate with no substitution, dose mapping, or release conversion.",
+        "Immediate-release Parkinson/RLS label context is not generalized to Parkinson-specific extended-release products or to a patient-specific indication.",
+        "Renal function, somnolence, orthostasis, hallucinations, impulse-control symptoms, withdrawal risk, concomitant therapy, smoking/CYP1A2 context for ropinirole, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 307,
+        "workflowRunId": 36724759433,
+        "jobId": 109918662398,
+        "conclusion": "success",
+        "verifiedHeadSha": "d756f3439c7ee316ce9eda97aba7847b076d3287",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "E_PARKINSON_MAOB_ADJUNCTS": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "97de3b1f08f331abe5432437db08c22c73ee714e",
+      "products": [
+        "rasagiline mesylate oral tablet",
+        "XADAGO safinamide mesylate film-coated oral tablet"
+      ],
+      "preservation": [
+        "Rasagiline and safinamide remain distinct from one another and from existing oral-tablet and transdermal-system selegiline identities.",
+        "Rasagiline monotherapy/adjunct labeling is not generalized to XADAGO's adjunct-to-levodopa/carbidopa off-episode context or to a patient-specific indication.",
+        "Hepatic function, blood pressure, current dopaminergic regimen, withdrawal/NMS-like risk, concomitant MAO inhibitors, serotonergic drugs, opioids, sympathomimetics, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 309,
+        "workflowRunId": 36732965330,
+        "jobId": 109947149901,
+        "conclusion": "success",
+        "verifiedHeadSha": "97de3b1f08f331abe5432437db08c22c73ee714e",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "F_PARKINSON_COMT_ADJUNCTS_AND_WHOLE_PRODUCT": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "bd5930634200aa1145ac4bf4e6592f12d7ff85bd",
+      "products": [
+        "entacapone oral tablet",
+        "tolcapone oral tablet",
+        "ONGENTYS opicapone oral capsule",
+        "carbidopa/levodopa/entacapone film-coated oral tablet"
+      ],
+      "preservation": [
+        "Entacapone, tolcapone, and opicapone remain distinct adjunct identities; carbidopa/levodopa/entacapone remains a whole combination-product identity.",
+        "Bare entacapone fails closed across the single-ingredient and whole-product identities.",
+        "Current levodopa/carbidopa formulation and regimen, wearing-off context, dyskinesia, hepatic function and tolcapone liver-risk context, blood pressure, concomitant MAO inhibitors, withdrawal/hyperpyrexia-confusion risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, component or whole-product conversion, dose conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 311,
+        "workflowRunId": 36740445191,
+        "jobId": 109973132702,
+        "conclusion": "success",
+        "verifiedHeadSha": "bd5930634200aa1145ac4bf4e6592f12d7ff85bd",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "G_PARKINSON_AMANTADINE_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "d41bee9dd72822fc2772d9242cf02f0c7f890f4c",
+      "products": [
+        "amantadine hydrochloride immediate-release oral capsule",
+        "amantadine hydrochloride immediate-release oral tablet",
+        "amantadine hydrochloride oral solution",
+        "GOCOVRI amantadine extended-release coated-pellet oral capsule",
+        "OSMOLEX ER amantadine extended-release oral tablet"
+      ],
+      "preservation": [
+        "Immediate-release capsule, immediate-release tablet, oral solution, GOCOVRI extended-release coated-pellet capsule, and OSMOLEX ER extended-release tablet remain distinct identities; bare amantadine fails closed across them.",
+        "Generic immediate-release labeling spans materially different indications; patient indication is not inferred, and GOCOVRI is not treated as substitutable with other amantadine products.",
+        "Renal function, indication, current dopaminergic regimen, hallucinations/confusion, orthostasis, somnolence, impulse-control concerns, withdrawal/hyperpyrexia-confusion/NMS-like risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, dose or formulation conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 319,
+        "workflowRunId": 36755757394,
+        "jobId": 110025452724,
+        "conclusion": "success",
+        "verifiedHeadSha": "d41bee9dd72822fc2772d9242cf02f0c7f890f4c",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "H_ANTIEPILEPTIC_LEVETIRACETAM_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "f4e12c61e093e63fe3a99dda1ee0faae3eb8e1e3",
+      "products": [
+        "KEPPRA levetiracetam immediate-release film-coated oral tablet",
+        "KEPPRA levetiracetam oral solution",
+        "KEPPRA levetiracetam intravenous concentrate",
+        "KEPPRA XR levetiracetam extended-release film-coated oral tablet",
+        "SPRITAM levetiracetam tablet for oral suspension"
+      ],
+      "preservation": [
+        "Immediate-release oral tablet, oral solution, intravenous concentrate, KEPPRA XR extended-release tablet, and SPRITAM tablet for oral suspension remain distinct identities; bare levetiracetam and bare KEPPRA fail closed.",
+        "Seizure indication and control, current route/form/release and regimen, last dose and adherence, renal function, behavioral status, oral feasibility, withdrawal/status-epilepticus risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "Intravenous labeling is retained only as route/form provenance; no oral-to-intravenous conversion, dose equivalence, substitution, interruption, taper, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 331,
+        "workflowRunId": 37068958965,
+        "jobId": 111043573055,
+        "conclusion": "success",
+        "verifiedHeadSha": "f4e12c61e093e63fe3a99dda1ee0faae3eb8e1e3",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "I_ANTIEPILEPTIC_LACOSAMIDE_ROUTE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "0b847b2b2e365a0433c89c96ef59d1777904d1f4",
+      "products": [
+        "VIMPAT lacosamide film-coated oral tablet",
+        "VIMPAT lacosamide oral solution",
+        "VIMPAT lacosamide intravenous injection"
+      ],
+      "preservation": [
+        "Film-coated oral tablet, oral solution, and intravenous injection remain distinct identities; bare lacosamide and bare VIMPAT fail closed.",
+        "Seizure indication/control, last dose, adherence, renal/hepatic function, cardiac history and conduction risk, concomitant conduction-affecting medication, oral feasibility, withdrawal risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No oral/intravenous conversion, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 340,
+        "workflowRunId": 37074752355,
+        "jobId": 111062029780,
+        "conclusion": "success",
+        "verifiedHeadSha": "0b847b2b2e365a0433c89c96ef59d1777904d1f4",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "J_ANTIEPILEPTIC_TOPIRAMATE_FORM_RELEASE_WHOLE_PRODUCT": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "2242032cc7a6a9bb1774024b101db59214eacd8b",
+      "products": [
+        "TOPAMAX topiramate coated oral tablet",
+        "TOPAMAX topiramate sprinkle capsule",
+        "EPRONTIA topiramate oral solution",
+        "QUDEXY XR topiramate extended-release oral capsule",
+        "TROKENDI XR topiramate extended-release oral capsule"
+      ],
+      "preservation": [
+        "Immediate-release tablet, sprinkle capsule, oral solution, QUDEXY XR, and TROKENDI XR remain distinct identities; bare topiramate, bare TOPAMAX, and non-product-specific extended-release wording fail closed.",
+        "Existing QSYMIA phentermine/topiramate remains a whole combination-product identity and is not decomposed into standalone medication decisions.",
+        "Indication, seizure/migraine context, last dose, adherence, renal function, bicarbonate/metabolic-acidosis risk, hydration status, concomitant carbonic-anhydrase inhibitors, oral feasibility, withdrawal risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No form/release conversion, whole-product decomposition, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 350,
+        "workflowRunId": 37079709844,
+        "jobId": 111077299060,
+        "conclusion": "success",
+        "verifiedHeadSha": "2242032cc7a6a9bb1774024b101db59214eacd8b",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "K_ANTIEPILEPTIC_ZONISAMIDE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "953166abc8c97ac3e2c9f4e5890047b3bf1aa7d2",
+      "products": [
+        "ZONEGRAN zonisamide oral capsule",
+        "ZONISADE zonisamide oral suspension"
+      ],
+      "preservation": [
+        "ZONEGRAN capsule and ZONISADE oral suspension remain distinct identities; bare zonisamide fails closed.",
+        "Indication, seizure context/control, last dose, adherence, renal function, bicarbonate/metabolic-acidosis risk, hydration and kidney-stone risk, sulfonamide hypersensitivity, concomitant carbonic-anhydrase inhibitors, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No formulation conversion, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 360,
+        "workflowRunId": 37083670894,
+        "jobId": 111089399383,
+        "conclusion": "success",
+        "verifiedHeadSha": "953166abc8c97ac3e2c9f4e5890047b3bf1aa7d2",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "L_ANTIEPILEPTIC_OXCARBAZEPINE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "d76d8ddcadd157c773d66502883e4d6826cce0fb",
+      "products": [
+        "TRILEPTAL oxcarbazepine film-coated oral tablet",
+        "TRILEPTAL oxcarbazepine oral suspension",
+        "OXTELLAR XR oxcarbazepine extended-release oral tablet"
+      ],
+      "preservation": [
+        "TRILEPTAL immediate-release tablet, TRILEPTAL oral suspension, and OXTELLAR XR extended-release tablet remain distinct identities; bare oxcarbazepine and bare TRILEPTAL fail closed.",
+        "Indication, seizure context/control, last dose, adherence, sodium status and hyponatremia risk, renal function, hypersensitivity history, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No release/form conversion, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 369,
+        "workflowRunId": 37091143489,
+        "jobId": 111111567952,
+        "conclusion": "success",
+        "verifiedHeadSha": "d76d8ddcadd157c773d66502883e4d6826cce0fb",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "M_ANTIEPILEPTIC_CARBAMAZEPINE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "c3977c2378a819a9477c0b59fa7ee48d13dcf7f0",
+      "products": [
+        "TEGRETOL carbamazepine conventional oral tablet",
+        "TEGRETOL carbamazepine oral suspension",
+        "carbamazepine chewable oral tablet",
+        "TEGRETOL XR carbamazepine extended-release oral tablet",
+        "CARBATROL carbamazepine extended-release oral capsule",
+        "EQUETRO carbamazepine extended-release oral capsule"
+      ],
+      "preservation": [
+        "Conventional tablet, chewable tablet, suspension, TEGRETOL XR extended-release tablet, CARBATROL extended-release capsule, and EQUETRO extended-release capsule remain distinct identities; bare carbamazepine, bare TEGRETOL, and non-product-specific extended-release capsule wording fail closed.",
+        "Indication, seizure context/control, last dose, adherence, sodium status, blood counts, hepatic/renal function, ancestry/HLA context, hypersensitivity, interacting drugs/autoinduction, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No form/release conversion, dose equivalence, substitution, continuation, interruption, taper, administration timing, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 381,
+        "workflowRunId": 37095047658,
+        "jobId": 111123164399,
+        "conclusion": "success",
+        "verifiedHeadSha": "c3977c2378a819a9477c0b59fa7ee48d13dcf7f0",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "N_ANTIEPILEPTIC_PHENYTOIN_FOSPHENYTOIN_ROUTE_FORM": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "1f6a6c1689686e8f7bc80f2b6c0faaf1625435f8",
+      "products": [
+        "DILANTIN extended phenytoin sodium oral capsule",
+        "DILANTIN INFATABS phenytoin chewable oral tablet",
+        "DILANTIN-125 phenytoin oral suspension",
+        "phenytoin sodium parenteral injection",
+        "CEREBYX fosphenytoin sodium parenteral injection"
+      ],
+      "preservation": [
+        "Extended phenytoin sodium capsule, phenytoin free-acid chewable tablet and suspension, parenteral phenytoin sodium, and parenteral fosphenytoin sodium remain distinct; bare phenytoin and DILANTIN fail closed.",
+        "Indication, seizure control, last dose/adherence, serum concentration, albumin, renal/hepatic function, cardiac status, interacting drugs, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No salt/prodrug/route/form/release conversion, phenytoin-equivalent arithmetic, dose equivalence, substitution, continuation, interruption, taper, timing, monitoring target, or restart is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 392,
+        "workflowRunId": 37097995646,
+        "jobId": 111131757530,
+        "conclusion": "success",
+        "verifiedHeadSha": "1f6a6c1689686e8f7bc80f2b6c0faaf1625435f8",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "O_ANTIEPILEPTIC_PHENOBARBITAL_ROUTE_FORM_SALT": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "19b4c38971fe8799ba8cb78d1d700d130b740ca2",
+      "products": [
+        "phenobarbital oral tablet",
+        "phenobarbital oral solution",
+        "phenobarbital sodium parenteral injection"
+      ],
+      "preservation": [
+        "Oral tablet, oral solution, and parenteral phenobarbital sodium remain distinct; bare phenobarbital fails closed.",
+        "Selected DailyMed SPLs explicitly retain unapproved-drug-other marketing status; FDA approval and current market availability are not asserted.",
+        "Indication, seizure control, chronicity, adherence, hepatic/renal and respiratory status, concomitant sedatives/opioids/alcohol, oral feasibility, withdrawal risk, procedure plan, and anesthesia plan remain clinician reviewed.",
+        "No continuation, interruption, taper, salt/route/formulation/dose conversion, substitution, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 401,
+        "workflowRunId": 37101384289,
+        "jobId": 111141428111,
+        "conclusion": "success",
+        "verifiedHeadSha": "19b4c38971fe8799ba8cb78d1d700d130b740ca2",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "P_ANTIEPILEPTIC_VALPROATE_DIVALPROEX_ROUTE_FORM_RELEASE": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "2c10d9bf4e7b00f88135a578670cde99deb41fb7",
+      "products": [
+        "valproic acid oral capsule",
+        "valproic acid oral solution",
+        "valproate sodium intravenous injection",
+        "DEPAKOTE divalproex sodium delayed-release oral tablet",
+        "DEPAKOTE ER divalproex sodium extended-release oral tablet",
+        "DEPAKOTE SPRINKLES divalproex sodium delayed-release oral capsule"
+      ],
+      "preservation": [
+        "Valproic acid, valproate sodium, and divalproex sodium remain distinct chemical/product contexts; bare valproate, valproic acid, divalproex, and DEPAKOTE wording fail closed.",
+        "Oral capsule, oral solution, intravenous injection, delayed-release tablet, extended-release tablet, and delayed-release sprinkle capsule remain distinct route/form/release identities.",
+        "Indication, seizure control, chronicity, last dose/adherence, hepatic/renal function, platelet count or bleeding risk, pregnancy status, interacting antiepileptics/sedatives, oral feasibility, withdrawal risk, procedure risk, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No acid/salt/route/form/release/dose conversion, substitution, continuation, interruption, taper, administration timing, monitoring target, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 410,
+        "workflowRunId": 37111258782,
+        "jobId": 111169468329,
+        "conclusion": "success",
+        "verifiedHeadSha": "2c10d9bf4e7b00f88135a578670cde99deb41fb7",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    },
+    "Q_GABAPENTINOID_ANESTHESIA_WITHDRAWAL_SEDATION": {
+      "status": "COMPLETE_ENGINEERING_VERIFIED_REVIEW_REQUIRED",
+      "implementationSha": "054e06026a8708cb6ccef0056ebec1d716838bcc",
+      "products": [
+        "NEURONTIN gabapentin oral capsule",
+        "NEURONTIN gabapentin oral tablet",
+        "NEURONTIN gabapentin oral solution",
+        "GRALISE gabapentin extended-release oral tablet",
+        "HORIZANT gabapentin-enacarbil extended-release oral tablet",
+        "LYRICA pregabalin oral capsule",
+        "LYRICA pregabalin oral solution",
+        "LYRICA CR pregabalin extended-release oral tablet"
+      ],
+      "preservation": [
+        "Immediate-release forms, GRALISE, HORIZANT prodrug, LYRICA immediate-release forms, and LYRICA CR remain distinct; bare gabapentin, NEURONTIN, pregabalin, and LYRICA fail closed.",
+        "FDA respiratory-risk context establishes a genuine anesthesia-review gap for underlying lung disease, advanced age/frailty, opioids, and other CNS depressants without authorizing a timing rule.",
+        "Indication, chronicity, last dose, renal function, seizure history, withdrawal risk, respiratory status, concomitant sedatives, oral feasibility, procedure/sedation context, and anesthesia plan remain clinician/local-policy reviewed.",
+        "No continuation, interruption, taper, substitution, prodrug/form/release/dose conversion, administration timing, monitoring, anesthesia plan, or restart timing is authorized."
+      ],
+      "ci": {
+        "workflowName": "quality",
+        "workflowRunNumber": 420,
+        "workflowRunId": 37114424620,
+        "jobId": 111178339325,
+        "conclusion": "success",
+        "verifiedHeadSha": "054e06026a8708cb6ccef0056ebec1d716838bcc",
+        "gates": {
+          "schemaValidation": "SUCCESS",
+          "strictTypecheck": "SUCCESS",
+          "unitAndRegressionTests": "SUCCESS",
+          "productionWebBuild": "SUCCESS"
+        }
+      }
+    }
+  },
+  "evidenceState": {
+    "jurisdiction": "US",
+    "lifecycle": "DRAFT",
+    "primarySourceFamilies": [
+      "FDA/DailyMed direct prescription labeling"
+    ],
+    "representativeIdentityOnly": true,
+    "marketAvailabilityAsserted": false,
+    "substitutionAuthorized": false,
+    "clinicalApprovalGranted": false,
+    "localPolicyApprovalGranted": false,
+    "timingRuleAuthorized": false
+  },
+  "blockers": [],
+  "nextWorkItem": "Withdrawal-sensitive antiepileptic/neurologic V1 inventory is engineering-complete. Proceed to Batch 10 pulmonary/airway inventory; implement only controller/rescue, systemic bronchodilator, or pulmonary-hypertension route/form/combo gaps with material sedation/anesthesia relevance.",
+  "advanceToNextClusterAllowed": true,
+  "productionActivationAllowed": false
+}

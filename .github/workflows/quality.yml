@@ -26,6 +26,10 @@ jobs:
         run: pnpm validate:schemas
       - name: Typecheck
         run: pnpm typecheck
+      - name: Record CI source identity
+        run: node scripts/ci-source-receipt.mjs
+      - name: Isolated inhaled-insulin regression tests
+        run: pnpm --filter @prep-meds/web exec vitest run lib/__tests__/diabetes-afrezza.test.ts lib/__tests__/diabetes-afrezza-generic-identity.test.ts
       - name: Unit and regression tests
         run: pnpm test
       - name: Build clinical web application
