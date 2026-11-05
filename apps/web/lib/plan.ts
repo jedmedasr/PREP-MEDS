@@ -25,7 +25,7 @@ export function addCalendarDays(iso: string, days: number): string {
 export function subtractMinutes(time: string, minutes: number): {time:string; dayOffset:number} {
   if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) throw new Error('Invalid time');
   const [h,m] = time.split(':').map(Number);
-  const total = h*60+m-minutes;
+  const total = (h ?? 0)*60+(m ?? 0)-minutes;
   const dayOffset = Math.floor(total/1440);
   const normalized = ((total%1440)+1440)%1440;
   return {time:String(Math.floor(normalized/60)).padStart(2,'0')+':'+String(normalized%60).padStart(2,'0'),dayOffset};
