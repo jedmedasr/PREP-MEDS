@@ -4,7 +4,7 @@ import { PREPS, DIET_GUIDE, addCalendarDays, calendarEvents, defaultInstructions
 
 const today = '2026-12-10'; // Synthetic demo date; never a patient record.
 function initialPlan(): Plan {
-  return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00',
+  return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00', anesthesiaFastingPolicy:'strict-midnight',
     protocolApproved:false, instructions:defaultInstructions('GoLYTELY') };
 }
 function formatTime(time?:string) { if (!time) return 'All day'; const [h,m]=time.split(':').map(Number);return new Date(Date.UTC(2020,0,1,h??0,m??0)).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}); }
@@ -38,6 +38,7 @@ export function PreparationPlanner() {
   const selected=events.filter(e=>e.date===selectedDate);
   const second=(()=>{try{return subtractMinutes(plan.procedureTime,360)}catch{return null}})();
   const deadline=(()=>{try{return subtractMinutes(plan.procedureTime,240)}catch{return null}})();
+  const strictMidnight=(plan.anesthesiaFastingPolicy??'strict-midnight')==='strict-midnight';
   const secondDate=second?addCalendarDays(plan.procedureDate,second.dayOffset):null;
   const deadlineDate=deadline?addCalendarDays(plan.procedureDate,deadline.dayOffset):null;
   return <section className="planner">
@@ -49,12 +50,13 @@ export function PreparationPlanner() {
         <label>Procedure date<input type="date" value={plan.procedureDate} onChange={e=>{setSchedule('procedureDate',e.target.value);setSelectedDate(e.target.value)}} /></label>
         <label>Procedure time<input type="time" value={plan.procedureTime} onChange={e=>setSchedule('procedureTime',e.target.value)}/></label>
         <label>Arrival time<input type="time" value={plan.arrivalTime} onChange={e=>setSchedule('arrivalTime',e.target.value)}/></label>
-        <label>Anesthesia clear-liquid cutoff (optional, confirmed by facility)<input type="time" value={plan.anesthesiaClearLiquidCutoff??''} onChange={e=>setPlan(p=>({...p,anesthesiaClearLiquidCutoff:e.target.value||undefined,approvedBy:undefined,approvedAt:undefined}))}/></label>
+        <label>Facility anesthesia fasting policy<select value={plan.anesthesiaFastingPolicy??'strict-midnight'} onChange={e=>setPlan(p=>({...p,anesthesiaFastingPolicy:e.target.value as 'strict-midnight'|'custom',anesthesiaClearLiquidCutoff:e.target.value==='strict-midnight'?undefined:p.anesthesiaClearLiquidCutoff,approvedBy:undefined,approvedAt:undefined}))}><option value="strict-midnight">Strict NPO after midnight, with approved exceptions</option><option value="custom">Custom facility cutoff</option></select></label>
+        {(plan.anesthesiaFastingPolicy==='custom')?<label>Facility-confirmed other-liquid cutoff<input type="time" value={plan.anesthesiaClearLiquidCutoff??''} onChange={e=>setPlan(p=>({...p,anesthesiaClearLiquidCutoff:e.target.value||undefined,approvedBy:undefined,approvedAt:undefined}))}/></label>:null}
         <label>Low-fiber lead-in (days)<input type="number" min="0" max="14" value={plan.lowFiberDays} onChange={e=>setPlan(p=>({...p,lowFiberDays:Number(e.target.value),approvedBy:undefined,approvedAt:undefined}))}/></label>
       </div>
       <div className="planner-note"><strong>Timing preview, not a prescription</strong><p>Under a hypothetical 2-hour second dose finishing 4 hours before the procedure, start at {second?formatTime(second.time):'—'} {second?.dayOffset===-1?'the preceding day':'on procedure day'}. This calculation is not automatically applied; the clinician must validate the product, local protocol, arrival constraints, and fasting rules.</p></div>
       <label className="planner-label">Approved morning medication instructions (optional)<textarea rows={2} placeholder="Enter only clinician-confirmed medication instructions; otherwise patient is directed to call the team." value={plan.morningMedicationInstructions??''} onChange={e=>setPlan(p=>({...p,morningMedicationInstructions:e.target.value,approvedBy:undefined,approvedAt:undefined}))}/></label>
-      <p className="planner-muted">Leave the anesthesia cutoff blank unless confirmed by your facility. The patient preview will show a clear confirmation-needed state instead of inventing a time.</p>
+      <p className="planner-muted">Default facility policy: strict NPO after midnight for food and other liquids, with exceptions only for the prescribed bowel preparation and specifically approved medications. Other facilities can select a custom cutoff. Any custom policy must be reviewed against the bowel-prep schedule and anesthesia instructions.</p>
       <label className="planner-check"><input type="checkbox" checked={plan.protocolApproved} onChange={e=>setPlan(p=>({...p,protocolApproved:e.target.checked,approvedBy:undefined,approvedAt:undefined}))}/> Institutional product, dosing, timing, and anesthesia protocol independently reviewed</label>
     </div><div className="planner-card">
       <div className="planner-row"><h3>2 · Review every instruction</h3><button className="planner-secondary" onClick={addMedication}>+ Medication</button></div>
@@ -82,7 +84,7 @@ export function PreparationPlanner() {
           </article>
           <article className="planner-time-step">
             <div className="planner-time-rail"><span className="planner-time-icon">💧</span><span className="planner-time-line" /></div>
-            <div className="planner-time-content"><span className="planner-step-label">2 · WATER & OTHER CLEAR LIQUIDS</span><h4>{plan.anesthesiaClearLiquidCutoff?formatTime(plan.anesthesiaClearLiquidCutoff):'Confirm with your team'}</h4><p>{plan.anesthesiaClearLiquidCutoff?'Your team-entered clear-liquid cutoff. Do not drink other liquids after this time unless your care team instructs otherwise.':'Your anesthesia team sets this time. It may be different from when you finish bowel prep. Do not guess or assume a 2-hour cutoff.'}</p><span className={plan.anesthesiaClearLiquidCutoff?'planner-confirmed':'planner-unconfirmed'}>{plan.anesthesiaClearLiquidCutoff?'Clinician-entered time · confirm facility instructions':'Time not yet provided'}</span></div>
+            <div className="planner-time-content"><span className="planner-step-label">2 · FOOD, WATER & OTHER LIQUIDS</span><h4>{strictMidnight?'Nothing after midnight':plan.anesthesiaClearLiquidCutoff?formatTime(plan.anesthesiaClearLiquidCutoff):'Confirm with your team'}</h4><p>{strictMidnight?'No solid food or ordinary drinks after midnight. EXCEPTIONS: drink your prescribed bowel prep exactly as directed, finishing at least 4 hours before the procedure; take only medications your team specifically approves, with a sip of water only if permitted. The clear-liquid diet already means no solid food for the entire day before colonoscopy.':plan.anesthesiaClearLiquidCutoff?'Your facility has entered a different cutoff for other clear liquids. Follow your separate food restrictions and approved bowel-prep and medication exceptions.':'Your facility must provide its custom cutoff before you rely on this schedule. Ask your endoscopy team.'}</p><span className={strictMidnight||plan.anesthesiaClearLiquidCutoff?'planner-confirmed':'planner-unconfirmed'}>{strictMidnight?'Facility policy: strict NPO after midnight · prescribed exceptions only':plan.anesthesiaClearLiquidCutoff?'Custom facility-entered cutoff · confirm instructions':'Custom cutoff not yet provided'}</span></div>
           </article>
           <article className="planner-time-step">
             <div className="planner-time-rail"><span className="planner-time-icon">💊</span></div>
@@ -90,7 +92,7 @@ export function PreparationPlanner() {
           </article>
         </div>
         <button className="planner-timing-expand" aria-expanded={timingExpanded} onClick={()=>setTimingExpanded(x=>!x)}>{timingExpanded?'Hide explanation −':'Why are these times different? +'}</button>
-        {timingExpanded?<div className="planner-timing-explain"><p><strong>Bowel prep</strong> cleans your colon and must be completed by the prescribed deadline. <strong>Other clear liquids</strong> have a separate anesthesia/facility fasting cutoff. <strong>Medications</strong> have their own clinician-approved instructions, including whether a small sip of water is permitted.</p><p><strong>Remember:</strong> Finishing bowel prep does not automatically mean stopping water. Stopping water does not automatically mean stopping every medicine. When in doubt, call your endoscopy team.</p></div>:null}
+        {timingExpanded?<div className="planner-timing-explain"><p><strong>Bowel prep</strong> cleans your colon and must be completed by the prescribed deadline. <strong>Other clear liquids</strong> follow your facility’s fasting policy (strictly nothing after midnight in this demo unless the facility changes it), with a specific exception for the prescribed bowel preparation. <strong>Medications</strong> have their own clinician-approved instructions, including whether a small sip of water is permitted.</p><p><strong>Remember:</strong> Finishing bowel prep does not automatically mean stopping water. Stopping water does not automatically mean stopping every medicine. When in doubt, call your endoscopy team.</p></div>:null}
         <p className="planner-timing-footnote">Demonstration only · Times require confirmation by your clinical team. The anesthesia cutoff is not calculated from the bowel-prep deadline.</p>
       </section>
       <nav className="planner-tabs" aria-label="Patient guide"><button className={patientTab==='calendar'?'active':''} onClick={()=>setPatientTab('calendar')}>📅 My calendar</button><button className={patientTab==='food'?'active':''} onClick={()=>setPatientTab('food')}>🥣 Food guide</button><button className={patientTab==='medications'?'active':''} onClick={()=>setPatientTab('medications')}>💊 Medications</button></nav>
