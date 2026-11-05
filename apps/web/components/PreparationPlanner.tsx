@@ -7,7 +7,7 @@ function initialPlan(): Plan {
   return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00',
     protocolApproved:false, instructions:defaultInstructions('GoLYTELY') };
 }
-function formatTime(time?:string) { if (!time) return 'All day'; const [h,m]=time.split(':').map(Number);return new Date(Date.UTC(2020,0,1,h,m)).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}); }
+function formatTime(time?:string) { if (!time) return 'All day'; const [h,m]=time.split(':').map(Number);return new Date(Date.UTC(2020,0,1,h??0,m??0)).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}); }
 export function PreparationPlanner() {
   const [plan,setPlan]=useState<Plan>(initialPlan);
   const [view,setView]=useState<'clinician'|'patient'>('clinician');
