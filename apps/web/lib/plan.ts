@@ -1,13 +1,13 @@
 export type PrepProduct = 'GoLYTELY' | 'SUPREP' | 'SUTAB' | 'CLENPIQ' | 'PLENVU' | 'MoviPrep';
 export type PlanInstruction = {
   id: string; title: string; detail: string; offsetDays: number;
-  time?: string; kind: 'diet' | 'prep' | 'medication' | 'other';
+  time?: string | undefined; kind: 'diet' | 'prep' | 'medication' | 'other';
   critical: boolean; approved: boolean; overrideReason?: string;
 };
 export type Plan = {
   product: PrepProduct; lowFiberDays: number; instructions: PlanInstruction[];
   procedureDate: string; procedureTime: string; arrivalTime: string;
-  protocolApproved: boolean; approvedBy?: string; approvedAt?: string;
+  protocolApproved: boolean; approvedBy?: string | undefined; approvedAt?: string | undefined;
 };
 export type CalendarEvent = PlanInstruction & { date: string; label: string };
 export const PREPS: PrepProduct[] = ['GoLYTELY','SUPREP','SUTAB','CLENPIQ','PLENVU','MoviPrep'];
