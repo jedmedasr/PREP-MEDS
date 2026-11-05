@@ -15,6 +15,14 @@ describe('patient calendar safety',()=>{
     expect(validatePlan(plan).some(x=>x.includes('pending approval'))).toBe(true);
     expect(calendarEvents(plan).find(x=>x.id==='diet-clear')?.date).toBe('2026-12-09');
   });
+  it('keeps bowel-prep completion separate from facility liquid cutoff',()=>{
+    expect(subtractMinutes('09:00',240)).toEqual({time:'05:00',dayOffset:0});
+    expect(subtractMinutes('09:00',360)).toEqual({time:'03:00',dayOffset:0});
+    const plan:Plan={product:'GoLYTELY',lowFiberDays:7,procedureDate:'2026-12-10',procedureTime:'09:00',arrivalTime:'08:00',anesthesiaClearLiquidCutoff:'invalid',protocolApproved:false,instructions:defaultInstructions('GoLYTELY')};
+    expect(validatePlan(plan)).toContain('Invalid anesthesia clear-liquid cutoff');
+    plan.anesthesiaClearLiquidCutoff=undefined;
+    expect(validatePlan(plan)).not.toContain('Invalid anesthesia clear-liquid cutoff');
+  });
   it('requires an identified clinician and valid schedule for approval',()=>{
     const plan:Plan={product:'SUPREP',lowFiberDays:7,procedureDate:'2026-12-10',procedureTime:'25:00',arrivalTime:'08:00',protocolApproved:true,instructions:defaultInstructions('SUPREP').map(x=>({...x,approved:true}))};
     expect(validatePlan(plan)).toContain('Valid procedure time required');
