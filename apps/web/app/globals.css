@@ -114,3 +114,53 @@ h1 { margin: 0; max-width: 760px; font-size: clamp(2rem, 4vw, 3.5rem); line-heig
   .tab { min-width: 96px; }
   .provenance-grid { grid-template-columns: 1fr; gap: 3px; }
 }
+
+
+/* Synthetic preparation planner and patient preview */
+.planner{width:min(1180px,calc(100% - 32px));margin:30px auto 48px;color:var(--ink)}
+.planner-heading{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:20px}
+.planner-heading h2{font-size:clamp(1.5rem,3vw,2.3rem);margin:0}
+.planner-heading p:not(.eyebrow){color:var(--muted);line-height:1.5}
+.planner-switch,.planner-tabs{display:flex;gap:6px;background:#eaf0f1;border-radius:12px;padding:5px}
+.planner-switch button,.planner-tabs button{border:0;background:transparent;border-radius:9px;padding:11px 14px;font-weight:700;color:var(--ink)}
+.planner-switch button.active,.planner-tabs button.active{background:white;box-shadow:0 1px 5px #17313a22}
+.planner-columns{display:grid;grid-template-columns:0.9fr 1.1fr;gap:18px;align-items:start}
+.planner-card{background:white;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px}
+.planner-card h3{margin:0 0 18px}
+.planner-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.planner-fields label,.planner-label{display:grid;gap:6px;font-size:.83rem;font-weight:700}
+.planner-fields input,.planner-fields select,.planner-label textarea{width:100%;padding:10px;border:1px solid #cfdadd;border-radius:10px;background:white;color:var(--ink);font:inherit}
+.planner-label textarea{resize:vertical;margin-bottom:12px}
+.planner-note{padding:16px;border:1px solid #c8dfe1;border-radius:13px;background:#edf6f7;margin:14px 0;line-height:1.55}
+.planner-note p{margin:6px 0 0}
+.planner-check{display:flex;align-items:start;gap:9px;font-size:.85rem;line-height:1.5;margin:14px 0}
+.planner-check input{margin-top:4px}
+.planner-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.planner-row h3{margin:0}
+.planner-instruction{border-top:1px solid var(--line);padding:20px 0}
+.planner-tag{font-size:.7rem;background:#eef2f3;padding:6px 9px;border-radius:20px;white-space:nowrap}
+.planner-secondary{border:1px solid var(--line);border-radius:10px;background:white;padding:10px 13px;color:var(--accent);font-weight:700;margin:5px}
+.planner-muted{color:var(--muted);font-size:.78rem}
+.planner-error{color:var(--danger);font-weight:700}
+.planner-patient{max-width:850px;margin:0 auto}
+.planner-patient-hero{background:#0e6b74;color:white;padding:28px;border-radius:20px;margin-bottom:14px}
+.planner-patient-hero span{font-size:.75rem;letter-spacing:.12em;font-weight:800}
+.planner-patient-hero h3{font-size:clamp(1.7rem,4vw,2.5rem);margin:10px 0}
+.planner-patient-hero p{opacity:.92}
+.planner-pending,.planner-ready{display:inline-block;background:#fff1d8;color:#775000;border-radius:9px;padding:9px;font-size:.82rem}
+.planner-ready{background:#d8f5e1;color:#205e37}
+.planner-tabs{margin:14px 0;overflow:auto}
+.planner-day-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.planner-day-grid button{border:1px solid var(--line);border-radius:12px;background:white;padding:12px 4px;display:grid;gap:7px;justify-items:center;color:var(--ink)}
+.planner-day-grid button.selected{border:2px solid var(--accent);background:var(--accent-soft)}
+.planner-day-grid strong{font-size:1.2rem}
+.planner-day-grid small{color:var(--muted)}
+.planner-event{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line);line-height:1.5}
+.planner-event>span{font-size:1.5rem}
+.planner-event p{margin:5px 0;color:var(--muted)}
+.planner-event small{color:var(--danger)}
+.planner-food-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.planner-food-grid h4{margin:14px 0 4px}
+.planner-food-grid li{margin-bottom:7px}
+@media(max-width:850px){.planner-heading{display:block}.planner-columns,.planner-food-grid{grid-template-columns:1fr}.planner-switch{width:fit-content}.planner-day-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:480px){.planner{width:calc(100% - 20px)}.planner-fields{grid-template-columns:1fr}.planner-card{padding:16px}.planner-tabs button{padding:10px 8px;font-size:.82rem}}
