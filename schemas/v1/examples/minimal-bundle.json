@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "medications": [
+    {
+      "id": "MED-EXAMPLE-COMBO",
+      "canonical_name": "Synthetic Combination Product",
+      "generic_name": "synthetic ingredient a / synthetic ingredient b",
+      "brand_names": ["ExampleBrand"],
+      "aliases": ["example combo"],
+      "medication_type": "COMBINATION",
+      "ingredient_ids": ["ING-EXAMPLE-A", "ING-EXAMPLE-B"],
+      "drug_class_ids": ["CLS-EXAMPLE"],
+      "terminology_codes": [],
+      "status": "ACTIVE"
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "ING-EXAMPLE-A",
+      "canonical_name": "Synthetic Ingredient A",
+      "aliases": [],
+      "terminology_codes": [],
+      "status": "ACTIVE"
+    },
+    {
+      "id": "ING-EXAMPLE-B",
+      "canonical_name": "Synthetic Ingredient B",
+      "aliases": [],
+      "terminology_codes": [],
+      "status": "ACTIVE"
+    }
+  ],
+  "drug_classes": [
+    {
+      "id": "CLS-EXAMPLE",
+      "name": "Synthetic Example Class",
+      "description": "Non-clinical fixture used only to validate ontology relationships."
+    }
+  ],
+  "procedures": [
+    {"code": "EGD", "name": "Esophagogastroduodenoscopy", "status": "ACTIVE"},
+    {"code": "COLONOSCOPY", "name": "Colonoscopy", "status": "ACTIVE"},
+    {"code": "EGD_COLONOSCOPY", "name": "Combined EGD and colonoscopy", "status": "ACTIVE"}
+  ],
+  "modifier_definitions": [
+    {
+      "id": "MOD-EXAMPLE-INDICATION",
+      "name": "Synthetic indication",
+      "description": "Fixture demonstrating an explicitly sourced modifier.",
+      "value_type": "STRING",
+      "sensitive": false
+    }
+  ],
+  "evidence_atoms": [],
+  "clinical_rules": [],
+  "organization_policies": [],
+  "test_cases": [],
+  "decision_events": [],
+  "overrides": [],
+  "procedure_outcomes": []
+}

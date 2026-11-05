@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-16T00:00:00Z",
+  "sources": [
+    {
+      "id": "src_synthetic_guideline",
+      "version": 1,
+      "sourceType": "GUIDELINE",
+      "title": "Synthetic Guideline for Software Testing Only",
+      "publisher": "PREP-MEDS Test Fixture",
+      "language": "en",
+      "retrievedAt": "2026-09-16T00:00:00Z",
+      "lifecycle": "DRAFT"
+    }
+  ],
+  "atoms": [
+    {
+      "id": "ev_synthetic_001",
+      "version": 1,
+      "source": { "id": "src_synthetic_guideline", "version": 1 },
+      "claim": "Synthetic source describes a fictional workflow option for software testing.",
+      "normalizedTopic": "synthetic-workflow",
+      "stance": "DESCRIPTIVE",
+      "evidenceStrength": "NOT_GRADED",
+      "applicability": {
+        "medicationIds": ["med_synthetic_a"],
+        "procedureCodes": ["COLONOSCOPY"]
+      },
+      "locator": { "section": "Test Section" },
+      "limitations": ["Not clinical evidence. Software test fixture only."],
+      "retrieval": {
+        "title": "Synthetic workflow fixture",
+        "summary": "Synthetic evidence atom used only to exercise the PREP-MEDS evidence pipeline.",
+        "keywords": ["synthetic", "workflow"],
+        "concepts": ["test-evidence"],
+        "sourceAuthorityRank": 999
+      },
+      "lifecycle": "DRAFT",
+      "createdAt": "2026-09-16T00:00:00Z"
+    }
+  ]
+}

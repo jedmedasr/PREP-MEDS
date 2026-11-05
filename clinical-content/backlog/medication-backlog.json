@@ -1,0 +1,102 @@
+[
+  {
+    "medicationId": "MED-apixaban",
+    "canonicalName": "Apixaban",
+    "ingredientIds": ["ING-apixaban"],
+    "classIds": ["CLS-doac-factor-xa"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["anticoagulant", "representative-architecture-case"]
+  },
+  {
+    "medicationId": "MED-warfarin",
+    "canonicalName": "Warfarin",
+    "ingredientIds": ["ING-warfarin"],
+    "classIds": ["CLS-vitamin-k-antagonist"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["anticoagulant"]
+  },
+  {
+    "medicationId": "MED-clopidogrel",
+    "canonicalName": "Clopidogrel",
+    "ingredientIds": ["ING-clopidogrel"],
+    "classIds": ["CLS-p2y12-inhibitor"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["antiplatelet"]
+  },
+  {
+    "medicationId": "MED-aspirin",
+    "canonicalName": "Aspirin",
+    "ingredientIds": ["ING-aspirin"],
+    "classIds": ["CLS-antiplatelet"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["antiplatelet"]
+  },
+  {
+    "medicationId": "MED-empagliflozin",
+    "canonicalName": "Empagliflozin",
+    "ingredientIds": ["ING-empagliflozin"],
+    "classIds": ["CLS-sglt2-inhibitor"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["diabetes"]
+  },
+  {
+    "medicationId": "MED-semaglutide",
+    "canonicalName": "Semaglutide",
+    "ingredientIds": ["ING-semaglutide"],
+    "classIds": ["CLS-glp1-receptor-agonist"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["diabetes", "glp1"]
+  },
+  {
+    "medicationId": "MED-insulin-glargine",
+    "canonicalName": "Insulin glargine",
+    "ingredientIds": ["ING-insulin-glargine"],
+    "classIds": ["CLS-basal-insulin"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["diabetes", "insulin"]
+  },
+  {
+    "medicationId": "MED-lisinopril",
+    "canonicalName": "Lisinopril",
+    "ingredientIds": ["ING-lisinopril"],
+    "classIds": ["CLS-ace-inhibitor"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["cardiovascular", "anesthesia-policy-sensitive"]
+  },
+  {
+    "medicationId": "MED-metoprolol",
+    "canonicalName": "Metoprolol",
+    "ingredientIds": ["ING-metoprolol"],
+    "classIds": ["CLS-beta-blocker"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["cardiovascular"]
+  },
+  {
+    "medicationId": "MED-atorvastatin",
+    "canonicalName": "Atorvastatin",
+    "ingredientIds": ["ING-atorvastatin"],
+    "classIds": ["CLS-statin"],
+    "priorityTier": "TIER_1",
+    "researchStatus": "NOT_RESEARCHED",
+    "procedures": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"],
+    "tags": ["lipid-lowering"]
+  }
+]

@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prep-meds.local/schemas/v1/prep-meds.schema.json",
+  "title": "PREP-MEDS Canonical Clinical Ontology v1",
+  "type": "object",
+  "$defs": {
+    "VersionedRef": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "TerminologyCode": {
+      "type": "object",
+      "required": ["system", "code"],
+      "properties": {
+        "system": {"type": "string", "minLength": 1},
+        "code": {"type": "string", "minLength": 1},
+        "display": {"type": "string"},
+        "version": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "LifecycleMeta": {
+      "type": "object",
+      "required": ["created_at"],
+      "properties": {
+        "created_at": {"type": "string", "format": "date-time"},
+        "updated_at": {"type": "string", "format": "date-time"},
+        "created_by": {"type": "string"},
+        "reviewed_by": {"type": "string"},
+        "approved_by": {"type": "string"},
+        "approved_at": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "SourceProvenance": {
+      "type": "object",
+      "required": ["source_type", "recorded_at"],
+      "properties": {
+        "source_type": {"enum": ["USER_ENTERED", "PATIENT_REPORTED", "EHR", "FHIR", "AI_EXTRACTED", "CALCULATED", "OTHER"]},
+        "source_reference": {"type": "string"},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "recorded_at": {"type": "string", "format": "date-time"},
+        "confirmation_status": {"enum": ["UNCONFIRMED", "CONFIRMED", "NOT_REQUIRED"]},
+        "ai_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "calculator_id": {"type": "string"},
+        "calculator_version": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "Medication": {
+      "type": "object",
+      "required": ["id", "canonical_name", "medication_type", "ingredient_ids", "status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^MED-"},
+        "canonical_name": {"type": "string", "minLength": 1},
+        "generic_name": {"type": "string"},
+        "brand_names": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "aliases": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "medication_type": {"enum": ["GENERIC", "BRAND", "COMBINATION", "OTHER"]},
+        "ingredient_ids": {"type": "array", "items": {"type": "string", "pattern": "^ING-"}, "minItems": 1, "uniqueItems": true},
+        "drug_class_ids": {"type": "array", "items": {"type": "string", "pattern": "^CLS-"}, "uniqueItems": true},
+        "terminology_codes": {"type": "array", "items": {"$ref": "#/$defs/TerminologyCode"}},
+        "status": {"enum": ["ACTIVE", "INACTIVE", "RETIRED"]}
+      },
+      "additionalProperties": false
+    },
+    "Ingredient": {
+      "type": "object",
+      "required": ["id", "canonical_name", "status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^ING-"},
+        "canonical_name": {"type": "string", "minLength": 1},
+        "aliases": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "terminology_codes": {"type": "array", "items": {"$ref": "#/$defs/TerminologyCode"}},
+        "status": {"enum": ["ACTIVE", "INACTIVE", "RETIRED"]}
+      },
+      "additionalProperties": false
+    },
+    "DrugClass": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^CLS-"},
+        "name": {"type": "string", "minLength": 1},
+        "parent_class_id": {"type": "string", "pattern": "^CLS-"},
+        "description": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "Procedure": {
+      "type": "object",
+      "required": ["code", "name", "status"],
+      "properties": {
+        "code": {"enum": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"]},
+        "name": {"type": "string"},
+        "status": {"enum": ["ACTIVE", "INACTIVE"]}
+      },
+      "additionalProperties": false
+    },
+    "ModifierDefinition": {
+      "type": "object",
+      "required": ["id", "name", "value_type"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^MOD-"},
+        "name": {"type": "string"},
+        "description": {"type": "string"},
+        "value_type": {"enum": ["BOOLEAN", "STRING", "NUMBER", "ENUM", "DATE", "DATETIME", "CODE", "QUANTITY"]},
+        "allowed_values": {"type": "array", "items": {"type": ["string", "number", "boolean"]}},
+        "unit": {"type": "string"},
+        "sensitive": {"type": "boolean", "default": false}
+      },
+      "additionalProperties": false
+    },
+    "ModifierValue": {
+      "type": "object",
+      "required": ["modifier_id", "state", "provenance"],
+      "properties": {
+        "modifier_id": {"type": "string", "pattern": "^MOD-"},
+        "state": {"enum": ["KNOWN", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"]},
+        "value": {},
+        "unit": {"type": "string"},
+        "provenance": {"$ref": "#/$defs/SourceProvenance"}
+      },
+      "additionalProperties": false
+    },
+    "EvidenceAtom": {
+      "type": "object",
+      "required": ["id", "version", "source_type", "title", "claim", "status", "lifecycle"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^EVD-"},
+        "version": {"type": "integer", "minimum": 1},
+        "supersedes": {"$ref": "#/$defs/VersionedRef"},
+        "source_type": {"enum": ["GUIDELINE", "FDA_LABEL", "CONSENSUS", "SYSTEMATIC_REVIEW", "TRIAL", "OBSERVATIONAL", "LOCAL_POLICY_SOURCE", "OTHER"]},
+        "title": {"type": "string"},
+        "publisher_or_society": {"type": "string"},
+        "publication_date": {"type": "string", "format": "date"},
+        "retrieved_at": {"type": "string", "format": "date-time"},
+        "claim": {"type": "string", "minLength": 1},
+        "population_context": {"type": "string"},
+        "applicability_notes": {"type": "string"},
+        "source_locator": {"type": "string"},
+        "source_url": {"type": "string", "format": "uri"},
+        "evidence_strength": {"type": "string"},
+        "medication_ids": {"type": "array", "items": {"type": "string", "pattern": "^MED-"}},
+        "ingredient_ids": {"type": "array", "items": {"type": "string", "pattern": "^ING-"}},
+        "drug_class_ids": {"type": "array", "items": {"type": "string", "pattern": "^CLS-"}},
+        "procedure_codes": {"type": "array", "items": {"enum": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"]}},
+        "status": {"enum": ["DRAFT", "REVIEWED", "CURRENT", "SUPERSEDED", "RETIRED"]},
+        "lifecycle": {"$ref": "#/$defs/LifecycleMeta"}
+      },
+      "additionalProperties": false
+    },
+    "Condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["op", "conditions"],
+          "properties": {
+            "op": {"enum": ["ALL", "ANY"]},
+            "conditions": {"type": "array", "items": {"$ref": "#/$defs/Condition"}, "minItems": 1}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["op", "condition"],
+          "properties": {
+            "op": {"const": "NOT"},
+            "condition": {"$ref": "#/$defs/Condition"}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["op", "field"],
+          "properties": {
+            "op": {"enum": ["EXISTS", "KNOWN"]},
+            "field": {"type": "string"}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["op", "field", "value"],
+          "properties": {
+            "op": {"enum": ["EQUALS", "NOT_EQUALS", "GREATER_THAN", "GREATER_THAN_OR_EQUAL", "LESS_THAN", "LESS_THAN_OR_EQUAL"]},
+            "field": {"type": "string"},
+            "value": {}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["op", "field", "values"],
+          "properties": {
+            "op": {"const": "IN"},
+            "field": {"type": "string"},
+            "values": {"type": "array", "items": {}, "minItems": 1}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ClinicalRule": {
+      "type": "object",
+      "required": ["id", "version", "name", "scope", "required_modifier_ids", "disposition", "status", "evidence_refs", "lifecycle"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^RULE-"},
+        "version": {"type": "integer", "minimum": 1},
+        "supersedes": {"$ref": "#/$defs/VersionedRef"},
+        "name": {"type": "string"},
+        "scope": {
+          "type": "object",
+          "properties": {
+            "medication_ids": {"type": "array", "items": {"type": "string", "pattern": "^MED-"}},
+            "ingredient_ids": {"type": "array", "items": {"type": "string", "pattern": "^ING-"}},
+            "drug_class_ids": {"type": "array", "items": {"type": "string", "pattern": "^CLS-"}},
+            "procedure_codes": {"type": "array", "items": {"enum": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"]}, "minItems": 1}
+          },
+          "additionalProperties": false
+        },
+        "required_modifier_ids": {"type": "array", "items": {"type": "string", "pattern": "^MOD-"}, "uniqueItems": true},
+        "applicability": {"$ref": "#/$defs/Condition"},
+        "hard_stops": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["reason_code", "condition", "disposition"],
+            "properties": {
+              "reason_code": {"type": "string"},
+              "condition": {"$ref": "#/$defs/Condition"},
+              "disposition": {"const": "CLINICIAN_REVIEW_REQUIRED"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "disposition": {"enum": ["CONTINUE", "HOLD_STANDARD", "CONDITIONAL", "CLINICIAN_REVIEW_REQUIRED", "LOCAL_POLICY_REQUIRED", "INSUFFICIENT_INFORMATION", "OUT_OF_SCOPE"]},
+        "timing_rule": {"type": "object"},
+        "restart_owner": {"enum": ["RULE_DEFINED", "ENDOSCOPIST", "PRESCRIBER", "CLINICIAN_REVIEW", "NOT_APPLICABLE"]},
+        "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/VersionedRef"}, "minItems": 1},
+        "policy_dependency_ids": {"type": "array", "items": {"type": "string", "pattern": "^POL-"}},
+        "status": {"enum": ["DRAFT", "EVIDENCE_REVIEWED", "TECHNICALLY_TESTED", "CLINICAL_REVIEW", "APPROVED", "ACTIVE", "SUPERSEDED", "RETIRED"]},
+        "lifecycle": {"$ref": "#/$defs/LifecycleMeta"}
+      },
+      "additionalProperties": false
+    },
+    "OrganizationPolicy": {
+      "type": "object",
+      "required": ["id", "version", "organization_id", "scope_level", "name", "policy_type", "status", "lifecycle"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^POL-"},
+        "version": {"type": "integer", "minimum": 1},
+        "supersedes": {"$ref": "#/$defs/VersionedRef"},
+        "organization_id": {"type": "string", "minLength": 1},
+        "site_id": {"type": "string"},
+        "scope_level": {"enum": ["ORGANIZATION", "SITE"]},
+        "name": {"type": "string"},
+        "policy_type": {"enum": ["GI_PRACTICE", "ANESTHESIA", "WORKFLOW", "PRESCRIBER_SPECIFIC", "OTHER"]},
+        "procedure_codes": {"type": "array", "items": {"enum": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"]}},
+        "content": {"type": "object"},
+        "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/VersionedRef"}},
+        "status": {"enum": ["DRAFT", "CLINICAL_REVIEW", "APPROVED", "ACTIVE", "SUPERSEDED", "RETIRED"]},
+        "lifecycle": {"$ref": "#/$defs/LifecycleMeta"}
+      },
+      "additionalProperties": false
+    },
+    "DecisionEvent": {
+      "type": "object",
+      "required": ["id", "occurred_at", "organization_id", "procedure_code", "medication_id", "modifier_values", "disposition", "engine_version", "rule_refs", "evidence_refs"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^DEC-"},
+        "case_id": {"type": "string"},
+        "occurred_at": {"type": "string", "format": "date-time"},
+        "organization_id": {"type": "string"},
+        "site_id": {"type": "string"},
+        "actor_role": {"enum": ["MA", "NURSE", "CLINICIAN", "GOVERNANCE", "SYSTEM", "OTHER"]},
+        "procedure_code": {"enum": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"]},
+        "medication_id": {"type": "string", "pattern": "^MED-"},
+        "modifier_values": {"type": "array", "items": {"$ref": "#/$defs/ModifierValue"}},
+        "disposition": {"enum": ["CONTINUE", "HOLD_STANDARD", "CONDITIONAL", "CLINICIAN_REVIEW_REQUIRED", "LOCAL_POLICY_REQUIRED", "INSUFFICIENT_INFORMATION", "OUT_OF_SCOPE"]},
+        "reason_codes": {"type": "array", "items": {"type": "string"}},
+        "missing_modifier_ids": {"type": "array", "items": {"type": "string", "pattern": "^MOD-"}},
+        "rule_refs": {"type": "array", "items": {"$ref": "#/$defs/VersionedRef"}},
+        "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/VersionedRef"}},
+        "policy_refs": {"type": "array", "items": {"$ref": "#/$defs/VersionedRef"}},
+        "engine_version": {"type": "string", "minLength": 1},
+        "output_snapshot": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "Override": {
+      "type": "object",
+      "required": ["id", "decision_event_id", "occurred_at", "actor_id", "reason_code", "final_disposition"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^OVR-"},
+        "decision_event_id": {"type": "string", "pattern": "^DEC-"},
+        "occurred_at": {"type": "string", "format": "date-time"},
+        "actor_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "reason_text": {"type": "string"},
+        "final_disposition": {"enum": ["CONTINUE", "HOLD_STANDARD", "CONDITIONAL", "CLINICIAN_REVIEW_REQUIRED", "LOCAL_POLICY_REQUIRED", "INSUFFICIENT_INFORMATION", "OUT_OF_SCOPE"]}
+      },
+      "additionalProperties": false
+    },
+    "ProcedureOutcome": {
+      "type": "object",
+      "required": ["id", "case_id", "procedure_code", "procedure_completed", "recorded_at"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^OUT-"},
+        "case_id": {"type": "string"},
+        "procedure_code": {"enum": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"]},
+        "procedure_completed": {"type": "boolean"},
+        "procedure_delayed": {"type": "boolean"},
+        "procedure_cancelled": {"type": "boolean"},
+        "medication_related_issue": {"type": "boolean"},
+        "interventions": {"type": "array", "items": {"type": "string"}},
+        "recorded_at": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "TestCase": {
+      "type": "object",
+      "required": ["id", "version", "name", "synthetic", "procedure_code", "medication_id", "modifier_values", "expected_disposition"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^TEST-"},
+        "version": {"type": "integer", "minimum": 1},
+        "name": {"type": "string"},
+        "synthetic": {"const": true},
+        "procedure_code": {"enum": ["EGD", "COLONOSCOPY", "EGD_COLONOSCOPY"]},
+        "medication_id": {"type": "string", "pattern": "^MED-"},
+        "modifier_values": {"type": "array", "items": {"$ref": "#/$defs/ModifierValue"}},
+        "expected_disposition": {"enum": ["CONTINUE", "HOLD_STANDARD", "CONDITIONAL", "CLINICIAN_REVIEW_REQUIRED", "LOCAL_POLICY_REQUIRED", "INSUFFICIENT_INFORMATION", "OUT_OF_SCOPE"]},
+        "expected_reason_codes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}

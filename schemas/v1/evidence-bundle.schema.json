@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prep-meds.dev/schemas/v1/evidence-bundle.schema.json",
+  "title": "PREP-MEDS Evidence Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedAt", "sources", "atoms"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sourceDocument" }
+    },
+    "atoms": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceAtom" }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceConflict" }
+    }
+  },
+  "$defs": {
+    "versionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "lifecycle": {
+      "enum": ["DRAFT", "REVIEWED", "CURRENT", "SUPERSEDED", "RETIRED"]
+    },
+    "sourceDocument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "sourceType", "title", "language", "retrievedAt", "lifecycle"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "integer", "minimum": 1 },
+        "sourceType": {
+          "enum": ["GUIDELINE", "FDA_LABEL", "PEER_REVIEWED_STUDY", "CONSENSUS_STATEMENT", "REGULATORY_GUIDANCE", "INSTITUTIONAL_POLICY", "OTHER"]
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "publisher": { "type": "string" },
+        "societyOrRegulator": { "type": "string" },
+        "publicationDate": { "type": "string" },
+        "effectiveDate": { "type": "string" },
+        "sourceUrl": { "type": "string" },
+        "externalIdentifier": { "type": "string" },
+        "jurisdiction": { "type": "string" },
+        "language": { "type": "string", "minLength": 2 },
+        "checksum": { "type": "string" },
+        "retrievedAt": { "type": "string", "format": "date-time" },
+        "lifecycle": { "$ref": "#/$defs/lifecycle" },
+        "supersedes": { "$ref": "#/$defs/versionRef" },
+        "metadata": { "type": "object" }
+      }
+    },
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "medicationIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "ingredientIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "drugClassIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "procedureCodes": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "populationTags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "contextTags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "section": { "type": "string" },
+        "page": { "type": "string" },
+        "table": { "type": "string" },
+        "figure": { "type": "string" },
+        "paragraph": { "type": "string" },
+        "anchorText": { "type": "string" }
+      }
+    },
+    "retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "summary", "keywords", "concepts", "sourceAuthorityRank"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 },
+        "keywords": { "type": "array", "items": { "type": "string" } },
+        "concepts": { "type": "array", "items": { "type": "string" } },
+        "sourceAuthorityRank": { "type": "integer", "minimum": 0 },
+        "embeddingText": { "type": "string" },
+        "lexicalText": { "type": "string" }
+      }
+    },
+    "evidenceAtom": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "source", "claim", "normalizedTopic", "stance", "evidenceStrength", "applicability", "locator", "limitations", "retrieval", "lifecycle", "createdAt"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "integer", "minimum": 1 },
+        "source": { "$ref": "#/$defs/versionRef" },
+        "claim": { "type": "string", "minLength": 1 },
+        "normalizedTopic": { "type": "string", "minLength": 1 },
+        "stance": { "enum": ["SUPPORTS", "OPPOSES", "CONDITIONAL", "INSUFFICIENT", "DESCRIPTIVE"] },
+        "evidenceStrength": { "enum": ["HIGH", "MODERATE", "LOW", "VERY_LOW", "NOT_GRADED", "UNKNOWN"] },
+        "applicability": { "$ref": "#/$defs/applicability" },
+        "locator": { "$ref": "#/$defs/locator" },
+        "limitations": { "type": "array", "items": { "type": "string" } },
+        "conflictGroup": { "type": "string" },
+        "retrieval": { "$ref": "#/$defs/retrieval" },
+        "lifecycle": { "$ref": "#/$defs/lifecycle" },
+        "reviewedAt": { "type": "string", "format": "date-time" },
+        "reviewedBy": { "type": "string" },
+        "supersedes": { "$ref": "#/$defs/versionRef" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "evidenceConflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conflictGroup", "atomRefs", "reason", "summary"],
+      "properties": {
+        "conflictGroup": { "type": "string", "minLength": 1 },
+        "atomRefs": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/versionRef" } },
+        "reason": { "enum": ["OPPOSING_STANCE", "CONDITIONAL_DISAGREEMENT", "MANUAL"] },
+        "summary": { "type": "string", "minLength": 1 },
+        "resolvedByRuleOrPolicy": { "$ref": "#/$defs/versionRef" }
+      }
+    }
+  }
+}
