@@ -4,7 +4,7 @@ import { PREPS, DIET_GUIDE, addCalendarDays, calendarEvents, defaultInstructions
 
 const today = '2026-12-10'; // Synthetic demo date; never a patient record.
 function initialPlan(): Plan {
-  return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00', anesthesiaFastingPolicy:'strict-midnight',
+  return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00', arrivalMode:'offset', arrivalOffsetMinutes:60, facilityName:'Example Endoscopy Center', facilityAddress:'123 Medical Plaza, Suite 200', facilityParking:'Use the main parking garage.', facilityCheckIn:'Check in at the front desk.', facilityInstructions:'Bring your photo ID and arrange a responsible adult to take you home.', anesthesiaFastingPolicy:'strict-midnight',
     protocolApproved:false, instructions:defaultInstructions('GoLYTELY') };
 }
 function formatTime(time?:string) { if (!time) return 'All day'; const [h,m]=time.split(':').map(Number);return new Date(Date.UTC(2020,0,1,h??0,m??0)).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}); }
@@ -31,8 +31,17 @@ export function PreparationPlanner() {
     setPlan(p=>({...p,approvedBy:'Demo clinician (not authenticated)',approvedAt:new Date().toISOString()}));
     setShowIssues(false);
   }
-  function setSchedule(field:'procedureDate'|'procedureTime'|'arrivalTime',value:string) {
+  function updateFacility(field: 'facilityName'|'facilityAddress'|'facilityPhone'|'facilityParking'|'facilityCheckIn'|'facilityInstructions', value:string) {
     setPlan(p=>({...p,[field]:value,approvedBy:undefined,approvedAt:undefined}));
+  }
+  function setArrivalMode(mode:'manual'|'offset') {
+    setPlan(p=>({...p,arrivalMode:mode,arrivalTime:mode==='offset'?subtractMinutes(p.procedureTime,p.arrivalOffsetMinutes??60).time:p.arrivalTime,approvedBy:undefined,approvedAt:undefined}));
+  }
+  function setArrivalOffset(value:number) {
+    setPlan(p=>({...p,arrivalOffsetMinutes:value,arrivalTime:Number.isInteger(value)&&value>=0&&value<=360?subtractMinutes(p.procedureTime,value).time:p.arrivalTime,approvedBy:undefined,approvedAt:undefined}));
+  }
+  function setSchedule(field:'procedureDate'|'procedureTime'|'arrivalTime',value:string) {
+    setPlan(p=>({...p,[field]:value,...(field==='procedureTime' && p.arrivalMode==='offset' && /^([01]\\d|2[0-3]):[0-5]\\d$/.test(value)?{arrivalTime:subtractMinutes(value,p.arrivalOffsetMinutes??60).time}:{}),approvedBy:undefined,approvedAt:undefined}));
   }
   const days=useMemo(()=>{try{return Array.from({length:plan.lowFiberDays+1},(_,i)=>addCalendarDays(plan.procedureDate,i-plan.lowFiberDays))}catch{return []}},[plan.procedureDate,plan.lowFiberDays]);
   const selected=events.filter(e=>e.date===selectedDate && e.id!=='prep-second' && e.id!=='fasting' && e.id!=='diet-low' && e.id!=='diet-clear');
@@ -56,11 +65,23 @@ export function PreparationPlanner() {
       <div className="planner-fields"><label>Product<select value={plan.product} onChange={e=>changeProduct(e.target.value as PrepProduct)}>{PREPS.map(p=><option key={p}>{p}</option>)}</select></label>
         <label>Procedure date<input type="date" value={plan.procedureDate} onChange={e=>{setSchedule('procedureDate',e.target.value);setSelectedDate(e.target.value)}} /></label>
         <label>Procedure time<input type="time" value={plan.procedureTime} onChange={e=>setSchedule('procedureTime',e.target.value)}/></label>
-        <label>Arrival time<input type="time" value={plan.arrivalTime} onChange={e=>setSchedule('arrivalTime',e.target.value)}/></label>
+        <label>Arrival scheduling<select value={plan.arrivalMode??'manual'} onChange={e=>setArrivalMode(e.target.value as 'manual'|'offset')}><option value="offset">Automatically before procedure</option><option value="manual">Set arrival time manually</option></select></label>
+        {plan.arrivalMode==='offset'?<label>Minutes before procedure<input type="number" min="0" max="360" value={plan.arrivalOffsetMinutes??60} onChange={e=>setArrivalOffset(Number(e.target.value))}/></label>:null}
+        <label>Arrival time<input type="time" value={plan.arrivalTime} disabled={plan.arrivalMode==='offset'} onChange={e=>setSchedule('arrivalTime',e.target.value)}/></label>
         <label>Facility anesthesia fasting policy<select value={plan.anesthesiaFastingPolicy??'strict-midnight'} onChange={e=>setPlan(p=>({...p,anesthesiaFastingPolicy:e.target.value as 'strict-midnight'|'custom',anesthesiaClearLiquidCutoff:e.target.value==='strict-midnight'?undefined:p.anesthesiaClearLiquidCutoff,approvedBy:undefined,approvedAt:undefined}))}><option value="strict-midnight">Strict NPO after midnight, with approved exceptions</option><option value="custom">Custom facility cutoff</option></select></label>
         {(plan.anesthesiaFastingPolicy==='custom')?<label>Facility-confirmed other-liquid cutoff<input type="time" value={plan.anesthesiaClearLiquidCutoff??''} onChange={e=>setPlan(p=>({...p,anesthesiaClearLiquidCutoff:e.target.value||undefined,approvedBy:undefined,approvedAt:undefined}))}/></label>:null}
         <label>Low-fiber lead-in (days)<input type="number" min="0" max="14" value={plan.lowFiberDays} onChange={e=>setPlan(p=>({...p,lowFiberDays:Number(e.target.value),approvedBy:undefined,approvedAt:undefined}))}/></label>
       </div>
+      <h3>Facility and arrival instructions</h3>
+      <div className="planner-fields">
+        <label>Facility name<input value={plan.facilityName??''} onChange={e=>updateFacility('facilityName',e.target.value)} placeholder="Endoscopy center or hospital"/></label>
+        <label>Full address<input value={plan.facilityAddress??''} onChange={e=>updateFacility('facilityAddress',e.target.value)} placeholder="Street, city, state, ZIP"/></label>
+        <label>Facility phone<input type="tel" value={plan.facilityPhone??''} onChange={e=>updateFacility('facilityPhone',e.target.value)}/></label>
+      </div>
+      <label className="planner-label">Parking and entrance<textarea rows={2} value={plan.facilityParking??''} onChange={e=>updateFacility('facilityParking',e.target.value)}/></label>
+      <label className="planner-label">Check-in location<textarea rows={2} value={plan.facilityCheckIn??''} onChange={e=>updateFacility('facilityCheckIn',e.target.value)}/></label>
+      <label className="planner-label">Additional facility instructions<textarea rows={3} value={plan.facilityInstructions??''} onChange={e=>updateFacility('facilityInstructions',e.target.value)}/></label>
+      <p className="planner-muted">These facility details appear only on procedure day. Changing the facility instructions requires reapproval.</p>
       <div className="planner-note"><strong>Timing preview, not a prescription</strong><p>Under a hypothetical 2-hour second dose finishing 4 hours before the procedure, start at {second?formatTime(second.time):'—'} {second?.dayOffset===-1?'the preceding day':'on procedure day'}. This calculation is not automatically applied; the clinician must validate the product, local protocol, arrival constraints, and fasting rules.</p></div>
       <label className="planner-label">Approved morning medication instructions (optional)<textarea rows={2} placeholder="Enter only clinician-confirmed medication instructions; otherwise patient is directed to call the team." value={plan.morningMedicationInstructions??''} onChange={e=>setPlan(p=>({...p,morningMedicationInstructions:e.target.value,approvedBy:undefined,approvedAt:undefined}))}/></label>
       <p className="planner-muted">Default facility policy: strict NPO after midnight for food and other liquids, with exceptions only for the prescribed bowel preparation and specifically approved medications. Other facilities can select a custom cutoff. Any custom policy must be reviewed against the bowel-prep schedule and anesthesia instructions.</p>
@@ -82,6 +103,7 @@ export function PreparationPlanner() {
       <p className="planner-muted">This is not a legally valid electronic signature or a persistent clinical approval.</p>
     </div></div>:<div className="planner-patient">
       <div className="planner-patient-hero"><span>YOUR COLONOSCOPY GUIDE</span><h3>Feel ready, one day at a time.</h3><p>Procedure: {plan.procedureDate} at {formatTime(plan.procedureTime)} · {plan.product}</p><strong className={ready?'planner-ready':'planner-pending'}>{ready?'Demonstration plan reviewed':'Preview only — clinical instructions not approved'}</strong></div>
+      {patientTab==='calendar' && isProcedureDay?<div className="planner-card" aria-label="Procedure location and arrival"><h3>Where to go on procedure day</h3><p><strong>Arrive at {formatTime(plan.arrivalTime)}</strong> for your {formatTime(plan.procedureTime)} procedure.</p><p><strong>{plan.facilityName?.trim()||'Ask your care team for the location'}</strong></p>{plan.facilityAddress?.trim()?<p>{plan.facilityAddress} · <a href={'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(plan.facilityAddress)} target="_blank" rel="noreferrer">Get directions</a></p>:null}{plan.facilityParking?.trim()?<p><strong>Parking and entrance:</strong> {plan.facilityParking}</p>:null}{plan.facilityCheckIn?.trim()?<p><strong>Check-in:</strong> {plan.facilityCheckIn}</p>:null}{plan.facilityInstructions?.trim()?<p><strong>Before you arrive:</strong> {plan.facilityInstructions}</p>:null}{plan.facilityPhone?.trim()?<p><strong>Questions?</strong> {plan.facilityPhone}</p>:null}</div>:null}
       {patientTab==='calendar'?<section className="planner-timing" aria-label="Plan for the selected day">
         <div className="planner-timing-heading"><div><span className="planner-kicker">YOUR PLAN FOR {selectedDayLabel.toUpperCase()}</span><h3>{isProcedureDay?'Today is your colonoscopy':isClearDay?'Clear drinks only today':'Eat low-fiber foods today'}</h3><p>{isProcedureDay?'Follow the times below. They change when your procedure time changes.':isClearDay?'No solid food. Drink only the clear drinks on your list until your stop time.':'Today you may eat the low-fiber foods on your list. The day before your test is different.'}</p></div><span className="planner-procedure-pill">{isProcedureDay?'🏥 '+formatTime(plan.procedureTime):isClearDay?'🥤 DAY BEFORE':'🥣 PREP DAY'}</span></div>
         <div className="planner-timing-steps">
