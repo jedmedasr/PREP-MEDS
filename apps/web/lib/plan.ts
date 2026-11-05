@@ -7,6 +7,9 @@ export type PlanInstruction = {
 export type Plan = {
   product: PrepProduct; lowFiberDays: number; instructions: PlanInstruction[];
   procedureDate: string; procedureTime: string; arrivalTime: string;
+  facilityName?: string; facilityAddress?: string; facilityPhone?: string;
+  facilityParking?: string; facilityCheckIn?: string; facilityInstructions?: string;
+  arrivalMode?: 'manual' | 'offset'; arrivalOffsetMinutes?: number;
   anesthesiaFastingPolicy?: 'strict-midnight' | 'custom' | undefined;
   anesthesiaClearLiquidCutoff?: string | undefined; morningMedicationInstructions?: string | undefined;
   protocolApproved: boolean; approvedBy?: string | undefined; approvedAt?: string | undefined;
@@ -37,6 +40,8 @@ export function validatePlan(plan: Plan): string[] {
   try { addCalendarDays(plan.procedureDate,0); } catch { errors.push('Valid procedure date required'); }
   try { subtractMinutes(plan.procedureTime,0); } catch { errors.push('Valid procedure time required'); }
   try { subtractMinutes(plan.arrivalTime,0); } catch { errors.push('Valid arrival time required'); }
+  if (plan.arrivalMode === 'offset' && (!Number.isInteger(plan.arrivalOffsetMinutes) || (plan.arrivalOffsetMinutes ?? 0) < 0 || (plan.arrivalOffsetMinutes ?? 0) > 360)) errors.push('Arrival offset must be 0–360 minutes');
+  if (plan.facilityName && !plan.facilityName.trim()) errors.push('Facility name required');
   if (plan.anesthesiaFastingPolicy === 'custom' && !plan.anesthesiaClearLiquidCutoff) errors.push('Custom anesthesia fasting cutoff required');
   if (plan.anesthesiaClearLiquidCutoff) { try { subtractMinutes(plan.anesthesiaClearLiquidCutoff,0); } catch { errors.push('Invalid anesthesia clear-liquid cutoff'); } }
   if (!PREPS.includes(plan.product)) errors.push('Unknown bowel preparation');
