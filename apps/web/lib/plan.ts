@@ -7,6 +7,7 @@ export type PlanInstruction = {
 export type Plan = {
   product: PrepProduct; lowFiberDays: number; instructions: PlanInstruction[];
   procedureDate: string; procedureTime: string; arrivalTime: string;
+  anesthesiaFastingPolicy?: 'strict-midnight' | 'custom' | undefined;
   anesthesiaClearLiquidCutoff?: string | undefined; morningMedicationInstructions?: string | undefined;
   protocolApproved: boolean; approvedBy?: string | undefined; approvedAt?: string | undefined;
 };
@@ -36,6 +37,7 @@ export function validatePlan(plan: Plan): string[] {
   try { addCalendarDays(plan.procedureDate,0); } catch { errors.push('Valid procedure date required'); }
   try { subtractMinutes(plan.procedureTime,0); } catch { errors.push('Valid procedure time required'); }
   try { subtractMinutes(plan.arrivalTime,0); } catch { errors.push('Valid arrival time required'); }
+  if (plan.anesthesiaFastingPolicy === 'custom' && !plan.anesthesiaClearLiquidCutoff) errors.push('Custom anesthesia fasting cutoff required');
   if (plan.anesthesiaClearLiquidCutoff) { try { subtractMinutes(plan.anesthesiaClearLiquidCutoff,0); } catch { errors.push('Invalid anesthesia clear-liquid cutoff'); } }
   if (!PREPS.includes(plan.product)) errors.push('Unknown bowel preparation');
   if (!Number.isInteger(plan.lowFiberDays) || plan.lowFiberDays < 0 || plan.lowFiberDays > 14) errors.push('Invalid low-fiber interval');
