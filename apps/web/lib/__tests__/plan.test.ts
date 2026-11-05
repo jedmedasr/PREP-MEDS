@@ -22,6 +22,13 @@ describe('patient calendar safety',()=>{
     expect(validatePlan(plan)).toContain('Invalid anesthesia clear-liquid cutoff');
     plan.anesthesiaClearLiquidCutoff=undefined;
     expect(validatePlan(plan)).not.toContain('Invalid anesthesia clear-liquid cutoff');
+    plan.anesthesiaFastingPolicy='custom';
+    expect(validatePlan(plan)).toContain('Custom anesthesia fasting cutoff required');
+    plan.anesthesiaClearLiquidCutoff='00:00';
+    expect(validatePlan(plan)).not.toContain('Custom anesthesia fasting cutoff required');
+    plan.anesthesiaFastingPolicy='strict-midnight';
+    plan.anesthesiaClearLiquidCutoff=undefined;
+    expect(validatePlan(plan)).not.toContain('Custom anesthesia fasting cutoff required');
   });
   it('requires an identified clinician and valid schedule for approval',()=>{
     const plan:Plan={product:'SUPREP',lowFiberDays:7,procedureDate:'2026-12-10',procedureTime:'25:00',arrivalTime:'08:00',protocolApproved:true,instructions:defaultInstructions('SUPREP').map(x=>({...x,approved:true}))};
