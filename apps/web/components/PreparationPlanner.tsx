@@ -27,9 +27,9 @@ async function makeGuideLink(plan:Plan){
 }
 async function loadGuide(hash:string):Promise<Plan|null>{
  const m=hash.match(/^#guide=([\w-]+)\.([\w-]+)\.([\w-]+)$/);if(!m||hash.length>25000)return null;
- const iv=decodeBytes(m[1]),keyBytes=decodeBytes(m[3]);if(iv.length!==12||keyBytes.length!==32)return null;
+ const iv=decodeBytes(m[1]!),keyBytes=decodeBytes(m[3]!);if(iv.length!==12||keyBytes.length!==32)return null;
  const key=await crypto.subtle.importKey('raw',keyBytes.buffer,'AES-GCM',false,['decrypt']);
- const bytes=await crypto.subtle.decrypt({name:'AES-GCM',iv:iv.buffer},key,decodeBytes(m[2]).buffer);
+ const bytes=await crypto.subtle.decrypt({name:'AES-GCM',iv:iv.buffer},key,decodeBytes(m[2]!).buffer);
  const p=JSON.parse(new TextDecoder().decode(bytes)) as Plan;
  if(!p||!PREPS.includes(p.product)||typeof p.procedureDate!=='string'||typeof p.procedureTime!=='string'||!Array.isArray(p.instructions)||p.instructions.length>50)return null;
  return p;
