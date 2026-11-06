@@ -363,10 +363,10 @@ export function ClinicalWorkspace() {
       </section>
 
       {selectedMedication && research ? (
-        <section className="panel">
+        <section className="panel research-dossier">
           <div className="section-heading"><div><h2>Clinical research dossier — {selectedMedication.canonicalName}</h2><p>Review-stage evidence and proposed logic. Inspect and correct before clinical release.</p></div></div>
-          <h3>Proposed decision pathways ({research.rules.length})</h3>
-          {research.rules.length ? research.rules.map(rule=><div className="evidence-item" key={rule.id}><strong>{rule.name}</strong><p>{rule.disposition.replaceAll('_',' ')} · {rule.status}</p><p>Required inputs: {rule.requiredModifierIds.join(', ')||'None'}</p><small>{rule.id}</small></div>):<p>No research pathway matches this medication and procedure.</p>}
+          <h3>Clinical pathways ({research.rules.length})</h3>
+          {research.rules.length ? research.rules.map(rule=><article className="research-rule" key={rule.id}><h4>{rule.name}</h4><p><strong>Proposed action:</strong> {rule.disposition.replaceAll('_',' ').toLowerCase().replace(/^./,c=>c.toUpperCase())}</p><p><strong>Clinical factors:</strong> {rule.requiredModifierIds.map(id=>id.replace(/^MOD-/,'').replaceAll('-',' ')).join(', ')||'None specified'}</p><details><summary>Technical details</summary><small>{rule.id} · {rule.status}</small></details></article>):<p>No research pathway matches this medication and procedure.</p>}
           <h3>Guideline evidence ({research.evidence.length})</h3>
           {research.evidence.map(item=><div className="evidence-item" key={item.id}>
             <h4>{item.title}</h4><p>{item.summary}</p><p><strong>Evidence statement:</strong> {item.claim}</p>
