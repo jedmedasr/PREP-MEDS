@@ -15,6 +15,7 @@ export function PreparationPlanner() {
   const [timingExpanded,setTimingExpanded]=useState(false);
   const [selectedDate,setSelectedDate]=useState(today);
   const [showIssues,setShowIssues]=useState(false);
+  const [expandedInstructions,setExpandedInstructions]=useState<string[]>([]);
   const events=useMemo(()=>{try{return calendarEvents(plan)}catch{return []}},[plan]);
   const errors=validatePlan(plan);
   const ready=errors.length===0;
@@ -25,6 +26,13 @@ export function PreparationPlanner() {
   function addMedication() {
     const id='med-'+(plan.instructions.filter(x=>x.kind==='medication').length+1);
     setPlan(p=>({...p,approvedBy:undefined,approvedAt:undefined,instructions:[...p.instructions,{id,title:'Medication (specify)',detail:'Clinician must enter an individualized instruction and verify medication management.',offsetDays:-1,kind:'medication',critical:true,approved:false}]}));
+  }
+  function reviewAllInstructions() {
+    setPlan(p=>({...p,approvedBy:undefined,approvedAt:undefined,instructions:p.instructions.map(item=>({...item,approved:true}))}));
+    setShowIssues(false);
+  }
+  function toggleInstruction(id:string) {
+    setExpandedInstructions(current=>current.includes(id)?current.filter(x=>x!==id):[...current,id]);
   }
   function approve() {
     if (!plan.protocolApproved || plan.instructions.some(x=>!x.approved) || !plan.procedureDate || !plan.procedureTime || !plan.arrivalTime) {setShowIssues(true);return;}
@@ -61,7 +69,7 @@ export function PreparationPlanner() {
     <div className="planner-heading"><div><p className="eyebrow">PREP-MEDS · VISUAL PREPARATION PLANNER</p><h2>From clinical plan to patient calendar</h2><p>All information on this screen is synthetic. This demonstration does not save, transmit, or prescribe.</p></div>
       <div className="planner-switch"><button className={view==='clinician'?'active':''} onClick={()=>setView('clinician')}>Clinician editor</button><button className={view==='patient'?'active':''} onClick={()=>setView('patient')}>Patient preview</button></div></div>
     {view==='clinician'? <div className="planner-columns"><div className="planner-card">
-      <h3>1 · Procedure and bowel preparation</h3>
+      <h3>1 · Procedure and bowel preparation</h3><p className="planner-muted">Set the procedure first. Arrival and prep times stay separate.</p>
       <div className="planner-fields"><label>Product<select value={plan.product} onChange={e=>changeProduct(e.target.value as PrepProduct)}>{PREPS.map(p=><option key={p}>{p}</option>)}</select></label>
         <label>Procedure date<input type="date" value={plan.procedureDate} onChange={e=>{setSchedule('procedureDate',e.target.value);setSelectedDate(e.target.value)}} /></label>
         <label>Procedure time<input type="time" value={plan.procedureTime} onChange={e=>setSchedule('procedureTime',e.target.value)}/></label>
@@ -87,17 +95,20 @@ export function PreparationPlanner() {
       <p className="planner-muted">Default facility policy: strict NPO after midnight for food and other liquids, with exceptions only for the prescribed bowel preparation and specifically approved medications. Other facilities can select a custom cutoff. Any custom policy must be reviewed against the bowel-prep schedule and anesthesia instructions.</p>
       <label className="planner-check"><input type="checkbox" checked={plan.protocolApproved} onChange={e=>setPlan(p=>({...p,protocolApproved:e.target.checked,approvedBy:undefined,approvedAt:undefined}))}/> Institutional product, dosing, timing, and anesthesia protocol independently reviewed</label>
     </div><div className="planner-card">
-      <div className="planner-row"><h3>2 · Review every instruction</h3><button className="planner-secondary" onClick={addMedication}>+ Medication</button></div>
+      <div className="planner-row"><div><h3>2 · Review instructions</h3><p className="planner-muted">{plan.instructions.filter(x=>x.approved).length} of {plan.instructions.length} reviewed</p></div><button className="planner-secondary" onClick={addMedication}>+ Medication</button></div>
+      <div className="planner-review-toolbar"><button className="primary-button" type="button" onClick={reviewAllInstructions}>✓ Mark all instructions reviewed</button><p>Confirms that you have checked each instruction. You must still approve the full plan separately.</p></div>
       {plan.instructions.map(item=><div className="planner-instruction" key={item.id}>
+        <button type="button" className="planner-instruction-toggle" aria-expanded={expandedInstructions.includes(item.id)} onClick={()=>toggleInstruction(item.id)}><span><strong>{item.title}</strong><small>{item.approved?'✓ Reviewed':'Needs review'} · {item.offsetDays===0?'Procedure day':item.offsetDays===-1?'Day before':Math.abs(item.offsetDays)+' days before'}</small></span><span aria-hidden="true">{expandedInstructions.includes(item.id)?'−':'+'}</span></button>
+        {expandedInstructions.includes(item.id)?<div className="planner-instruction-detail">
         <div className="planner-row"><strong>{item.kind==='diet'?'🥣':item.kind==='medication'?'💊':'🕒'} {item.title}</strong><span className="planner-tag">{item.critical?'Clinical approval':'Patient education'}</span></div>
         <div className="planner-fields"><label>Title<input value={item.title} onChange={e=>editItem(item.id,{title:e.target.value})}/></label>
         <label>Day relative to procedure<input type="number" min="-30" max="7" value={item.offsetDays} onChange={e=>editItem(item.id,{offsetDays:Number(e.target.value)})}/></label>
         <label>Time (optional)<input type="time" value={item.time??''} onChange={e=>editItem(item.id,{time:e.target.value||undefined})}/></label></div>
         <label className="planner-label">Patient-facing instruction<textarea rows={2} value={item.detail} onChange={e=>editItem(item.id,{detail:e.target.value})}/></label>
         {item.critical&&<label className="planner-label">Reason for individualized change / override<textarea rows={2} placeholder="Document reason if departing from the approved default protocol" value={item.overrideReason??''} onChange={e=>editItem(item.id,{overrideReason:e.target.value})}/></label>}
-        <label className="planner-check"><input type="checkbox" checked={item.approved} onChange={e=>setPlan(p=>({...p,approvedBy:undefined,approvedAt:undefined,instructions:p.instructions.map(x=>x.id===item.id?{...x,approved:e.target.checked}:x)}))}/> Reviewed and approved for demonstration</label>
+        <label className="planner-check"><input type="checkbox" checked={item.approved} onChange={e=>setPlan(p=>({...p,approvedBy:undefined,approvedAt:undefined,instructions:p.instructions.map(x=>x.id===item.id?{...x,approved:e.target.checked}:x)}))}/> Reviewed and approved for demonstration</label></div>:null}
       </div>)}
-      <button className="primary-button" onClick={approve}>Approve demonstration plan</button>
+      <button className="primary-button planner-final-approve" onClick={approve}>Approve demonstration plan</button>
       <button className="planner-secondary" onClick={()=>setView('patient')}>Preview patient experience</button>
       {showIssues&&<p className="planner-error">Review every instruction and confirm the institutional protocol before approval.</p>}
       <p className="planner-muted">This is not a legally valid electronic signature or a persistent clinical approval.</p>
