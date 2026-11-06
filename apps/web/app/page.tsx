@@ -2,7 +2,7 @@ import { ClinicalWorkspace } from '@/components/ClinicalWorkspace';
 import { PreparationPlanner } from '@/components/PreparationPlanner';
 
 export default function HomePage() {
-  const shadowMode = process.env.PREP_MEDS_CONTENT_MODE !== 'production';
+  const shadowMode = true;
 
   return (
     <>
