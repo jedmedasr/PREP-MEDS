@@ -272,3 +272,20 @@ h1 { margin: 0; max-width: 760px; font-size: clamp(2rem, 4vw, 3.5rem); line-heig
  .planner-switch{max-width:100%;flex-wrap:wrap}
  .planner-columns .planner-card{overflow:hidden}
 }
+
+/* Appointment density and consolidated prep schedule */
+.planner-prep-overview{background:#eef7f5;border:1px solid #d5e8e5;border-radius:12px;padding:12px;margin:8px 0 10px;overflow-wrap:anywhere}
+.planner-prep-overview p{margin:5px 0;font-size:.85rem;line-height:1.5}
+.planner-prep-overview small{font-size:.73rem;color:var(--muted);line-height:1.4;display:block}
+.planner-dose-editor{margin-bottom:12px}
+@media(max-width:600px){
+ .planner-appointment-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+ .planner-appointment-fields label{grid-column:1/-1}
+ .planner-appointment-fields label:nth-child(2){grid-column:1/-1}
+ .planner-appointment-fields label:has(input[type="number"]){grid-column:1/2}
+ .planner-appointment-fields label:has(input[type="time"]:disabled){grid-column:2/3}
+ .planner-appointment-fields label:has(input[type="time"]:not(:disabled)){grid-column:1/-1}
+ .planner-appointment-fields label:has(input[type="number"]) input{font-size:16px}
+ .planner-appointment-fields label:has(input[type="time"]:disabled) input{font-size:16px}
+ .planner-prep-overview{padding:10px}
+}
