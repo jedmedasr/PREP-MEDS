@@ -16,11 +16,11 @@ function initialPlan(): Plan {
 }
 function formatTime(time?:string) { if (!time) return 'All day'; const [h,m]=time.split(':').map(Number);return new Date(Date.UTC(2020,0,1,h??0,m??0)).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}); }
 
-function encodeBytes(bytes:Uint8Array){return btoa(Array.from(bytes,b=>String.fromCharCode(b)).join('')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
-function decodeBytes(value:string){const s=value.replace(/-/g,'+').replace(/_/g,'/');return Uint8Array.from(atob(s.padEnd(Math.ceil(s.length/4)*4,'=')),c=>c.charCodeAt(0));}
+function encodeBytes(bytes:Uint8Array<ArrayBufferLike>){return btoa(Array.from(bytes,b=>String.fromCharCode(b)).join('')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function decodeBytes(value:string):Uint8Array<ArrayBuffer>{const s=value.replace(/-/g,'+').replace(/_/g,'/');const raw=atob(s.padEnd(Math.ceil(s.length/4)*4,'='));const bytes=new Uint8Array(new ArrayBuffer(raw.length));for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);return bytes;}
 async function makeGuideLink(plan:Plan){
  const key=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']);
- const iv=crypto.getRandomValues(new Uint8Array(12));
+ const iv=crypto.getRandomValues(new Uint8Array(new ArrayBuffer(12)));
  const ciphertext=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv:iv.buffer},key,new TextEncoder().encode(JSON.stringify(plan))));
  const rawKey=new Uint8Array(await crypto.subtle.exportKey('raw',key));
  return location.origin+location.pathname+'#guide='+[iv,ciphertext,rawKey].map(encodeBytes).join('.');
