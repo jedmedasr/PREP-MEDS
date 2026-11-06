@@ -2,9 +2,14 @@
 import { useMemo, useState } from 'react';
 import { PREPS, DIET_GUIDE, addCalendarDays, calendarEvents, defaultInstructions, standardPrepTimes, subtractMinutes, validatePlan, type Plan, type PlanInstruction, type PrepProduct } from '../lib/plan';
 
+const FACILITIES = [
+  {id:'mmmc',name:'MedStar Montgomery Medical Center (MMMC)',address:'18101 Prince Philip Drive, Olney, MD 20832',phone:'301-774-8882'},
+  {id:'silver-spring',name:'MedStar Health Endoscopy Center at Silver Spring',address:'12008 Veirs Mill Road, Silver Spring, MD 20906',phone:'301-942-0022'}
+] as const;
+
 const today = '2026-12-10'; // Synthetic demo date; never a patient record.
 function initialPlan(): Plan {
-  return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00', arrivalMode:'offset', arrivalOffsetMinutes:60, facilityName:'Example Endoscopy Center', facilityAddress:'123 Medical Plaza, Suite 200', facilityParking:'Use the main parking garage.', facilityCheckIn:'Check in at the front desk.', facilityInstructions:'Bring your photo ID and arrange a responsible adult to take you home.', anesthesiaFastingPolicy:'strict-midnight',
+  return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00', arrivalMode:'offset', arrivalOffsetMinutes:60, facilityName:FACILITIES[0].name, facilityAddress:FACILITIES[0].address, facilityPhone:FACILITIES[0].phone, facilityParking:'', facilityCheckIn:'', facilityInstructions:'', anesthesiaFastingPolicy:'strict-midnight',
     protocolApproved:false, instructions:defaultInstructions('GoLYTELY','09:00') };
 }
 function formatTime(time?:string) { if (!time) return 'All day'; const [h,m]=time.split(':').map(Number);return new Date(Date.UTC(2020,0,1,h??0,m??0)).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}); }
@@ -38,6 +43,11 @@ export function PreparationPlanner() {
     if (!plan.protocolApproved || plan.instructions.some(x=>!x.approved) || !plan.procedureDate || !plan.procedureTime || !plan.arrivalTime) {setShowIssues(true);return;}
     setPlan(p=>({...p,approvedBy:'Demo clinician (not authenticated)',approvedAt:new Date().toISOString()}));
     setShowIssues(false);
+  }
+  const selectedFacility=FACILITIES.find(f=>f.name===plan.facilityName && f.address===plan.facilityAddress)?.id ?? 'custom';
+  function chooseFacility(id:string) {
+    const facility=FACILITIES.find(f=>f.id===id);
+    setPlan(p=>({...p,facilityName:facility?.name??'',facilityAddress:facility?.address??'',facilityPhone:facility?.phone??'',facilityParking:'',facilityCheckIn:'',facilityInstructions:'',approvedBy:undefined,approvedAt:undefined}));
   }
   function updateFacility(field: 'facilityName'|'facilityAddress'|'facilityPhone'|'facilityParking'|'facilityCheckIn'|'facilityInstructions', value:string) {
     setPlan(p=>({...p,[field]:value,approvedBy:undefined,approvedAt:undefined}));
@@ -88,6 +98,7 @@ export function PreparationPlanner() {
         <label>Arrival time<input type="time" value={plan.arrivalTime} disabled={plan.arrivalMode==='offset'} onChange={e=>setSchedule('arrivalTime',e.target.value)}/></label>
       </div>
 
+      <label className="planner-label">Procedure location<select aria-label="Procedure location" value={selectedFacility} onChange={e=>chooseFacility(e.target.value)}><option value="mmmc">MMMC — Olney</option><option value="silver-spring">MedStar Endoscopy — Silver Spring</option><option value="custom">Other location (enter below)</option></select></label>
       <div className="planner-facility-summary"><strong>{plan.facilityName?.trim()||'Facility not set'}</strong><span>{plan.facilityAddress?.trim()||'Add a facility address below'}</span></div><details className="planner-settings"><summary><span><strong>Facility details</strong><small>Address, parking, check-in and contact</small></span><span aria-hidden="true">⌄</span></summary><div className="planner-settings-body">      <h3>Facility and arrival instructions</h3>
       <div className="planner-fields">
         <label>Facility name<input value={plan.facilityName??''} onChange={e=>updateFacility('facilityName',e.target.value)} placeholder="Endoscopy center or hospital"/></label>
