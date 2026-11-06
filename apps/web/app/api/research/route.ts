@@ -7,7 +7,7 @@ export async function GET(request: Request) {
  if (!medicationId || !procedureCode || !['EGD','COLONOSCOPY','EGD_COLONOSCOPY'].includes(procedureCode)) return NextResponse.json({error:'Invalid request'},{status:400});
  const medication = terminologyDataset.medications.find(m=>m.id===medicationId);
  if (!medication) return NextResponse.json({error:'Unknown medication'},{status:404});
- const rules = clinicalReviewRules.filter(rule => (!rule.scope.medicationIds || rule.scope.medicationIds.includes(medicationId)) && (!rule.scope.procedureCodes || rule.scope.procedureCodes.includes(procedureCode as 'EGD'|'COLONOSCOPY'|'EGD_COLONOSCOPY')));
+ const rules = clinicalReviewRules.filter(rule => (rule.scope.medicationIds?.includes(medicationId) || rule.scope.ingredientIds?.some(id=>medication.ingredientIds.includes(id)) || rule.scope.drugClassIds?.some(id=>(medication.drugClassIds ?? []).includes(id))) && (!rule.scope.procedureCodes || rule.scope.procedureCodes.includes(procedureCode as 'EGD'|'COLONOSCOPY'|'EGD_COLONOSCOPY')));
  const refs = new Set(rules.flatMap(rule=>rule.evidenceRefs.map(ref=>ref.id)));
  const evidence = clinicalReviewEvidenceBundles.flatMap(bundle=>bundle.atoms.filter(atom=>refs.has(atom.id)).map(atom=>{
    const source=bundle.sources.find(s=>s.id===atom.source.id);
