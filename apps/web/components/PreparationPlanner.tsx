@@ -1,15 +1,27 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { PREPS, DIET_GUIDE, addCalendarDays, calendarEvents, defaultInstructions, standardPrepTimes, subtractMinutes, validatePlan, type Plan, type PlanInstruction, type PrepProduct } from '../lib/plan';
+
+type SavedFacility = {id:string;name:string;address:string;phone:string;parking:string;checkIn:string;instructions:string};
+const SAVED_FACILITIES_KEY = 'prepmeds.savedFacilities.v1';
+const FACILITIES = [
+  {id:'mmmc',name:'MedStar Montgomery Medical Center (MMMC)',address:'18101 Prince Philip Drive, Olney, MD 20832',phone:'301-774-8882'},
+  {id:'silver-spring',name:'MedStar Health Endoscopy Center at Silver Spring',address:'12008 Veirs Mill Road, Silver Spring, MD 20906',phone:'301-942-0022'}
+] as const;
 
 const today = '2026-12-10'; // Synthetic demo date; never a patient record.
 function initialPlan(): Plan {
-  return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00', arrivalMode:'offset', arrivalOffsetMinutes:60, facilityName:'Example Endoscopy Center', facilityAddress:'123 Medical Plaza, Suite 200', facilityParking:'Use the main parking garage.', facilityCheckIn:'Check in at the front desk.', facilityInstructions:'Bring your photo ID and arrange a responsible adult to take you home.', anesthesiaFastingPolicy:'strict-midnight',
+  return { product:'GoLYTELY', lowFiberDays:7, procedureDate:today, procedureTime:'09:00', arrivalTime:'08:00', arrivalMode:'offset', arrivalOffsetMinutes:60, facilityName:FACILITIES[0].name, facilityAddress:FACILITIES[0].address, facilityPhone:FACILITIES[0].phone, facilityParking:'', facilityCheckIn:'', facilityInstructions:'', anesthesiaFastingPolicy:'strict-midnight',
     protocolApproved:false, instructions:defaultInstructions('GoLYTELY','09:00') };
 }
 function formatTime(time?:string) { if (!time) return 'All day'; const [h,m]=time.split(':').map(Number);return new Date(Date.UTC(2020,0,1,h??0,m??0)).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}); }
 export function PreparationPlanner() {
   const [plan,setPlan]=useState<Plan>(initialPlan);
+  const [savedFacilities,setSavedFacilities]=useState<SavedFacility[]>([]);
+  const [activeSavedId,setActiveSavedId]=useState<string|null>(null);
+  const [facilitySaveMessage,setFacilitySaveMessage]=useState('');
+  useEffect(()=>{try{const raw=window.localStorage.getItem(SAVED_FACILITIES_KEY);if(raw){const parsed:unknown=JSON.parse(raw);if(Array.isArray(parsed))setSavedFacilities(parsed.filter((v):v is SavedFacility=>!!v&&typeof v==='object'&&typeof v.id==='string'&&typeof v.name==='string'&&typeof v.address==='string'&&typeof v.phone==='string'&&typeof v.parking==='string'&&typeof v.checkIn==='string'&&typeof v.instructions==='string'));}}catch{/* Storage may be disabled; current session remains editable. */}},[]);
+
   const [view,setView]=useState<'clinician'|'patient'>('clinician');
   const [patientTab,setPatientTab]=useState<'calendar'|'food'|'medications'>('calendar');
   const [timingExpanded,setTimingExpanded]=useState(false);
@@ -39,7 +51,32 @@ export function PreparationPlanner() {
     setPlan(p=>({...p,approvedBy:'Demo clinician (not authenticated)',approvedAt:new Date().toISOString()}));
     setShowIssues(false);
   }
+  const selectedFacility=activeSavedId && savedFacilities.some(f=>f.id===activeSavedId)?activeSavedId: FACILITIES.find(f=>f.name===plan.facilityName && f.address===plan.facilityAddress)?.id ?? 'custom';
+  function chooseFacility(id:string) {
+    const facility=FACILITIES.find(f=>f.id===id);
+    const saved=savedFacilities.find(f=>f.id===id);
+    setActiveSavedId(saved?.id??null);
+    setFacilitySaveMessage('');
+    setPlan(p=>({...p,facilityName:facility?.name??saved?.name??'',facilityAddress:facility?.address??saved?.address??'',facilityPhone:facility?.phone??saved?.phone??'',facilityParking:saved?.parking??'',facilityCheckIn:saved?.checkIn??'',facilityInstructions:saved?.instructions??'',approvedBy:undefined,approvedAt:undefined}));
+  }
+  function saveFacility() {
+    const name=plan.facilityName?.trim()??'';
+    const address=plan.facilityAddress?.trim()??'';
+    if(!name||!address){setFacilitySaveMessage('Enter a facility name and address before saving.');return;}
+    const id=activeSavedId??`facility-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const entry:SavedFacility={id,name,address,phone:plan.facilityPhone?.trim()??'',parking:plan.facilityParking??'',checkIn:plan.facilityCheckIn??'',instructions:plan.facilityInstructions??''};
+    const next=activeSavedId?savedFacilities.map(f=>f.id===id?entry:f):[...savedFacilities,entry];
+    try{window.localStorage.setItem(SAVED_FACILITIES_KEY,JSON.stringify(next));setSavedFacilities(next);setActiveSavedId(id);setFacilitySaveMessage('Location saved on this device.');}
+    catch{setFacilitySaveMessage('Could not save to this browser. Check storage settings.');}
+  }
+  function deleteSavedFacility(){
+    if(!activeSavedId)return;
+    const next=savedFacilities.filter(f=>f.id!==activeSavedId);
+    try{window.localStorage.setItem(SAVED_FACILITIES_KEY,JSON.stringify(next));setSavedFacilities(next);setActiveSavedId(null);setFacilitySaveMessage('Saved location deleted from this device.');}
+    catch{setFacilitySaveMessage('Could not update saved locations.');}
+  }
   function updateFacility(field: 'facilityName'|'facilityAddress'|'facilityPhone'|'facilityParking'|'facilityCheckIn'|'facilityInstructions', value:string) {
+    setFacilitySaveMessage('');
     setPlan(p=>({...p,[field]:value,approvedBy:undefined,approvedAt:undefined}));
   }
   function setArrivalMode(mode:'manual'|'offset') {
@@ -86,12 +123,14 @@ export function PreparationPlanner() {
         <div className="planner-inline-field planner-arrival-line"><span>Arrive</span><strong>{formatTime(plan.arrivalTime)}</strong><button type="button" className="planner-text-action" onClick={()=>setArrivalMode(plan.arrivalMode==='manual'?'offset':'manual')}>{plan.arrivalMode==='manual'?'Use offset':'Set exact time'}</button></div>
         {plan.arrivalMode==='offset'?<label className="planner-inline-field planner-arrival-offset"><span>Arrival lead time</span><input aria-label="Minutes before procedure" type="number" min="0" max="360" value={plan.arrivalOffsetMinutes??60} onChange={e=>setArrivalOffset(Number(e.target.value))}/><span>min before</span></label>:<label className="planner-inline-field"><span>Set arrival</span><input type="time" value={plan.arrivalTime} onChange={e=>setSchedule('arrivalTime',e.target.value)}/></label>}
       </div>
+      <label className="planner-label">Procedure location<select aria-label="Procedure location" value={selectedFacility} onChange={e=>chooseFacility(e.target.value)}><option value="mmmc">MMMC — Olney</option><option value="silver-spring">MedStar Endoscopy — Silver Spring</option>{savedFacilities.map(f=><option key={f.id} value={f.id}>{f.name} (saved)</option>)}<option value="custom">Other location (enter below)</option></select></label>
       <div className="planner-facility-summary"><strong>{plan.facilityName?.trim()||'Facility not set'}</strong><span>{plan.facilityAddress?.trim()||'Add a facility address below'}</span></div><details className="planner-settings"><summary><span><strong>Facility details</strong><small>Address, parking, check-in and contact</small></span><span aria-hidden="true">⌄</span></summary><div className="planner-settings-body">      <h3>Facility and arrival instructions</h3>
       <div className="planner-fields">
         <label>Facility name<input value={plan.facilityName??''} onChange={e=>updateFacility('facilityName',e.target.value)} placeholder="Endoscopy center or hospital"/></label>
         <label>Full address<input value={plan.facilityAddress??''} onChange={e=>updateFacility('facilityAddress',e.target.value)} placeholder="Street, city, state, ZIP"/></label>
         <label>Facility phone<input type="tel" value={plan.facilityPhone??''} onChange={e=>updateFacility('facilityPhone',e.target.value)}/></label>
       </div>
+      <div className="planner-location-actions"><button type="button" onClick={saveFacility}>{activeSavedId?'Update saved location':'Save location'}</button>{activeSavedId&&<button type="button" onClick={deleteSavedFacility}>Delete saved location</button>}<small role="status">{facilitySaveMessage||'Edits affect this plan immediately. Save to reuse a location on this browser; saved locations are not shared across devices.'}</small></div>
       <label className="planner-label">Parking and entrance<textarea rows={2} value={plan.facilityParking??''} onChange={e=>updateFacility('facilityParking',e.target.value)}/></label>
       <label className="planner-label">Check-in location<textarea rows={2} value={plan.facilityCheckIn??''} onChange={e=>updateFacility('facilityCheckIn',e.target.value)}/></label>
       <label className="planner-label">Additional facility instructions<textarea rows={3} value={plan.facilityInstructions??''} onChange={e=>updateFacility('facilityInstructions',e.target.value)}/></label>
