@@ -207,3 +207,37 @@ h1 { margin: 0; max-width: 760px; font-size: clamp(2rem, 4vw, 3.5rem); line-heig
 .planner-food-focused li{line-height:1.55;margin:0 0 11px;font-size:.95rem}
 .planner-day-grid button:focus-visible,.planner-inline-link:focus-visible,.planner-tabs button:focus-visible{outline:3px solid #197c85;outline-offset:3px}
 @media(max-width:600px){.planner-food-focused .planner-food-grid{grid-template-columns:1fr}.planner-food-warning{font-size:.94rem}}
+
+/* Compact clinician editor: reduce scrolling while keeping 44px touch targets */
+.planner-columns > .planner-card{min-width:0}
+.planner-instruction{padding:0;border-top:1px solid var(--line)}
+.planner-instruction-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;background:transparent;border:0;padding:13px 2px;min-height:52px;color:var(--ink);cursor:pointer}
+.planner-instruction-toggle span:first-child{display:grid;gap:3px}
+.planner-instruction-toggle small{color:var(--muted);font-size:.76rem;font-weight:500}
+.planner-instruction-toggle span:last-child{font-size:1.3rem;color:var(--accent)}
+.planner-instruction-detail{padding:8px 0 12px}
+.planner-review-toolbar{background:#f1f8f7;border:1px solid #cde3e1;border-radius:12px;padding:12px;margin:8px 0 14px}
+.planner-review-toolbar .primary-button{width:100%}
+.planner-review-toolbar p{font-size:.78rem;color:#42646a;line-height:1.4;margin:8px 0 0}
+.planner-final-approve{width:100%;margin-top:14px}
+.planner-fields label,.planner-label{min-width:0}
+.planner-fields input,.planner-fields select{min-height:44px}
+@media(max-width:600px){
+ .planner{width:calc(100% - 16px);margin:12px auto 24px}
+ .planner-heading{margin-bottom:12px}
+ .planner-heading h2{font-size:1.4rem}
+ .planner-heading p:not(.eyebrow){font-size:.8rem;margin:6px 0}
+ .planner-columns{gap:10px}
+ .planner-card{padding:14px;border-radius:13px;margin-bottom:10px}
+ .planner-card h3{font-size:1.08rem;margin-bottom:10px}
+ .planner-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:10px}
+ .planner-fields label,.planner-label{font-size:.77rem;gap:4px}
+ .planner-fields input,.planner-fields select{padding:8px 9px;border-radius:8px;font-size:16px;max-width:100%}
+ .planner-fields label:has(select),.planner-fields label:has(input[type="date"]),.planner-fields label:has(input[type="tel"]){grid-column:span 2}
+ .planner-label textarea{padding:9px;font-size:16px}
+ .planner-note{padding:11px;margin:10px 0;font-size:.82rem}
+ .planner-check{margin:10px 0;font-size:.8rem}
+ .planner-row{margin-bottom:7px}
+ .planner-secondary{margin:2px;padding:8px 10px}
+ .planner-tag{white-space:normal}
+}
