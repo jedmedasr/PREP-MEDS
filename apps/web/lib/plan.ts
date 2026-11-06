@@ -63,12 +63,20 @@ export function calendarEvents(plan: Plan): CalendarEvent[] {
     label:item.offsetDays===0?'Procedure day':item.offsetDays===-1?'Day before':Math.abs(item.offsetDays)+' days before',
   })).sort((a,b)=>a.date.localeCompare(b.date)||(a.time??'').localeCompare(b.time??''));
 }
-export function defaultInstructions(product: PrepProduct): PlanInstruction[] {
+export function standardPrepTimes(procedureTime: string) {
+  // Institutional demo policy: two-hour second-dose window, finishing four hours before procedure.
+  // Product-specific dosing and fluid volumes still require clinician review.
+  const secondStart = subtractMinutes(procedureTime, 360);
+  const secondFinish = subtractMinutes(procedureTime, 240);
+  return { firstStart:'17:00', secondStart, secondFinish };
+}
+export function defaultInstructions(product: PrepProduct, procedureTime='09:00'): PlanInstruction[] {
+  const timing=standardPrepTimes(procedureTime);
   return [
     {id:'diet-low',title:'Low-fiber diet',detail:'Follow the low-fiber food guide. Avoid nuts, seeds, popcorn, and whole grains.',offsetDays:-7,kind:'diet',critical:false,approved:false},
     {id:'diet-clear',title:'Clear-liquid diet',detail:'All day: only clear liquids you can see through. YES: water, clear broth without pieces, apple or white grape juice without pulp, clear electrolyte drinks, black coffee or tea without milk, and yellow/green gelatin or ice pops. NO: solid food, milk or creamer, smoothies, pulp, or red/purple drinks and gelatin. Open Food guide for the full list.',offsetDays:-1,kind:'diet',critical:false,approved:false},
-    {id:'prep-first',title:product+' first dose',detail:'Dose and mixing instructions must be reviewed against the selected product and local protocol.',offsetDays:-1,time:'17:00',kind:'prep',critical:true,approved:false},
-    {id:'prep-second',title:product+' second dose',detail:'Finish the entire second dose at least 4 hours before the scheduled procedure. Allow the full prescribed drinking time plus time to wake up and prepare. The 2-hour drinking window shown in this demo must be confirmed by your clinical team.',offsetDays:0,kind:'prep',critical:true,approved:false},
+    {id:'prep-first',title:product+' first dose',detail:'Dose and mixing instructions must be reviewed against the selected product and local protocol.',offsetDays:-1,time:timing.firstStart,kind:'prep',critical:true,approved:false},
+    {id:'prep-second',title:product+' second dose',detail:'Finish the entire second dose at least 4 hours before the scheduled procedure. Allow the full prescribed drinking time plus time to wake up and prepare. The 2-hour drinking window shown in this demo must be confirmed by your clinical team.',offsetDays:timing.secondStart.dayOffset,time:timing.secondStart.time,kind:'prep',critical:true,approved:false},
     {id:'fasting',title:'Stop drinking / fasting cutoff',detail:'Follow the approved anesthesia fasting cutoff. Do not infer it from bowel-preparation completion.',offsetDays:0,kind:'prep',critical:true,approved:false},
   ];
 }
