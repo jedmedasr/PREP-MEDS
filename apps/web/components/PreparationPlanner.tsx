@@ -15,6 +15,26 @@ function initialPlan(): Plan {
     protocolApproved:false, instructions:defaultInstructions('GoLYTELY','09:00') };
 }
 function formatTime(time?:string) { if (!time) return 'All day'; const [h,m]=time.split(':').map(Number);return new Date(Date.UTC(2020,0,1,h??0,m??0)).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}); }
+
+function encodeBytes(bytes:Uint8Array<ArrayBufferLike>){return btoa(Array.from(bytes,b=>String.fromCharCode(b)).join('')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function decodeBytes(value:string):Uint8Array<ArrayBuffer>{const s=value.replace(/-/g,'+').replace(/_/g,'/');const raw=atob(s.padEnd(Math.ceil(s.length/4)*4,'='));const bytes=new Uint8Array(new ArrayBuffer(raw.length));for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);return bytes;}
+async function makeGuideLink(plan:Plan){
+ const key=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']);
+ const iv=crypto.getRandomValues(new Uint8Array(new ArrayBuffer(12)));
+ const ciphertext=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv:iv.buffer},key,new TextEncoder().encode(JSON.stringify(plan))));
+ const rawKey=new Uint8Array(await crypto.subtle.exportKey('raw',key));
+ return location.origin+location.pathname+'#guide='+[iv,ciphertext,rawKey].map(encodeBytes).join('.');
+}
+async function loadGuide(hash:string):Promise<Plan|null>{
+ const m=hash.match(/^#guide=([\w-]+)\.([\w-]+)\.([\w-]+)$/);if(!m||hash.length>25000)return null;
+ const iv=decodeBytes(m[1]!),keyBytes=decodeBytes(m[3]!);if(iv.length!==12||keyBytes.length!==32)return null;
+ const key=await crypto.subtle.importKey('raw',keyBytes.buffer,'AES-GCM',false,['decrypt']);
+ const bytes=await crypto.subtle.decrypt({name:'AES-GCM',iv:iv.buffer},key,decodeBytes(m[2]!).buffer);
+ const p=JSON.parse(new TextDecoder().decode(bytes)) as Plan;
+ if(!p||!PREPS.includes(p.product)||typeof p.procedureDate!=='string'||typeof p.procedureTime!=='string'||!Array.isArray(p.instructions)||p.instructions.length>50)return null;
+ return p;
+}
+
 export function PreparationPlanner() {
   const [plan,setPlan]=useState<Plan>(initialPlan);
   const [savedFacilities,setSavedFacilities]=useState<SavedFacility[]>([]);
@@ -23,6 +43,15 @@ export function PreparationPlanner() {
   useEffect(()=>{try{const raw=window.localStorage.getItem(SAVED_FACILITIES_KEY);if(raw){const parsed:unknown=JSON.parse(raw);if(Array.isArray(parsed))setSavedFacilities(parsed.filter((v):v is SavedFacility=>!!v&&typeof v==='object'&&typeof v.id==='string'&&typeof v.name==='string'&&typeof v.address==='string'&&typeof v.phone==='string'&&typeof v.parking==='string'&&typeof v.checkIn==='string'&&typeof v.instructions==='string'));}}catch{/* Storage may be disabled; current session remains editable. */}},[]);
 
   const [view,setView]=useState<'clinician'|'patient'>('clinician');
+  const [sharedGuide,setSharedGuide]=useState(false);
+  const [shareMessage,setShareMessage]=useState('');
+  useEffect(()=>{if(!location.hash.startsWith('#guide='))return;let active=true;void loadGuide(location.hash).then(p=>{if(!active)return;if(p){setPlan(p);setSelectedDate(p.procedureDate);setView('patient');setSharedGuide(true);}else setShareMessage('Invalid guide link. Contact your care team.');}).catch(()=>{if(active)setShareMessage('Unable to open this guide. Contact your care team.');});return()=>{active=false;};},[]);
+  async function copyPatientLink(){
+    if(!ready){setShowIssues(true);setShareMessage('Review the plan before sharing.');return;}
+    try{await navigator.clipboard.writeText(await makeGuideLink(plan));setShareMessage('Demo guide link copied. Anyone with the link can view it. Do not include patient identifiers.');}
+    catch{setShareMessage('Could not copy link. Check browser permissions.');}
+  }
+
   const [patientTab,setPatientTab]=useState<'calendar'|'food'|'medications'>('calendar');
   const [timingExpanded,setTimingExpanded]=useState(false);
   const [selectedDate,setSelectedDate]=useState(today);
@@ -113,8 +142,8 @@ export function PreparationPlanner() {
   const foodMode=isClearDay||isProcedureDay?'clear':'lowFiber';
   const startTime=second?formatTime(second.time):'Ask your team';
   return <section className="planner">
-    <div className="planner-heading"><div><p className="eyebrow">PREP-MEDS · VISUAL PREPARATION PLANNER</p><h2>From clinical plan to patient calendar</h2><p>All information on this screen is synthetic. This demonstration does not save, transmit, or prescribe.</p></div>
-      <div className="planner-switch"><button className={view==='clinician'?'active':''} onClick={()=>setView('clinician')}>Clinician editor</button><button className={view==='patient'?'active':''} onClick={()=>setView('patient')}>Patient preview</button></div></div>
+    <div className="planner-heading"><div><p className="eyebrow">PREP-MEDS · VISUAL PREPARATION PLANNER</p><h2>From clinical plan to patient calendar</h2><p>Demo only. Do not enter patient identifiers or use for clinical delivery.</p></div>
+      {!sharedGuide&&<div className="planner-switch"><button className={view==='clinician'?'active':''} onClick={()=>setView('clinician')}>Clinician editor</button><button className={view==='patient'?'active':''} onClick={()=>setView('patient')}>Patient preview</button></div>}</div>
     {view==='clinician'? <div className="planner-columns"><div className="planner-card">
       <h3>1 · Appointment</h3>
       <div className="planner-compact-schedule">
@@ -165,11 +194,11 @@ export function PreparationPlanner() {
       {plan.instructions.filter(item=>item.id==='prep-first'||item.id==='prep-second').map(item=><label key={item.id}>{item.id==='prep-first'?'First dose start':'Second dose start'}<input type="time" value={item.time??''} onChange={e=>editItem(item.id,{time:e.target.value||undefined})}/></label>)}
       </div><p className="planner-muted">Check the calendar day for times crossing midnight. Review the product label and fluid requirements.</p></div></details>
       <button className="primary-button planner-final-approve" onClick={approve}>Approve demonstration plan</button>
-      <button className="planner-secondary" onClick={()=>setView('patient')}>Preview patient experience</button>
+      <button className="planner-secondary" onClick={()=>setView('patient')}>Preview patient experience</button><div className="planner-card"><h3>4 · Share guide</h3><p>Copy an encrypted demonstration link that opens the patient view. Do not enter patient identifiers. Anyone holding the link can read it; this prototype has no expiration or revocation.</p><button className="primary-button" type="button" disabled={!ready} onClick={copyPatientLink}>Copy patient guide link</button><button className="planner-secondary" type="button" onClick={()=>window.print()}>Print guide</button><p role="status" className="planner-muted">{shareMessage}</p></div>
       {showIssues&&<p className="planner-error">Review every instruction and confirm the institutional protocol before approval.</p>}
       <p className="planner-muted">This is not a legally valid electronic signature or a persistent clinical approval.</p>
     </div></div>:<div className="planner-patient">
-      <div className="planner-patient-hero"><span>YOUR COLONOSCOPY GUIDE</span><h3>Feel ready, one day at a time.</h3><p>Procedure: {plan.procedureDate} at {formatTime(plan.procedureTime)} · {plan.product}</p><strong className={ready?'planner-ready':'planner-pending'}>{ready?'Demonstration plan reviewed':'Preview only — clinical instructions not approved'}</strong></div>
+      {shareMessage&&<p role="status" className="planner-error">{shareMessage}</p>}<div className="planner-patient-hero"><span>YOUR COLONOSCOPY GUIDE</span><h3>Feel ready, one day at a time.</h3><p>Procedure: {plan.procedureDate} at {formatTime(plan.procedureTime)} · {plan.product}</p><strong className={ready?'planner-ready':'planner-pending'}>{ready?'Demonstration plan reviewed':'Preview only — clinical instructions not approved'}</strong></div>
       {patientTab==='calendar' && isProcedureDay?<div className="planner-card" aria-label="Procedure location and arrival"><h3>Where to go on procedure day</h3><p><strong>Arrive at {formatTime(plan.arrivalTime)}</strong> for your {formatTime(plan.procedureTime)} procedure.</p><p><strong>{plan.facilityName?.trim()||'Ask your care team for the location'}</strong></p>{plan.facilityAddress?.trim()?<p>{plan.facilityAddress} · <a href={'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(plan.facilityAddress)} target="_blank" rel="noreferrer">Get directions</a></p>:null}{plan.facilityParking?.trim()?<p><strong>Parking and entrance:</strong> {plan.facilityParking}</p>:null}{plan.facilityCheckIn?.trim()?<p><strong>Check-in:</strong> {plan.facilityCheckIn}</p>:null}{plan.facilityInstructions?.trim()?<p><strong>Before you arrive:</strong> {plan.facilityInstructions}</p>:null}{plan.facilityPhone?.trim()?<p><strong>Questions?</strong> {plan.facilityPhone}</p>:null}</div>:null}
       {patientTab==='calendar'?<section className="planner-timing" aria-label="Plan for the selected day">
         <div className="planner-timing-heading"><div><span className="planner-kicker">YOUR PLAN FOR {selectedDayLabel.toUpperCase()}</span><h3>{isProcedureDay?'Today is your colonoscopy':isClearDay?'Clear drinks only today':'Eat low-fiber foods today'}</h3><p>{isProcedureDay?'Follow the times below. They change when your procedure time changes.':isClearDay?'No solid food. Drink only the clear drinks on your list until your stop time.':'Today you may eat the low-fiber foods on your list. The day before your test is different.'}</p></div><span className="planner-procedure-pill">{isProcedureDay?'🏥 '+formatTime(plan.procedureTime):isClearDay?'🥤 DAY BEFORE':'🥣 LOW-FIBER DAY'}</span></div>
