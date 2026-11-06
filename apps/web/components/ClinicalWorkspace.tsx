@@ -36,6 +36,7 @@ interface DecisionResponse {
 }
 
 type ResultTab = 'staff' | 'clinician' | 'evidence' | 'patient';
+interface ResearchView { rules: Array<{id:string;name:string;disposition:string;requiredModifierIds:string[];status:string}>; evidence:Array<{id:string;title:string;summary:string;claim:string;evidenceStrength:string;limitations:string[];source:{title:string;publicationDate?:string;externalIdentifier?:string}|null}>; }
 
 const procedures: Array<{ code: ProcedureCode; label: string; detail: string }> = [
   { code: 'EGD', label: 'EGD', detail: 'Upper endoscopy' },
@@ -60,6 +61,7 @@ export function ClinicalWorkspace() {
   const [contentState, setContentState] = useState<'NO_ACTIVE_CLINICAL_RULES' | 'ACTIVE_RULES_AVAILABLE' | null>(null);
   const [decision, setDecision] = useState<DecisionResponse | null>(null);
   const [tab, setTab] = useState<ResultTab>('staff');
+  const [research, setResearch] = useState<ResearchView | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -122,6 +124,15 @@ export function ClinicalWorkspace() {
 
     return () => controller.abort();
   }, [procedure, selectedMedication]);
+
+  useEffect(() => {
+    if (!procedure || !selectedMedication) { setResearch(null); return; }
+    const controller = new AbortController();
+    void fetch(`/api/research?medicationId=${encodeURIComponent(selectedMedication.medicationId)}&procedureCode=${procedure}`,{signal:controller.signal})
+      .then(r=>{if(!r.ok)throw new Error('Research unavailable');return r.json() as Promise<ResearchView>})
+      .then(setResearch).catch(()=>{if(!controller.signal.aborted)setResearch(null)});
+    return ()=>controller.abort();
+  },[procedure,selectedMedication]);
 
   const canEvaluate = Boolean(procedure && selectedMedication) && !loading;
 
@@ -347,10 +358,24 @@ export function ClinicalWorkspace() {
           <button className="primary-button" disabled={!canEvaluate} onClick={evaluate}>
             {loading ? 'Evaluating…' : 'Evaluate medication'}
           </button>
-          <span>Production mode uses ACTIVE rules and policies only.</span>
+          <span>Research review mode: inspect candidate rules and evidence before approval.</span>
         </div>
       </section>
 
+      {selectedMedication && research ? (
+        <section className="panel">
+          <div className="section-heading"><div><h2>Clinical research dossier — {selectedMedication.canonicalName}</h2><p>Review-stage evidence and proposed logic. Inspect and correct before clinical release.</p></div></div>
+          <h3>Proposed decision pathways ({research.rules.length})</h3>
+          {research.rules.length ? research.rules.map(rule=><div className="evidence-item" key={rule.id}><strong>{rule.name}</strong><p>{rule.disposition.replaceAll('_',' ')} · {rule.status}</p><p>Required inputs: {rule.requiredModifierIds.join(', ')||'None'}</p><small>{rule.id}</small></div>):<p>No research pathway matches this medication and procedure.</p>}
+          <h3>Guideline evidence ({research.evidence.length})</h3>
+          {research.evidence.map(item=><div className="evidence-item" key={item.id}>
+            <h4>{item.title}</h4><p>{item.summary}</p><p><strong>Evidence statement:</strong> {item.claim}</p>
+            <p><strong>Certainty:</strong> {item.evidenceStrength.replaceAll('_',' ')}</p>
+            {item.limitations.length>0?<p><strong>Limitations:</strong> {item.limitations.join(' ')}</p>:null}
+            {item.source?<p><strong>Source:</strong> {item.source.title} {item.source.publicationDate||''} {item.source.externalIdentifier||''}</p>:null}
+          </div>)}
+        </section>
+      ):null}
       {decision ? (
         <section className="panel result-panel">
           <div className="section-heading">
