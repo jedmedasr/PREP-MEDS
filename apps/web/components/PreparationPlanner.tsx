@@ -79,15 +79,13 @@ export function PreparationPlanner() {
     <div className="planner-heading"><div><p className="eyebrow">PREP-MEDS · VISUAL PREPARATION PLANNER</p><h2>From clinical plan to patient calendar</h2><p>All information on this screen is synthetic. This demonstration does not save, transmit, or prescribe.</p></div>
       <div className="planner-switch"><button className={view==='clinician'?'active':''} onClick={()=>setView('clinician')}>Clinician editor</button><button className={view==='patient'?'active':''} onClick={()=>setView('patient')}>Patient preview</button></div></div>
     {view==='clinician'? <div className="planner-columns"><div className="planner-card">
-      <h3>1 · Appointment</h3><p className="planner-muted">Set the date and time. Open advanced settings only when needed.</p>
-      <div className="planner-fields planner-appointment-fields">
-        <label>Procedure date<input type="date" value={plan.procedureDate} onChange={e=>{setSchedule('procedureDate',e.target.value);setSelectedDate(e.target.value)}} /></label>
-        <label>Procedure time<input type="time" value={plan.procedureTime} onChange={e=>setSchedule('procedureTime',e.target.value)}/></label>
-        <label className="planner-span-full">Arrival scheduling<select value={plan.arrivalMode??'manual'} onChange={e=>setArrivalMode(e.target.value as 'manual'|'offset')}><option value="offset">Automatically before procedure</option><option value="manual">Set arrival time manually</option></select></label>
-        {plan.arrivalMode==='offset'?<label>Minutes before procedure<input type="number" min="0" max="360" value={plan.arrivalOffsetMinutes??60} onChange={e=>setArrivalOffset(Number(e.target.value))}/></label>:null}
-        <label>Arrival time<input type="time" value={plan.arrivalTime} disabled={plan.arrivalMode==='offset'} onChange={e=>setSchedule('arrivalTime',e.target.value)}/></label>
+      <h3>1 · Appointment</h3>
+      <div className="planner-compact-schedule">
+        <label className="planner-inline-field"><span>Procedure date</span><input type="date" value={plan.procedureDate} onChange={e=>{setSchedule('procedureDate',e.target.value);setSelectedDate(e.target.value)}} /></label>
+        <label className="planner-inline-field"><span>Procedure time</span><input type="time" value={plan.procedureTime} onChange={e=>setSchedule('procedureTime',e.target.value)}/></label>
+        <div className="planner-inline-field planner-arrival-line"><span>Arrive</span><strong>{formatTime(plan.arrivalTime)}</strong><button type="button" className="planner-text-action" onClick={()=>setArrivalMode(plan.arrivalMode==='manual'?'offset':'manual')}>{plan.arrivalMode==='manual'?'Use offset':'Set exact time'}</button></div>
+        {plan.arrivalMode==='offset'?<label className="planner-inline-field planner-arrival-offset"><span>Arrival lead time</span><input aria-label="Minutes before procedure" type="number" min="0" max="360" value={plan.arrivalOffsetMinutes??60} onChange={e=>setArrivalOffset(Number(e.target.value))}/><span>min before</span></label>:<label className="planner-inline-field"><span>Set arrival</span><input type="time" value={plan.arrivalTime} onChange={e=>setSchedule('arrivalTime',e.target.value)}/></label>}
       </div>
-
       <div className="planner-facility-summary"><strong>{plan.facilityName?.trim()||'Facility not set'}</strong><span>{plan.facilityAddress?.trim()||'Add a facility address below'}</span></div><details className="planner-settings"><summary><span><strong>Facility details</strong><small>Address, parking, check-in and contact</small></span><span aria-hidden="true">⌄</span></summary><div className="planner-settings-body">      <h3>Facility and arrival instructions</h3>
       <div className="planner-fields">
         <label>Facility name<input value={plan.facilityName??''} onChange={e=>updateFacility('facilityName',e.target.value)} placeholder="Endoscopy center or hospital"/></label>

@@ -289,3 +289,15 @@ h1 { margin: 0; max-width: 760px; font-size: clamp(2rem, 4vw, 3.5rem); line-heig
  .planner-appointment-fields label:has(input[type="time"]:disabled) input{font-size:16px}
  .planner-prep-overview{padding:10px}
 }
+
+/* Compact schedule: each value appears once, aligned with its label */
+.planner-compact-schedule{display:grid;gap:0;margin:8px 0 12px}
+.planner-inline-field{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);min-width:0;font-size:.9rem}
+.planner-inline-field>span:first-child{flex:1;min-width:0;font-weight:600}
+.planner-inline-field input{flex:0 1 185px;width:185px;min-width:0;max-width:56%;height:42px;padding:6px 9px;box-sizing:border-box;border-radius:8px;font-size:16px;text-align:right}
+.planner-inline-field strong{white-space:nowrap;font-size:1rem}
+.planner-text-action{border:0;background:transparent;color:var(--accent);font-size:.77rem;text-decoration:underline;padding:8px 0;cursor:pointer;white-space:nowrap}
+.planner-arrival-line>span:first-child{flex:1}
+.planner-arrival-offset input{flex:0 0 65px;width:65px;max-width:65px}
+.planner-arrival-offset>span:last-child{font-size:.76rem;color:var(--muted);white-space:nowrap}
+@media(max-width:600px){.planner-inline-field{font-size:.82rem}.planner-inline-field input{width:155px;flex-basis:155px;max-width:57%}.planner-arrival-offset input{width:65px;flex-basis:65px}.planner-arrival-line{flex-wrap:wrap}.planner-text-action{margin-left:auto}}
