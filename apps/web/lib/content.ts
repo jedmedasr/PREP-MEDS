@@ -505,7 +505,9 @@ export const clinicalReviewEvidenceBundles = [
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
 export function isShadowContentMode(): boolean {
-  return true; // Research review is explicitly enabled until clinical release approval.
+  // Keep unapproved clinical decision rules isolated from production execution.
+  // The research dossier reads clinicalReviewRules separately for clinician review.
+  return process.env.PREP_MEDS_CONTENT_MODE !== 'production';
 }
 
 export function decisionRules(): ClinicalRule[] {
