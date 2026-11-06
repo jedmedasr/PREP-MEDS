@@ -46,6 +46,11 @@ export function PreparationPlanner() {
   const [sharedGuide,setSharedGuide]=useState(false);
   const [shareMessage,setShareMessage]=useState('');
   useEffect(()=>{if(!location.hash.startsWith('#guide='))return;let active=true;void loadGuide(location.hash).then(p=>{if(!active)return;if(p){setPlan(p);setSelectedDate(p.procedureDate);setView('patient');setSharedGuide(true);}else setShareMessage('Invalid guide link. Contact your care team.');}).catch(()=>{if(active)setShareMessage('Unable to open this guide. Contact your care team.');});return()=>{active=false;};},[]);
+  function printPatientGuide(){
+    setPatientTab('calendar');
+    setView('patient');
+    window.setTimeout(()=>window.print(),150);
+  }
   async function copyPatientLink(){
     if(!ready){setShowIssues(true);setShareMessage('Review the plan before sharing.');return;}
     try{await navigator.clipboard.writeText(await makeGuideLink(plan));setShareMessage('Demo guide link copied. Anyone with the link can view it. Do not include patient identifiers.');}
@@ -194,7 +199,7 @@ export function PreparationPlanner() {
       {plan.instructions.filter(item=>item.id==='prep-first'||item.id==='prep-second').map(item=><label key={item.id}>{item.id==='prep-first'?'First dose start':'Second dose start'}<input type="time" value={item.time??''} onChange={e=>editItem(item.id,{time:e.target.value||undefined})}/></label>)}
       </div><p className="planner-muted">Check the calendar day for times crossing midnight. Review the product label and fluid requirements.</p></div></details>
       <button className="primary-button planner-final-approve" onClick={approve}>Approve demonstration plan</button>
-      <button className="planner-secondary" onClick={()=>setView('patient')}>Preview patient experience</button><div className="planner-card"><h3>4 · Share guide</h3><p>Copy an encrypted demonstration link that opens the patient view. Do not enter patient identifiers. Anyone holding the link can read it; this prototype has no expiration or revocation.</p><button className="primary-button" type="button" disabled={!ready} onClick={copyPatientLink}>Copy patient guide link</button><button className="planner-secondary" type="button" onClick={()=>window.print()}>Print guide</button><p role="status" className="planner-muted">{shareMessage}</p></div>
+      <button className="planner-secondary" onClick={()=>setView('patient')}>Preview patient experience</button><div className="planner-card"><h3>4 · Share guide</h3><p>Copy an encrypted demonstration link that opens the patient view. Do not enter patient identifiers. Anyone holding the link can read it; this prototype has no expiration or revocation.</p><button className="primary-button" type="button" disabled={!ready} onClick={copyPatientLink}>Copy patient guide link</button><button className="planner-secondary" type="button" onClick={printPatientGuide}>Print guide</button><p role="status" className="planner-muted">{shareMessage}</p></div>
       {showIssues&&<p className="planner-error">Review every instruction and confirm the institutional protocol before approval.</p>}
       <p className="planner-muted">This is not a legally valid electronic signature or a persistent clinical approval.</p>
     </div></div>:<div className="planner-patient">

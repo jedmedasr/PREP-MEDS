@@ -301,3 +301,13 @@ h1 { margin: 0; max-width: 760px; font-size: clamp(2rem, 4vw, 3.5rem); line-heig
 .planner-arrival-offset input{flex:0 0 65px;width:65px;max-width:65px}
 .planner-arrival-offset>span:last-child{font-size:.76rem;color:var(--muted);white-space:nowrap}
 @media(max-width:600px){.planner-inline-field{font-size:.82rem}.planner-inline-field input{width:155px;flex-basis:155px;max-width:57%}.planner-arrival-offset input{width:65px;flex-basis:65px}.planner-arrival-line{flex-wrap:wrap}.planner-text-action{margin-left:auto}}
+
+@media print {
+  body * { visibility: hidden !important; }
+  .planner-patient, .planner-patient * { visibility: visible !important; }
+  .planner-patient { position: absolute; inset: 0 auto auto 0; width: 100%; max-width: none; padding: 0 12mm; color: #111; }
+  .planner-tabs, .planner-day-grid button, .planner-patient button { display: none !important; }
+  .planner-patient-hero { background: white !important; color: #111 !important; border: 1px solid #aaa; }
+  .planner-card, .planner-event { break-inside: avoid; }
+  @page { margin: 12mm; }
+}
