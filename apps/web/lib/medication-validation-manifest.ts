@@ -43,7 +43,7 @@ export function buildMedicationValidationManifest() {
   // Fail closed before Object.fromEntries can silently overwrite a duplicate ID.
   const canonicalIds = medications.map(m => m.medicationId);
   if (new Set(canonicalIds).size !== canonicalIds.length) throw new Error('DUPLICATE_CANONICAL_MEDICATION_ID');
-  if (medications.some(m => !m.medicationId.trim() || m.ingredientIds.length === 0 || m.ingredientIds.some(id => !id.trim()))) {
+  if (medications.some(m => !m.medicationId.trim() || m.ingredientIds.length === 0 || m.ingredientIds.some(id => !id.trim()) || new Set(m.ingredientIds).size !== m.ingredientIds.length)) {
     throw new Error('INVALID_MEDICATION_INGREDIENT_MAPPING');
   }
 
@@ -60,6 +60,10 @@ export function buildMedicationValidationManifest() {
     });
   }
   const groups = [...grouped.values()].sort((a, b) => a.ingredientSetKey.localeCompare(b.ingredientSetKey));
+  // Each canonical ID must belong to exactly one provisional group; mapping is not clinical validation.
+  const groupMembers = groups.flatMap(group => group.medicationIds);
+  if (groupMembers.length !== medications.length || new Set(groupMembers).size !== medications.length ||
+      groupMembers.some(id => !canonicalIds.includes(id))) throw new Error('INCOMPLETE_CANONICAL_GROUP_MAPPING');
   return {
     schemaVersion: 1,
     scope: 'provisional-ingredient-set-inventory',
