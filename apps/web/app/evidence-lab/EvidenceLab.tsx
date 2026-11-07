@@ -1,7 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import type { ComparisonRow, Preview, Patient } from '../../../../scripts/clinical-evidence/core.mjs';
-type View = { rows: ComparisonRow[]; patient: Patient; output?: Preview };
+// A changed case explicitly clears the previous preview before re-verification.
+type View = { rows: ComparisonRow[]; patient: Patient; output?: Preview | undefined };
 export default function EvidenceLab() {
   const [view, setView] = useState<View | null>(null);
   const [selected, setSelected] = useState('');
