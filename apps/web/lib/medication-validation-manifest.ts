@@ -40,7 +40,14 @@ export function buildMedicationValidationManifest() {
     remainingIssues: ['Formulation/route review and clinical evidence not yet completed'],
   })).sort((a, b) => a.medicationId.localeCompare(b.medicationId));
 
-  // Fail closed before Object.fromEntries can silently overwrite a duplicate ID.\n  const canonicalIds = medications.map(m => m.medicationId);\n  if (new Set(canonicalIds).size !== canonicalIds.length) throw new Error('DUPLICATE_CANONICAL_MEDICATION_ID');\n  if (medications.some(m => !m.medicationId.trim() || m.ingredientIds.length === 0 || m.ingredientIds.some(id => !id.trim()))) {\n    throw new Error('INVALID_MEDICATION_INGREDIENT_MAPPING');\n  }\n\n  const grouped = new Map<string, IngredientReviewGroup>();
+  // Fail closed before Object.fromEntries can silently overwrite a duplicate ID.
+  const canonicalIds = medications.map(m => m.medicationId);
+  if (new Set(canonicalIds).size !== canonicalIds.length) throw new Error('DUPLICATE_CANONICAL_MEDICATION_ID');
+  if (medications.some(m => !m.medicationId.trim() || m.ingredientIds.length === 0 || m.ingredientIds.some(id => !id.trim()))) {
+    throw new Error('INVALID_MEDICATION_INGREDIENT_MAPPING');
+  }
+
+  const grouped = new Map<string, IngredientReviewGroup>();
   for (const m of medications) {
     const existing = grouped.get(m.ingredientSetKey);
     if (existing) existing.medicationIds.push(m.medicationId);
