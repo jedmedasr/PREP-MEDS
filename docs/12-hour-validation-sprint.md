@@ -4,10 +4,10 @@ Start: 2026-11-06. Target: four 3-hour work blocks, not a guarantee of clinical 
 Scope: active ingredient × clinically distinct formulation. Brands/aliases inherit validated group guidance; every canonical medication ID must be mapped and tested.
 
 ## Block 1 — inventory and safety triage (start now)
-- [ ] Enumerate `terminologyDataset.medications` and ingredients into machine-readable manifest.
+- [x] Enumerate `terminologyDataset.medications` into deterministic machine-readable manifest builder (`apps/web/lib/medication-validation-manifest.ts`); static artifact export and clinical metadata enrichment still pending.
 - [ ] Deduplicate into ingredient/formulation review groups, preserve combinations and meaningful route/release differences.
 - [x] Record exact provisional totals from CI run 42332062649: 436 canonical medications, 233 unique ingredient sets, 48 combination entries; all ingredient references resolved by passing inventory integrity test. Formulation adjudication and complete source manifest still pending.
-- [x] Check PR #37 CI and repair regressions. Latest verified passing run: 42332062649 at commit 672d343f93d058648d18a3406c50ae90fb0c7dd2.\n- [x] Add initial medication inventory integrity tests (duplicate IDs, ingredient references, combinations, provisional grouping), commit 672d343.\n- [x] Capture exact inventory denominators from CI output (run 42332062649, job 128280587303).\n- [ ] Commit machine-readable manifest and adjudicate clinically distinct formulations.
+- [x] Check PR #37 CI and repair regressions. Latest verified passing run: 42332062649 at commit 672d343f93d058648d18a3406c50ae90fb0c7dd2.\n- [x] Add initial medication inventory integrity tests (duplicate IDs, ingredient references, combinations, provisional grouping), commit 672d343.\n- [x] Capture exact inventory denominators from CI output (run 42332062649, job 128280587303).\n- [x] Commit machine-readable manifest builder and mapping tests (5f3d9ec, dc9b98f); fix TypeScript CI regression (0ed104b).\n- [ ] Adjudicate clinically distinct formulations and verify CI after fix.
 Acceptance: committed manifest, exact denominators, zero silent unmapped IDs, CI status documented.
 
 ## Block 2 — antithrombotics (at +3 hours)
@@ -50,3 +50,9 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - Combination medication entries: **48**.
 - Inventory integrity suite: 4/4 tests passed. Duplicate IDs and missing ingredient references: none detected by passing tests.
 - This is terminology coverage, NOT guideline validation or independent clinical approval.
+
+## 2026-11-07 run: previous block PARTIAL
+- Previous CI run **42341646914 FAILED** at TypeScript typecheck: inferred `reviewStatus: string` incompatible with `'NOT_STARTED'` in manifest builder. Root cause identified from job **128310416747** logs.
+- Fixed status literal inference with `as const` in commit **0ed104b60a871dd6bff1caa0d0d2a0b536647ceb**; new CI result must be checked before claiming pass.
+- Manifest builder and four new mapping tests committed previously; 436 canonical IDs / 233 provisional ingredient sets / 48 combination entries from earlier passing CI. Distinct formulation-group denominator remains unknown until adjudication. Clinical review 0 groups confirmed; 0 patient-facing rules activated.
+- Block 2 antithrombotic reconciliation cannot be declared complete. Proceed once CI and formulation grouping are established; source-specific evidence still required.
