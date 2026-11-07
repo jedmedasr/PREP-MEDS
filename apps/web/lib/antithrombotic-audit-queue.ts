@@ -60,6 +60,15 @@ export type GroupApprovalCandidate = {
 
 /** Safety gate: never promote a provisional group or an incomplete ASGE comparator. */
 export function canApproveAntithromboticGroup(candidate: GroupApprovalCandidate): boolean {
+  // A complete evidence fixture must never authorize an unrelated or partial canonical-ID group.
+  // Compare against the discovered canonical inventory, not caller-supplied membership alone.
+  const inventory = buildAntithromboticAuditQueue();
+  const expectedIds = inventory.medications
+    .filter(m => m.provisionalGroupKey === candidate.groupKey)
+    .map(m => m.medicationId).sort();
+  const submittedIds = [...candidate.canonicalMedicationIds].sort();
+  if (!expectedIds.length || expectedIds.length !== submittedIds.length ||
+      expectedIds.some((id, index) => id !== submittedIds[index])) return false;
   const comparator = candidate.guidelineComparator;
   if (!candidate.groupKey || !candidate.canonicalMedicationIds.length ||
       new Set(candidate.canonicalMedicationIds).size !== candidate.canonicalMedicationIds.length ||
