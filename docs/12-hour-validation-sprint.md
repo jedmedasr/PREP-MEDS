@@ -100,3 +100,11 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - Added negative tests for incomplete comparator, missing approvals/tests, duplicate IDs, and NOT ADDRESSED rationale, plus synthetic positive controls (00aa267). No real clinical group is approved by these tests.
 - Verified historical inventory denominator remains 436 canonical medication IDs / 233 provisional ingredient sets / 48 combinations. Exact antithrombotic ID/group denominator still awaiting test log or execution. Clinical reviews completed this block 0; cumulative 0; clinically validated mapped IDs 0. No patient-facing activation or merge.
 - NEXT: verify latest quality workflow and capture antithrombotic counts, fix any failures, then complete original-source agent-by-agent evidence and formulation-specific mapping.
+
+## 2026-11-07 manually triggered hourly-sprint continuation
+- Scheduler accepted an immediate run of the existing hourly automation; execution took place inline in its conversation, not in an independently verified background worker.
+- FIRST inspected PR #37 head b4cbdc6, prior ledger, and apixaban evidence tests. Previous block PARTIAL: clinical review still incomplete; full-head CI not verified.
+- Incorporated independent SPR-001 audit finding from GitHub Actions run 42374711461: antithrombotic discovery queue 17 canonical IDs / 17 provisional ingredient groups. This is NOT proof of exhaustive coverage or clinically distinct formulation adjudication.
+- Added regression assertions pinning the 17/17 denominator and zero completed ASGE comparisons/approvals (c3f3983). New commit CI still pending.
+- Cumulative inventory 436 canonical IDs / 233 provisional ingredient sets / 48 combinations; 0 clinically adjudicated groups and 0 clinically approved ID mappings. No patient-facing activation, no merge.
+- Next: verify full-head CI and continue primary-source medication-specific comparison; update baseline explicitly if terminology inventory is expanded.
