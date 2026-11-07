@@ -63,3 +63,11 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - Added research-only ASGE 2016 vs newer guideline reconciliation scaffold in docs/antithrombotic-source-reconciliation.md, commit 9a32493. This does not complete agent-level review, per-ID mapping, or clinical sign-off.
 - Denominators unchanged: 436 canonical medication IDs; 233 provisional ingredient sets; 48 combination entries. Final formulation group count unknown; clinically reviewed 0 confirmed. Block 1 acceptance remains PARTIAL; no patient-facing rules activated.
 - Next: inspect GitHub Actions for current head, complete formulation-level grouping, and enumerate all antithrombotic IDs for individual ASGE comparator mapping.
+
+## 2026-11-07 continuation — CI verified; research UI wired
+- Prior block status PARTIAL: formulation adjudication and per-ID clinical source mapping remain incomplete.
+- GitHub Actions quality run 42345077523 completed SUCCESS at eeac28f8bf850efe770148983b280f5f5bff8a7a (https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345077523). This verifies engineering checks only, not clinical accuracy.
+- Added clinician-only source-specific timing comparison component (e83e3ee) and mounted it in ClinicalWorkspace (c5e1308). Shows ASGE 2016 renal-stratified apixaban high-risk interruption alongside ACG–CAG 2022 evidence limitations. No patient-facing output or automatic pathway selection.
+- Latest UI commit CI/deployment remains PENDING verification; no merge.
+- Inventory unchanged: 436 canonical medication IDs; 233 provisional ingredient sets; 48 combinations. Final clinically distinct groups NOT established. Clinically reviewed 0 confirmed; mapped IDs to clinically validated groups 0 confirmed.
+- Next: verify latest CI; add complete source-specific timing coverage, mapping tests and formulation adjudication. Research UI must not be interpreted as clinical signoff.
