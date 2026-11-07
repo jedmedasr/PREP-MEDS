@@ -57,7 +57,7 @@ describe('machine-readable medication validation manifest', () => {
     if (process.env.EXPORT_MEDICATION_AUDIT !== '1') return;
     const output = resolve(process.cwd(), '../../docs/medication-audit-manifest.json');
     mkdirSync(dirname(output), { recursive: true });
-    writeFileSync(output, JSON.stringify(manifest, null, 2) + '\\n', 'utf8');
+    writeFileSync(output, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
     expect(manifest.medications.length).toBe(manifest.counts.canonicalMedications);
   });
   it('can be serialized as JSON for audit export', () => {
