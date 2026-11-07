@@ -62,6 +62,26 @@
       "url": "https://github.com/jedmedasr/PREP-MEDS/pull/37",
       "date": "2026-11-07",
       "summary": "Reconciled current main after PR #39 and re-inspected active PR #37 at 5a4b8cb714f1f2aafa8ce34428514a67d9517fd1. PR #37 remains open and is not modified or merged by Stage 1 work; its latest observed quality run 42345991815 is failing and must be evaluated independently."
+    },
+    {
+      "id": "EV-007",
+      "task_id": "ENG-002",
+      "type": "application_ci",
+      "result": "verified",
+      "commit_sha": "7c699b77b15dbf116d6b0ad3cae5f4273178e462",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42349811106",
+      "date": "2026-11-07",
+      "summary": "Reconciled Stage 1 head passed the complete application quality workflow: dependency install, schema validation, TypeScript checks, CI source receipt, isolated inhaled-insulin regressions, full unit/regression suite, and production web build."
+    },
+    {
+      "id": "EV-008",
+      "task_id": "ENG-002",
+      "type": "graph_ci",
+      "result": "verified",
+      "commit_sha": "7c699b77b15dbf116d6b0ad3cae5f4273178e462",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42349811225",
+      "date": "2026-11-07",
+      "summary": "Reconciled Stage 1 head passed engineering-graph validation and all eight verifier regression tests. This verifies graph structure/evidence invariants only, not clinical correctness."
     }
   ]
 }
