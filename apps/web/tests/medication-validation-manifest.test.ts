@@ -41,6 +41,16 @@ describe('machine-readable medication validation manifest', () => {
     expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: [''] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
     expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: ['ingredient-a', 'ingredient-a'] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
   });
+  it('does not confer clinical review status through provisional group inheritance', () => {
+    const duplicatedIngredient = terminologyDataset.medications[0]!;
+    const second = { ...duplicatedIngredient, id: duplicatedIngredient.id + '-alternate-brand' };
+    const candidate = buildMedicationValidationManifest([duplicatedIngredient, second]);
+    expect(candidate.counts.canonicalMedications).toBe(2);
+    expect(candidate.counts.provisionalIngredientSets).toBe(1);
+    expect(candidate.groups[0]?.medicationIds).toHaveLength(2);
+    expect(candidate.medications.every(m => m.reviewStatus === 'NOT_STARTED' && m.lastReviewedDate === null && m.sourceVersions.length === 0)).toBe(true);
+    expect(candidate.groups.every(g => g.formulationAdjudication === 'PENDING' && g.clinicalStatus === 'NOT_STARTED')).toBe(true);
+  });
   it('can be serialized as JSON for audit export', () => {
     expect(JSON.parse(JSON.stringify(manifest)).counts).toEqual(manifest.counts);
   });
