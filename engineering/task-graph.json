@@ -47,7 +47,7 @@
       "id": "SPR-001",
       "title": "Reconcile sprint inventory and evidence into task graph",
       "owner": "sprint",
-      "status": "not_started",
+      "status": "needs_review",
       "depends_on": [
         "ENG-002"
       ],
@@ -57,7 +57,7 @@
         "Reconcile canonical medication IDs and ingredient/formulation grouping",
         "Map each claimed completed item to commit and CI evidence, or mark unresolved"
       ],
-      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/pull/37"
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/pull/40"
     },
     {
       "id": "SPR-002",

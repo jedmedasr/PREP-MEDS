@@ -46,7 +46,7 @@ jobs:
           SPR001_OUTPUT_DIR: ${{ runner.temp }}/spr001-evidence
         run: |
           git -C .sprint-snapshot archive --format=tar.gz --output="$SPR001_OUTPUT_DIR/sprint-source.tar.gz" 5a4b8cb714f1f2aafa8ce34428514a67d9517fd1
-          cat "$SPR001_OUTPUT_DIR/summary.json" >> "$GITHUB_STEP_SUMMARY"
+          cat "$SPR001_OUTPUT_DIR/summary.json" | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: spr001-inventory-5a4b8cb7

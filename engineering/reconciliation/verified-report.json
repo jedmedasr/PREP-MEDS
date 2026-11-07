@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "task_id": "SPR-001",
+  "status": "needs_review",
+  "observed_date": "2026-11-07",
+  "repository": "jedmedasr/PREP-MEDS",
+  "main_sha": "4157f497e7b0ff37f428a44e5caeb2c815544a87",
+  "sprint_pr": 37,
+  "sprint_pr_state": "open",
+  "sprint_sha": "5a4b8cb714f1f2aafa8ce34428514a67d9517fd1",
+  "audit_implementation_sha": "9f4590268e5e9e3f68ffb4e400b1b30509e946a1",
+  "audit_pr": 40,
+  "audit_run_id": 42373567531,
+  "audit_tests": {"files_passed": 3, "passed": 12, "failed": 0},
+  "counts": {
+    "canonical_medication_ids": 436,
+    "provisional_ingredient_sets": 233,
+    "combination_entries": 48,
+    "IDs_mapped_to_provisional_groups": 436,
+    "groups_pending_formulation_adjudication": 233,
+    "documented_adjudicated_formulation_groups": 0,
+    "final_clinically_distinct_formulation_denominator": null,
+    "independently_clinically_reviewed_groups_confirmed": 0,
+    "clinically_approved_medication_mappings_confirmed": 0
+  },
+  "artifact": {
+    "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42373567531/artifacts/13574578653",
+    "zip_sha256": "e1595a8e2a25da335dc3d0e0f25c0dc5ffaa3be6d4fb79d971a951405fa32894",
+    "retention_days": 30,
+    "files": ["manifest.json", "summary.json", "sprint-source.tar.gz"],
+    "combination_inventory": "summary.json combinations contains all 48 records with canonical medication IDs and complete ingredient arrays"
+  },
+  "acceptance_reconciliation": [
+    {"criterion": "Read latest PR #37 head, sprint checklist and CI at reconciliation time", "finding": "Verified pinned head and open state; read checklist and actual failing TypeScript logs", "evidence": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345991815"},
+    {"criterion": "Reconcile canonical medication IDs and ingredient/formulation grouping", "finding": "Recomputed 436/233/48, complete provisional mapping, no duplicate IDs or missing ingredient references in passing tests; all formulation adjudication remains pending", "evidence": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42373567531"},
+    {"criterion": "Map each claimed completed item to commit and CI evidence, or mark unresolved", "finding": "Inventory builder and mapping tests verified on pinned source; internal assembled rule-to-atom and atom-to-source version references passed. Full sprint CI, per-ID guideline/scenario/reviewer metadata and clinical sign-off are explicitly unresolved", "evidence": "https://github.com/jedmedasr/PREP-MEDS/pull/40"}
+  ],
+  "separate_milestones": {
+    "inventory_coverage": "PASS for pinned source only",
+    "focused_automated_inventory_testing": "12 PASS; not a full sprint quality run",
+    "full_sprint_CI": "FAIL at TypeScript; tests/build skipped",
+    "guideline_review": "Per-ID review metadata not supplied by the manifest; not verified complete",
+    "clinical_approval": "0 independently confirmed; no approval inferred"
+  },
+  "unresolved": [
+    "Final clinically distinct formulation group denominator is unknown; 233 is only the provisional ingredient-set denominator.",
+    "The manifest does not contain required per-ID dated source/version, scenario/test, reviewer, approval or unresolved-question metadata.",
+    "No clinically adjudicated groups are recorded in the pinned builder; all 233 remain pending.",
+    "PR #37 has a separate TypeScript failure; its owner must handle it without this audit modifying the sprint.",
+    "Independent review and adoption of PR #40 remain pending; do not advance dependent graph tasks yet."
+  ],
+  "mutated_sprint": false,
+  "clinical_rules_activated": false
+}
