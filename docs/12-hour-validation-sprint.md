@@ -56,3 +56,10 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - Fixed status literal inference with `as const` in commit **0ed104b60a871dd6bff1caa0d0d2a0b536647ceb**; new CI result must be checked before claiming pass.
 - Manifest builder and four new mapping tests committed previously; 436 canonical IDs / 233 provisional ingredient sets / 48 combination entries from earlier passing CI. Distinct formulation-group denominator remains unknown until adjudication. Clinical review 0 groups confirmed; 0 patient-facing rules activated.
 - Block 2 antithrombotic reconciliation cannot be declared complete. Proceed once CI and formulation grouping are established; source-specific evidence still required.
+
+## 2026-11-07 continuation — previous Block 1 PARTIAL
+- Verified PR #37 remains open at prior head 064a05a; PR #36 was merged into main as ec1ee7e1.
+- Commit 064a05a has Vercel status SUCCESS (https://vercel.com/prep-meds/prepmeds/CTBjfJXDkUfeGXj4KDwvzqLrkvbA); GitHub Actions test/typecheck result for that commit is NOT established by this status alone.
+- Added research-only ASGE 2016 vs newer guideline reconciliation scaffold in docs/antithrombotic-source-reconciliation.md, commit 9a32493. This does not complete agent-level review, per-ID mapping, or clinical sign-off.
+- Denominators unchanged: 436 canonical medication IDs; 233 provisional ingredient sets; 48 combination entries. Final formulation group count unknown; clinically reviewed 0 confirmed. Block 1 acceptance remains PARTIAL; no patient-facing rules activated.
+- Next: inspect GitHub Actions for current head, complete formulation-level grouping, and enumerate all antithrombotic IDs for individual ASGE comparator mapping.
