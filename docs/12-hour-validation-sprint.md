@@ -130,3 +130,10 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - Prior head 1617257 had Vercel combined status FAILURE (deployment https://vercel.com/prep-meds/prepmeds/2agqTQUwbUZQwrd89BHeg9EotwkB). Failure cause is not proven by status alone; new commit CI and deployment remain UNVERIFIED.
 - Last measured inventory 436 canonical IDs / 233 provisional ingredient sets / 48 combination entries; 436 provisional mappings in manifest design, **0 clinically validated ID mappings**, **0 completed clinically distinct review groups** (final denominator pending). Antithrombotic discovery baseline 17 IDs / 17 provisional groups; completed ASGE comparisons 0.
 - Block 1 still PARTIAL. Next: confirm quality/build CI on 90d4e6a, finish formulation adjudication and export, then advance antithrombotic source-by-source review. No merge, clinical signoff, or patient-facing activation.
+
+## 2026-11-07 11:27 ET continuation — prior block PARTIAL
+- FIRST inspected PR #37 at ad2cdd9 and the sprint checklist; PR is open, mergeable=false. PR-triggered workflow lookup for ad2cdd9 returned zero runs; latest CI is UNVERIFIED (not PASS).
+- Reviewed manifest and antithrombotic queue. The provisional ingredient-set grouping remains unadjudicated and ASGE comparators remain NOT_STARTED; no clinical signoff.
+- Added fail-closed duplicate ingredient-ID and canonical group membership checks to manifest builder in a015540. These are engineering guardrails, not formulation review or clinical evidence. New commit tests/CI remain UNVERIFIED.
+- Historical verified inventory: 436 canonical medication IDs, 233 provisional ingredient sets, 48 combination entries. Provisional mappings 436/436 by builder design; clinically validated mapped IDs 0/436. Final distinct formulation review-group denominator unknown; clinically completed review groups 0.
+- Previous Block 1 PARTIAL; next verify CI and fix any regressions, add direct negative tests, export persistent audit manifest, adjudicate formulation splits, then proceed to antithrombotic source comparisons. No merge, patient-facing activation, or approval.
