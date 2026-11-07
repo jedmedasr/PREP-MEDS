@@ -1,0 +1,75 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { digest, validateRule, verifyExtraction, comparison, instructionPreview, applicability, appendVersion, affectedIdentities, planWork } from '../clinical-evidence/core.mjs';
+import { runDemo, fixtureSource, inventory, patient, workers } from '../clinical-evidence/demo.mjs';
+import { processRevision, saveImmutable } from '../clinical-evidence/pipeline.mjs';
+import { fetchBounded, observe, permittedUrl } from '../clinical-evidence/watch.mjs';
+const demo = await runDemo();
+const clone = value => structuredClone(value);
+const record = () => clone(demo.records[0]);
+const verify = r => verifyExtraction(r.source, r.a, r.b, r.receipts, inventory, r.trust);
+const rebind = r => { r.receipts[0].outputHash = digest(r.a); r.receipts[1].outputHash = digest(r.b); return r; };
+const selection = { recordId: demo.records[0].id, clinicianId: 'SYNTHETIC-CLINICIAN', decisionId: 'SYN-TEST', decidedAt: '2026-11-07T12:00:00Z' };
+const preview = (p = patient, s = selection, records = demo.records) => instructionPreview(records, s, p, inventory, demo.currentHashes, { mode: 'synthetic' });
+test('E2E: changed document, blind extraction, located passages, diff and immutable history', () => {
+  assert.equal(demo.revisionDetected, true); assert.equal(demo.preservedVersions, 2);
+  assert.equal(demo.verification.status, 'SYNTHETIC_VERIFIED'); assert.equal(demo.verification.clinicalEndorsement, false);
+  assert.ok(demo.diff.some(x => x.field === 'hold')); assert.equal(demo.affected.length, 4);
+  const [a,b] = demo.records[0].receipts; assert.notEqual(a.implementationHash,b.implementationHash); assert.notEqual(a.contextId,b.contextId); assert.equal(a.inputHash,b.inputHash);
+});
+test('E2E: conflicting societies retained, explicit clinician choice, traceable dates', () => {
+  assert.deepEqual(demo.comparisons.map(x => x.rule.hold.min), [4,2]);
+  const out = preview(); assert.equal(out.hold.date,'2026-11-06'); assert.equal(out.resume.date,'2026-11-12'); assert.equal(out.hold.timestamp,null);
+  assert.equal(out.source.hash,demo.records[0].source.textHash); assert.equal(out.ruleVersion,'fixture-4'); assert.equal(out.clinicianId, selection.clinicianId); assert.equal(out.eventHash.length,64);
+  assert.equal(preview(patient, {...selection, recordId:demo.records[1].id}).hold.date,'2026-11-08');
+});
+test('unchanged verified source invokes zero workers and zero model calls', () => { assert.equal(demo.unchangedSourceCalls,0); assert.equal(demo.modelCalls,0); });
+test('missing cached artifact is not trusted just because a cache flag says verified', async () => {
+  const source = fixtureSource(); const first = await processRevision({source, inventory, ...workers});
+  const retry = await processRevision({source, inventory, ...workers, previous:first.cache}); assert.equal(retry.agentCalls,2);
+});
+test('cache key changes for inventory, source or verifier implementation changes', () => {
+  const src=fixtureSource(); const p=planWork(src,undefined,inventory,['a','b']);
+  assert.equal(planWork(src,{key:p.key,evidencePresent:true},inventory,['a','b']).invokeAgents,false);
+  assert.equal(planWork(src,{key:p.key,evidencePresent:true},inventory,['new-a','b']).invokeAgents,true);
+  assert.equal(planWork(src,{key:p.key,evidencePresent:true},[],['a','b']).invokeAgents,true);
+});
+test('unchanged unresolved source does not spend again without explicit retry', () => { const src=fixtureSource();const p=planWork(src,undefined,inventory,['a','b']); assert.equal(planWork(src,{key:p.key,state:'blocked'},inventory,['a','b']).expectedCalls,0); });
+test('real source is refused by fixture agents and no model call is attempted', async () => {const s=fixtureSource();s.kind='primary'; const result=await processRevision({source:s,inventory,...workers}); assert.equal(result.status,'UNVERIFIED');assert.equal(result.agentCalls,0);});
+for (const mutate of [r=>{r.source.available=false}, r=>{r.source.text+=' changed'}, r=>{r.a.anchors[0].quote='invented quote'}, r=>{r.a.anchors[0].location='page:invented'}, r=>{r.a.anchors[0].start++}]) {
+  test('missing/inaccessible/changed/mislocated primary passage fails closed',()=>{const r=record();mutate(r);assert.equal(verify(rebind(r)).status,'UNVERIFIED');});
+}
+test('agent agreement without source passages is insufficient',()=>{const r=record();r.a.anchors=[];r.b.anchors=[];assert.equal(verify(rebind(r)).status,'UNVERIFIED');});
+test('a shared implementation or context is not independent verification',()=>{const r=record();r.receipts[1].implementationHash=r.receipts[0].implementationHash;assert.ok(verify(r).errors.includes('NOT_INDEPENDENT'));});
+test('modified output invalidates runtime receipt',()=>{const r=record();r.a.rule.hold.min=99;assert.ok(verify(r).errors.includes('RUN_BINDING'));});
+test('two workers agreeing on invented time still fail passage validation',()=>{const r=record();for(const x of [r.a,r.b]) x.rule.hold.min=x.rule.hold.max=99;assert.equal(verify(rebind(r)).status,'UNVERIFIED');});
+test('two workers agreeing on invented renal threshold still fail passage validation',()=>{const r=record();for(const x of [r.a,r.b]) x.rule.renal.min=42;assert.equal(verify(rebind(r)).status,'UNVERIFIED');});
+test('disagreement is visible, never resolved by choosing shorter/longer',()=>{const r=record();r.b.rule.hold.min=2;assert.ok(verify(rebind(r)).errors.includes('INDEPENDENT_EXTRACTIONS_DISAGREE'));});
+test('certainty, dates and unresolved exceptions must be present',()=>{for(const f of ['certainty','exceptions','resume']){const r=record();delete r.a.rule[f];delete r.b.rule[f];assert.equal(verify(rebind(r)).status,'UNVERIFIED');}const r=record();r.b.issues=['ambiguous table'];assert.equal(verify(rebind(r)).status,'UNVERIFIED');});
+test('publication metadata is source-bound',()=>{const r=record();r.a.publicationDate='2026-11-06';assert.equal(verify(rebind(r)).status,'UNVERIFIED');});
+test('renaming synthetic evidence as real cannot promote it',()=>{const r=record();r.source.kind='primary';assert.equal(verify(r).status,'UNVERIFIED');});
+test('locally authored recommendations cannot inherit society verification',()=>{const r=record();r.a.rule.origin=r.b.rule.origin='derived';assert.equal(verify(rebind(r)).status,'UNVERIFIED');});
+test('formulation and combination ingredients cannot disappear',()=>{let r=record();r.a.rule.medication.canonicalIds=['SYN-AB'];assert.ok(validateRule(r.a.rule,inventory).some(x=>x.startsWith('INGREDIENT_MAPPING')));r=record();r.a.rule.formulation='injection';assert.ok(validateRule(r.a.rule,inventory).some(x=>x.startsWith('FORMULATION_MAPPING')));});
+test('impact graph includes combination and alternative-formulation IDs without auto-inheriting guidance',()=>{assert.deepEqual(affectedIdentities(record().a.rule,null,inventory).map(x=>x.id),['SYN-A','SYN-A-BRAND','SYN-A-INJECTION','SYN-AB']);});
+test('history is append-only and repeated identical versions are idempotent',()=>{const r=record();const h=appendVersion([],r);assert.equal(appendVersion(h,r).length,1);r.a.rule.hold.min=20;assert.throws(()=>appendVersion(h,r),/IMMUTABLE/);});
+test('stale or superseded guidance remains visible but cannot be selected',()=>{const rows=comparison(demo.records,patient,inventory,{});assert.equal(rows.length,2);assert.equal(rows[0].status,'POTENTIALLY_SUPERSEDED');assert.equal(rows[0].selectable,false);});
+test('no clinician choice means no instructions',()=>{assert.throws(()=>preview(patient,{}),/EXPLICIT_CLINICIAN/);});
+test('production/unset modes and real-patient cases remain blocked',()=>{for(const mode of [undefined,'production','shadow'])assert.throws(()=>instructionPreview(demo.records,selection,patient,inventory,demo.currentHashes,{mode}),/PRODUCTION_ACTIVATION/);assert.throws(()=>preview({...patient,synthetic:false}),/PRODUCTION_ACTIVATION/);});
+for(const value of [29.99,60,NaN,Infinity])test(`renal boundary ${value} is unsupported`,()=>{assert.equal(applicability(record().a.rule,{...patient,renal:{...patient.renal,value}}).applicable,false);});
+for(const value of [30,59.99])test(`renal inclusive/exclusive boundary ${value} matches source`,()=>{assert.equal(applicability(record().a.rule,{...patient,renal:{...patient.renal,value}}).applicable,true);});
+test('eGFR cannot silently substitute for CrCl',()=>{assert.throws(()=>preview({...patient,renal:{...patient.renal,metric:'eGFR'}}),/UNVERIFIED_OR_UNSUPPORTED/);});
+test('unknown risk or missing negative history is not assumed safe',()=>{assert.throws(()=>preview({...patient,conditions:{}}),/UNVERIFIED_OR_UNSUPPORTED/);assert.throws(()=>preview({...patient,procedure:{...patient.procedure,bleedingRisk:'unknown'}}),/UNVERIFIED_OR_UNSUPPORTED/);});
+test('resumption requires hemostasis, not a preprocedure assumption',()=>{assert.throws(()=>preview({...patient,conditions:{...patient.conditions,hemostasisConfirmed:false}}),/HEMOSTASIS/);});
+test('invalid calendar dates and missing timezone fail closed',()=>{assert.throws(()=>preview({...patient,procedureDate:'2026-02-30'}));assert.throws(()=>preview({...patient,timeZone:''}));});
+test('calendar-day arithmetic preserves local date semantics across DST boundary',()=>{assert.equal(preview({...patient,procedureDate:'2026-11-03',procedureEndDate:'2026-11-03'}).hold.date,'2026-10-30');});
+test('ranges are never automatically collapsed to minimum or maximum',()=>{const r=record();r.a.rule.hold.min=2;r.b.rule.hold.min=2;for(const x of [r.a,r.b]){x.anchors.find(a=>a.field==='hold').quote='bad';}assert.throws(()=>preview(patient,selection,[rebind(r)]));});
+test('unknown time units, inverted thresholds and absent fields are invalid',()=>{const r=record().a.rule;r.hold.unit='weeks';r.renal.max=10;const e=validateRule(r,inventory);assert.ok(e.includes('HOLD:UNIT'));assert.ok(e.includes('RENAL_INTERVAL'));});
+test('artifact history cannot be rewritten',async()=>{const d=await mkdtemp(join(tmpdir(),'evidence-test-'));try{const p=join(d,'event.json');await saveImmutable(p,{id:1});await saveImmutable(p,{id:1});await assert.rejects(saveImmutable(p,{id:2}),/REWRITE/);}finally{await rm(d,{recursive:true,force:true});}});
+test('SSRF and unapproved redirect hosts rejected',async()=>{for(const u of ['http://www.esge.com','https://localhost/x','https://evil.invalid','https://www.esge.com:8443/x'])assert.throws(()=>permittedUrl(u,['www.esge.com']));await assert.rejects(fetchBounded('https://www.esge.com/x',['www.esge.com'],null,'pdf',async()=>new Response(null,{status:302,headers:{location:'https://evil.invalid'}})),/ALLOWLISTED/);});
+test('an unverifiable 304 is not evidence of unchanged content',async()=>{await assert.rejects(fetchBounded('https://www.esge.com/x',['www.esge.com'],null,'pdf',async()=>new Response(null,{status:304})),/304/);});
+test('failed HTTP fetch preserves the last good version and reports unverified',async()=>{const url='https://www.esge.com/x';const old={hash:'known-good'};const r=await observe({sources:[{id:'x',url,format:'pdf',allowedHosts:['www.esge.com']}]},{observations:{[digest(url)]:old}},{transport:async()=>new Response(null,{status:403})});assert.equal(r.observations[digest(url)].hash,'known-good');assert.equal(r.observations[digest(url)].available,false);assert.equal(r.modelCalls,0);});
+test('changed PDF and unchanged subsequent check produce bounded detection with no models',async()=>{const url='https://www.esge.com/x';const registry={sources:[{id:'x',url,format:'pdf',allowedHosts:['www.esge.com']}]};const transport=async()=>new Response('%PDF-'+'.'.repeat(200),{headers:{'content-type':'application/pdf'}});const first=await observe(registry,undefined,{transport});const second=await observe(registry,first,{transport,comprehensive:true});assert.equal(first.changes.length,1);assert.equal(second.changes.length,0);assert.equal(second.modelCalls,0);assert.equal(second.coverage.completeEvidenceReview,false);});
+test('HTML masquerading as PDF and oversized content do not become revisions',async()=>{const url='https://www.esge.com/x';await assert.rejects(fetchBounded(url,['www.esge.com'],null,'pdf',async()=>new Response('login'.repeat(50),{headers:{'content-type':'text/html'}})),/MIME/);await assert.rejects(fetchBounded(url,['www.esge.com'],null,'pdf',async()=>new Response('',{headers:{'content-length':'999999999','content-type':'application/pdf'}})),/TOO_LARGE/);});
