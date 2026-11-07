@@ -82,6 +82,66 @@
       "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42349811225",
       "date": "2026-11-07",
       "summary": "Reconciled Stage 1 head passed engineering-graph validation and all eight verifier regression tests. This verifies graph structure/evidence invariants only, not clinical correctness."
+    },
+    {
+      "id": "EV-EVD001-20261107-001",
+      "task_id": "EVD-001",
+      "type": "synthetic_evidence_pipeline_ci",
+      "result": "verified",
+      "commit_sha": "f93182ca35f74dfa5cd2576931bfd91c988b3b31",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42376964048",
+      "date": "2026-11-07",
+      "summary": "Source-pipeline synthetic tests and actual two-process demonstration passed. Artifact 13576046722 supplies the committed synthetic bundle; ZIP SHA256 fb775e81815092ce52b94af236a1683d4341635ab6f6555ca8f70f25dee95b06. Fictional revision detected, two versions retained, four synthetic canonical IDs impacted, conflicting sources preserved and explicit selection produced dated synthetic instructions. Six fixture-worker calls for changed/new fixtures; zero for unchanged verified evidence; zero model calls. Not real guideline verification."
+    },
+    {
+      "id": "EV-EVD001-20261107-002",
+      "task_id": "EVD-001",
+      "type": "source_observation",
+      "result": "verified",
+      "commit_sha": "f93182ca35f74dfa5cd2576931bfd91c988b3b31",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42376964064",
+      "date": "2026-11-07",
+      "summary": "GitHub Actions fetched all six initial registered primary-document/society-index locations with no access blockers and zero model calls. Six INITIAL_SNAPSHOT records are baseline observations, not six guideline revisions. Comprehensive evidence review remains false; no real extraction is verified. PR job did not execute the state-writing job."
+    },
+    {
+      "id": "EV-EVD001-20261107-003",
+      "task_id": "EVD-001",
+      "type": "application_ci",
+      "result": "failed",
+      "commit_sha": "690bf2113b6b245b0eba5fbb5165a1589fa261c9",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42377249500",
+      "date": "2026-11-07",
+      "summary": "New lab UI failed TypeScript exactOptionalPropertyTypes because its cleared preview assigned undefined to an optional Preview. Tests/build were skipped. This is an engineering implementation failure, not a clinical-content issue; retained rather than hidden."
+    },
+    {
+      "id": "EV-EVD001-20261107-004",
+      "task_id": "EVD-001",
+      "type": "application_ci",
+      "result": "verified",
+      "commit_sha": "2cfee38d796fd4282fa7379cf4777bec4c928bdc",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42377370117",
+      "date": "2026-11-07",
+      "summary": "After explicitly typing the cleared UI state, the full quality workflow passed schemas, TypeScript, source receipt, isolated regressions, the complete unit/regression suite including synthetic lab checks, and production web build. No medication recommendation or existing safety test was changed."
+    },
+    {
+      "id": "EV-EVD001-20261107-005",
+      "task_id": "EVD-001",
+      "type": "synthetic_evidence_pipeline_ci",
+      "result": "verified",
+      "commit_sha": "2cfee38d796fd4282fa7379cf4777bec4c928bdc",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42377370099",
+      "date": "2026-11-07",
+      "summary": "Synthetic source-verification regression workflow and end-to-end demonstration passed after UI integration. This run precedes the additional range/hour/restart-specific test file; recheck the final PR head before integration. Live clinical extraction adapters, complete real-source reviews and production decision integration remain unimplemented."
+    },
+    {
+      "id": "EV-EVD001-20261107-006",
+      "task_id": "EVD-001",
+      "type": "graph_ci",
+      "result": "verified",
+      "commit_sha": "2cfee38d796fd4282fa7379cf4777bec4c928bdc",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42377370070",
+      "date": "2026-11-07",
+      "summary": "Existing graph validator and eight regression tests passed with EVD-001 needs_review and EVD-002/EVD-003 blocked. Legacy clinical/release gates were retained. No per-society-extraction clinician endorsement gate was added."
     }
   ]
 }

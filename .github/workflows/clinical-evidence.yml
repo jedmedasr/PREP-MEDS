@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 22
       - name: Source verification and fail-closed regressions
-        run: node --test scripts/__tests__/clinical-evidence.test.mjs
+        run: node --test scripts/__tests__/clinical-evidence*.test.mjs
       - name: Reproduce synthetic revision-to-instruction workflow
         run: |
           mkdir -p evidence-output

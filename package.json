@@ -9,7 +9,7 @@
     "build:web": "pnpm --filter @prep-meds/web build",
     "validate:schemas": "node scripts/validate-schemas.mjs",
     "quality": "pnpm validate:schemas && pnpm typecheck && pnpm test && pnpm build:web",
-    "evidence:test": "node --test scripts/__tests__/clinical-evidence.test.mjs",
+    "evidence:test": "node --test scripts/__tests__/clinical-evidence*.test.mjs",
     "evidence:demo": "node scripts/clinical-evidence/demo.mjs",
     "evidence:watch": "node scripts/clinical-evidence/watch.mjs"
   },
