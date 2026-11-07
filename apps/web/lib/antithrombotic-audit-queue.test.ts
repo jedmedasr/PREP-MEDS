@@ -75,6 +75,8 @@ describe('clinical approval gate — negative and positive controls', () => {
     expect(approve({...base,formulationAdjudicated:false})).toBe(false);
     expect(approve({...base,independentClinicalApproval:false})).toBe(false);
     expect(approve({...base,testEvidence:[]})).toBe(false);
+    expect(approve({...base,testEvidence:['  ']})).toBe(false);
+    expect(approve({...base,newerGuidelineEvidence:['  ']})).toBe(false);
     expect(approve({...base,canonicalMedicationIds:['MED-apixaban','MED-apixaban']})).toBe(false);
     expect(approve({...base,guidelineComparator:{...base.guidelineComparator,comparisonEvidence:[]}})).toBe(false);
   });
