@@ -19,7 +19,7 @@ test('rejects cycles', () => {
   assert.match(validateGraph(g, ledger).join('\n'), /cycle/i);
 });
 test('rejects premature completion when dependencies remain incomplete', () => {
-  const g = copy(graph); g.tasks[2].status = 'complete';
+  const g = copy(graph); g.tasks[3].status = 'complete';
   assert.match(validateGraph(g, ledger).join('\n'), /dependencies incomplete/);
 });
 test('rejects completion without task-linked passing evidence', () => {
