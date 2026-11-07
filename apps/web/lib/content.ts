@@ -507,7 +507,7 @@ export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithrombot
 export function isShadowContentMode(): boolean {
   // Keep unapproved clinical decision rules isolated from production execution.
   // The research dossier reads clinicalReviewRules separately for clinician review.
-  return process.env.PREP_MEDS_CONTENT_MODE !== 'production';
+  return process.env.PREP_MEDS_CONTENT_MODE === 'shadow';
 }
 
 export function decisionRules(): ClinicalRule[] {
