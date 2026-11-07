@@ -14,7 +14,7 @@ export function buildAntithromboticAuditQueue() {
   const classHints = /antithrombotic|anticoagulant|antiplatelet|factor-xa|thrombin|heparin|lmwh|p2y12|aspirin/i;
   const ingredientHints = /apixaban|rivaroxaban|edoxaban|dabigatran|warfarin|heparin|enoxaparin|dalteparin|fondaparinux|aspirin|clopidogrel|prasugrel|ticagrelor|ticlopidine|dipyridamole|cilostazol/i;
   const medications = terminologyDataset.medications
-    .filter(m => m.drugClassIds.some(id => classHints.test(id)) || m.ingredientIds.some(id => ingredientHints.test(id)))
+    .filter(m => (m.drugClassIds ?? []).some(id => classHints.test(id)) || m.ingredientIds.some(id => ingredientHints.test(id)))
     .map(m => ({
       medicationId: m.id,
       canonicalName: m.canonicalName,
