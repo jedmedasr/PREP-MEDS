@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { CreatinineClearanceCalculator } from './CreatinineClearanceCalculator';
 import type { DecisionExecution, ModifierValue, ProcedureCode } from '@prep-meds/clinical-engine';
 
 interface SearchHit {
@@ -448,6 +449,7 @@ export function ClinicalWorkspace() {
           ) : null}
         </section>
       ) : null}
+          <CreatinineClearanceCalculator />
     </main>
   );
 }
