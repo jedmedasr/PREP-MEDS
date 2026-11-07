@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { cockcroftGault } from './CreatinineClearanceCalculator';
 
 export type AgentClass = 'anticoagulant' | 'p2y12' | 'other-antiplatelet';
 export interface ClearanceRequest {
