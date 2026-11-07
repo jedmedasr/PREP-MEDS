@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "repository": "jedmedasr/PREP-MEDS",
+  "notes": "Append-only evidence records. This initial evidence verifies the repository inspection, NOT clinical recommendations, a deployed app, or future sprint status. A human must independently verify approval references.",
+  "records": [
+    {
+      "id": "EV-001",
+      "task_id": "ENG-001",
+      "type": "repository_inspection",
+      "result": "verified",
+      "commit_sha": "ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/commit/ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
+      "date": "2026-11-07",
+      "summary": "Observed main SHA, active sprint PR #37 at eeac28f8, quality.yml, and successful PR #37 quality run 42345077523. Sprint formulation adjudication and clinical approval remain unverified."
+    },
+    {
+      "id": "EV-002",
+      "task_id": "ENG-002",
+      "type": "graph_ci",
+      "result": "verified",
+      "commit_sha": "4fa8d71786a5c358f386592a805e72ca8367525f",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345601927",
+      "date": "2026-11-07",
+      "summary": "Dedicated engineering-graph CI passed: structural validation and eight verifier tests (8 passed, 0 failed); this does not certify clinical correctness or completion of all Stage 1 acceptance criteria."
+    },
+    {
+      "id": "EV-003",
+      "task_id": "ENG-002",
+      "type": "baseline_application_ci",
+      "result": "failed",
+      "commit_sha": "ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42309888950",
+      "date": "2026-11-07",
+      "summary": "Main baseline quality run failed before Stage 1 changes on diabetes-integration production isolation and v1-freeze-reconciliation explicit shadow-mode gating; do not dilute safeguards to obtain a green build."
+    },
+    {
+      "id": "EV-004",
+      "task_id": "ENG-002",
+      "type": "application_ci",
+      "result": "failed",
+      "commit_sha": "4fa8d71786a5c358f386592a805e72ca8367525f",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345601817",
+      "date": "2026-11-07",
+      "summary": "Stage 1 PR application quality reproduced the same two baseline production-isolation/shadow-mode failures; typecheck, schema and isolated inhaled-insulin suite passed. Full application build skipped after unit suite failed. Review and repair the baseline issue separately under safety governance."
+    },
+    {
+      "id": "EV-005",
+      "task_id": "ENG-002",
+      "type": "baseline_repair",
+      "result": "verified",
+      "commit_sha": "34c15b67a186482d1881b4569e9aab4a0e16f31b",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/pull/39",
+      "date": "2026-11-07",
+      "summary": "PR #39 passed the complete quality workflow and merged to main. It changed only isShadowContentMode() so draft review rules require PREP_MEDS_CONTENT_MODE=shadow explicitly; production and unset remain fail-closed."
+    },
+    {
+      "id": "EV-006",
+      "task_id": "ENG-002",
+      "type": "repository_reconciliation",
+      "result": "verified",
+      "commit_sha": "34c15b67a186482d1881b4569e9aab4a0e16f31b",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/pull/37",
+      "date": "2026-11-07",
+      "summary": "Reconciled current main after PR #39 and re-inspected active PR #37 at 5a4b8cb714f1f2aafa8ce34428514a67d9517fd1. PR #37 remains open and is not modified or merged by Stage 1 work; its latest observed quality run 42345991815 is failing and must be evaluated independently."
+    },
+    {
+      "id": "EV-007",
+      "task_id": "ENG-002",
+      "type": "application_ci",
+      "result": "verified",
+      "commit_sha": "7c699b77b15dbf116d6b0ad3cae5f4273178e462",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42349811106",
+      "date": "2026-11-07",
+      "summary": "Reconciled Stage 1 head passed the complete application quality workflow: dependency install, schema validation, TypeScript checks, CI source receipt, isolated inhaled-insulin regressions, full unit/regression suite, and production web build."
+    },
+    {
+      "id": "EV-008",
+      "task_id": "ENG-002",
+      "type": "graph_ci",
+      "result": "verified",
+      "commit_sha": "7c699b77b15dbf116d6b0ad3cae5f4273178e462",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42349811225",
+      "date": "2026-11-07",
+      "summary": "Reconciled Stage 1 head passed engineering-graph validation and all eight verifier regression tests. This verifies graph structure/evidence invariants only, not clinical correctness."
+    }
+  ]
+}
