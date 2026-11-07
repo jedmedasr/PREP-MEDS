@@ -48,3 +48,45 @@ describe('antithrombotic audit coverage accounting', () => {
     }
   });
 });
+
+describe('clinical approval gate — negative and positive controls', () => {
+  const base = {
+    groupKey: 'ING-apixaban',
+    canonicalMedicationIds: ['MED-apixaban'],
+    formulationAdjudicated: true,
+    guidelineComparator: {
+      status: 'COMPARED' as const,
+      sourceSection: 'ASGE 2016 Table 4',
+      sourceVersion: 'ASGE_2016' as const,
+      comparisonEvidence: ['Verified source comparison'],
+      reviewerId: 'independent-reviewer',
+    },
+    newerGuidelineEvidence: ['Newer source comparison'],
+    testEvidence: ['passing regression'],
+    independentClinicalApproval: true,
+  };
+  it('rejects a source-link placeholder and in-progress comparison', async () => {
+    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
+    expect(approve({...base,guidelineComparator:{status:'NOT_STARTED'}})).toBe(false);
+    expect(approve({...base,guidelineComparator:{status:'IN_PROGRESS',sourceSection:'Table 4',issues:['Pending']}})).toBe(false);
+  });
+  it('rejects missing formulation review, tests, independent approval or duplicate ID', async () => {
+    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
+    expect(approve({...base,formulationAdjudicated:false})).toBe(false);
+    expect(approve({...base,independentClinicalApproval:false})).toBe(false);
+    expect(approve({...base,testEvidence:[]})).toBe(false);
+    expect(approve({...base,canonicalMedicationIds:['MED-apixaban','MED-apixaban']})).toBe(false);
+    expect(approve({...base,guidelineComparator:{...base.guidelineComparator,comparisonEvidence:[]}})).toBe(false);
+  });
+  it('requires an explicit source-backed NOT ADDRESSED determination', async () => {
+    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
+    const comparator = {status:'NOT_ADDRESSED' as const,sourceSection:'Source scope review',sourceVersion:'ASGE_2016' as const,rationale:'',reviewerId:'reviewer'};
+    expect(approve({...base,guidelineComparator:comparator})).toBe(false);
+    expect(approve({...base,guidelineComparator:{...comparator,rationale:'Agent not discussed in original guideline'}})).toBe(true);
+  });
+  it('accepts only a complete synthetic gate fixture; does not confer real-world signoff', async () => {
+    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
+    expect(approve(base)).toBe(true);
+    expect(queue().counts.clinicallyReviewedGroups).toBe(0);
+  });
+});
