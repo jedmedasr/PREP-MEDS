@@ -24,6 +24,11 @@ export function buildAntithromboticAuditQueue() {
       formulationAdjudication: 'PENDING' as const,
       asge2016: { source: ASGE_2016_REFERENCE, comparisonStatus: 'NOT_STARTED' as const },
       clinicalApproval: false as const,
+      lastReviewedDate: null as string | null,
+      reviewCommit: null as string | null,
+      testEvidence: [] as string[],
+      unresolvedIssues: ['ASGE 2016 agent-specific comparison pending', 'Newer guidelines and FDA labeling pending', 'Formulation/route adjudication pending'],
+      sourceVersions: [ASGE_2016_REFERENCE],
     }))
     .sort((a,b) => a.medicationId.localeCompare(b.medicationId));
   const groups = [...new Set(medications.map(m => m.provisionalGroupKey))].sort();
@@ -32,5 +37,6 @@ export function buildAntithromboticAuditQueue() {
     counts: { canonicalMedicationIds: medications.length, provisionalIngredientGroups: groups.length, completedAsgeComparisons: 0, clinicallyReviewedGroups: 0 },
     medications,
     groups,
+    canonicalIdToProvisionalGroup: Object.fromEntries(medications.map(m => [m.medicationId, m.provisionalGroupKey])),
   };
 }
