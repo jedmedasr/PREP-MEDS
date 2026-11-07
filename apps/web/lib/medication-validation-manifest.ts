@@ -27,7 +27,7 @@ export function buildMedicationValidationManifest() {
     canonicalName: m.canonicalName,
     ingredientIds: [...m.ingredientIds].sort(),
     ingredientSetKey: [...m.ingredientIds].sort().join('+'),
-    reviewStatus: 'NOT_STARTED',
+    reviewStatus: 'NOT_STARTED' as const,
   })).sort((a, b) => a.medicationId.localeCompare(b.medicationId));
 
   const grouped = new Map<string, IngredientReviewGroup>();
