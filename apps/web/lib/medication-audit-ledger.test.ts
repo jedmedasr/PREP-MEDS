@@ -12,7 +12,7 @@ describe('canonical audit ledger completeness', () => {
     for (const medication of manifest.medications) {
       const groupKey = manifest.canonicalIdToProvisionalGroup[medication.medicationId];
       expect(groupKey).toBe(medication.ingredientSetKey);
-      expect(groups.get(groupKey)?.medicationIds).toContain(medication.medicationId);
+      expect(groups.get(groupKey!)?.medicationIds).toContain(medication.medicationId);
       expect(medication.reviewStatus).toBe('NOT_STARTED');
       expect(medication.lastReviewedDate).toBeNull();
       expect(medication.reviewCommit).toBeNull();
