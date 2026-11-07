@@ -80,6 +80,13 @@ describe('clinical approval gate — negative and positive controls', () => {
     expect(approve({...base,canonicalMedicationIds:['MED-apixaban','MED-apixaban']})).toBe(false);
     expect(approve({...base,guidelineComparator:{...base.guidelineComparator,comparisonEvidence:[]}})).toBe(false);
   });
+  it('rejects fabricated group membership and unrelated canonical IDs even with complete evidence', async () => {
+    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
+    expect(approve({...base, groupKey: 'ING-nonexistent'})).toBe(false);
+    expect(approve({...base, canonicalMedicationIds: ['MED-warfarin']})).toBe(false);
+    expect(approve({...base, canonicalMedicationIds: ['MED-apixaban', 'MED-warfarin']})).toBe(false);
+    expect(approve({...base, canonicalMedicationIds: []})).toBe(false);
+  });
   it('requires an explicit source-backed NOT ADDRESSED determination', async () => {
     const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
     const comparator = {status:'NOT_ADDRESSED' as const,sourceSection:'Source scope review',sourceVersion:'ASGE_2016' as const,rationale:'',reviewerId:'reviewer'};
