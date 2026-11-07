@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { buildAntithromboticAuditQueue as queue } from './antithrombotic-audit-queue';
+import { buildAntithromboticAuditQueue as queue, canApproveAntithromboticGroup as approve } from './antithrombotic-audit-queue';
+import { terminologyDataset } from './content';
 describe('antithrombotic audit discovery', () => {
   it('preserves canonical IDs and does not double count', () => {
     const items = queue().medications;
@@ -33,12 +34,11 @@ describe('antithrombotic audit coverage accounting', () => {
       expect(result.canonicalIdToProvisionalGroup[medication.medicationId]).toBe(medication.provisionalGroupKey);
       expect(medication.asge2016.source.doi).toBe('10.1016/j.gie.2015.09.035');
       expect(medication.asge2016.comparisonStatus).toBe('NOT_STARTED');
-      expect(medication.sourceVersions[0].year).toBe(2016);
+      expect(medication.sourceVersions[0]!.year).toBe(2016);
       expect(medication.unresolvedIssues.length).toBeGreaterThan(0);
     }
   });
   it('does not omit any canonical medication carrying an explicit antithrombotic ingredient', async () => {
-    const { terminologyDataset } = await import('./content');
     const mapped = new Set(queue().medications.map(m => m.medicationId));
     const antithromboticIngredients = /apixaban|rivaroxaban|edoxaban|dabigatran|warfarin|heparin|enoxaparin|dalteparin|fondaparinux|aspirin|clopidogrel|prasugrel|ticagrelor|ticlopidine|dipyridamole|cilostazol/i;
     for (const medication of terminologyDataset.medications) {
@@ -66,12 +66,10 @@ describe('clinical approval gate — negative and positive controls', () => {
     independentClinicalApproval: true,
   };
   it('rejects a source-link placeholder and in-progress comparison', async () => {
-    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
     expect(approve({...base,guidelineComparator:{status:'NOT_STARTED'}})).toBe(false);
     expect(approve({...base,guidelineComparator:{status:'IN_PROGRESS',sourceSection:'Table 4',issues:['Pending']}})).toBe(false);
   });
   it('rejects missing formulation review, tests, independent approval or duplicate ID', async () => {
-    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
     expect(approve({...base,formulationAdjudicated:false})).toBe(false);
     expect(approve({...base,independentClinicalApproval:false})).toBe(false);
     expect(approve({...base,testEvidence:[]})).toBe(false);
@@ -81,20 +79,17 @@ describe('clinical approval gate — negative and positive controls', () => {
     expect(approve({...base,guidelineComparator:{...base.guidelineComparator,comparisonEvidence:[]}})).toBe(false);
   });
   it('rejects fabricated group membership and unrelated canonical IDs even with complete evidence', async () => {
-    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
     expect(approve({...base, groupKey: 'ING-nonexistent'})).toBe(false);
     expect(approve({...base, canonicalMedicationIds: ['MED-warfarin']})).toBe(false);
     expect(approve({...base, canonicalMedicationIds: ['MED-apixaban', 'MED-warfarin']})).toBe(false);
     expect(approve({...base, canonicalMedicationIds: []})).toBe(false);
   });
   it('requires an explicit source-backed NOT ADDRESSED determination', async () => {
-    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
     const comparator = {status:'NOT_ADDRESSED' as const,sourceSection:'Source scope review',sourceVersion:'ASGE_2016' as const,rationale:'',reviewerId:'reviewer'};
     expect(approve({...base,guidelineComparator:comparator})).toBe(false);
     expect(approve({...base,guidelineComparator:{...comparator,rationale:'Agent not discussed in original guideline'}})).toBe(true);
   });
   it('accepts only a complete synthetic gate fixture; does not confer real-world signoff', async () => {
-    const { canApproveAntithromboticGroup: approve } = await import('./antithrombotic-audit-queue');
     expect(approve(base)).toBe(true);
     expect(queue().counts.clinicallyReviewedGroups).toBe(0);
   });
