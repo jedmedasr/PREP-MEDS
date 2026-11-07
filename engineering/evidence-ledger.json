@@ -42,6 +42,26 @@
       "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345601817",
       "date": "2026-11-07",
       "summary": "Stage 1 PR application quality reproduced the same two baseline production-isolation/shadow-mode failures; typecheck, schema and isolated inhaled-insulin suite passed. Full application build skipped after unit suite failed. Review and repair the baseline issue separately under safety governance."
+    },
+    {
+      "id": "EV-005",
+      "task_id": "ENG-002",
+      "type": "baseline_repair",
+      "result": "verified",
+      "commit_sha": "34c15b67a186482d1881b4569e9aab4a0e16f31b",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/pull/39",
+      "date": "2026-11-07",
+      "summary": "PR #39 passed the complete quality workflow and merged to main. It changed only isShadowContentMode() so draft review rules require PREP_MEDS_CONTENT_MODE=shadow explicitly; production and unset remain fail-closed."
+    },
+    {
+      "id": "EV-006",
+      "task_id": "ENG-002",
+      "type": "repository_reconciliation",
+      "result": "verified",
+      "commit_sha": "34c15b67a186482d1881b4569e9aab4a0e16f31b",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/pull/37",
+      "date": "2026-11-07",
+      "summary": "Reconciled current main after PR #39 and re-inspected active PR #37 at 5a4b8cb714f1f2aafa8ce34428514a67d9517fd1. PR #37 remains open and is not modified or merged by Stage 1 work; its latest observed quality run 42345991815 is failing and must be evaluated independently."
     }
   ]
 }
