@@ -7,7 +7,7 @@ Scope: active ingredient × clinically distinct formulation. Brands/aliases inhe
 - [ ] Enumerate `terminologyDataset.medications` and ingredients into machine-readable manifest.
 - [ ] Deduplicate into ingredient/formulation review groups, preserve combinations and meaningful route/release differences.
 - [ ] Record exact totals, unmapped IDs, high-risk priority, guideline sources and versions.
-- [ ] Check PR #37 CI and repair regressions. Record actual passing run ID and commit.
+- [x] Check PR #37 CI and repair regressions. Latest verified passing run: 42332062649 at commit 672d343f93d058648d18a3406c50ae90fb0c7dd2.\n- [x] Add initial medication inventory integrity tests (duplicate IDs, ingredient references, combinations, provisional grouping), commit 672d343.\n- [ ] Capture emitted exact inventory denominators from CI output and commit machine-readable manifest.
 Acceptance: committed manifest, exact denominators, zero silent unmapped IDs, CI status documented.
 
 ## Block 2 — antithrombotics (at +3 hours)
@@ -38,3 +38,8 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 3. Finish any incomplete prior-block tasks first. Then execute the next block's work, commit tangible artifacts, run tests and update this file.
 4. Send user a concise progress report with actual completed/total review groups and medication IDs mapped, failures, next actions.
 5. If clinical guidelines conflict or independent approval is missing, mark NEEDS_REVIEW and keep patient-facing rules fail-closed.
+
+## Immediate run verification — 2026-11-07
+- User-requested automation `run_now` returned success and inline execution in this conversation; scheduled-run history had not shown an execution.
+- Previous block status: **PARTIAL**. GitHub Actions passed at `672d343`, but inventory manifest and exact denominators remain unverified.
+- Continue Block 1 before advancing. No medications clinically signed off by this engineering check.
