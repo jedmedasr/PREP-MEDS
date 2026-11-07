@@ -13,7 +13,7 @@ import urllib.parse
 import urllib.request
 from pypdf import PdfReader
 
-HOSTS = {"www.esge.com", "gi.org", "www.bsg.org.uk"}
+HOSTS = {"www.esge.com", "gi.org", "www.bsg.org.uk", "mediacdn.gi.org"}
 MAX_BYTES = 12 * 1024 * 1024
 
 def sha(data):
@@ -44,7 +44,6 @@ def inspect(source, capture=False):
     raw_hash = sha(raw)
     if not capture and raw_hash != source.get("rawSha256"):
         raise ValueError("SOURCE_REVISION_CHANGED_OR_UNPINNED")
-    # Readers execute separately and never receive each other's extracted text.
     reader = PdfReader(io.BytesIO(raw))
     result = {"sourceId":source["id"],"version":source["version"],"rawSha256":raw_hash,
               "url":source["url"],"pages":len(reader.pages),"checkedAt":datetime.datetime.now(datetime.timezone.utc).isoformat(),
