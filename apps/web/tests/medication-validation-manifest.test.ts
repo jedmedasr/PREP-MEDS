@@ -31,6 +31,16 @@ describe('machine-readable medication validation manifest', () => {
   it('remains fail-closed until formulation adjudication and clinical approval', () => {
     expect(manifest.groups.every((g) => g.formulationAdjudication === 'PENDING' && g.clinicalStatus === 'NOT_STARTED')).toBe(true);
   });
+  it('rejects duplicate canonical IDs rather than silently overwriting mapping keys', () => {
+    const first = terminologyDataset.medications[0]!;
+    expect(() => buildMedicationValidationManifest([first, first])).toThrow('DUPLICATE_CANONICAL_MEDICATION_ID');
+  });
+  it('rejects empty and duplicate ingredient identifiers before grouping', () => {
+    const first = terminologyDataset.medications[0]!;
+    expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: [] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+    expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: [''] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+    expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: ['ingredient-a', 'ingredient-a'] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+  });
   it('can be serialized as JSON for audit export', () => {
     expect(JSON.parse(JSON.stringify(manifest)).counts).toEqual(manifest.counts);
   });
