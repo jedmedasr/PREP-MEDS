@@ -108,3 +108,10 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - Added regression assertions pinning the 17/17 denominator and zero completed ASGE comparisons/approvals (c3f3983). New commit CI still pending.
 - Cumulative inventory 436 canonical IDs / 233 provisional ingredient sets / 48 combinations; 0 clinically adjudicated groups and 0 clinically approved ID mappings. No patient-facing activation, no merge.
 - Next: verify full-head CI and continue primary-source medication-specific comparison; update baseline explicitly if terminology inventory is expanded.
+
+## 2026-11-07 manual recovery execution after missing unattended report
+- Scheduler accepted manual run; it executed inline, not as verified unattended background execution. Prior scheduled history still showed only 11:56Z start, so missed scheduled delivery remains unresolved.
+- FIRST inspected PR #37 head 93ad4e3, prior ledger and antithrombotic tests; prior block PARTIAL because CI for latest head was not independently verified and clinical comparisons incomplete. Commit-associated PR workflow lookup for 93ad4e3 returned no runs (limited to PR-triggered first page; does not establish no CI).
+- Hardened approval gate to reject whitespace-only newer-guideline and test evidence (5a3eef8) and added negative regression tests (37be7d7). Tests committed but CI not verified; no patient-facing rules activated.
+- Counts unchanged: 436 canonical medication IDs mapped to 233 provisional ingredient groups (48 combination entries); antithrombotic discovery baseline 17 IDs/17 provisional groups, 0 completed ASGE comparisons, 0 clinically adjudicated/approved groups, 0 clinically validated IDs.
+- Next: verify actual CI for new head, assess antithrombotic inventory completeness and primary-source comparisons. Do not claim automated unattended run success based on manual execution.
