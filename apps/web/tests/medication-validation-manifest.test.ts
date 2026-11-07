@@ -10,6 +10,12 @@ describe('machine-readable medication validation manifest', () => {
       terminologyDataset.medications.map((m) => m.id).sort()
     );
   });
+  it('has no duplicate canonical IDs or empty ingredient mappings', () => {
+    const ids = manifest.medications.map(m => m.medicationId);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(manifest.medications.every(m => m.medicationId.trim() && m.ingredientIds.length > 0 && m.ingredientIds.every(id => id.trim()))).toBe(true);
+    expect(Object.keys(manifest.canonicalIdToProvisionalGroup).length).toBe(ids.length);
+  });
   it('groups by complete ingredient set and never drops combination ingredients', () => {
     const ids = manifest.groups.flatMap((g) => g.medicationIds);
     expect(new Set(ids).size).toBe(ids.length);
