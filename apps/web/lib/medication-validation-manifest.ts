@@ -43,7 +43,7 @@ export function buildMedicationValidationManifest(sourceMedications: typeof term
   // Fail closed before Object.fromEntries can silently overwrite a duplicate ID.
   const canonicalIds = medications.map(m => m.medicationId);
   if (new Set(canonicalIds).size !== canonicalIds.length) throw new Error('DUPLICATE_CANONICAL_MEDICATION_ID');
-  if (medications.some(m => !m.medicationId.trim() || m.ingredientIds.length === 0 || m.ingredientIds.some(id => !id.trim()) || new Set(m.ingredientIds).size !== m.ingredientIds.length)) {
+  if (medications.some(m => !m.medicationId.trim() || !m.canonicalName.trim() || m.ingredientIds.length === 0 || m.ingredientIds.some(id => !id.trim()) || new Set(m.ingredientIds).size !== m.ingredientIds.length)) {
     throw new Error('INVALID_MEDICATION_INGREDIENT_MAPPING');
   }
 
