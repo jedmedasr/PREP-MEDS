@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { terminologyDataset } from '../lib/content';
 import { buildMedicationValidationManifest } from '../lib/medication-validation-manifest';
@@ -57,7 +57,12 @@ describe('machine-readable medication validation manifest', () => {
     if (process.env.EXPORT_MEDICATION_AUDIT !== '1') return;
     const output = resolve(process.cwd(), '../../docs/medication-audit-manifest.json');
     mkdirSync(dirname(output), { recursive: true });
-    writeFileSync(output, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
+    const serialized = JSON.stringify(manifest, null, 2) + '\n';
+    if (existsSync(output)) {
+      expect(readFileSync(output, 'utf8'), 'Committed audit snapshot differs from canonical terminology; regenerate and review before approval').toBe(serialized);
+    } else {
+      writeFileSync(output, serialized, 'utf8');
+    }
     expect(manifest.medications.length).toBe(manifest.counts.canonicalMedications);
   });
   it('can be serialized as JSON for audit export', () => {
