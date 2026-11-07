@@ -1,0 +1,25 @@
+name: clinical-knowledge
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-knowledge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Preserve inspected source snapshot for bounded implementation
+        run: |
+          mkdir -p knowledge-artifacts
+          git archive --format=tar.gz --output=knowledge-artifacts/source.tar.gz HEAD
+          git rev-parse HEAD > knowledge-artifacts/checkout-sha.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clinical-knowledge-source-${{ github.run_id }}
+          path: knowledge-artifacts
+          retention-days: 7
+          if-no-files-found: error
