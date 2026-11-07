@@ -32,3 +32,16 @@ Status: IN_PROGRESS; **not clinically approved**. Medication ID: `MED-apixaban`.
 - ASGE recommends resumption only after adequate hemostasis; high thromboembolic-risk scenarios require individualized specialist planning. The 2016 guideline's bridging language should be reconciled with more recent DOAC-specific evidence and CHEST recommendations before generating advice.
 - Audit acceptance criteria: preserve ASGE 2016 publication date, graded recommendation, Table 7 creatinine-clearance brackets, low-risk continuation, and conflict with ACG/CAG 2022 and BSG/ESGE 2021. Do not assert ASGE 2016 is the newest guidance.
 - **Status remains IN_PROGRESS** pending current-guideline update search, individual clinical adjudication, and executable scenario tests.
+
+## Mandatory ASGE coverage — ALL anticoagulants and antiplatelets (2026-11-06)
+Every anticoagulant/antiplatelet canonical medication ID (including brand/generic, route/formulation, and combination products) must have a distinct ASGE 2016 comparison or an explicit `NOT_ADDRESSED_BY_ASGE_2016` determination. **No antithrombotic clinical sign-off without this field.** Audit the actual inventory rather than treating the examples below as exhaustive.
+
+Reference: ASGE Standards of Practice Committee. *Management of antithrombotic agents for patients undergoing GI endoscopy*. Gastrointest Endosc. 2016;83:3–16. doi:10.1016/j.gie.2015.09.035. Primary: https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics .
+
+Medication families to reconcile:
+- Anticoagulants: warfarin; dabigatran; apixaban, rivaroxaban, edoxaban; unfractionated heparin, enoxaparin/dalteparin and other LMWHs; fondaparinux; parenteral direct thrombin inhibitors (argatroban, desirudin, bivalirudin when present); every additional inventory item.
+- Antiplatelets: aspirin; clopidogrel, prasugrel, ticagrelor, ticlopidine; dipyridamole, cilostazol, vorapaxar; abciximab, eptifibatide, tirofiban; every combination product and additional inventory item.
+- ASGE Tables 2, 3, 7–9, 10, 12 and 13 where applicable: drug-specific duration/interruption, renal-function dependence, endoscopic bleeding-risk strata, thrombotic-risk strata, dual antiplatelet therapy and stent timing, bridging, and restart. Distinguish elective versus urgent bleeding.
+- Compare each ASGE entry with ACG/CAG 2022, BSG/ESGE 2021, CHEST 2022, relevant ACC/AHA guidance and current FDA labeling; document discrepancies and guideline vintage rather than selecting a universal hold interval.
+- Important: ASGE 2016 suggests continuing warfarin/DOACs during low-risk endoscopy and recommends continuing thienopyridines during low-risk procedures; its older high-thrombotic-risk bridging language is not to be silently treated as current universal DOAC practice.
+- Required per-ID fields: `asge_2016_applicability`, `asge_2016_tables`, `asge_2016_recommendation`, `newer_guideline_comparison`, `conflict_notes`, `clinical_approval_status`, `test_evidence`. All remain pending until populated and verified.
