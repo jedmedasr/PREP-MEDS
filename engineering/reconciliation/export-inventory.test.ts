@@ -7,8 +7,10 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { terminologyDataset, clinicalReviewRules, clinicalReviewEvidenceBundles, activeRules } from '../lib/content';
 import { buildMedicationValidationManifest } from '../lib/medication-validation-manifest';
+import { buildAntithromboticAuditQueue } from '../lib/antithrombotic-audit-queue';
 
 const manifest = buildMedicationValidationManifest();
+const queue = buildAntithromboticAuditQueue();
 const duplicates = (items: string[]) => items.filter((id, index) => items.indexOf(id) !== index);
 const ingredientIds = new Set(terminologyDataset.ingredients.map((x) => x.id));
 const atomKeys = new Set(clinicalReviewEvidenceBundles.flatMap((b) => b.atoms.map((a) => `${a.id}@${a.version}`)));
@@ -27,12 +29,13 @@ describe('SPR-001 read-only pinned inventory audit', () => {
     expect(manifest.medications.map((m) => m.medicationId).sort()).toEqual(terminologyDataset.medications.map((m) => m.id).sort());
     expect(manifest.medications.flatMap((m) => m.ingredientIds.filter((id) => !ingredientIds.has(id)))).toEqual([]);
     expect(manifest.groups.flatMap((g) => g.medicationIds).sort()).toEqual(manifest.medications.map((m) => m.medicationId).sort());
+    expect(Object.keys(manifest.canonicalIdToProvisionalGroup).sort()).toEqual(manifest.medications.map((m) => m.medicationId).sort());
   });
   it('resolves assembled rule evidence and atom source versions', () => {
     expect(missingRuleEvidence).toEqual([]);
     expect(missingAtomSources).toEqual([]);
   });
-  it('exports counts and unresolved clinical milestones without asserting approval', () => {
+  it('exports actual inventory, metadata and research queue without asserting approval', () => {
     const directory = process.env.SPR001_OUTPUT_DIR;
     if (!directory) throw new Error('SPR001_OUTPUT_DIR is required');
     mkdirSync(directory, { recursive: true });
@@ -49,11 +52,22 @@ describe('SPR-001 read-only pinned inventory audit', () => {
       duplicate_medication_ids: duplicates(manifest.medications.map((m) => m.medicationId)),
       mapped_to_provisional_groups: manifest.groups.flatMap((g) => g.medicationIds).length,
       formulation_adjudication_pending: manifest.groups.filter((g) => g.formulationAdjudication === 'PENDING').length,
-      documented_adjudicated_formulation_groups: 0,
+      documented_adjudicated_formulation_groups: manifest.groups.filter((g) => String(g.formulationAdjudication) !== 'PENDING').length,
       final_clinically_distinct_formulation_denominator: null,
-      clinically_reviewed_groups_confirmed: 0,
+      clinically_reviewed_groups_confirmed: manifest.groups.filter((g) => String(g.clinicalStatus) === 'CLINICALLY_REVIEWED').length,
       clinically_approved_medication_mappings_confirmed: 0,
       active_rules: activeRules.length,
+      per_id_metadata: {
+        records: manifest.medications.length,
+        not_started: manifest.medications.filter((m) => m.reviewStatus === 'NOT_STARTED').length,
+        with_review_date: manifest.medications.filter((m) => m.lastReviewedDate !== null).length,
+        with_review_commit: manifest.medications.filter((m) => m.reviewCommit !== null).length,
+        with_source_versions: manifest.medications.filter((m) => m.sourceVersions.length > 0).length,
+        with_test_evidence: manifest.medications.filter((m) => m.testEvidence.length > 0).length,
+        with_remaining_issues: manifest.medications.filter((m) => m.remainingIssues.length > 0).length,
+        note: 'Metadata fields were added by the active sprint after the initial audit. Field presence is not completed clinical review.'
+      },
+      antithrombotic_queue: { counts: queue.counts, interpretation: 'Discovery heuristic and provisional groups only; no comparison or clinical approval inferred.' },
       missing_rule_evidence: missingRuleEvidence,
       missing_atom_source_versions: missingAtomSources,
       manifest_sha256: createHash('sha256').update(serialized).digest('hex'),
@@ -61,14 +75,16 @@ describe('SPR-001 read-only pinned inventory audit', () => {
       interpretation: 'Inventory and internal reference integrity only. NOT independent guideline review, clinical adjudication, approval, or a passing full sprint CI claim.',
       blockers: [
         'All provisional groups remain PENDING formulation adjudication and NOT_STARTED clinical review in the pinned manifest.',
-        'The manifest has no per-ID source/version/date, scenario/test, reviewer, or approval metadata; assembled evidence references do not fill that gap.',
-        'Latest observed PR #37 quality run 42345991815 failed TypeScript before tests/build; preserve this failure separately from the focused audit.'
+        'Per-ID metadata is present but unpopulated for reviewed dates, commits, sources and tests; unresolved issues remain.',
+        'No PR-triggered full quality run was found for this newly observed sprint SHA. Historical run 42345991815 failed on the earlier 5a4b8cb7 source; newer source fixes are not a verified full-CI pass.'
       ]
     };
     expect(manifest.groups.every((g) => g.formulationAdjudication === 'PENDING' && g.clinicalStatus === 'NOT_STARTED')).toBe(true);
     expect(activeRules).toEqual([]);
     writeFileSync(resolve(directory, 'manifest.json'), serialized);
+    writeFileSync(resolve(directory, 'antithrombotic-queue.json'), JSON.stringify(queue, null, 2) + '\n');
     writeFileSync(resolve(directory, 'summary.json'), JSON.stringify(summary, null, 2) + '\n');
     console.log('SPR001_RECOMPUTED_COUNTS', JSON.stringify(manifest.counts));
+    console.log('SPR001_ANTITHROMBOTIC_QUEUE', JSON.stringify(queue.counts));
   });
 });

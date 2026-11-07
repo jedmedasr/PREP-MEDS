@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "task_id": "SPR-001",
+  "date": "2026-11-07",
+  "previous_audited_source": "5a4b8cb714f1f2aafa8ce34428514a67d9517fd1",
+  "newly_observed_source": "b4cbdc651d952c579cef328ac26eb7eaae5e01bd",
+  "source_pr": 37,
+  "source_pr_state": "open",
+  "changed_by_this_session": false,
+  "discovery": "Stage 2 live reconciliation observed external sprint progress while this session was implementing isolated engineering PRs.",
+  "delta": {
+    "commits": 16,
+    "inventory_manifest": "New per-ID reviewStatus enum, date, commit, sourceVersions, testEvidence, remainingIssues and canonical-ID map. Values remain NOT_STARTED/null/empty with unresolved issues.",
+    "research": "New antithrombotic queue, approval-gate tests and apixaban high-risk evidence scaffold; independent clinical approval is not asserted.",
+    "ci": "Calendar TypeScript source fixes are present, but no PR-triggered quality workflow was found for the new exact head. Do not label the older failure as a new-head failure or the fix as verified full-CI success."
+  },
+  "audit_status": "Focused audit repinned to the new source; inspect the latest PR #40 workflow before relying on its runtime results.",
+  "historical_report": "verified-report.json records only the original 5a4b8cb7 audit. Its absence-of-metadata finding is superseded by the new scaffold, not rewritten."
+}

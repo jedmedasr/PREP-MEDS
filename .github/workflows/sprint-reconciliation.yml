@@ -21,7 +21,7 @@ jobs:
       - name: Read pinned sprint snapshot without changing its branch
         uses: actions/checkout@v4
         with:
-          ref: 5a4b8cb714f1f2aafa8ce34428514a67d9517fd1
+          ref: b4cbdc651d952c579cef328ac26eb7eaae5e01bd
           path: .sprint-snapshot
           persist-credentials: false
       - uses: pnpm/action-setup@v4
@@ -35,21 +35,21 @@ jobs:
         run: pnpm install --no-frozen-lockfile
       - name: Recompute exact inventory and export evidence
         env:
-          SPR001_SOURCE_SHA: 5a4b8cb714f1f2aafa8ce34428514a67d9517fd1
+          SPR001_SOURCE_SHA: b4cbdc651d952c579cef328ac26eb7eaae5e01bd
           SPR001_OUTPUT_DIR: ${{ runner.temp }}/spr001-evidence
         run: |
           cp engineering/reconciliation/export-inventory.test.ts .sprint-snapshot/apps/web/tests/spr001-export.test.ts
           cd .sprint-snapshot
-          pnpm --filter @prep-meds/web exec vitest run tests/medication-inventory-coverage.test.ts tests/medication-validation-manifest.test.ts tests/spr001-export.test.ts
+          pnpm --filter @prep-meds/web exec vitest run tests/medication-inventory-coverage.test.ts tests/medication-validation-manifest.test.ts tests/spr001-export.test.ts lib/medication-audit-ledger.test.ts lib/antithrombotic-audit-queue.test.ts lib/apixaban-high-risk-evidence.test.ts lib/antithrombotic-calendar-research.test.ts
       - name: Retain reproducible source and evidence
         env:
           SPR001_OUTPUT_DIR: ${{ runner.temp }}/spr001-evidence
         run: |
-          git -C .sprint-snapshot archive --format=tar.gz --output="$SPR001_OUTPUT_DIR/sprint-source.tar.gz" 5a4b8cb714f1f2aafa8ce34428514a67d9517fd1
+          git -C .sprint-snapshot archive --format=tar.gz --output="$SPR001_OUTPUT_DIR/sprint-source.tar.gz" b4cbdc651d952c579cef328ac26eb7eaae5e01bd
           cat "$SPR001_OUTPUT_DIR/summary.json" | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
-          name: spr001-inventory-5a4b8cb7
+          name: spr001-inventory-b4cbdc65
           path: ${{ runner.temp }}/spr001-evidence
           if-no-files-found: error
           retention-days: 30
