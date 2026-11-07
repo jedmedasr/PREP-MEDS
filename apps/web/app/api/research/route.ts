@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { clinicalReviewRules, clinicalReviewEvidenceBundles, terminologyDataset } from '@/lib/content';
+import { clinicalReviewRules, clinicalReviewEvidenceBundles, terminologyDataset } from '../../../lib/content';
 export async function GET(request: Request) {
  const url = new URL(request.url);
  const medicationId = url.searchParams.get('medicationId');
