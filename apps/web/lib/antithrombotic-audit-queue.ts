@@ -64,7 +64,9 @@ export function canApproveAntithromboticGroup(candidate: GroupApprovalCandidate)
   if (!candidate.groupKey || !candidate.canonicalMedicationIds.length ||
       new Set(candidate.canonicalMedicationIds).size !== candidate.canonicalMedicationIds.length ||
       !candidate.formulationAdjudicated || !candidate.independentClinicalApproval ||
-      !candidate.newerGuidelineEvidence.length || !candidate.testEvidence.length) return false;
+      !candidate.newerGuidelineEvidence.length || !candidate.testEvidence.length ||
+      candidate.newerGuidelineEvidence.some(item => !item.trim()) ||
+      candidate.testEvidence.some(item => !item.trim())) return false;
   if (comparator.status === 'COMPARED') {
     return Boolean(comparator.sourceSection.trim() && comparator.reviewerId.trim() && comparator.comparisonEvidence.length &&
       comparator.comparisonEvidence.every(item => item.trim().length > 0));
