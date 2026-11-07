@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {digest} from '../clinical-evidence/core.mjs';
+import {reconcileObservation} from '../clinical-knowledge/core.mjs';
+const graph=JSON.parse(readFileSync(new URL('../../clinical-knowledge/catalog.json',import.meta.url)));
+const registry=JSON.parse(readFileSync(new URL('../../clinical-knowledge/source-register.json',import.meta.url)));
+for(const s of registry.sources)s.rawSha256=digest(s.id);
+const snapshot={observations:Object.fromEntries(registry.sources.map(s=>[digest(s.url),{url:s.url,kind:'primary',hash:s.rawSha256,available:true,checkedAt:'2026-11-07T00:00:00Z'}]))};
+test('unchanged PR42 observations produce no re-extraction work and no models',()=>{const r=reconcileObservation(graph,registry,snapshot);assert.equal(r.changes.length,0);assert.equal(r.modelCalls,0);assert.equal(r.clinicalAuthorityGranted,false);});
+test('source change maps to exact claims, pathway and canonical identities',()=>{const s=structuredClone(snapshot);s.observations[digest(registry.sources[0].url)].hash='a'.repeat(64);const r=reconcileObservation(graph,registry,s);assert.equal(r.changes.length,1);assert.deepEqual(r.changes[0].impact.claims,['CKG-BSG-VTE']);assert.equal(r.changes[0].impact.medications.length,4);assert.equal(r.changes[0].automaticAdoption,false);});
+test('missing or unavailable source invalidates selection state',()=>{const s=structuredClone(snapshot);delete s.observations[digest(registry.sources[1].url)];const r=reconcileObservation(graph,registry,s);assert.equal(r.changes[0].sourceId,'ACG-CAG-2022');assert.equal(r.current['ACG-CAG-2022'].available,false);});
+test('same source change yields the same deduplicated engineering request',()=>{const s=structuredClone(snapshot);s.observations[digest(registry.sources[0].url)].available=false;assert.deepEqual(reconcileObservation(graph,registry,s).changes,reconcileObservation(graph,registry,s).changes);});

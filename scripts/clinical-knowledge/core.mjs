@@ -27,10 +27,12 @@ export function validateKnowledge(graph, registry) {
   for(const m of graph.medications) if(!Array.isArray(m.ingredientIds)||!m.ingredientIds.length||!nonempty(m.formulation)) errors.push('INVALID_IDENTITY:'+m.id);
   for(const c of graph.claims){
     if(!sources.has(c.sourceId)||!Array.isArray(c.passageIds)||!c.passageIds.length||c.passageIds.some(p=>passages.get(p)!==c.sourceId)) errors.push('CLAIM_SOURCE_BINDING:'+c.id);
+    if(c.interval?.value!==3||c.interval?.unit!=='calendar_months'||c.interval?.anchor!==c.anchor||!['CONSIDER_HIGH_RISK_DEFERRAL','EXCLUDE_ROUTINE_ELECTIVE'].includes(c.action)) errors.push('UNVALIDATED_INTERVAL_OR_ACTION:'+c.id);
     if(c.verification!=='SEMANTIC_VERIFICATION_PENDING') errors.push('UNSUPPORTED_PROMOTION:'+c.id);
     if(!nonempty(c.version)||!nonempty(c.summary)||!Array.isArray(c.qualifications)) errors.push('INCOMPLETE_CLAIM:'+c.id);
   }
   for(const p of graph.pathways){
+    if(p.evaluator!=='recent-vte-v1')errors.push('UNVALIDATED_EVALUATOR:'+p.id);
     if(!scenarios.has(p.scenarioId)||!Array.isArray(p.claimIds)||!p.claimIds.length||p.claimIds.some(c=>!claims.has(c))) errors.push('PATHWAY_CLAIMS:'+p.id);
     if(!Array.isArray(p.guardSourceIds)||p.guardSourceIds.some(s=>!sources.has(s))) errors.push('PATHWAY_GUARD:'+p.id);
     if(!Array.isArray(p.medicationIds)||p.medicationIds.some(m=>!meds.has(m))) errors.push('PATHWAY_IDENTITY:'+p.id);
@@ -47,7 +49,7 @@ export function sourceStatus(source, receipt, observation, asOf) {
   if(!dateOnly(asOf)||!source||!sha(source.rawSha256)||!receipt) return 'SOURCE_NOT_CHECKED';
   if(receipt.rawSha256!==source.rawSha256||receipt.version!==source.version||receipt.url!==source.url) return 'SOURCE_BINDING_FAILED';
   if(!observation||observation.rawSha256!==source.rawSha256||observation.available!==true) return 'SOURCE_CHANGED_OR_UNAVAILABLE';
-  const checked=Date.parse(receipt.checkedAt), now=Date.parse(asOf+'T23:59:59Z');
+  const checked=Date.parse(observation.checkedAt??receipt.checkedAt), now=Date.parse(asOf+'T23:59:59Z');
   if(!Number.isFinite(checked)||checked>now||now-checked>31*86400000) return 'PASSAGE_CHECK_STALE';
   if(receipt.status!=='PASSAGE_MATCH_ONLY'||!source.passages.every(p=>receipt.passages?.some(r=>r.id===p.id&&r.page===p.page&&r.quoteSha256===digest(p.quote)&&r.matches?.length===2&&r.matches.every(x=>x===true)))) return 'PASSAGE_BINDING_FAILED';
   return 'PRIMARY_PASSAGE_CHECKED_NOT_SEMANTICALLY_VERIFIED';
@@ -83,7 +85,8 @@ export function evaluate(graph,registry,input,context={}) {
     if(input.anticoagulationStart<input.vteDate)excluded.push('event-after-treatment-start');
   }
   const fingerprint=digest({engine:ENGINE,graph,registry,input,observations:context.observations,receipts:context.receipts,asOf,role:context.role});
-  const boundaries=missing.some(x=>['vteDate','anticoagulationStart'].includes(x))?null:{event:calendarMonths(input.vteDate,3),treatment:calendarMonths(input.anticoagulationStart,3),meaning:'Calendar-month reference dates only; not procedural clearance or medication stop/restart dates.'};
+  const intervals=Object.fromEntries(p.claimIds.map(id=>graph.claims.find(c=>c.id===id)).map(c=>[c.anchor,c.interval.value]));
+  const boundaries=missing.some(x=>['vteDate','anticoagulationStart'].includes(x))?null:{event:calendarMonths(input.vteDate,intervals.vteDate),treatment:calendarMonths(input.anticoagulationStart,intervals.anticoagulationStart),meaning:'Calendar-month reference dates only; not procedural clearance or medication stop/restart dates.'};
   const rows=p.claimIds.map(id=>{
     const c=graph.claims.find(x=>x.id===id),s=registry.sources.find(x=>x.id===c.sourceId);
     const integrity=sourceStatus(s,context.receipts?.find(r=>r.sourceId===s.id),context.observations?.[s.id],asOf);
@@ -92,7 +95,7 @@ export function evaluate(graph,registry,input,context={}) {
     let match='INPUTS_UNRESOLVED';
     if(!missing.length&&!excluded.length){
       match=input.procedureDate<deadline?'WITHIN_RECENT_WINDOW':input.procedureDate===deadline?'EXACT_BOUNDARY_REQUIRES_INTERPRETATION':'RECENT_WINDOW_NOT_MET_NO_CLEARANCE';
-      if(c.id==='CKG-BSG-VTE'&&input.procedure==='diagnostic-with-or-without-biopsy') match='LOW_RISK_EXCEPTION_REQUIRES_PHYSICIAN_INTERPRETATION';
+      if(c.action==='CONSIDER_HIGH_RISK_DEFERRAL'&&input.procedure==='diagnostic-with-or-without-biopsy'&&match==='WITHIN_RECENT_WINDOW') match='LOW_RISK_EXCEPTION_REQUIRES_PHYSICIAN_INTERPRETATION';
       if(input.safeToDefer===false)match='DEFERRAL_NOT_ASSUMED_SAFE_COORDINATE';
     }
     return {id:c.id,claimVersion:c.version,sourceId:s.id,society:s.society,title:s.title,publication:s.publication,version:s.version,integrity,lastPassageCheck:context.receipts?.find(r=>r.sourceId===s.id)?.checkedAt??null,

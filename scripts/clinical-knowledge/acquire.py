@@ -58,8 +58,16 @@ def inspect(source, capture=False):
             result["contexts"].append({"page":number,"readerAHash":sha(a.encode()),"readerBHash":sha(b.encode()),"fullContextRetained":False})
             for passage in [p for p in source["passages"] if p["page"] == number]:
                 quote = normalize(passage["quote"])
-                matches = [quote in a, quote in b]
-                result["passages"].append({"id":passage["id"],"page":number,"matches":matches,"quoteSha256":sha(passage["quote"].encode()),"deepLink":source["url"]+"#page="+str(number)})
+                b_passage = b
+                region = passage.get("readerBRegion")
+                if region:
+                    if len(region) != 4 or any(not isinstance(v, (int, float)) or v < 0 or v > 1 for v in region) or region[0]+region[2]>1 or region[1]+region[3]>1:
+                        raise ValueError("INVALID_SOURCE_REGION")
+                    box = reader.pages[number-1].mediabox
+                    x,y,w,h = [int(v*float(box.width if i%2==0 else box.height)) for i,v in enumerate(region)]
+                    b_passage = normalize(subprocess.check_output(["pdftotext","-f",str(number),"-l",str(number),"-r","72","-x",str(x),"-y",str(y),"-W",str(w),"-H",str(h),str(pdf),"-"], timeout=30).decode("utf-8"))
+                matches = [quote in a, quote in b_passage]
+                result["passages"].append({"id":passage["id"],"page":number,"matches":matches,"readerBRegion":region,"quoteSha256":sha(passage["quote"].encode()),"deepLink":source["url"]+"#page="+str(number)})
                 if not all(matches):
                     raise ValueError("PASSAGE_MISMATCH:"+passage["id"]+":"+str(matches))
     result["status"] = "PASSAGE_MATCH_ONLY"

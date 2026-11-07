@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {digest} from '../clinical-evidence/core.mjs';
+import {evaluate} from '../clinical-knowledge/core.mjs';
+const read=p=>JSON.parse(readFileSync(new URL(p,import.meta.url)));
+const graph=read('../../clinical-knowledge/catalog.json'),registry=read('../../clinical-knowledge/source-register.json'),patient=read('../../clinical-knowledge/examples/recent-vte.json');
+for(const s of registry.sources)s.rawSha256=digest(s.id);
+const receipts=registry.sources.map(s=>({sourceId:s.id,version:s.version,url:s.url,rawSha256:s.rawSha256,checkedAt:'2026-11-07T00:00:00Z',status:'PASSAGE_MATCH_ONLY',passages:s.passages.map(p=>({id:p.id,page:p.page,quoteSha256:digest(p.quote),matches:[true,true]}))}));
+const ctx={mode:'synthetic-research',role:'physician',asOf:'2026-11-07',receipts,observations:Object.fromEntries(registry.sources.map(s=>[s.id,{rawSha256:s.rawSha256,available:true}]))};
+const run=(p=patient,c=ctx,g=graph)=>evaluate(g,registry,p,c);
+test('low-risk recent-VTE exception is not extended beyond the recent window',()=>assert.equal(run({...patient,procedure:'diagnostic-with-or-without-biopsy',procedureDate:'2027-02-01'}).rows[0].match,'RECENT_WINDOW_NOT_MET_NO_CLEARANCE'));
+test('new numerical interval cannot be accepted without evaluator validation',()=>{const g=structuredClone(graph);g.claims[0].interval.value=4;assert.throws(()=>run(patient,ctx,g));});
+test('unimplemented evaluator cannot reuse recent-VTE logic',()=>{const g=structuredClone(graph);g.pathways[0].evaluator='mechanical-valve';assert.throws(()=>run(patient,ctx,g));});
+test('fresh unchanged surveillance reuses old passage proof without re-extraction',()=>{const c=structuredClone(ctx);c.asOf='2026-12-20';for(const o of Object.values(c.observations))o.checkedAt='2026-12-20T00:00:00Z';const r=run({...patient,procedureDate:'2027-01-20'},c);assert.ok(r.rows.every(x=>x.integrity==='PRIMARY_PASSAGE_CHECKED_NOT_SEMANTICALLY_VERIFIED'));assert.equal(r.modelCalls,0);});
