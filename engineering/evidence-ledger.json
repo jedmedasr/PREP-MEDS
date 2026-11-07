@@ -12,6 +12,36 @@
       "url": "https://github.com/jedmedasr/PREP-MEDS/commit/ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
       "date": "2026-11-07",
       "summary": "Observed main SHA, active sprint PR #37 at eeac28f8, quality.yml, and successful PR #37 quality run 42345077523. Sprint formulation adjudication and clinical approval remain unverified."
+    },
+    {
+      "id": "EV-002",
+      "task_id": "ENG-002",
+      "type": "graph_ci",
+      "result": "verified",
+      "commit_sha": "4fa8d71786a5c358f386592a805e72ca8367525f",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345601927",
+      "date": "2026-11-07",
+      "summary": "Dedicated engineering-graph CI passed: structural validation and eight verifier tests (8 passed, 0 failed); this does not certify clinical correctness or completion of all Stage 1 acceptance criteria."
+    },
+    {
+      "id": "EV-003",
+      "task_id": "ENG-002",
+      "type": "baseline_application_ci",
+      "result": "failed",
+      "commit_sha": "ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42309888950",
+      "date": "2026-11-07",
+      "summary": "Main baseline quality run failed before Stage 1 changes on diabetes-integration production isolation and v1-freeze-reconciliation explicit shadow-mode gating; do not dilute safeguards to obtain a green build."
+    },
+    {
+      "id": "EV-004",
+      "task_id": "ENG-002",
+      "type": "application_ci",
+      "result": "failed",
+      "commit_sha": "4fa8d71786a5c358f386592a805e72ca8367525f",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345601817",
+      "date": "2026-11-07",
+      "summary": "Stage 1 PR application quality reproduced the same two baseline production-isolation/shadow-mode failures; typecheck, schema and isolated inhaled-insulin suite passed. Full application build skipped after unit suite failed. Review and repair the baseline issue separately under safety governance."
     }
   ]
 }
