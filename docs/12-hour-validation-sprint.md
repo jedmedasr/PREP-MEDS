@@ -71,3 +71,10 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - Latest UI commit CI/deployment remains PENDING verification; no merge.
 - Inventory unchanged: 436 canonical medication IDs; 233 provisional ingredient sets; 48 combinations. Final clinically distinct groups NOT established. Clinically reviewed 0 confirmed; mapped IDs to clinically validated groups 0 confirmed.
 - Next: verify latest CI; add complete source-specific timing coverage, mapping tests and formulation adjudication. Research UI must not be interpreted as clinical signoff.
+
+## 2026-11-07 scheduled validation block — previous PARTIAL / CI failure corrected
+- Inspected PR #37 head 5a4b8cb and quality run 42345991815: **FAIL**, TypeScript errors in calendar research helper (possibly undefined date components) and malformed Vitest `it.each` tuple typing. Fixed in commits f7f56ab and 523721c; new CI not yet verified.
+- Added research-only calendar subtraction helper/tests in aa7ead3/a2c0007, mounted in clinician UI at 5a4b8cb. Candidate dates are NOT verified last permissible dose dates/times. No automatic patient instructions.
+- Added deterministic antithrombotic canonical-ID discovery and provisional ingredient-set audit queue in 71a5fc3 with regression tests d22777e. Every discovered record has immutable ID, NOT_STARTED status, explicit ASGE 2016 source and NOT_STARTED comparison, and no clinical approval. This is an enumeration scaffold, NOT a completed per-medication comparator.
+- Overall inventory: **436 canonical IDs**, **233 provisional ingredient sets**, **48 combinations** (from earlier passing CI). Final distinct ingredient/formulation group count unverified. Clinically reviewed **0 confirmed groups**; clinically validated canonical-ID mappings **0 confirmed**. Antithrombotic queue runtime counts require CI/runtime verification.
+- Current block: **PARTIAL**, pending new CI and exhaustive antithrombotic class discovery/formulation review, dated primary source reconciliation, renal threshold verification, patient-safe last-dose calculation. PR #37 remains open; no merge or clinical signoff.
