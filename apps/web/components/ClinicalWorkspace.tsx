@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { CreatinineClearanceCalculator } from './CreatinineClearanceCalculator';
+import { AntithromboticTimingResearch } from './AntithromboticTimingResearch';
 import { PrescriberClearanceRequest } from './PrescriberClearanceRequest';
 import { InsulinPrescriberRequest } from './InsulinPrescriberRequest';
 import type { DecisionExecution, ModifierValue, ProcedureCode } from '@prep-meds/clinical-engine';
@@ -452,6 +453,7 @@ export function ClinicalWorkspace() {
         </section>
       ) : null}
           <CreatinineClearanceCalculator />
+      <AntithromboticTimingResearch />
       <InsulinPrescriberRequest procedure={procedure ?? ''} />
       <PrescriberClearanceRequest key={selectedMedication?.medicationId ?? 'unselected'} medicationName={selectedMedication?.canonicalName ?? ''} procedureName={procedures.find(p => p.code === procedure)?.label ?? ''} />
     </main>
