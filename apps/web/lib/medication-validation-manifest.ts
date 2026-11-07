@@ -26,8 +26,8 @@ export type IngredientReviewGroup = {
   clinicalStatus: 'NOT_STARTED';
 };
 
-export function buildMedicationValidationManifest() {
-  const medications: MedicationInventoryRecord[] = terminologyDataset.medications.map((m) => ({
+export function buildMedicationValidationManifest(sourceMedications: typeof terminologyDataset.medications = terminologyDataset.medications) {
+  const medications: MedicationInventoryRecord[] = sourceMedications.map((m) => ({
     medicationId: m.id,
     canonicalName: m.canonicalName,
     ingredientIds: [...m.ingredientIds].sort(),
