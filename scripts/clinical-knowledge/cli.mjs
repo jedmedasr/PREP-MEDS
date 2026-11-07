@@ -14,9 +14,10 @@ if(command==='impact'){
  const input=read('clinical-knowledge/examples/recent-vte.json');
  const observations=Object.fromEntries(receipts.sources.map(s=>[s.sourceId,{rawSha256:s.rawSha256,available:true}]));
  const result=evaluate(graph,registry,input,{mode:'synthetic-research',role:'physician',asOf:'2026-11-07',receipts:receipts.sources,observations});
- const selected=result.rows.find(r=>r.researchSelectable);
+ // Explicit test-fixture choice, never a default clinical recommendation.
+ const selected=result.rows.find(r=>r.id==='CKG-BSG-VTE'&&r.researchSelectable);
  report={testFixtureAsOf:'2026-11-07',notice:'Real primary documents, synthetic case, no independent clinical semantic verification or patient instructions.',result,selection:selected?selectReference(result,{claimId:selected.id,fingerprint:result.fingerprint}):null};
- if(!selected)process.exitCode=2;
+ if(!selected||result.rows.some(r=>!r.researchSelectable))process.exitCode=2;
 }else if(command==='status'){
  report={errors:validateKnowledge(graph,registry),scenarios:graph.scenarios.length,referencePathways:graph.pathways.length,clinicallyVerifiedPathways:0,modelCalls:0};
  if(report.errors.length)process.exitCode=1;

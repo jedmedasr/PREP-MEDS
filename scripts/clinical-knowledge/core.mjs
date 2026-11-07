@@ -48,6 +48,7 @@ export function validateKnowledge(graph, registry) {
 export function sourceStatus(source, receipt, observation, asOf) {
   if(!dateOnly(asOf)||!source||!sha(source.rawSha256)||!receipt) return 'SOURCE_NOT_CHECKED';
   if(receipt.rawSha256!==source.rawSha256||receipt.version!==source.version||receipt.url!==source.url) return 'SOURCE_BINDING_FAILED';
+  if(observation?.currencyUnresolved) return 'POTENTIAL_SUPERSESSION_REVIEW_REQUIRED';
   if(!observation||observation.rawSha256!==source.rawSha256||observation.available!==true) return 'SOURCE_CHANGED_OR_UNAVAILABLE';
   const checked=Date.parse(observation.checkedAt??receipt.checkedAt), now=Date.parse(asOf+'T23:59:59Z');
   if(!Number.isFinite(checked)||checked>now||now-checked>31*86400000) return 'PASSAGE_CHECK_STALE';
@@ -131,7 +132,12 @@ const reasons=new Set(['UNCOVERED_SCENARIO','MISSING_INPUT','SOURCE_CHANGED','UN
 export function researchRequest(graph,registry,scenarioId,reason){
   if(!reasons.has(reason))throw new Error('UNSTRUCTURED_REASON_REJECTED');
   const known=graph.scenarios.some(s=>s.id===scenarioId)?scenarioId:'unclassified';
-  return {id:digest({known,reason,graph:digest(graph),sources:digest(registry),engine:ENGINE}),scenarioId:known,reason,priority:'ENGINEERING_REVIEW_QUEUE',modelCalls:0,trustPromotion:false};
+  const scenario=graph.scenarios.find(s=>s.id===known);
+  const paths=graph.pathways.filter(p=>scenario?.pathwayIds.includes(p.id));
+  const claims=graph.claims.filter(c=>paths.some(p=>p.claimIds.includes(c.id)));
+  const sources=registry.sources.filter(s=>claims.some(c=>c.sourceId===s.id)||paths.some(p=>p.guardSourceIds.includes(s.id)));
+  const scope={contract:graph.version,variables:scenario?.variables,eligibility:scenario?.eligibility,escalation:scenario?.escalation,paths,claims,sources};
+  return {id:digest({known,reason,scope,engine:ENGINE}),scenarioId:known,reason,priority:'ENGINEERING_REVIEW_QUEUE',modelCalls:0,trustPromotion:false};
 }
 export function aggregateGap(counters,request){
   const next=structuredClone(counters);const key=request.id;
@@ -141,15 +147,18 @@ export function aggregateGap(counters,request){
 export function compareVersions(before,after){
   return ['claims','pathways','medications'].flatMap(kind=>[...after[kind].filter(item=>stable(item)!==stable(before[kind].find(x=>x.id===item.id))).map(item=>({kind,id:item.id,action:'REVALIDATE'})),...before[kind].filter(item=>!after[kind].some(x=>x.id===item.id)).map(item=>({kind,id:item.id,action:'REMOVAL_REQUIRES_REVALIDATION'}))]);
 }
+
 /** Adapter for PR #42 observation artifacts; no clinical-state mutation or model dispatch. */
 export function reconcileObservation(graph,registry,observation){
   const current={};const changes=[];
   for(const source of registry.sources){
     const item=Object.values(observation.observations??{}).find(x=>x.url===source.url&&x.kind==='primary');
-    current[source.id]={rawSha256:item?.hash??null,available:item?.available===true,checkedAt:item?.checkedAt??null};
-    if(!item||item.available!==true||item.hash!==source.rawSha256){
+    const history=[...(observation.history??[]).flatMap(h=>h.changes??[]),...(observation.changes??[])];
+    const discovery=[...new Map(history.filter(c=>c.kind==='discovery'&&c.reason==='CONTENT_CHANGED'&&c.sourceId===(item?.sourceId??source.id)).map(c=>[c.hash,c])).values()];
+    current[source.id]={rawSha256:item?.hash??null,available:item?.available===true,checkedAt:item?.checkedAt??null,currencyUnresolved:discovery.length>0};
+    if(!item||item.available!==true||item.hash!==source.rawSha256||discovery.length){
       const impact=sourceImpact(graph,[source.id]);
-      changes.push({id:digest({source:source.id,old:source.rawSha256,new:item?.hash??null,available:item?.available===true,graph:digest(graph)}),sourceId:source.id,impact,taskType:'CLINICAL_SOURCE_REVERIFICATION',automaticAdoption:false});
+      changes.push({id:digest({source:source.id,old:source.rawSha256,new:item?.hash??null,available:item?.available===true,discovery:discovery.map(c=>c.hash),impact}),sourceId:source.id,impact,taskType:'CLINICAL_SOURCE_REVERIFICATION',automaticAdoption:false});
     }
   }
   return {current,changes,modelCalls:0,clinicalAuthorityGranted:false};

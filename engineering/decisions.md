@@ -21,3 +21,13 @@
 **Cost:** Node standard library, bounded HTTPS checks, GitHub Actions, immutable artifacts and an isolated persistent state branch. Monthly observation incorporates the May/November comprehensive source audit. No paid infrastructure, enabled model budget or continuous agent. Inaccessible sources and incomplete verification remain explicit.
 
 **Integration:** Preserve SPR-001 evidence/status from PR #40 and ENG-003 from PR #41. Do not add per-recommendation clinical endorsement nodes. Legacy clinical/release gates are retained until deliberate adoption, not silently weakened. Review of implementation is an engineering control, not routine guideline re-endorsement.
+
+## CKG-DEC-0001 - Separate clinical knowledge and bounded source-reference rollout (2026-11-07)
+
+**Decision:** Reuse PR #42 source/hash/history infrastructure and existing canonical terminology. Store clinical source/claim/pathway relationships in versioned JSON, independent of engineering tasks. Stack PR #43 on #42; do not alter #37. Start with recent VTE before elective endoscopy and keep eight other parameterized scenarios as specifications only.
+
+**Clinical boundary:** Real BSG/ESGE, ACG/CAG and BSG addendum passages are mechanically checked in two PDF readers; this is not independent clinical AI semantic verification. Keep source-specific scope, event/treatment anchors, calendar-month arithmetic, exact boundary uncertainty and no prescription output. Do not substitute a physician-endorsement queue for the missing independent verifier.
+
+**Cost and maintenance:** Deterministic runtime, scoped research keys, reverse source dependencies and the existing monthly/six-month observation schedule. Retain unresolved discovery changes across subsequent checks; no silent currentness reset. No database, vector index, paid model service or continuous agent. Usage telemetry helpers are not deployed clinical analytics.
+
+**Expansion gate:** CKG-001 remains needs_review; CKG-002 depends on existing EVD-002 live source-verification work. Independent implementation review, real source-semantic verification and production/institutional authorization are different requirements. No new clinical pathways are activated.
