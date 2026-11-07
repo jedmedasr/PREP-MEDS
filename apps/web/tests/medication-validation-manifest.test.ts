@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { writeFileSync, mkdirSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
 import { terminologyDataset } from '../lib/content';
 import { buildMedicationValidationManifest } from '../lib/medication-validation-manifest';
 
@@ -50,6 +52,13 @@ describe('machine-readable medication validation manifest', () => {
     expect(candidate.groups[0]?.medicationIds).toHaveLength(2);
     expect(candidate.medications.every(m => m.reviewStatus === 'NOT_STARTED' && m.lastReviewedDate === null && m.sourceVersions.length === 0)).toBe(true);
     expect(candidate.groups.every(g => g.formulationAdjudication === 'PENDING' && g.clinicalStatus === 'NOT_STARTED')).toBe(true);
+  });
+  it('exports a deterministic, version-controlled audit snapshot only on explicit request', () => {
+    if (process.env.EXPORT_MEDICATION_AUDIT !== '1') return;
+    const output = resolve(process.cwd(), '../../docs/medication-audit-manifest.json');
+    mkdirSync(dirname(output), { recursive: true });
+    writeFileSync(output, JSON.stringify(manifest, null, 2) + '\\n', 'utf8');
+    expect(manifest.medications.length).toBe(manifest.counts.canonicalMedications);
   });
   it('can be serialized as JSON for audit export', () => {
     expect(JSON.parse(JSON.stringify(manifest)).counts).toEqual(manifest.counts);
