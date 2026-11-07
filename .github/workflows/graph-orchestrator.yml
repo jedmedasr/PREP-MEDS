@@ -1,0 +1,82 @@
+name: graph-orchestrator
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-orchestrator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Orchestrator regression and adversarial tests
+        run: node --test scripts/__tests__/graph-orchestrator.test.mjs
+      - name: Existing graph invariants
+        run: |
+          node scripts/verify-engineering-graph.mjs
+          node --test scripts/__tests__/verify-engineering-graph.test.mjs
+      - name: Offline graph CLI
+        run: |
+          node scripts/graph/cli.mjs verify
+          node scripts/graph/cli.mjs status
+          node scripts/graph/cli.mjs next --offline
+
+  reconcile-live:
+    needs: test-orchestrator
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify history and reconcile live evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          REPORT: ${{ runner.temp }}/graph-orchestrator/verification.json
+        run: |
+          if [ -z "$BASE_SHA" ] || [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            BASE_SHA=$(git rev-parse HEAD^)
+          fi
+          node scripts/graph/cli.mjs verify --base-ref "$BASE_SHA" --live --output "$REPORT"
+      - name: Generate evidence-bound handoff
+        env:
+          REPORT_DIR: ${{ runner.temp }}/graph-orchestrator
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+          import { handoff } from './scripts/graph/core.mjs';
+          import { save } from './scripts/graph/cli.mjs';
+          const report = JSON.parse(readFileSync(`${process.env.REPORT_DIR}/verification.json`, 'utf8')).live_verification;
+          const input = JSON.parse(readFileSync('engineering/stage2-handoff-input.json', 'utf8'));
+          input.session_id = `ci-${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT}`;
+          save(`${process.env.REPORT_DIR}/reconciliation.json`, report);
+          save(`${process.env.REPORT_DIR}/handoff.json`, handoff(report, input));
+          console.log(JSON.stringify({main_sha:report.main_sha, next:report.next, metrics:report.metrics, unresolved:report.tasks.filter(t=>t.unresolved.length).map(t=>({id:t.id,reasons:t.unresolved}))}, null, 2));
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: graph-orchestrator-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/graph-orchestrator
+          if-no-files-found: error
+          retention-days: 30

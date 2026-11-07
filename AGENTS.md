@@ -25,3 +25,14 @@ Read `README.md`, `docs/safety/safety-spec.md`, the applicable `docs/architectur
 Report: current task and dependent blockers; previous task PASS/PARTIAL/FAIL; exact git head and CI links; test/evidence counts; clinical sign-off status; remaining work. A graph validator checks structure, not whether a human approval is authentic.
 
 Run `node scripts/verify-engineering-graph.mjs` and `node --test scripts/__tests__/verify-engineering-graph.test.mjs` after modifying the graph or ledger.
+
+## Stage 2 executable cycle
+Read `engineering/stage2.md` and `engineering/roles.json`. Run `pnpm graph verify`, then authenticated `pnpm graph reconcile` and `pnpm graph next`. Offline eligibility is planning only. Reconcile structured reports in `engineering/handoffs/` and current GitHub evidence before accepting any prior session's claims.
+
+Use the deterministic priority policy, not an agent's subjective importance ranking. Claim eligible work with explicit `graph claim ... --write` from clean current main, then use an isolated feature branch. Resume or recover an interrupted claim explicitly; never steal locks, force-update refs, overwrite ledger records, or push work onto a claim ref. Include the task ID in PR metadata.
+
+Run relevant application checks, graph checks and orchestrator tests. Record failed tests and unresolved evidence, not only success. Request a genuinely independent review; switching role names inside one session is not independent verification. New completion transitions require an immutable merged implementation PR, exact-head successful CI and authenticated review evidence. Legacy Stage 1 evidence is retained but must be reconciled before stricter Stage 2 verification can certify it.
+
+Generate a structured `pnpm graph handoff --input <report-input> --live --output <new-file>` and commit it through a reviewed PR with appended evidence. Report the actual next eligible task, including `none` when unresolved engineering evidence prevents execution. Do not infer that a green reconciliation workflow means every task is complete.
+
+Synthetic-data demo development may proceed on explicitly authorized isolated branches without unrelated production clinical approval. Preserve explicit `PREP_MEDS_CONTENT_MODE=shadow` for draft demonstrations; never activate unapproved rules for live clinical use. No autonomous continuous worker or schedule is installed by Stage 2.
