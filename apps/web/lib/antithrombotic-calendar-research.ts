@@ -9,7 +9,7 @@ export type CalendarResearchResult =
 
 function parseIsoCalendarDate(value: string): Date | null {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
-  const [year, month, day] = value.split('-').map(Number);
+  const [year = NaN, month = NaN, day = NaN] = value.split('-').map(Number);
   const date = new Date(Date.UTC(year, month - 1, day, 12));
   if (date.getUTCFullYear() !== year || date.getUTCMonth() + 1 !== month || date.getUTCDate() !== day) return null;
   return date;
