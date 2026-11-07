@@ -31,7 +31,7 @@
       "id": "ENG-002",
       "title": "Verify and adopt Stage 1 graph governance",
       "owner": "engineering",
-      "status": "in_progress",
+      "status": "complete",
       "depends_on": [
         "ENG-001"
       ],
@@ -41,13 +41,13 @@
         "Independent PR review completed",
         "Governance files accepted without modifying medication rules"
       ],
-      "source_ref": "https://github.com/jedmedasr/PREP-MEDS"
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/pull/38"
     },
     {
       "id": "SPR-001",
       "title": "Reconcile sprint inventory and evidence into task graph",
       "owner": "sprint",
-      "status": "blocked",
+      "status": "not_started",
       "depends_on": [
         "ENG-002"
       ],
