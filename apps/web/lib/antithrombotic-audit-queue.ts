@@ -40,3 +40,37 @@ export function buildAntithromboticAuditQueue() {
     canonicalIdToProvisionalGroup: Object.fromEntries(medications.map(m => [m.medicationId, m.provisionalGroupKey])),
   };
 }
+
+/** Explicit comparator outcomes. A source link alone is never sufficient. */
+export type AsgeComparator =
+  | { status: 'NOT_STARTED' }
+  | { status: 'IN_PROGRESS'; sourceSection: string; issues: string[] }
+  | { status: 'COMPARED'; sourceSection: string; sourceVersion: 'ASGE_2016'; comparisonEvidence: string[]; reviewerId: string }
+  | { status: 'NOT_ADDRESSED'; sourceSection: string; sourceVersion: 'ASGE_2016'; rationale: string; reviewerId: string };
+
+export type GroupApprovalCandidate = {
+  groupKey: string;
+  canonicalMedicationIds: readonly string[];
+  formulationAdjudicated: boolean;
+  guidelineComparator: AsgeComparator;
+  newerGuidelineEvidence: readonly string[];
+  testEvidence: readonly string[];
+  independentClinicalApproval: boolean;
+};
+
+/** Safety gate: never promote a provisional group or an incomplete ASGE comparator. */
+export function canApproveAntithromboticGroup(candidate: GroupApprovalCandidate): boolean {
+  const comparator = candidate.guidelineComparator;
+  if (!candidate.groupKey || !candidate.canonicalMedicationIds.length ||
+      new Set(candidate.canonicalMedicationIds).size !== candidate.canonicalMedicationIds.length ||
+      !candidate.formulationAdjudicated || !candidate.independentClinicalApproval ||
+      !candidate.newerGuidelineEvidence.length || !candidate.testEvidence.length) return false;
+  if (comparator.status === 'COMPARED') {
+    return Boolean(comparator.sourceSection.trim() && comparator.reviewerId.trim() && comparator.comparisonEvidence.length &&
+      comparator.comparisonEvidence.every(item => item.trim().length > 0));
+  }
+  if (comparator.status === 'NOT_ADDRESSED') {
+    return Boolean(comparator.sourceSection.trim() && comparator.reviewerId.trim() && comparator.rationale.trim());
+  }
+  return false;
+}
