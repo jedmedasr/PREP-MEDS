@@ -15,7 +15,7 @@ describe('research-only hold calendar dates', () => {
   it.each(['2026-02-29','2026-13-01','2026-11-31','11/12/2026',''])('rejects invalid date %s', value => {
     expect(dates({procedureLocalDate:value,holdDays:[1]}).status).toBe('REQUIRES_REVIEW');
   });
-  it.each([[],[-1],[1.5],[31]])('rejects unvalidated intervals %j', days => {
+  it.each([[[]], [[-1]], [[1.5]], [[31]]])('rejects unvalidated intervals %j', days => {
     expect(dates({procedureLocalDate:'2026-11-12',holdDays:days}).status).toBe('REQUIRES_REVIEW');
   });
 });
