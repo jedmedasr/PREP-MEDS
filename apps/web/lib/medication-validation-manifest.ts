@@ -10,7 +10,12 @@ export type MedicationInventoryRecord = {
   canonicalName: string;
   ingredientIds: string[];
   ingredientSetKey: string;
-  reviewStatus: 'NOT_STARTED';
+  reviewStatus: 'NOT_STARTED' | 'IN_PROGRESS' | 'NEEDS_CORRECTION' | 'TESTED' | 'CLINICALLY_REVIEWED';
+  lastReviewedDate: string | null;
+  reviewCommit: string | null;
+  sourceVersions: string[];
+  testEvidence: string[];
+  remainingIssues: string[];
 };
 
 export type IngredientReviewGroup = {
@@ -28,6 +33,11 @@ export function buildMedicationValidationManifest() {
     ingredientIds: [...m.ingredientIds].sort(),
     ingredientSetKey: [...m.ingredientIds].sort().join('+'),
     reviewStatus: 'NOT_STARTED' as const,
+    lastReviewedDate: null,
+    reviewCommit: null,
+    sourceVersions: [],
+    testEvidence: [],
+    remainingIssues: ['Formulation/route review and clinical evidence not yet completed'],
   })).sort((a, b) => a.medicationId.localeCompare(b.medicationId));
 
   const grouped = new Map<string, IngredientReviewGroup>();
@@ -54,5 +64,6 @@ export function buildMedicationValidationManifest() {
     },
     medications,
     groups,
+    canonicalIdToProvisionalGroup: Object.fromEntries(medications.map(m => [m.medicationId, m.ingredientSetKey])),
   };
 }
