@@ -90,3 +90,16 @@ describe('clinical approval gate — negative and positive controls', () => {
     expect(queue().counts.clinicallyReviewedGroups).toBe(0);
   });
 });
+
+describe('pinned SPR-001 antithrombotic baseline', () => {
+  it('retains the 17-ID/17-provisional-group independently audited baseline', () => {
+    // Baseline: SPR-001 pinned audit, GitHub Actions run 42374711461.
+    // This is discovery coverage, not exhaustive clinical adjudication.
+    const result = queue();
+    expect(result.counts.canonicalMedicationIds).toBe(17);
+    expect(result.counts.provisionalIngredientGroups).toBe(17);
+    expect(result.counts.completedAsgeComparisons).toBe(0);
+    expect(result.counts.clinicallyReviewedGroups).toBe(0);
+    expect(result.medications.every(m => m.formulationAdjudication === 'PENDING')).toBe(true);
+  });
+});
