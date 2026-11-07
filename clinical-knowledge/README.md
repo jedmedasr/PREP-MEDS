@@ -26,7 +26,7 @@ The slice distinguishes VTE-event date from anticoagulation-start date, uses thr
 
 Runtime evaluation is deterministic and performs no network/model calls. Content changes, source unavailability, stale observations, or changed discovery indexes invalidate applicable reference choices. Discovery warnings persist through subsequent unchanged checks; an explicit verified resolution mechanism is still needed before clearing them. Historical versions remain in Git and immutable receipts; reverting data must not erase source supersession or restore authority.
 
-The existing monthly surveillance workflow is reused, with the 2024 BSG addendum registered and clinical-graph impact output added. No second schedule or continuous worker is introduced. Scheduled execution is not active until the workflow is adopted on main. An observation run is not a comprehensive clinical evidence review. The research UI currently consumes committed capture state, not live scheduled-state storage; clinical deployment must integrate current surveillance state before activation.
+The existing monthly surveillance workflow is reused, with the 2024 BSG addendum registered and clinical-graph impact output added. No second schedule or continuous worker is introduced. Scheduled execution is not active until the workflow is adopted on main. An observation run is not a comprehensive clinical evidence review. The research UI now reads a server-controlled observation artifact on every request. Artifact delivery into the deployment is not configured by this change; clinical deployment still requires authenticated delivery and monitored freshness.
 
 ## What remains incomplete
 
@@ -37,3 +37,13 @@ No per-extraction physician endorsement is required by the revised model. The mi
 ## Integration and maintenance
 
 PR #43 is stacked on #42. Do not merge or modify #37. When reconciling #40 and #41, preserve SPR-001 evidence/status and ENG-003 scripts/task. CKG-001 is needs_review; CKG-002 is blocked on implementation adoption and EVD-002. Preserve historical ledger records and failures. Re-run application quality, engineering graph, clinical-evidence and clinical-knowledge checks on the exact integrated head. Browser interaction and real-world clinical validation were not performed.
+
+## Runtime source observations
+
+Set `PREP_MEDS_KNOWLEDGE_OBSERVATIONS` on the server to the absolute path of the existing surveillance workflow's `evidence-observation.json`. This is a deployment-controlled file, never a request-body field. Publish it by atomic replacement after checking its originating workflow/commit. This change does not configure artifact delivery, start a schedule, or give clients file-system access.
+
+The API re-reads the bounded regular file on every request and selection. It requires the existing observation schema, full history, matching URL keys and registered source identities, fresh timestamps, and available primary documents **and** discovery indexes. Missing, unreadable, malformed, oversized, future-dated, or over-31-day-old input disables all reference selection. A changed document or unresolved discovery warning invalidates dependent references. There is no committed-receipt or last-good fallback. Request bodies cannot override observation state or the file path.
+
+Comparisons remain visible with an explicit surveillance reason; the API also returns the observation timestamp and digest. An unconfigured deployment cannot record a reference choice. The separately labeled `pnpm knowledge:demo` remains a dated, committed-fixture demonstration, not a live-currentness assertion. Successful runtime checks still leave every claim `SEMANTIC_VERIFICATION_PENDING` and all patient instructions disabled. A digest identifies artifact bytes; it does not authenticate the publisher or prove clinical interpretation. The server-side artifact delivery and history-retention boundary must be trusted; intentionally truncated but structurally valid history cannot be authenticated by this file adapter alone.
+
+The adapter adds no model calls, source-network requests, paid services, write permissions, or production activation. Authenticated artifact delivery, persistent anti-rollback protection, semantic verification, institutional policy authorization, and clinical decision persistence remain unfinished work.

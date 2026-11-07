@@ -1,6 +1,8 @@
 import graph from '../../../clinical-knowledge/catalog.json';
 import registry from '../../../clinical-knowledge/source-register.json';
 import receipt from '../../../clinical-knowledge/verification-receipts.json';
+import watchRegistry from '../../../engineering/clinical-evidence/sources.json';
+import { loadRuntimeObservation } from '../../../scripts/clinical-knowledge/runtime-observation.mjs';
 import { evaluate, selectReference, type CaseInput } from '../../../scripts/clinical-knowledge/core.mjs';
 export function knowledgeLibraryEnabled(env:Record<string,string|undefined>=process.env):boolean {
   return env.PREP_MEDS_CONTENT_MODE==='shadow' && env.PREP_MEDS_KNOWLEDGE_MODE==='reference';
@@ -12,11 +14,14 @@ export function buildKnowledgeView(input:unknown={},asOf=new Date().toISOString(
   if(Object.keys(p).some(k=>!['case','role','selection'].includes(k)))throw new Error('SYNTHETIC_FIELDS_ONLY');
   const role=p.role??'medical-assistant';
   if(role!=='physician'&&role!=='medical-assistant')throw new Error('INVALID_RESEARCH_ROLE');
-  // Server-owned pinned evidence. No request can supply a verification state or real authorization.
-  const observations=Object.fromEntries((receipt.sources as Array<{sourceId:string;rawSha256:string}>).map(s=>[s.sourceId,{rawSha256:s.rawSha256,available:true}]));
+  // Request bodies cannot supply paths, source status, or verification authority.
+  const runtime=loadRuntimeObservation(graph,registry,watchRegistry,{path:process.env.PREP_MEDS_KNOWLEDGE_OBSERVATIONS});
+  const observations=runtime.observations;
   const result=evaluate(graph,registry,p.case??exampleCase,{mode:'synthetic-research',role,asOf,receipts:receipt.sources,observations});
-  const decision=p.selection===undefined?null:selectReference(result,p.selection);
+  if(runtime.metadata.reason)result.reasons.push('SURVEILLANCE:'+runtime.metadata.reason);
+  const decision=p.selection===undefined?null:{...selectReference(result,p.selection),surveillance:runtime.metadata};
   return {notice:'Real source documents; synthetic cases; independent semantic verification incomplete. No patient instructions.',result,decision,
+    surveillance:runtime.metadata,
     catalog:graph.scenarios.map(s=>({id:s.id,title:s.title,status:s.status,priority:s.priority,frequency:s.frequency,variables:s.variables,coordination:s.coordination})),
     medications:graph.medications.map(m=>({id:m.id,formulation:m.formulation})),example:exampleCase};
 }
