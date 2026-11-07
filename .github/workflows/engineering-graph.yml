@@ -1,0 +1,26 @@
+name: engineering-graph
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-graph:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate dependency graph and evidence ledger
+        run: node scripts/verify-engineering-graph.mjs
+      - name: Run verifier regression tests
+        run: node --test scripts/__tests__/verify-engineering-graph.test.mjs
+      - name: Publish structural verification summary
+        run: node scripts/verify-engineering-graph.mjs --summary >> "$GITHUB_STEP_SUMMARY"

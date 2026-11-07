@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "repository": "jedmedasr/PREP-MEDS",
+  "notes": "Append-only evidence records. This initial evidence verifies the repository inspection, NOT clinical recommendations, a deployed app, or future sprint status. A human must independently verify approval references.",
+  "records": [
+    {
+      "id": "EV-001",
+      "task_id": "ENG-001",
+      "type": "repository_inspection",
+      "result": "verified",
+      "commit_sha": "ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
+      "url": "https://github.com/jedmedasr/PREP-MEDS/commit/ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
+      "date": "2026-11-07",
+      "summary": "Observed main SHA, active sprint PR #37 at eeac28f8, quality.yml, and successful PR #37 quality run 42345077523. Sprint formulation adjudication and clinical approval remain unverified."
+    }
+  ]
+}

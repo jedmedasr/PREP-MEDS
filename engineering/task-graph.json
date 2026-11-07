@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "repository": "jedmedasr/PREP-MEDS",
+  "description": "Stage 1 engineering dependency graph and future reconciliation tasks; NOT a live mirror of the clinical sprint.",
+  "snapshot": {
+    "date": "2026-11-07",
+    "default_branch": "main",
+    "default_branch_sha": "ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
+    "active_sprint_branch": "test/medication-research-regression-20261106",
+    "active_sprint_pr": "https://github.com/jedmedasr/PREP-MEDS/pull/37",
+    "observed_sprint_sha": "eeac28f8bf850efe770148983b280f5f5bff8a7a",
+    "observed_sprint_ci_run": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345077523",
+    "note": "Read the current branch/PR/CI before every reconciliation. This immutable snapshot is historical evidence only; passing CI does not imply clinical approval."
+  },
+  "tasks": [
+    {
+      "id": "ENG-001",
+      "title": "Inspect default branch, CI, and active medication sprint",
+      "owner": "engineering",
+      "status": "complete",
+      "depends_on": [],
+      "clinical_gate": false,
+      "acceptance": [
+        "Record exact main and sprint head SHAs",
+        "Identify active pull request and existing quality workflow",
+        "Record the limits of CI versus clinical sign-off"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/commit/ec1ee7e1c00520cc5903e4ab8b0246e9936efa62"
+    },
+    {
+      "id": "ENG-002",
+      "title": "Verify and adopt Stage 1 graph governance",
+      "owner": "engineering",
+      "status": "in_progress",
+      "depends_on": [
+        "ENG-001"
+      ],
+      "clinical_gate": false,
+      "acceptance": [
+        "Graph structure and unit tests pass in GitHub Actions",
+        "Independent PR review completed",
+        "Governance files accepted without modifying medication rules"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS"
+    },
+    {
+      "id": "SPR-001",
+      "title": "Reconcile sprint inventory and evidence into task graph",
+      "owner": "sprint",
+      "status": "blocked",
+      "depends_on": [
+        "ENG-002"
+      ],
+      "clinical_gate": false,
+      "acceptance": [
+        "Read latest PR #37 head, sprint checklist and CI at reconciliation time",
+        "Reconcile canonical medication IDs and ingredient/formulation grouping",
+        "Map each claimed completed item to commit and CI evidence, or mark unresolved"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/pull/37"
+    },
+    {
+      "id": "SPR-002",
+      "title": "Adjudicate clinically distinct ingredient/formulation review groups",
+      "owner": "clinical-research",
+      "status": "blocked",
+      "depends_on": [
+        "SPR-001"
+      ],
+      "clinical_gate": false,
+      "acceptance": [
+        "Capture exact formulation-level denominator, not provisional ingredient-set count",
+        "Preserve route, release, combination, renal-function and other clinically relevant distinctions",
+        "Record uncovered identities and unresolved clinical questions"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/pull/37"
+    },
+    {
+      "id": "SPR-003",
+      "title": "Reconcile antithrombotic guidelines and test time-based recommendations",
+      "owner": "clinical-research",
+      "status": "blocked",
+      "depends_on": [
+        "SPR-002"
+      ],
+      "clinical_gate": false,
+      "acceptance": [
+        "Record primary guideline citations and material conflicts",
+        "Differentiate procedural bleeding and thrombotic risk; account for renal function where relevant",
+        "Test interruption and resumption timing with positive, negative and boundary cases"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/pull/37"
+    },
+    {
+      "id": "SPR-004",
+      "title": "Validate insulin, diabetes therapies and other high-risk medications",
+      "owner": "clinical-research",
+      "status": "blocked",
+      "depends_on": [
+        "SPR-003"
+      ],
+      "clinical_gate": false,
+      "acceptance": [
+        "Review ingredient and formulation-specific regimens with procedure and diet timing",
+        "Include prescriber-directed insulin changes, hypoglycemia and type 1 diabetes safeguards",
+        "Verify GLP-1, SGLT2, combination and other high-risk group tests"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/pull/37"
+    },
+    {
+      "id": "SPR-005",
+      "title": "Complete remaining medication coverage and full regression integration",
+      "owner": "engineering",
+      "status": "blocked",
+      "depends_on": [
+        "SPR-004"
+      ],
+      "clinical_gate": false,
+      "acceptance": [
+        "Reconcile reviewed group totals with mapped canonical IDs",
+        "Run complete test, typecheck, schema and build checks",
+        "Document all unresolved guidance conflicts and release blockers"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/pull/37"
+    },
+    {
+      "id": "CLIN-001",
+      "title": "Obtain independent clinical approval for proposed patient-facing guidance",
+      "owner": "clinical-review",
+      "status": "blocked",
+      "depends_on": [
+        "SPR-005"
+      ],
+      "clinical_gate": true,
+      "acceptance": [
+        "Authorized clinician reviews evidence, exact hold/resume timeframes, and special-population caveats",
+        "Record approver identity and approval record outside agent-generated assertions",
+        "Keep unapproved or conflicting recommendations fail-closed"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/tree/main/docs/clinical-governance"
+    },
+    {
+      "id": "REL-001",
+      "title": "Authorize production activation only after clinical and release review",
+      "owner": "release",
+      "status": "blocked",
+      "depends_on": [
+        "CLIN-001"
+      ],
+      "clinical_gate": true,
+      "acceptance": [
+        "Verify clinical approval and release authorization independently",
+        "Verify production safety, privacy/security and deployment controls",
+        "Preserve the ability to roll back without enabling unapproved clinical rules"
+      ],
+      "source_ref": "https://github.com/jedmedasr/PREP-MEDS/tree/main/docs/safety"
+    }
+  ]
+}
