@@ -6,8 +6,8 @@ Scope: active ingredient × clinically distinct formulation. Brands/aliases inhe
 ## Block 1 — inventory and safety triage (start now)
 - [ ] Enumerate `terminologyDataset.medications` and ingredients into machine-readable manifest.
 - [ ] Deduplicate into ingredient/formulation review groups, preserve combinations and meaningful route/release differences.
-- [ ] Record exact totals, unmapped IDs, high-risk priority, guideline sources and versions.
-- [x] Check PR #37 CI and repair regressions. Latest verified passing run: 42332062649 at commit 672d343f93d058648d18a3406c50ae90fb0c7dd2.\n- [x] Add initial medication inventory integrity tests (duplicate IDs, ingredient references, combinations, provisional grouping), commit 672d343.\n- [ ] Capture emitted exact inventory denominators from CI output and commit machine-readable manifest.
+- [x] Record exact provisional totals from CI run 42332062649: 436 canonical medications, 233 unique ingredient sets, 48 combination entries; all ingredient references resolved by passing inventory integrity test. Formulation adjudication and complete source manifest still pending.
+- [x] Check PR #37 CI and repair regressions. Latest verified passing run: 42332062649 at commit 672d343f93d058648d18a3406c50ae90fb0c7dd2.\n- [x] Add initial medication inventory integrity tests (duplicate IDs, ingredient references, combinations, provisional grouping), commit 672d343.\n- [x] Capture exact inventory denominators from CI output (run 42332062649, job 128280587303).\n- [ ] Commit machine-readable manifest and adjudicate clinically distinct formulations.
 Acceptance: committed manifest, exact denominators, zero silent unmapped IDs, CI status documented.
 
 ## Block 2 — antithrombotics (at +3 hours)
@@ -43,3 +43,10 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - User-requested automation `run_now` returned success and inline execution in this conversation; scheduled-run history had not shown an execution.
 - Previous block status: **PARTIAL**. GitHub Actions passed at `672d343`, but inventory manifest and exact denominators remain unverified.
 - Continue Block 1 before advancing. No medications clinically signed off by this engineering check.
+
+## Verified inventory denominator (GitHub Actions 42332062649)
+- Canonical medication IDs: **436**.
+- Unique ingredient-ID sets: **233** (provisional lower bound for review groups; route/release/formulation can increase it).
+- Combination medication entries: **48**.
+- Inventory integrity suite: 4/4 tests passed. Duplicate IDs and missing ingredient references: none detected by passing tests.
+- This is terminology coverage, NOT guideline validation or independent clinical approval.
