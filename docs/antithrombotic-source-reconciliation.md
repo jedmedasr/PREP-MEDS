@@ -36,3 +36,13 @@ Status: IN_PROGRESS / NOT CLINICALLY REVIEWED. This document is a source-compari
 Canonical medication IDs: 436 (from previously passing inventory test). Provisional ingredient sets: 233. Combination entries: 48. Final clinically distinct formulation-group denominator: NOT ESTABLISHED. Clinically reviewed groups: 0 confirmed. ASGE comparisons completed and mapped to all antithrombotic IDs: 0 confirmed. This scaffold does not increase reviewed or tested counts.
 
 Next: verify branch CI, enumerate antithrombotic canonical IDs and formulations from terminology dataset, build structured per-ID comparison ledger and automated completeness tests. No patient-facing clinical rule activation.
+
+## Point-of-care product requirement — clinician-selected guideline pathway
+
+Display ASGE 2016 and ACG–CAG 2022 **side by side** (and BSG/ESGE 2021 where relevant), without silently reconciling them into a single directive. For each medication/formulation and scenario show: exact source/year, agent applicability or NOT ADDRESSED, procedural bleeding risk, renal function, thrombotic indication, suggested action, evidence certainty, and specific disagreement. Preserve full citations and source versions.
+
+Clinician workflow: choose a displayed guideline pathway or document an individualized decision; show the selection and rationale in the clinician-facing record. The choice must not silently activate medication rules, create a patient instruction, or imply institutional approval. Before any patient-facing export, require the existing institutional governance and safety gates; missing data or unapproved pathway stays review-only. Never preselect a source or present an unsupported universal hold interval.
+
+Example (research display, not patient-specific advice): low-risk endoscopy with apixaban — ASGE 2016 suggests continuation of DOACs for low-risk procedures; ACG–CAG 2022 conditionally suggests temporary interruption of DOACs for elective endoscopy (very low certainty). Distinguish these broad recommendations from agent-specific high-risk hold timing and from restart timing, which ACG–CAG identifies as an evidence gap.
+
+Implementation status: REQUIREMENT RECORDED ONLY. No UI code, selection persistence, deployment, or clinical signoff is claimed by this entry.
