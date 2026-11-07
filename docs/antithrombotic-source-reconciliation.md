@@ -60,3 +60,13 @@ The central clinical output is **when**, not merely continue/interrupt. For EACH
 7. Test date/time calculations across midnight, time zones/DST, procedure rescheduling, morning/evening/BID dosing, impaired renal function, combined procedures and delayed resumption. Missing required data fails closed. No patient-facing activation without governance approval.
 
 **Status:** timing requirements documented; no timing calculation code or deployment completed by this documentation change.
+
+## Mandatory renal-function-dependent timing — 2026-11-07
+
+When a source's agent-specific interruption guidance depends on creatinine clearance, the point-of-care display MUST compute/select the appropriate renal stratum before displaying a specific last-dose interval. Use Cockcroft–Gault CrCl (mL/min) when required by the source; do not silently substitute eGFR. Capture age, weight, serum creatinine, sex coefficient, and weight-basis rationale; flag unstable kidney function, extremes of body composition, and invalid/out-of-range inputs for clinician review.
+
+For each source, retain its **exact** threshold operators and boundary inclusivity, agent, formulation, procedure risk, and table citation. Example ASGE 2016 apixaban high-risk procedure strata: CrCl >60 mL/min -> 1–2 days; 30–59 -> 3 days; 15–29 -> 4 days. Do not extrapolate to CrCl below table coverage, or silently decide a 1–2-day range. Other guidelines may not use these same strata.
+
+The clinical UI must show entered/computed CrCl, matched guideline renal bracket, exact interruption days (or source-provided range), derived last-dose calendar date/time only where supported, and renal-related cautions. A changed CrCl, procedure, medication, dose schedule, or date must immediately invalidate/recompute displayed timing. When required CrCl is missing or out of range, show **RENAL DATA REQUIRED / NO TIMING DETERMINATION**, not a generic interval. Add boundary tests at 15, 29, 30, 59, 60 and >60 mL/min; tests for unstable renal function, missing inputs, and negative cross-agent inheritance.
+
+Status: SPECIFICATION ONLY. No renal-timing engine implementation or clinical signoff is implied.
