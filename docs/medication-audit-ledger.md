@@ -2,6 +2,15 @@
 
 Status: IN PROGRESS. This ledger records *verified* progress, not assumed clinical clearance.
 
+## Validation unit: ingredient × clinically distinct formulation (2026-11-06)
+
+- **Primary review denominator:** unique active ingredient and clinically meaningful formulation/route/delivery combination, not brand name or every terminology medication ID. Validate ingredient-level guidance once when pharmacology and periendoscopic handling are equivalent.
+- Create separate reviews where route, delivery system, release characteristics, combination ingredients, pharmacokinetics, indication-specific dosing, renal handling, or interruption/resumption strategy materially change the clinical recommendation (e.g., oral vs injectable agents, immediate vs extended release when clinically consequential, insulin basal vs prandial vs pump, fixed-dose combinations, antithrombotic regimens).
+- **Terminology coverage remains mandatory:** map every canonical medication ID, generic, brand, strength and alias to its reviewed ingredient/formulation group; verify mapping with automated tests. Brands sharing identical clinically relevant formulation and ingredient(s) inherit the same reviewed recommendation rather than duplicating research.
+- **Combination products:** map all active ingredients and apply the most restrictive relevant procedure-specific safety rule; separately review combinations if their delivery or dosing changes recommendations. No ingredient may silently disappear in mapping.
+- **Antithrombotic ASGE coverage:** compare ASGE 2016 and newer guidelines once per clinically distinct antithrombotic ingredient/formulation, including combinations; propagate source-linked comparison and explicit NOT_ADDRESSED determinations to every mapped canonical medication ID. Count unmapped IDs and unresolved source conflicts as incomplete.
+- **Reporting:** publish both (1) clinically distinct review groups completed/total and (2) canonical medication IDs mapped to approved groups/total. Never claim the latter represents independent guideline reviews. Clinical approval remains separate from automated test passage.
+
 ## Required inventory
 - Canonical inventory source: `terminologyDataset.medications` in `apps/web/lib/content.ts`.
 - Before marking coverage complete, generate a machine-readable manifest of **all** medication IDs from that dataset. Never treat the number of rules as the number of medications.
