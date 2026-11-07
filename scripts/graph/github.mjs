@@ -1,4 +1,5 @@
 import { digest, SHA, TASK, reconcile, freshness } from './core.mjs';
+import { declaredTasks } from './task-tags.mjs';
 
 /** Small REST adapter: fixed host/repository, bounded pagination, no hidden retries or token logging. */
 export class GitHubClient {
@@ -36,7 +37,7 @@ const runFromURL = (url) => Number(String(url).match(/\/actions\/runs\/(\d+)(?:[
 const normalizePR = (p) => ({ number: p.number, state: p.state, merged: Boolean(p.merged || p.merged_at),
   draft: p.draft, head_sha: p.head.sha, branch: p.head.ref, author: p.user.login,
   merge_sha: p.merge_commit_sha, url: p.html_url,
-  task_ids: unique(`${p.title}\n${p.body ?? ''}`.match(/\b[A-Z]+-\d{3}\b/g) ?? []) });
+  task_ids: declaredTasks(p.title, p.body ?? '') });
 
 /** Reads immutable receipts and live heads. PR #37 is never modified or rerun. */
 export async function collect(client, graph, ledger, policy) {
@@ -71,6 +72,7 @@ export async function collect(client, graph, ledger, policy) {
     for (const n of prNumbers) {
       const raw = await client.request(`${p}/pulls/${n}`);
       const pr = normalizePR(raw);
+      pr.task_ids = pr.task_ids.filter((id) => graph.tasks.some((task) => task.id === id));
       pr.files = (await client.list(`${p}/pulls/${n}/files`)).map((f) => f.filename);
       pr.reviews = (await client.list(`${p}/pulls/${n}/reviews`)).map((r) => ({ id: r.id, login: r.user.login, state: r.state, commit_id: r.commit_id, html_url: r.html_url }));
       // A contributor cannot certify independent verification of the same change.

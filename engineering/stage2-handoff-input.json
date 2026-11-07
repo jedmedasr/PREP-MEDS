@@ -3,7 +3,7 @@
   "outcome": "PARTIAL",
   "session_id": "stage2-implementation-20261107",
   "tests_executed": [
-    "node --test scripts/__tests__/graph-orchestrator.test.mjs",
+    "node --test scripts/__tests__/graph-*.test.mjs",
     "node scripts/verify-engineering-graph.mjs",
     "node --test scripts/__tests__/verify-engineering-graph.test.mjs",
     "node scripts/graph/cli.mjs verify --base-ref <actual-base-sha> --live"

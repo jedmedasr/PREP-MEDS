@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: 22
       - name: Orchestrator regression and adversarial tests
-        run: node --test scripts/__tests__/graph-orchestrator.test.mjs
+        run: node --test scripts/__tests__/graph-*.test.mjs
       - name: Existing graph invariants
         run: |
           node scripts/verify-engineering-graph.mjs
