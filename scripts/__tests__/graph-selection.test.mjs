@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { declaredTasks } from '../graph/task-tags.mjs';
-import { reconcile } from '../graph/core.mjs';
+import { reconcile, freshness } from '../graph/core.mjs';
 
 test('only explicit task declarations claim work, not unrelated prose references', () => {
   assert.deepEqual(declaredTasks('feat: ENG-003 orchestrator', '## Task: ENG-003\nSeparate from SPR-001 and PR #40; SHA-256 is a digest.'), ['ENG-003']);
@@ -25,4 +25,8 @@ test('task-selection fixture accuracy: numeric priority and deterministic ID tie
     assert.equal(reconcile(graph, ledger, policy, state).next, item.expected);
   }
   console.log('SELECTION_FIXTURE_ACCURACY', JSON.stringify({ correct: cases.length, total: cases.length, percentage: 100, scope: 'synthetic deterministic fixtures only, not observed production accuracy' }));
+});
+
+test('incomplete live state retains the exact recovery blocker', () => {
+  assert.deepEqual(freshness({ complete: false, errors: ['PR_MOVED_DURING_RECONCILIATION: 40'] }, { freshness_seconds: 900 }), ['LIVE_STATE_UNAVAILABLE', 'PR_MOVED_DURING_RECONCILIATION: 40']);
 });

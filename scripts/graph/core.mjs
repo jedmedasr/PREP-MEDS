@@ -106,7 +106,7 @@ export function validateHistory(graph, ledger, previous, priorLedger) {
 }
 
 export function freshness(state, policy, now = Date.now()) {
-  if (!state || state.complete !== true) return ['LIVE_STATE_UNAVAILABLE'];
+  if (!state || state.complete !== true) return ['LIVE_STATE_UNAVAILABLE', ...(state?.errors ?? [])];
   const age = (now - Date.parse(state.observed_at)) / 1000;
   if (!Number.isFinite(age) || age < -30 || age > policy.freshness_seconds) return ['STALE_GITHUB_STATE'];
   return state.errors?.length ? ['INCOMPLETE_GITHUB_STATE', ...state.errors] : [];
