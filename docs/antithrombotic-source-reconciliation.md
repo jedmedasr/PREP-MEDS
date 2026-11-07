@@ -46,3 +46,17 @@ Clinician workflow: choose a displayed guideline pathway or document an individu
 Example (research display, not patient-specific advice): low-risk endoscopy with apixaban — ASGE 2016 suggests continuation of DOACs for low-risk procedures; ACG–CAG 2022 conditionally suggests temporary interruption of DOACs for elective endoscopy (very low certainty). Distinguish these broad recommendations from agent-specific high-risk hold timing and from restart timing, which ACG–CAG identifies as an evidence gap.
 
 Implementation status: REQUIREMENT RECORDED ONLY. No UI code, selection persistence, deployment, or clinical signoff is claimed by this entry.
+
+## Mandatory timing engine and point-of-care comparison — 2026-11-07
+
+The central clinical output is **when**, not merely continue/interrupt. For EACH applicable guideline and each reviewed active ingredient × clinically distinct formulation/regimen, independently display:
+
+1. Explicit source-specific interruption interval in hours/days; whether counted from last dose or calendar day; and whether the source provides no precise interval.
+2. Calculated last permitted dose **date/time** relative to scheduled procedure date/time, with local time zone, administration frequency and actual last dose. Avoid converting ambiguous guideline day-counting into fabricated clock-time precision.
+3. Source-specific restart interval/date/time, conditional on achieved hemostasis, intervention type, delayed bleeding risk, and clinical clearance. When evidence does not support an exact restart interval, state **NOT SPECIFIED — CLINICIAN DECISION**.
+4. Modifiers: creatinine clearance and renal function thresholds, hepatic impairment where relevant, indication, thrombotic risk, high- versus low-risk intervention, aspirin/DAPT/triple therapy, bridging, institutional policy and prescriber authorization.
+5. Side-by-side ASGE 2016 versus ACG–CAG 2022 versus BSG/ESGE 2021, plus relevant CHEST/ACC/AHA/FDA sources, each with source version, strength, uncertainty, exact section/table and link. Record NOT ADDRESSED where a source does not cover an agent.
+6. Display conflicts without merging them. Clinician selects a guideline or records individualized plan; never preselect or silently issue patient instructions.
+7. Test date/time calculations across midnight, time zones/DST, procedure rescheduling, morning/evening/BID dosing, impaired renal function, combined procedures and delayed resumption. Missing required data fails closed. No patient-facing activation without governance approval.
+
+**Status:** timing requirements documented; no timing calculation code or deployment completed by this documentation change.
