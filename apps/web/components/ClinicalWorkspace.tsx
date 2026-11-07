@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CreatinineClearanceCalculator } from './CreatinineClearanceCalculator';
 import { PrescriberClearanceRequest } from './PrescriberClearanceRequest';
+import { InsulinPrescriberRequest } from './InsulinPrescriberRequest';
 import type { DecisionExecution, ModifierValue, ProcedureCode } from '@prep-meds/clinical-engine';
 
 interface SearchHit {
@@ -451,6 +452,7 @@ export function ClinicalWorkspace() {
         </section>
       ) : null}
           <CreatinineClearanceCalculator />
+      <InsulinPrescriberRequest procedure={procedure ?? ''} />
       <PrescriberClearanceRequest key={selectedMedication?.medicationId ?? 'unselected'} medicationName={selectedMedication?.canonicalName ?? ''} procedureName={procedures.find(p => p.code === procedure)?.label ?? ''} />
     </main>
   );
