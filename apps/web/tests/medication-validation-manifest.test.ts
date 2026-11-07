@@ -65,6 +65,16 @@ describe('machine-readable medication validation manifest', () => {
     }
     expect(manifest.medications.length).toBe(manifest.counts.canonicalMedications);
   });
+  it('rejects unnamed medication records instead of emitting unreviewable audit entries', () => {
+    const first = terminologyDataset.medications[0]!;
+    expect(() => buildMedicationValidationManifest([{ ...first, canonicalName: '   ' }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+  });
+  it('retains deterministic group membership under shuffled source order', () => {
+    const forward = buildMedicationValidationManifest(terminologyDataset.medications);
+    const reverse = buildMedicationValidationManifest([...terminologyDataset.medications].reverse());
+    expect(JSON.stringify(reverse)).toBe(JSON.stringify(forward));
+    expect(forward.groups.every(group => group.medicationIds.every(id => forward.canonicalIdToProvisionalGroup[id] === group.ingredientSetKey))).toBe(true);
+  });
   it('can be serialized as JSON for audit export', () => {
     expect(JSON.parse(JSON.stringify(manifest)).counts).toEqual(manifest.counts);
   });
