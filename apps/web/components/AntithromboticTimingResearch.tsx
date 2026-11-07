@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { asge2016ApixabanHighRiskTiming } from '../lib/antithrombotic-timing';
+import { researchHoldCalendarDates } from '../lib/antithrombotic-calendar-research';
 
 /** Research-only source comparison; never generates patient instructions. */
 export function AntithromboticTimingResearch() {
   const [crcl, setCrcl] = useState('');
+  const [procedureDate, setProcedureDate] = useState('');
   const [stable, setStable] = useState(false);
   const [risk, setRisk] = useState<'LOW'|'HIGH'|'UNKNOWN'>('UNKNOWN');
   const [ingredient, setIngredient] = useState('apixaban');
@@ -16,10 +18,12 @@ export function AntithromboticTimingResearch() {
     procedureBleedingRisk: risk,
     kidneyFunctionStable: stable,
   });
+  const dates = result.status === "MATCHED" ? researchHoldCalendarDates({ procedureLocalDate: procedureDate, holdDays: result.holdDays }) : null;
   return <section className="panel" aria-label="Guideline timing research comparison">
     <div className="section-heading"><div><h2>Antithrombotic timing — guideline comparison</h2>
       <p>Clinician research only. No automatic treatment recommendation or patient instruction.</p></div></div>
     <div className="result-grid">
+      <label>Procedure local date<input aria-label="Procedure local date" type="date" value={procedureDate} onChange={e => setProcedureDate(e.target.value)} /></label>
       <label>Active ingredient<select aria-label="Timing ingredient" value={ingredient} onChange={e=>setIngredient(e.target.value)}>
         <option value="apixaban">Apixaban</option><option value="rivaroxaban">Rivaroxaban — not yet mapped</option>
         <option value="dabigatran">Dabigatran — not yet mapped</option></select></label>
@@ -34,6 +38,7 @@ export function AntithromboticTimingResearch() {
         ? <><p><strong>Interruption: {result.holdDays.join('–')} day{result.holdDays.length > 1 || result.holdDays[0] !== 1 ? 's' : ''} before procedure</strong></p>
           <p>Matched renal bracket: {result.renalBracket}. High-risk procedure only. The guideline's range is not resolved into a specific last-dose time.</p></>
         : <p><strong>No timing determination:</strong> {result.reason}</p>}
+      {dates?.status === 'CALENDAR_DATES_ONLY' ? <p><strong>Calendar subtraction candidates: {dates.candidateDates.join(' or ')}</strong>. {dates.disclaimer}</p> : null}
       <p><a href="https://doi.org/10.1016/j.gie.2015.09.035" target="_blank" rel="noreferrer">ASGE original 2016 guideline</a></p>
     </div>
     <div className="research-rule">
