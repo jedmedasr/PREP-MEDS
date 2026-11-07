@@ -43,6 +43,12 @@ describe('machine-readable medication validation manifest', () => {
     expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: [''] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
     expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: ['ingredient-a', 'ingredient-a'] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
   });
+  it('rejects whitespace-corrupted immutable identifiers instead of silently grouping them', () => {
+    const first = terminologyDataset.medications[0]!;
+    expect(() => buildMedicationValidationManifest([{ ...first, id: ' ' + first.id }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+    expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: [first.ingredientIds[0]! + ' '] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+    expect(() => buildMedicationValidationManifest([{ ...first, id: first.id + ' ' }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+  });
   it('does not confer clinical review status through provisional group inheritance', () => {
     const duplicatedIngredient = terminologyDataset.medications[0]!;
     const second = { ...duplicatedIngredient, id: duplicatedIngredient.id + '-alternate-brand' };
