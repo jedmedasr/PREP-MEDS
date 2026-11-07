@@ -5,12 +5,12 @@
   "snapshot": {
     "date": "2026-11-07",
     "default_branch": "main",
-    "default_branch_sha": "ec1ee7e1c00520cc5903e4ab8b0246e9936efa62",
+    "default_branch_sha": "34c15b67a186482d1881b4569e9aab4a0e16f31b",
     "active_sprint_branch": "test/medication-research-regression-20261106",
     "active_sprint_pr": "https://github.com/jedmedasr/PREP-MEDS/pull/37",
-    "observed_sprint_sha": "eeac28f8bf850efe770148983b280f5f5bff8a7a",
-    "observed_sprint_ci_run": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345077523",
-    "note": "Read the current branch/PR/CI before every reconciliation. This immutable snapshot is historical evidence only; passing CI does not imply clinical approval."
+    "observed_sprint_sha": "5a4b8cb714f1f2aafa8ce34428514a67d9517fd1",
+    "observed_sprint_ci_run": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42345991815",
+    "note": "Reconciled 2026-11-07 after PR #39 merged. Read current main, PR #37 head, reviews and CI before every future task selection. This snapshot is historical evidence only; passing CI does not imply clinical approval."
   },
   "tasks": [
     {
