@@ -13,9 +13,9 @@
       "name": "ASGE",
       "publicationDate": "2016-01",
       "version": "2016",
-      "section": "Tables 7–9 and Table 13",
+      "section": "Table 8; Table 13",
       "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
-      "extraction": "Table 8: renal-stratified; see source table"
+      "extraction": "CrCl >90: ≥1 day; 60–90: 2 days; 30–59: 3 days; 15–29: 4 days"
     },
     {
       "name": "BSG/ESGE",
@@ -37,17 +37,19 @@
   "asge2016": {
     "status": "COMPARED",
     "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
-    "section": "Tables 7–9"
+    "section": "Table 8; Table 13",
+    "agentSpecific": "CrCl >90: ≥1 day; 60–90: 2 days; 30–59: 3 days; 15–29: 4 days",
+    "limitations": "Interpret procedural and thrombotic risk; do not generalize timing across agents."
   },
   "scenarios": [
     {
       "risk": "low",
-      "asge": "See ASGE recommendations",
+      "asge": "Continue NOAC for low-risk procedures",
       "bsg": "See BSG/ESGE recommendations"
     },
     {
       "risk": "high",
-      "asge": "Table 8: renal-stratified; see source table",
+      "asge": "CrCl >90: ≥1 day; 60–90: 2 days; 30–59: 3 days; 15–29: 4 days",
       "bsg": "Low-risk omit morning dose; high-risk last dose 3d prior"
     },
     {
@@ -56,14 +58,15 @@
     },
     {
       "risk": "restart",
-      "action": "Hemostasis and source-specific timing; do not infer universal timestamp"
+      "action": "Hemostasis and source-specific timing; do not infer universal timestamp",
+      "asge": "After adequate hemostasis"
     }
   ],
   "tests": [],
   "verification": {
-    "agentA": "NOT_EXECUTED",
+    "agentA": "SOURCE_EXTRACTION_RECORDED",
     "agentB": "NOT_EXECUTED",
-    "sourceInspection": "ASGE and BSG/ESGE public primary sources located",
+    "sourceInspection": "ASGE 2016 official guideline Tables 2, 7, 8, 9 and 13; cross-check outstanding",
     "discrepancies": []
   },
   "commitSha": null,
