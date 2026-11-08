@@ -13,9 +13,9 @@
       "name": "ASGE",
       "publicationDate": "2016-01",
       "version": "2016",
-      "section": "Table 2 and Table 13; recommendations",
+      "section": "Table 13, antiplatelet recommendations",
       "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
-      "extraction": "Generally continue, except individualized advanced resection risk"
+      "extraction": "Continue standard low-dose aspirin for most high-risk procedures; individualize exceptional procedures"
     },
     {
       "name": "BSG/ESGE",
@@ -37,17 +37,19 @@
   "asge2016": {
     "status": "COMPARED",
     "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
-    "section": "Table 2 / Table 13"
+    "section": "Table 13, antiplatelet recommendations",
+    "agentSpecific": "Continue standard low-dose aspirin for most high-risk procedures; individualize exceptional procedures",
+    "limitations": "Interpret procedural and thrombotic risk; do not generalize timing across agents."
   },
   "scenarios": [
     {
       "risk": "low",
-      "asge": "See ASGE recommendations",
+      "asge": "Continue",
       "bsg": "See BSG/ESGE recommendations"
     },
     {
       "risk": "high",
-      "asge": "Generally continue, except individualized advanced resection risk",
+      "asge": "Continue standard low-dose aspirin for most high-risk procedures; individualize exceptional procedures",
       "bsg": "Continue for most endoscopy; ampullectomy individualized"
     },
     {
@@ -56,14 +58,15 @@
     },
     {
       "risk": "restart",
-      "action": "Hemostasis and source-specific timing; do not infer universal timestamp"
+      "action": "Hemostasis and source-specific timing; do not infer universal timestamp",
+      "asge": "Not applicable when continued"
     }
   ],
   "tests": [],
   "verification": {
-    "agentA": "NOT_EXECUTED",
+    "agentA": "SOURCE_EXTRACTION_RECORDED",
     "agentB": "NOT_EXECUTED",
-    "sourceInspection": "ASGE and BSG/ESGE public primary sources located",
+    "sourceInspection": "ASGE 2016 official guideline Tables 2, 7, 8, 9 and 13; cross-check outstanding",
     "discrepancies": []
   },
   "commitSha": null,
