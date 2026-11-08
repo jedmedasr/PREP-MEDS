@@ -54,4 +54,36 @@ describe('canonical medication audit manifest safety', () => {
       }
     }
   });
+  it('never collapses combination products into single-ingredient evidence groups', () => {
+    const byId = new Map(terminologyDataset.medications.map((med) => [med.id, med]));
+    let combinations = 0;
+    for (const row of rows) {
+      const medication = byId.get(row.medicationId);
+      expect(medication).toBeDefined();
+      const expectedIngredients = [...medication!.ingredientIds].sort();
+      const expectedKey = expectedIngredients.join('+');
+      expect(row.ingredientSetKey).toBe(expectedKey);
+      if (expectedIngredients.length > 1) {
+        combinations += 1;
+        expect(row.ingredientSetKey).toContain('+');
+        for (const ingredientId of expectedIngredients) {
+          expect(row.ingredientSetKey.split('+')).toContain(ingredientId);
+        }
+      }
+    }
+    expect(combinations).toBe(audit.counts.combinationMedications);
+  });
+
+  it('keeps every provisional group ingredient-exact and excludes cross-medication inheritance', () => {
+    const byId = new Map(rows.map((row) => [row.medicationId, row]));
+    for (const group of groups) {
+      const expectedIds = rows.filter((row) => row.ingredientSetKey === group.ingredientSetKey).map((row) => row.medicationId).sort();
+      expect([...group.medicationIds].sort()).toEqual(expectedIds);
+      for (const id of group.medicationIds) {
+        expect(byId.get(id)?.ingredientSetKey).toBe(group.ingredientSetKey);
+      }
+      expect(group.medicationIds.length).toBeGreaterThan(0);
+    }
+  });
+
 });
