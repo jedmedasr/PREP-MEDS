@@ -13,9 +13,9 @@
       "name": "ASGE",
       "publicationDate": "2016-01",
       "version": "2016",
-      "section": "Table 2 and Table 13; recommendations",
+      "section": "Table 2; Table 13",
       "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
-      "extraction": "Continue low-risk; hold 5–7d high-risk"
+      "extraction": "Hold 5–7 days for high-risk procedures; continue aspirin if DAPT"
     },
     {
       "name": "BSG/ESGE",
@@ -37,17 +37,19 @@
   "asge2016": {
     "status": "COMPARED",
     "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
-    "section": "Table 2 / Table 13"
+    "section": "Table 2; Table 13",
+    "agentSpecific": "Hold 5–7 days for high-risk procedures; continue aspirin if DAPT",
+    "limitations": "Interpret procedural and thrombotic risk; do not generalize timing across agents."
   },
   "scenarios": [
     {
       "risk": "low",
-      "asge": "See ASGE recommendations",
+      "asge": "Continue",
       "bsg": "See BSG/ESGE recommendations"
     },
     {
       "risk": "high",
-      "asge": "Continue low-risk; hold 5–7d high-risk",
+      "asge": "Hold 5–7 days for high-risk procedures; continue aspirin if DAPT",
       "bsg": "Continue low-risk; high-risk stop 7d if low thrombotic risk"
     },
     {
@@ -56,14 +58,15 @@
     },
     {
       "risk": "restart",
-      "action": "Hemostasis and source-specific timing; do not infer universal timestamp"
+      "action": "Hemostasis and source-specific timing; do not infer universal timestamp",
+      "asge": "After hemostasis and thrombotic risk review"
     }
   ],
   "tests": [],
   "verification": {
-    "agentA": "NOT_EXECUTED",
+    "agentA": "SOURCE_EXTRACTION_RECORDED",
     "agentB": "NOT_EXECUTED",
-    "sourceInspection": "ASGE and BSG/ESGE public primary sources located",
+    "sourceInspection": "ASGE 2016 official guideline Tables 2, 7, 8, 9 and 13; cross-check outstanding",
     "discrepancies": []
   },
   "commitSha": null,
