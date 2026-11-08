@@ -21,6 +21,9 @@ export type EvidenceReviewCandidate = {
 export function canMarkClinicallyReviewed(candidate: EvidenceReviewCandidate, review: ClinicalEvidenceReview | null): boolean {
   if (!review || review.decision !== 'APPROVED' || !review.reviewerId.trim()) return false;
   if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/.test(review.reviewedAt) || !Number.isFinite(Date.parse(review.reviewedAt))) return false;
+  // A review timestamp in the future cannot establish that a clinician has reviewed this revision.
+  // Allow five minutes for clock skew; the authenticated audit writer must still supply reviewer identity.
+  if (Date.parse(review.reviewedAt) > Date.now() + 5 * 60_000) return false;
   if (!candidate.groupId.trim() || candidate.groupId !== review.groupId || !/^[a-f0-9]{64}$/i.test(candidate.evidenceHash) || candidate.evidenceHash !== review.evidenceHash) return false;
   if (!candidate.formulationAdjudicated || !candidate.evidenceTestsPassed || candidate.unresolvedBlockingIssues.length) return false;
   const validLinks = (links: string[]) => links.length > 0 && links.every(link => {
