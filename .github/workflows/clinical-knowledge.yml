@@ -1,0 +1,43 @@
+name: clinical-knowledge
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-knowledge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deterministic knowledge regressions
+        run: node --test scripts/__tests__/clinical-knowledge*.test.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install independent PDF readers
+        run: |
+          python -m pip install 'pypdf[crypto]==5.9.0'
+          command -v pdftotext || (sudo apt-get update -qq && sudo apt-get install -y poppler-utils)
+      - name: Verify pinned source editions and located passages
+        run: python scripts/clinical-knowledge/acquire.py
+      - name: Exercise authentic-source synthetic-case vertical slice
+        run: node scripts/clinical-knowledge/cli.mjs demo --output knowledge-artifacts/reference-case.json
+      - name: Preserve inspected source snapshot
+        if: always()
+        run: |
+          mkdir -p knowledge-artifacts
+          git archive --format=tar.gz --output=knowledge-artifacts/source.tar.gz HEAD
+          git rev-parse HEAD > knowledge-artifacts/checkout-sha.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: clinical-knowledge-source-${{ github.run_id }}
+          path: knowledge-artifacts
+          retention-days: 7
+          if-no-files-found: error

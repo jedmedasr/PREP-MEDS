@@ -1,0 +1,15 @@
+{
+  "schema_version":1,"task_id":"CKG-001","outcome":"PARTIAL","date":"2026-11-07",
+  "pull_request":"https://github.com/jedmedasr/PREP-MEDS/pull/43",
+  "stacked_on":{"pr":42,"sha":"513adb6ac36a768b64f33e03f42cc27abf82ba6a"},
+  "main_observed":"4157f497e7b0ff37f428a44e5caeb2c815544a87",
+  "preceding_verified_head":"61d46f1cb6fe64b5e6d3c3bab937c9b0655e8010",
+  "verified_runs":{"quality":42380964137,"clinical_knowledge":42380964017,"clinical_evidence":42380964128,"engineering_graph":42380964176},
+  "implemented":["Separate clinical graph schema and exact canonical identity mapping","Nine parameterized specifications; one recent-VTE reference slice","Authentic primary-source acquisition, seven located passages and two mechanical PDF readers","Deterministic eligibility/calendar-month calculations, explicit source choice and no patient instructions","MA escalation and physician comparison prototypes","Scoped deduplicated research requests, reverse source impact, immutable versions and observation adapter"],
+  "source_verification":{"documents":3,"passages":7,"mechanical_readers":2,"independent_clinical_agents":0,"fully_verified_clinical_pathways":0,"status":"PASSAGE_MATCH_ONLY_NOT_SEMANTIC_VERIFICATION"},
+  "final_commit_checks":"New pin/lifecycle/maintenance/evidence commit must receive exact-head checks; consult PR checks rather than this historical handoff.",
+  "remaining_blockers":["Independent source-only clinical semantic verification and currentness adjudication","Review/adoption of stacked PRs without losing #40/#41 state","Runtime consumption of live surveillance state and verified resolution of discovery warnings","Institutional authorization, clinician authentication, compliant clinical audit storage","No actual usage telemetry or full society/medication coverage; browser interaction not tested"],
+  "next_action":"Review bounded implementation, complete EVD-002/CKG-002 genuine independent source verification before expansion. No per-guideline physician re-endorsement queue.",
+  "do_not":["Modify or merge PR #37","Treat mechanical reader agreement as clinical AI verification","Activate patient-facing clinical guidance","Merge unreviewed or failing implementation"],
+  "cost":{"model_api_calls":0,"new_paid_services":0,"case_runtime_network_calls":0,"github_actions_cost":"not measured; runner usage may consume allowance"}
+}

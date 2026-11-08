@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "task_id": "EVD-001",
+  "date": "2026-11-07",
+  "repository": "jedmedasr/PREP-MEDS",
+  "pull_request": "https://github.com/jedmedasr/PREP-MEDS/pull/42",
+  "main_baseline_sha": "4157f497e7b0ff37f428a44e5caeb2c815544a87",
+  "verified_implementation_sha": "2cfee38d796fd4282fa7379cf4777bec4c928bdc",
+  "objective_status": "PARTIAL",
+  "task_status": "needs_review",
+  "governance_change": "No per-extraction clinician re-endorsement for faithfully verified society guidance. Treating clinician selection is explicit; local policies and locally authored recommendations retain human authorization.",
+  "verified": {
+    "application_quality": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42377370117",
+    "graph": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42377370070",
+    "synthetic_pipeline": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42377370099",
+    "initial_live_source_observation": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42376964064"
+  },
+  "delivered": [
+    "Source-only independently executed synthetic extraction workers, located passages and deterministic checks",
+    "Conflict-preserving comparison and explicit source selection, synthetic patient-specific timing and traceable event export",
+    "Immutable versions, affected-ID mapping and intact-artifact cache reuse",
+    "Monthly observation workflow with May/November comprehensive source auditing; isolated state-branch writer",
+    "Additional targeted range, elapsed-hour/DST and unspecified-restart tests in the handoff commit; final head CI must be checked"
+  ],
+  "not_delivered": [
+    "Two independently configured live clinical extraction/verification agents",
+    "Trusted real primary-document/layout acquisition and complete source-context verification",
+    "All-medication/all-society coverage, actual revision/supersession reconciliation, and automatic authoritative graph adoption",
+    "Authenticated treating-clinician decisions, authorized institutional-policy runtime and durable compliant clinical event storage",
+    "Production activation or monthly schedule activation on main"
+  ],
+  "clinical_content_verified": false,
+  "synthetic_only": true,
+  "model_api_calls": 0,
+  "new_paid_infrastructure": false,
+  "schedule_activated_on_main": false,
+  "pr37_modified": false,
+  "pr37_merged": false,
+  "next_engineering_task": "EVD-002 after reviewed adoption of EVD-001: implement and validate real document acquisition and independent live adapters; no per-extraction clinician approval queue.",
+  "integration_notes": "Preserve PR #40 SPR-001 evidence/state and PR #41 ENG-003 files when integrating parallel branches. Do not overwrite graph or package scripts. Reconcile current main, PR heads and exact-head CI; this handoff is a historical receipt, not a live state claim."
+}

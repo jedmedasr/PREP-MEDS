@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "source_sha": "b117988e353d6c5731fffcde1f491ccbf03713c0",
+  "source_description": "Inspected main after the independent merge of PR #37",
+  "sprint_pr": 37,
+  "sprint_state_observed": "merged",
+  "previous_audited_sha": "b4cbdc651d952c579cef328ac26eb7eaae5e01bd",
+  "source_quality_run": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42412574938",
+  "source_quality_result_observed": "success",
+  "note": "Immutable audit target, not an automatic current-main assertion. The audit never changes medication content or PR #37. CI and inventory integrity do not confer clinical approval."
+}

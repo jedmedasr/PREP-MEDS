@@ -1,17 +1,21 @@
 {
-  "name": "prep-meds",
-  "private": true,
-  "version": "0.0.0",
-  "packageManager": "pnpm@9.15.0",
-  "scripts": {
-    "test": "pnpm -r test",
-    "typecheck": "pnpm -r typecheck",
-    "build:web": "pnpm --filter @prep-meds/web build",
-    "validate:schemas": "node scripts/validate-schemas.mjs",
-    "quality": "pnpm validate:schemas && pnpm typecheck && pnpm test && pnpm build:web"
+  "name":"prep-meds","private":true,"version":"0.0.0","packageManager":"pnpm@9.15.0",
+  "scripts":{
+    "test":"pnpm -r test",
+    "typecheck":"pnpm -r typecheck",
+    "build:web":"pnpm --filter @prep-meds/web build",
+    "validate:schemas":"node scripts/validate-schemas.mjs && node scripts/clinical-knowledge/validate.mjs",
+    "quality":"pnpm validate:schemas && pnpm typecheck && pnpm test && pnpm build:web",
+    "evidence:test":"node --test scripts/__tests__/clinical-evidence*.test.mjs",
+    "evidence:demo":"node scripts/clinical-evidence/demo.mjs",
+    "evidence:watch":"node scripts/clinical-evidence/watch.mjs",
+    "knowledge:test":"node --test scripts/__tests__/clinical-knowledge*.test.mjs",
+    "knowledge:status":"node scripts/clinical-knowledge/cli.mjs status",
+    "knowledge:demo":"node scripts/clinical-knowledge/cli.mjs demo",
+    "knowledge:impact":"node scripts/clinical-knowledge/cli.mjs impact",
+    "graph":"node scripts/graph/cli.mjs",
+    "test:graph-orchestrator":"node --test scripts/__tests__/graph-*.test.mjs",
+    "verify:integration":"node scripts/verify-integration.mjs"
   },
-  "devDependencies": {
-    "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1"
-  }
+  "devDependencies":{"ajv":"^8.17.1","ajv-formats":"^3.0.1"}
 }

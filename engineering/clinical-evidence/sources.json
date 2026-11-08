@@ -1,0 +1,12 @@
+{
+  "schemaVersion":1,
+  "note":"Initial antithrombotic surveillance scope, not an exhaustive society catalogue or approved guidance. No extraction is marked verified by this registry.",
+  "sources":[
+    {"id":"asge-antithrombotics-2016","society":"ASGE","publication":"2016-01","url":"https://www.asge.org/docs/default-source/education/practice_guidelines/doc-antithrombotics.pdf","kind":"primary","format":"pdf","allowedHosts":["www.asge.org"],"discoveryUrls":["https://www.asge.org/home/resources/publications/guidelines"],"synthetic":false},
+    {"id":"bsg-esge-antithrombotics-2021","society":"BSG/ESGE","publication":"2021","url":"https://www.esge.com/assets/downloads/pdfs/guidelines/2021_a_1547_2282.pdf","kind":"primary","format":"pdf","allowedHosts":["www.esge.com"],"discoveryUrls":["https://www.esge.com/guidelines"],"synthetic":false},
+    {"id":"acg-cag-antithrombotics-2022","society":"ACG/CAG","publication":"2022-03","url":"https://gi.org/wp-content/uploads/2022/03/ACG-CAG-Guideline.pdf","kind":"primary","format":"pdf","allowedHosts":["gi.org","mediacdn.gi.org"],"discoveryUrls":["https://gi.org/guidelines/"],"synthetic":false},
+    {"id":"bsg-antithrombotic-addendum-2024","society":"BSG","publication":"2024-06-03","url":"https://www.bsg.org.uk/getmedia/68b5cf32-aa6a-49f7-af56-b85fc5f6a3e9/Addendum-Antiplatelet-03-06-24.pdf","kind":"primary","format":"pdf","allowedHosts":["www.bsg.org.uk"],"discoveryUrls":["https://www.bsg.org.uk/clinical-resource/updatet-endoscopy-in-patients"],"synthetic":false}
+  ],
+  "liveAgents":{"configured":false,"maxCallsPerRun":0,"reason":"No independent primary-document extraction runtime is provisioned. Fixture workers cannot process real sources. Missing evidence stays UNVERIFIED, not clinician-review-required."},
+  "cadence":{"monthly":"document and discovery-page byte checks","comprehensiveMonthsUTC":[5,11],"comprehensive":"source access, version inventory, discovery changes, provenance and missing-evidence audit; unchanged verified sources do not invoke agents"}
+}

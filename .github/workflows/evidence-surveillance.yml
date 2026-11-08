@@ -1,0 +1,83 @@
+name: evidence-surveillance
+on:
+  schedule:
+    - cron: '37 11 7 * *'
+  workflow_dispatch:
+    inputs:
+      comprehensive:
+        description: Perform the six-month source and coverage audit
+        type: boolean
+        default: false
+  pull_request:
+    paths:
+      - 'scripts/clinical-evidence/**'
+      - 'engineering/clinical-evidence/**'
+      - 'scripts/clinical-knowledge/**'
+      - 'clinical-knowledge/**'
+      - '.github/workflows/evidence-surveillance.yml'
+permissions:
+  contents: read
+concurrency:
+  group: evidence-surveillance-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'scheduled-state' }}
+  cancel-in-progress: false
+jobs:
+  inspect-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Load persistent source observations (read-only)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/clinical-evidence/persist-observation.mjs read previous-observation.json
+      - name: Monthly detection or May/November comprehensive audit
+        env:
+          REQUEST_COMPREHENSIVE: ${{ inputs.comprehensive }}
+        run: |
+          MODE=""
+          MONTH=$(date -u +%m)
+          if [ "$REQUEST_COMPREHENSIVE" = "true" ] || [ "$MONTH" = "05" ] || [ "$MONTH" = "11" ]; then MODE="--comprehensive"; fi
+          node scripts/clinical-evidence/watch.mjs --previous previous-observation.json --output evidence-observation.json $MODE
+      - name: Map observations to clinical graph maintenance requests
+        run: node scripts/clinical-knowledge/cli.mjs impact evidence-observation.json --output knowledge-impact.json
+      - name: Report missing verification without claiming approval
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const r = JSON.parse(readFileSync('evidence-observation.json', 'utf8'));
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY, `Source observation executed.\n\nChanged/initial locations: ${r.changes.length}; inaccessible: ${r.blockers.length}; unverified work items: ${r.workQueue.length}.\n\nModel calls: ${r.modelCalls}. Comprehensive clinical evidence review complete: ${r.coverage.completeEvidenceReview}.\n\nA successful observation job is NOT source-verification success. Missing adapters/evidence remain blocked.\n`);
+          JS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-observation-${{ github.run_id }}
+          path: |
+            evidence-observation.json
+            knowledge-impact.json
+          retention-days: 30
+          if-no-files-found: error
+  persist-observations:
+    needs: inspect-sources
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@v4
+        with:
+          name: source-observation-${{ github.run_id }}
+      - name: Append observations only on isolated state branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/clinical-evidence/persist-observation.mjs write evidence-observation.json

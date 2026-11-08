@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "repository": "jedmedasr/PREP-MEDS",
+  "freshness_seconds": 900,
+  "required_workflows": ["quality", "engineering-graph"],
+  "clinical_reviewers": [],
+  "protected_prs": [37],
+  "priorities": {"SPR-001": 10, "ENG-003": 20, "SPR-002": 30, "SPR-003": 40, "SPR-004": 50, "SPR-005": 60, "CLIN-001": 90, "REL-001": 100},
+  "scopes": {
+    "SPR-001": ["engineering/reconciliation"],
+    "ENG-003": ["scripts/graph", "scripts/__tests__/graph-orchestrator.test.mjs", ".github/workflows/graph-orchestrator.yml"],
+    "SPR-002": ["apps/web/lib/medication-validation-manifest.ts"],
+    "SPR-003": ["apps/web/lib/antithrombotic-timing.ts", "docs/antithrombotic-source-reconciliation.md"],
+    "SPR-004": ["apps/web/lib/diabetes-workflow-content.ts"],
+    "SPR-005": ["apps/web", "packages/clinical-content"]
+  },
+  "selection_rule": "Ascending numeric priority (default 100), then task ID; only not_started tasks with verified complete dependencies, fresh successful main CI, no open-PR overlap, no active claim, and no clinical gate.",
+  "clinical_boundary": "Empty clinical reviewer allowlist means no automatic clinical approval verification. Configure accountable reviewers only through a reviewed policy PR. Synthetic demo tasks need no unrelated clinical dependency.",
+  "legacy_evidence": "Stage 1 receipts are retained unchanged but not silently upgraded into independently verified Stage 2 completion receipts. Reconcile and append missing evidence through review."
+}

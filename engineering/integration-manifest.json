@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "main_sha": "b117988e353d6c5731fffcde1f491ccbf03713c0",
+  "inputs": [
+    {"pr": 40, "sha": "8708e7c8a68a811d3e50581460428470a099c5cb"},
+    {"pr": 41, "sha": "40ba4c11c532bd25b3b22a0e471fcc45bb719864"},
+    {"pr": 42, "sha": "dca820b134fde6a0fc31541aac6e8e8f5a7ac64e"},
+    {"pr": 43, "sha": "861891bb033d4ee89f393d70315a32fb027926d9"}
+  ],
+  "resolved_paths": ["AGENTS.md", "engineering/task-graph.json", "engineering/evidence-ledger.json", "engineering/decisions.md", "package.json"],
+  "additional_paths": ["engineering/decisions-stage2.md", "engineering/integration-manifest.json", "engineering/integration.md", "scripts/verify-integration.mjs", "scripts/__tests__/integration-preservation.test.mjs", ".github/workflows/integration-verification.yml"],
+  "task_resolution": {"SPR-001": 40},
+  "snapshot_source_pr": 40,
+  "note": "This is a pinned integration checkpoint, not approval or production activation. Source PRs remain independently reviewable. Historical records may not be rewritten, and no task completion is inferred."
+}

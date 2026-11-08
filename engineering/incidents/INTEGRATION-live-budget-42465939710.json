@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "task_id": "ENG-003",
+  "observed_date": "2026-11-08",
+  "implementation_sha": "b48cb131dff7fe1771b2756e1bad284302b16f43",
+  "workflow_run": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42465939710",
+  "artifact": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42465939710/artifacts/13612135032",
+  "artifact_sha256": "6c8d3dfefc0c7abbcef6983dea7c4795b820587c19e68c0c788254d4d4aaba77",
+  "observed_result": "FAIL",
+  "observed_errors": ["LIVE_STATE_UNAVAILABLE", "API_BUDGET_EXCEEDED"],
+  "observed_attempted_requests": 181,
+  "request_limit_unchanged": 180,
+  "root_cause": "The combined ledger and 18 open PRs exposed redundant metadata retrieval within a single bounded reconciliation.",
+  "repair": "Reuse open-PR list payloads, immutable commit metadata returned during contributor enumeration, distinct-head workflow lists, and already observed run headers. Retain all review/contributor, evidence-job, artifact and end-of-snapshot checks. No cross-observation cache, hidden retry, or budget increase.",
+  "additional_premerge_finding": "Evidence/knowledge branches contain legacy incomplete v1 handoffs. A read-only adapter retains source digests, date precision and blockers. It rejects legacy PASS and malformed input; historical files are not rewritten. Candidate preflight must check handoff readability before adoption.",
+  "local_verification": {"command": "node --test scripts/__tests__/graph-*.test.mjs", "passed": 67, "failed": 0, "skipped": 0},
+  "remote_recovery_verified": false,
+  "recovery_note": "Inspect exact new-head CI and actual request counts before claiming recovery. This failure record remains historical."
+}
