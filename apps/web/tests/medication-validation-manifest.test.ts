@@ -83,9 +83,9 @@ describe('machine-readable medication validation manifest', () => {
   });
   it('rejects invisible control characters in immutable IDs and clinical labels', () => {
     const first = terminologyDataset.medications[0]!;
-    expect(() => buildMedicationValidationManifest([{ ...first, id: first.id + '\\n' }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
-    expect(() => buildMedicationValidationManifest([{ ...first, canonicalName: first.canonicalName + '\\u0000' }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
-    expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: [first.ingredientIds[0]! + '\\t'] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+    expect(() => buildMedicationValidationManifest([{ ...first, id: first.id + '\n' }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+    expect(() => buildMedicationValidationManifest([{ ...first, canonicalName: first.canonicalName + '\u0000' }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
+    expect(() => buildMedicationValidationManifest([{ ...first, ingredientIds: [first.ingredientIds[0]! + '\t'] }])).toThrow('INVALID_MEDICATION_INGREDIENT_MAPPING');
   });
   it('can be serialized as JSON for audit export', () => {
     expect(JSON.parse(JSON.stringify(manifest)).counts).toEqual(manifest.counts);
