@@ -505,8 +505,8 @@ export const clinicalReviewEvidenceBundles = [
 export const clinicalReviewReleaseMetadata = [firstReleaseMetadata, antithromboticReleaseMetadata, diabetesCoreReleaseMetadata, diabetesWorkflowMetadata] as const;
 
 export function isShadowContentMode(): boolean {
-  // Only an explicitly configured synthetic demo/research environment exposes review candidates.
-  // Unset and production configurations retain the fail-closed activeRules catalog.
+  // Keep unapproved clinical decision rules isolated from production execution.
+  // The research dossier reads clinicalReviewRules separately for clinician review.
   return process.env.PREP_MEDS_CONTENT_MODE === 'shadow';
 }
 
