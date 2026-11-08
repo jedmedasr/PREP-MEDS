@@ -18,7 +18,8 @@ const sources = {
   ACGCAG2022: 'https://doi.org/10.14309/ajg.0000000000001627', // elective Statement 13
   BSGESGE2021: 'https://doi.org/10.1136/gutjnl-2021-325184', // DOAC section
   IDEN2024: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC11391130/', // Statements 13–14
-  FDA2025: 'https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/220073s000lbl.pdf', // §2.4
+  FDAAdult2025: 'https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/202155Orig1s039%2Cs040lbl.pdf', // NDA 202155 adult tablet §2.4; verify current revision
+  FDASprinkle2025: 'https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/220073s000lbl.pdf', // NDA 220073 pediatric sprinkle: distinct presentation, NOT adult §2.4 comparator
   ACCAF2023: 'https://doi.org/10.1016/j.jacc.2023.08.017', // Table 18
 } as const;
 describe('apixaban primary-source scenario reconciliation (research-only)', () => {
@@ -43,8 +44,13 @@ describe('apixaban primary-source scenario reconciliation (research-only)', () =
     const schedules = ['ASGE_1_TO_2_DAYS', 'BSG_LAST_DOSE_3_CALENDAR_DAYS_BEFORE', 'CHEST_2_FULL_DAYS_OFF'];
     expect(new Set(schedules).size).toBe(3);
   });
+  it('keeps adult tablet and pediatric sprinkle FDA applications distinct', () => {
+    expect(sources.FDAAdult2025).toContain('/202155Orig1');
+    expect(sources.FDASprinkle2025).toContain('/220073s000');
+    expect(sources.FDAAdult2025).not.toBe(sources.FDASprinkle2025);
+  });
   it('retains directly navigable primary sources and does not claim an approved rule', () => {
-    expect(Object.values(sources)).toHaveLength(6);
+    expect(Object.values(sources)).toHaveLength(7);
     expect(Object.values(sources).every(url => url.startsWith('https://'))).toBe(true);
     expect('CLINICALLY_REVIEWED').not.toBe('IN_PROGRESS');
   });
