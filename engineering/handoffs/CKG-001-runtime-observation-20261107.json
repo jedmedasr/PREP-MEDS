@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "CKG-001",
+  "outcome": "PARTIAL",
+  "date": "2026-11-07",
+  "branch": "engineering/clinical-knowledge-vte-20261107",
+  "pull_request": "https://github.com/jedmedasr/PREP-MEDS/pull/43",
+  "implementation_parent": "537dae7847707dd656cc5c536b879e1d980ac9b1",
+  "main_observed": "4157f497e7b0ff37f428a44e5caeb2c815544a87",
+  "pr37_observed_read_only": "31f88f05bc12a44d39de5404da3a1c92c840b657",
+  "scope": "Bounded CKG-001 runtime hardening; no new clinical pathways or semantic verification claims",
+  "implemented": [
+    "Read server-owned surveillance artifacts on every API request and synthetic source selection",
+    "Validate bounded regular-file JSON, registered sources, primary/discovery coverage, timestamps and retained history",
+    "Fail closed without committed-receipt or last-good fallback; reject stale selections after source changes",
+    "Expose observation metadata and bind it to synthetic decision receipts"
+  ],
+  "local_checks": [
+    {"command": "node --test scripts/__tests__/clinical-knowledge*.test.mjs", "passed": 99, "failed": 0, "skipped": 0},
+    {"command": "node --test scripts/__tests__/clinical-evidence*.test.mjs", "passed": 53, "failed": 0, "skipped": 0},
+    {"command": "node --test scripts/__tests__/verify-engineering-graph.test.mjs", "passed": 8, "failed": 0, "skipped": 0},
+    {"command": "node scripts/verify-engineering-graph.mjs", "result": "PASS: 14 tasks, 20 existing evidence records"}
+  ],
+  "application_checks": "Five new API tests, full TypeScript/schema/build and regression checks require exact-commit GitHub Actions verification. Consult PR checks; this handoff does not claim them passed.",
+  "publishing_diagnosis": {
+    "account": "jedmedasr",
+    "connector": "connector_76869538009648d5b282a4bb21c3d157",
+    "reported_account_permissions": ["push", "admin"],
+    "failed_operation": "GET /repos/jedmedasr/PREP-MEDS/branches/main/protection",
+    "error": "403 Resource not accessible by integration",
+    "meaning": "Managed connector excludes administration access; this does not establish a commit or branch-write restriction"
+  },
+  "remaining_blockers": [
+    "Independent clinical source-semantic verification",
+    "Authenticated deployment delivery and freshness monitoring of the surveillance artifact",
+    "Persistent anti-rollback/history authenticity; a hash is not an authorization signature",
+    "Independent engineering review and integration",
+    "Institution-authorized policy execution and authenticated compliant clinical decision storage"
+  ],
+  "unchanged": ["main", "PR #37 branch and automation", "PR #42 base branch", "existing graph status", "legacy clinical and production release controls"],
+  "next_action": "Verify exact-head CI, independently review the bounded change, and complete source-semantic and deployment-delivery work without adding per-guideline clinician endorsement."
+}

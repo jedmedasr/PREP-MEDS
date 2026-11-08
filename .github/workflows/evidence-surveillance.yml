@@ -12,6 +12,8 @@ on:
     paths:
       - 'scripts/clinical-evidence/**'
       - 'engineering/clinical-evidence/**'
+      - 'scripts/clinical-knowledge/**'
+      - 'clinical-knowledge/**'
       - '.github/workflows/evidence-surveillance.yml'
 permissions:
   contents: read
@@ -41,6 +43,8 @@ jobs:
           MONTH=$(date -u +%m)
           if [ "$REQUEST_COMPREHENSIVE" = "true" ] || [ "$MONTH" = "05" ] || [ "$MONTH" = "11" ]; then MODE="--comprehensive"; fi
           node scripts/clinical-evidence/watch.mjs --previous previous-observation.json --output evidence-observation.json $MODE
+      - name: Map observations to clinical graph maintenance requests
+        run: node scripts/clinical-knowledge/cli.mjs impact evidence-observation.json --output knowledge-impact.json
       - name: Report missing verification without claiming approval
         run: |
           node --input-type=module <<'JS'
@@ -51,7 +55,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: source-observation-${{ github.run_id }}
-          path: evidence-observation.json
+          path: |
+            evidence-observation.json
+            knowledge-impact.json
           retention-days: 30
           if-no-files-found: error
   persist-observations:
