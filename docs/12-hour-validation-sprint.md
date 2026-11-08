@@ -188,3 +188,11 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - GitHub combined commit status for 0fa32da: PENDING, zero status contexts at inspection. New tests NOT VERIFIED as passing. No deployment claimed.
 - Last verified baseline: 436/436 provisional ID mappings, 233 provisional ingredient sets, 48 combination entries; final formulation-specific denominator unknown; 0 clinically completed groups and 0 clinically validated IDs. Antithrombotic discovery 17 IDs, ASGE comparisons 0. This run: 0 clinical groups completed, 0 clinical medication corrections.
 - NEXT: run CI for branch head, generate and commit static manifest using explicit export, then adjudicate formulation groups and source-specific antithrombotic comparisons. PR #45 is still open; no merge or clinical signoff.
+
+
+## 2026-11-07 19:24 ET continuation — previous Block 1 PARTIAL; control-character integrity gate
+- FIRST inspected prior 18:25 ET handoff, current manifest/export test, and PR #45 (open at e977e53); prior Block 1 acceptance remains PARTIAL because no committed static snapshot or formulation adjudication, and no clinical comparisons are complete.
+- Added control-character rejection for immutable medication IDs, ingredient IDs, and canonical labels in manifest builder (8ec764f); added three negative regression scenarios for newline, NUL, and tab corruption (77376f9). These are engineering safeguards, not medication clinical reviews. The changes have NOT been executed or confirmed by CI during this run.
+- Established baseline remains 436/436 provisional canonical-ID mappings, 233 provisional ingredient sets, 48 combinations; final formulation-specific denominator unknown; 0 clinically reviewed groups, 0 clinically validated IDs, 17 discovered antithrombotic IDs, and 0 completed ASGE comparisons. This run: 0 clinical reviews and 0 clinical corrections.
+- Blockers: no verified test execution on new commits; static snapshot export and formulation adjudication still pending; source-specific ASGE 2016 reconciliation not complete. PR #45 remains open; no merge or patient-facing activation.
+- NEXT: run Vitest and explicit static manifest export in a runner with repository checkout, commit verified snapshot, adjudicate formulation groups, then progress antithrombotic evidence. Do not count this integrity gate as clinical signoff.
