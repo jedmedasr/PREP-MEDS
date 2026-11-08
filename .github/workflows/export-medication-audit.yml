@@ -4,6 +4,9 @@ on:
   push:
     branches: [test/medication-research-regression-20261106]
     paths: ['.github/workflows/export-medication-audit.yml']
+concurrency:
+  group: medication-audit-snapshot-${{ github.ref }}
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
