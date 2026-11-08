@@ -518,7 +518,7 @@
       "ingredientSetKey": "ING-apixaban",
       "reviewStatus": "IN_PROGRESS",
       "lastReviewedDate": "2026-11-08",
-      "reviewCommit": "399824aa73d7142044ab62aad2df2fc01bf3602e",
+      "reviewCommit": "c542510472b1c208395b6541cd3e34746772d16a",
       "sourceVersions": [
         "ASGE 2016 Table 7 DOI:10.1016/j.gie.2015.09.035",
         "ACG/CAG 2022 DOI:10.14309/ajg.0000000000001627",
@@ -534,8 +534,8 @@
         "ASGE CrCl 60 and fractional gaps require fail-closed clinical interpretation",
         "Source-specific apixaban scenario and renal-boundary tests exist in repository but execution and full canonical inheritance verification remain unconfirmed",
         "No clinician Mark Reviewed approval; no patient-facing activation",
-        "Guideline-based hold-duration research no longer blocked on FDA-label revision checks (clinician decision 2026-11-08)",
-        "Complete apixaban guideline evidence packaging and clinician review gate; adult/pediatric and route-specific applicability must remain distinct"
+        "Complete apixaban guideline evidence packaging and clinician review gate; adult/pediatric and route-specific applicability must remain distinct",
+        "2026-11-08 guideline-only decision packet docs/clinical-evidence/apixaban-guideline-decision-boundaries-2026-11-08.md committed; no tests executed this run; formulation adjudication and clinician review remain outstanding"
       ]
     },
     {
