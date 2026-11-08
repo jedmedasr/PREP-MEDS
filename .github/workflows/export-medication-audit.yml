@@ -43,5 +43,14 @@ jobs:
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git fetch origin test/medication-research-regression-20261106
             git rebase origin/test/medication-research-regression-20261106
-            git push origin HEAD:test/medication-research-regression-20261106
+            if ! git push origin HEAD:test/medication-research-regression-20261106; then
+              git fetch origin test/medication-research-regression-20261106
+              if git show origin/test/medication-research-regression-20261106:docs/medication-audit-manifest.json >/dev/null 2>&1; then
+                echo 'Manifest already published by another export run; verifying equality.'
+                git show origin/test/medication-research-regression-20261106:docs/medication-audit-manifest.json | cmp - docs/medication-audit-manifest.json
+              else
+                git rebase origin/test/medication-research-regression-20261106
+                git push origin HEAD:test/medication-research-regression-20261106
+              fi
+            fi
           fi
