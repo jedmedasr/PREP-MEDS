@@ -62,7 +62,7 @@ export function buildMedicationValidationManifest(sourceMedications: typeof term
     });
   }
   const groups = [...grouped.values()].sort((a, b) => a.ingredientSetKey.localeCompare(b.ingredientSetKey));
-  // Each canonical ID must belong to exactly one provisional group; mapping is not clinical validation.
+  // Stable group membership is required for reproducible audit snapshots.\n  for (const group of groups) group.medicationIds.sort((a, b) => a.localeCompare(b));\n  // Each canonical ID must belong to exactly one provisional group; mapping is not clinical validation.
   const groupMembers = groups.flatMap(group => group.medicationIds);
   if (groupMembers.length !== medications.length || new Set(groupMembers).size !== medications.length ||
       groupMembers.some(id => !canonicalIds.includes(id))) throw new Error('INCOMPLETE_CANONICAL_GROUP_MAPPING');
