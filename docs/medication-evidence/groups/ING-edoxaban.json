@@ -29,9 +29,10 @@
       "name": "ACG/CAG",
       "publicationDate": "2022",
       "version": "2022",
-      "section": "Elective endoscopy recommendations",
+      "section": "Table 2; elective endoscopy recommendations",
       "url": "https://doi.org/10.14309/ajg.0000000000001627",
-      "extraction": "See agent-class-specific recommendation; not a universal last-dose timestamp"
+      "extraction": "Conditional suggestion to temporarily interrupt DOACs rather than continue for elective endoscopy; evidence very low certainty. No edoxaban-specific interruption interval established.",
+      "recommendationStrength": "Conditional; very low certainty (verify individual statement)"
     }
   ],
   "asge2016": {
