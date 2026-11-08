@@ -10,12 +10,16 @@ describe('clinician evidence approval fail-closed contract', () => {
     expect(canMarkClinicallyReviewed(candidate, { ...approval, evidenceHash: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb' })).toBe(false);
     expect(canMarkClinicallyReviewed(candidate, { ...approval, reviewerId: '' })).toBe(false);
     expect(canMarkClinicallyReviewed(candidate, { ...approval, reviewedAt: 'invalid' })).toBe(false);
+    expect(canMarkClinicallyReviewed(candidate, { ...approval, reviewedAt: '2026-11-08T11:00:00' })).toBe(false);
+    expect(canMarkClinicallyReviewed(candidate, { ...approval, reviewedAt: '2026-11-08' })).toBe(false);
+    expect(canMarkClinicallyReviewed(candidate, { ...approval, reviewedAt: '2026-11-08T11:00:00-05:00' })).toBe(true);
     expect(canMarkClinicallyReviewed(candidate, { ...approval, evidenceHash: 'sha256:abc' })).toBe(false);
     expect(canMarkClinicallyReviewed(candidate, { ...approval, evidenceHash: 'abc' })).toBe(false);
   });
   it('rejects missing primary source links, unresolved evidence and untested formulations', () => {
     expect(canMarkClinicallyReviewed({ ...candidate, sourceLinks: [] }, approval)).toBe(false);
     expect(canMarkClinicallyReviewed({ ...candidate, sourceLinks: ['http://example.com'] }, approval)).toBe(false);
+    expect(canMarkClinicallyReviewed({ ...candidate, sourceLinks: [candidate.sourceLinks[0], candidate.sourceLinks[0]] }, { ...approval, sourceLinks: [candidate.sourceLinks[0], candidate.sourceLinks[0]] })).toBe(false);
     expect(canMarkClinicallyReviewed({ ...candidate, evidenceTestsPassed: false }, approval)).toBe(false);
     expect(canMarkClinicallyReviewed({ ...candidate, formulationAdjudicated: false }, approval)).toBe(false);
     expect(canMarkClinicallyReviewed({ ...candidate, unresolvedBlockingIssues: ['renal threshold'] }, approval)).toBe(false);
@@ -24,6 +28,8 @@ describe('clinician evidence approval fail-closed contract', () => {
     expect(canMarkClinicallyReviewed({ ...candidate, sourceLinks: ['https://doi.org/changed'] }, approval)).toBe(false);
     expect(canMarkClinicallyReviewed({ ...candidate, mappedMedicationIds: ['MED-1','MED-3'] }, approval)).toBe(false);
     expect(canMarkClinicallyReviewed({ ...candidate, mappedMedicationIds: ['MED-1','MED-1'] }, approval)).toBe(false);
+    expect(canMarkClinicallyReviewed({ ...candidate, mappedMedicationIds: ['MED-1', ''] }, { ...approval, mappedMedicationIds: ['MED-1', ''] })).toBe(false);
+    expect(canMarkClinicallyReviewed({ ...candidate, mappedMedicationIds: ['MED-1', 'ING-apixaban'] }, { ...approval, mappedMedicationIds: ['MED-1', 'ING-apixaban'] })).toBe(false);
     expect(canMarkClinicallyReviewed(candidate, { ...approval, mappedMedicationIds: ['MED-1'] })).toBe(false);
   });
 });
