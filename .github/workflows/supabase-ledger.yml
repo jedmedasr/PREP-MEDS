@@ -1,0 +1,58 @@
+name: supabase-ledger
+on:
+  pull_request:
+    paths:
+      - 'supabase/**'
+      - 'scripts/supabase-ledger/**'
+      - 'tests/supabase/**'
+      - '.github/workflows/supabase-ledger.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  postgres-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: isolated-ci-only
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 10
+    env:
+      PGHOST: localhost
+      PGPORT: '5432'
+      PGUSER: postgres
+      PGPASSWORD: isolated-ci-only
+      LEDGER_ISOLATED_CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Isolated PostgreSQL state-machine and privilege tests
+        run: |
+          mkdir -p ledger-artifacts
+          set -o pipefail
+          python3 tests/supabase/test_ledger.py 2>&1 | tee ledger-artifacts/tests.txt
+      - name: Retain exact implementation and query evidence
+        if: always()
+        run: |
+          mkdir -p ledger-artifacts
+          git archive --format=tar.gz --output=ledger-artifacts/source.tar.gz HEAD
+          git rev-parse HEAD > ledger-artifacts/checkout-sha.txt
+          printf '%s\n' 'ISOLATED POSTGRESQL ONLY. NOT LIVE SUPABASE OR CLINICAL VERIFICATION.' > ledger-artifacts/scope.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: supabase-ledger-${{ github.run_id }}
+          path: ledger-artifacts
+          retention-days: 30
+          if-no-files-found: error
