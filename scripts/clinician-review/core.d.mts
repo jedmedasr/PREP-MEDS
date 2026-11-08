@@ -19,4 +19,6 @@ export function assertCatalog(catalog:unknown,inventory:InventoryItem[]):asserts
 export function validateLedger(ledger:unknown,key:string):Ledger;
 export function reviewStatus(group:Group,ledger:Ledger):ReviewStatus;
 export function actorAuthorized(actor:Actor,allowedIds:string[]):boolean;
-export function canonicalReviewMap(catalog:Catalog,inventory:InventoryItem[],ledger:Ledger):Record<string,unknown>;
+export interface CanonicalReview { state:string; groups:(ReviewStatus & {groupId:string;formulation:Group['formulation']})[]; requiresFormulationConfirmation:true; patientFacingAuthorized:false }
+export function canonicalReviewMap(catalog:Catalog,inventory:InventoryItem[],ledger:Ledger):Record<string,CanonicalReview>;
+export function appendReview(catalog:Catalog,inventory:InventoryItem[],ledger:Ledger,actor:Actor,allowedIds:string[],request:ReviewRequest,key:string,now?:string):{ledger:Ledger;event:AuditEvent;resumed:boolean};

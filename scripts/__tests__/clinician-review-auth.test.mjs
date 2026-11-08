@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {config,seal,unseal,loginRequest,completeLogin,authenticate,requireMutation} from '../clinician-review/auth.mjs';
 const secret='a'.repeat(64);
-const environment={PREP_MEDS_CLINICIAN_REVIEW:'enabled',PREP_MEDS_REVIEW_ORIGIN:'https://review.example.invalid',PREP_MEDS_REVIEW_SESSION_KEY:secret,
+const environment={PREP_MEDS_CLINICIAN_REVIEW:'enabled',PREP_MEDS_REVIEW_ORIGIN:'https://review.example.invalid',PREP_MEDS_REVIEW_SESSION_KEY:secret,PREP_MEDS_REVIEW_AUDIT_KEY:'b'.repeat(64),
  PREP_MEDS_REVIEW_CLIENT_ID:'fixture-client',PREP_MEDS_REVIEW_CLIENT_SECRET:'fixture-secret',PREP_MEDS_REVIEW_STORE_TOKEN:'fixture-store',PREP_MEDS_CLINICIAN_GITHUB_IDS:'42'};
 const c=config(environment);const user={id:42,login:'synthetic-clinician',type:'User'};
 const json=x=>new Response(JSON.stringify(x),{status:200});
 test('disabled and incompletely configured auth cannot impersonate a clinician',()=>{
  assert.throws(()=>config({}),/FEATURE_DISABLED/);assert.throws(()=>config({...environment,PREP_MEDS_CLINICIAN_GITHUB_IDS:''}),/ALLOWLIST/);
- for(const name of ['PREP_MEDS_REVIEW_CLIENT_SECRET','PREP_MEDS_REVIEW_SESSION_KEY','PREP_MEDS_REVIEW_STORE_TOKEN'])assert.throws(()=>config({...environment,[name]:''}));
+ for(const name of ['PREP_MEDS_REVIEW_CLIENT_SECRET','PREP_MEDS_REVIEW_SESSION_KEY','PREP_MEDS_REVIEW_AUDIT_KEY','PREP_MEDS_REVIEW_STORE_TOKEN'])assert.throws(()=>config({...environment,[name]:''}));
  assert.throws(()=>config({...environment,PREP_MEDS_REVIEW_ORIGIN:'http://example.invalid'}),/CONFIGURATION/);
 });
 test('encrypted cookies are purpose bound, short-lived and authenticated',()=>{
@@ -41,4 +41,9 @@ test('mutation demands exact origin, JSON and session-bound CSRF',()=>{
  const good={origin:c.origin,'content-type':'application/json','x-csrf-token':'expected'};
  assert.doesNotThrow(()=>requireMutation(new Request(c.origin,{headers:good}),c,'expected'));
  for(const overrides of [{origin:'https://evil.invalid'},{'x-csrf-token':'fake'},{'content-type':'text/plain'}])assert.throws(()=>requireMutation(new Request(c.origin,{headers:{...good,...overrides}}),c,'expected'),/CSRF/);
+});
+
+test('session rotation does not silently break historical audit verification',()=>{
+ const rotated=config({...environment,PREP_MEDS_REVIEW_SESSION_KEY:'c'.repeat(64)});
+ assert.equal(rotated.auditKey,c.auditKey);assert.throws(()=>config({...environment,PREP_MEDS_REVIEW_AUDIT_KEY:secret}),/CONFIGURATION/);
 });

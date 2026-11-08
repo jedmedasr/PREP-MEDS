@@ -2,8 +2,9 @@ import {describe,it,expect,vi,afterEach} from 'vitest';
 import {NextRequest} from 'next/server';
 import catalog from '../../../clinical-content/clinician-review/catalog.json';
 import {terminologyDataset,activeRules} from '../lib/content';
-import {validateCatalog,canonicalReviewMap,type Catalog} from '../../../scripts/clinician-review/core.mjs';
+import {validateCatalog,canonicalReviewMap,appendReview,materialHash,type Catalog,type Group,type ReviewRequest} from '../../../scripts/clinician-review/core.mjs';
 import {GET,POST} from '../app/api/clinical-review/route';
+import {effectiveGroupReview,effectiveCanonicalMap} from '../lib/clinician-group-review';
 describe('clinician evidence review separation',()=>{
  afterEach(()=>vi.unstubAllEnvs());
  it('validates group mappings against assembled real canonical identity, not an invented list',()=>{
@@ -24,5 +25,24 @@ describe('clinician evidence review separation',()=>{
   vi.stubEnv('PREP_MEDS_CLINICIAN_REVIEW','');
   const r=await POST(new NextRequest('https://example.invalid/api/clinical-review',{method:'POST',body:JSON.stringify({reviewer:'admin',approved:true})}));
   expect(r.status).toBe(404);expect((await r.json()).patientFacingAuthorized).toBe(false);expect(activeRules).toEqual([]);
+ });
+});
+
+describe('reuse of dedicated evidence-agent review gate',()=>{
+ function ready(){
+  const c=structuredClone(catalog) as Catalog;const g=c.groups[0] as Group;
+  g.id='synthetic-only-group';g.label='SYNTHETIC TEST ONLY';g.package.revision='synthetic-ready-1';g.package.state='READY_FOR_CLINICIAN_REVIEW';g.package.unresolved=[];g.package.testEvidence=['synthetic-only-test'];
+  for(const r of g.package.recommendations){r.source.passage='Fictional test passage';r.source.deepLink='https://example.invalid/synthetic#passage';r.source.url='https://example.invalid/synthetic';}
+  const request:ReviewRequest={groupId:g.id,action:'MARK_REVIEWED',expectedRevision:g.package.revision,expectedMaterialHash:materialHash(g,g.package),requestId:'synthetic-agent-gate-001',attestation:true,notes:'Synthetic test; no actual clinical approval'};
+  const result=appendReview(c,terminologyDataset.medications,{schemaVersion:1,events:[]},{id:42,login:'synthetic-clinician',type:'User'},['42'],request,'synthetic-key-not-for-deployment-000000000');
+  return {c,g,ledger:result.ledger};
+ }
+ it('requires the exact signed group/source/mapping and never authorizes instructions',()=>{
+  const {c,g,ledger}=ready();expect(effectiveGroupReview(g,ledger).state).toBe('CLINICALLY_REVIEWED');
+  const map=effectiveCanonicalMap(c,terminologyDataset.medications,ledger);expect(map['MED-apixaban']?.groups[0]?.state).toBe('CLINICALLY_REVIEWED');expect(map['MED-apixaban']?.patientFacingAuthorized).toBe(false);
+  g.package.recommendations[0]!.renal='changed';expect(effectiveGroupReview(g,ledger).state).toBe('REVIEW_INVALIDATED');
+ });
+ it('does not treat the source-agent predicate alone as authenticated clinical authority',()=>{
+  const {g}=ready();expect(effectiveGroupReview(g,{schemaVersion:1,events:[]}).state).toBe('READY_FOR_CLINICIAN_REVIEW');
  });
 });

@@ -8,7 +8,7 @@ const SHA=/^[a-f0-9]{40}$/;
 
 /** Contents-write token is server-only. Only the dedicated audit branch can be mutated. */
 export class ReviewStore {
-  constructor(token,key,inventory,{fetchImpl=fetch}={}) {this.token=token;this.key=key;this.inventory=inventory;this.fetch=fetchImpl;}
+  constructor(token,key,inventory,{fetchImpl=fetch,reviewGate=null}={}) {this.token=token;this.key=key;this.inventory=inventory;this.fetch=fetchImpl;this.reviewGate=reviewGate;}
   async request(path,method='GET',body) {
     if(!path.startsWith(PREFIX+'/')||path.includes('..'))throw new Error('REVIEW_STORE_PATH_REJECTED');
     const response=await this.fetch('https://api.github.com'+path,{method,redirect:'error',cache:'no-store',signal:AbortSignal.timeout(15000),
@@ -43,6 +43,7 @@ export class ReviewStore {
     if(expectedHead!==snapshot.head)throw new Error('AUDIT_MOVED_REFRESH_REQUIRED');
     const next=appendReview(snapshot.catalog,this.inventory,snapshot.ledger,actor,allowedIds,request,this.key);
     if(next.resumed)return {...snapshot,event:next.event,resumed:true};
+    if(request.action==='MARK_REVIEWED' && this.reviewGate && !this.reviewGate(snapshot.catalog.groups.find(g=>g.id===request.groupId),next.event))throw new Error('SOURCE_REVIEW_GATE_REJECTED');
     // Both evidence and identity are revalidated by server before append. No hidden retry after a race.
     const fresh=await this.catalog();
     if(digest(fresh.catalog)!==digest(snapshot.catalog))throw new Error('STALE_EVIDENCE_REFRESH_REQUIRED');

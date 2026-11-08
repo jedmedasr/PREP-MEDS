@@ -92,7 +92,7 @@ export function nextExtraction(catalog, backlog) {
 }
 export function packageDiff(oldPacket, nextPacket) {
   const keys = new Set([...Object.keys(oldPacket ?? {}), ...Object.keys(nextPacket)]);
-  return [...keys].sort().filter(key => !same(oldPacket?.[key], nextPacket[key])).map(field => ({ field, before: oldPacket?.[field] ?? null, after: nextPacket[field] }));
+  return [...keys].sort().filter(key => !same(oldPacket?.[key], nextPacket[key])).map(field => ({ field, before: structuredClone(oldPacket?.[field] ?? null), after: structuredClone(nextPacket[field] ?? null) }));
 }
 const signed = (event, key) => createHmac('sha256', key).update(stable(event)).digest('hex');
 function unsigned(event) { const { signature, ...rest } = event; return rest; }
@@ -139,6 +139,7 @@ export function appendReview(catalog, inventory, ledger, actor, allowedIds, requ
   if (request.action === 'MARK_REVIEWED' && reviewStatus(group, ledger).state === 'CLINICALLY_REVIEWED') fail('ALREADY_REVIEWED');
   if (request.action === 'MARK_REVIEWED' && (request.attestation !== true || group.package.state !== 'READY_FOR_CLINICIAN_REVIEW')) fail('AFFIRMATIVE_SOURCE_REVIEW_REQUIRED');
   if (request.action !== 'MARK_REVIEWED' && !request.notes.trim()) fail('CORRECTION_REASON_REQUIRED');
+  if (request.action === 'MARK_REVIEWED' && ledger.events.some(e => e.groupId === group.id && e.evidenceRevision === group.package.revision && e.materialHash !== materialHash(group, group.package))) fail('MATERIAL_EDIT_REQUIRES_NEW_REVISION');
   const prior = ledger.events.filter(e => e.groupId === group.id).at(-1);
   const body = { schemaVersion: 1, policyVersion: POLICY_VERSION, groupId: group.id, action: request.action,
     requestId: request.requestId, requestDigest, actor: { id: actor.id, login: actor.login, type: actor.type }, reviewedAt: now,
@@ -146,6 +147,7 @@ export function appendReview(catalog, inventory, ledger, actor, allowedIds, requ
     sourceVersions: group.package.recommendations.map(r => ({ recommendationId: r.id, publisher: r.source.publisher, version: r.source.version, sourceRevision: r.source.sourceRevision, locator: r.source.locator })),
     canonicalIds: [...group.canonicalIds].sort(), mappingRevision: group.mappingRevision,
     groupSnapshot: structuredClone(group), modifications: packageDiff(prior?.groupSnapshot?.package, group.package),
+    groupModifications: packageDiff(prior?.groupSnapshot, group).filter(change => change.field !== 'package'),
     notes: request.notes, primarySourcesChecked: request.action === 'MARK_REVIEWED',
     previousEvent: ledger.events.at(-1)?.eventId ?? null, patientFacingAuthorized: false };
   const event = { ...body, eventId: digest(body) }; event.signature = signed(event, key);

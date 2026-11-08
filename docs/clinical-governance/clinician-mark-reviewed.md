@@ -41,12 +41,13 @@ Create a GitHub OAuth app for the clinician-review website; callback:
 
 - `PREP_MEDS_REVIEW_ORIGIN`: exact HTTPS origin, no path/query.
 - `PREP_MEDS_REVIEW_CLIENT_ID` / `PREP_MEDS_REVIEW_CLIENT_SECRET`: registered app credentials.
-- `PREP_MEDS_REVIEW_SESSION_KEY`: 32 cryptographically random bytes encoded as 64 lowercase hex characters. Also derives the audit HMAC key; retain securely for historical verification. A planned rotation needs a keyring migration, not silent key replacement.
+- `PREP_MEDS_REVIEW_SESSION_KEY`: 32 cryptographically random bytes encoded as 64 lowercase hex characters, for short-lived sessions.
+- `PREP_MEDS_REVIEW_AUDIT_KEY`: a separate 32-byte hex key for historical audit signatures. Session rotation does not change this key. Retain it securely; planned audit-key rotation needs a keyring migration, not silent key replacement.
 - `PREP_MEDS_REVIEW_STORE_TOKEN`: narrowly repository-scoped Contents read/write credential for this repository. Never expose it in NEXT_PUBLIC variables or browser storage.
 - `PREP_MEDS_CLINICIAN_GITHUB_IDS`: explicit comma-separated numeric GitHub IDs approved by the institution/owner as clinicians. Empty by default. Neither the implementation author nor any repository administrator is automatically added.
 - `PREP_MEDS_CLINICIAN_REVIEW=enabled`: enables clinician evidence review only. It does not enable patient-facing content.
 
-Owner should restrict deletion/force-push and writes to the audit branch. HMAC detects unauthorized content changes without the secret, but is not independent notarization, nor a defense against a compromised application server/administrator or complete branch rollback. Key custody, retention, recovery, access auditing and organization-level authentication controls require deployment security validation. GitHub stores evidence-group metadata only: NO patient data, demographics, clinical episodes or identifiable case notes. This is not an EHR or compliant patient decision store.
+Owner should restrict deletion/force-push and writes to the audit branch. Configure deployment automation to ignore `clinical-review/audit` so evidence-review appends do not trigger redundant preview builds. HMAC detects unauthorized content changes without the secret, but is not independent notarization, nor a defense against a compromised application server/administrator or complete branch rollback. Key custody, retention, recovery, access auditing and organization-level authentication controls require deployment security validation. GitHub stores evidence-group metadata only: NO patient data, demographics, clinical episodes or identifiable case notes. This is not an EHR or compliant patient decision store.
 
 ## Validation boundary
 
@@ -56,3 +57,7 @@ Official technical references:
 https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
 https://docs.github.com/en/rest/git/refs
 https://docs.github.com/en/rest/repos/contents
+
+## Concurrent evidence-agent implementation reused
+
+While this interface was being developed, the source agent advanced to `c5ba794c0790b23589a94f67e2e3fafd4abf5cba`. Its `clinical-evidence-review-gate.ts` and three tests are imported byte-for-byte (Git blob IDs `aa25fa85981460619455264bb510bef9a2ac6bc3` and `59588a53cf1e65a80fe2c5d57c74f942b4795acc`). The API uses that gate after authenticated audit validation, both before persisting Mark Reviewed and when deriving visible group/canonical review status. The source agent's new rivaroxaban and dabigatran comparisons remain on its branch and were not re-researched or falsely imported as complete. Its gate alone is not authentication and never authorizes patient output.

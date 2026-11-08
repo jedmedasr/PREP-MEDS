@@ -2,7 +2,8 @@ import {NextRequest,NextResponse} from 'next/server';
 import {terminologyDataset} from '../../../lib/content';
 import {config,authenticate,requireMutation,SESSION_COOKIE} from '../../../../../scripts/clinician-review/auth.mjs';
 import {ReviewStore} from '../../../../../scripts/clinician-review/store.mjs';
-import {reviewStatus,canonicalReviewMap,type ReviewRequest} from '../../../../../scripts/clinician-review/core.mjs';
+import {type ReviewRequest} from '../../../../../scripts/clinician-review/core.mjs';
+import {effectiveGroupReview,effectiveCanonicalMap,sourceGateAllowsReview} from '../../../lib/clinician-group-review';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
 const headers={'Cache-Control':'no-store','Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'};
@@ -15,10 +16,10 @@ function failure(error:unknown) {
 export async function GET(request:NextRequest) {
  try {
   const c=config();const auth=await authenticate(c,request.cookies.get(SESSION_COOKIE)?.value);
-  const store=new ReviewStore(c.storeToken,c.auditKey,terminologyDataset.medications);const snapshot=await store.read();
+  const store=new ReviewStore(c.storeToken,c.auditKey,terminologyDataset.medications,{reviewGate:sourceGateAllowsReview});const snapshot=await store.read();
   return NextResponse.json({actor:auth.actor,csrf:auth.csrf,sourceSha:snapshot.sourceSha,auditHead:snapshot.head,
-   groups:snapshot.catalog.groups.map(group=>({group,review:reviewStatus(group,snapshot.ledger)})),
-   canonicalMap:canonicalReviewMap(snapshot.catalog,terminologyDataset.medications,snapshot.ledger),
+   groups:snapshot.catalog.groups.map(group=>({group,review:effectiveGroupReview(group,snapshot.ledger)})),
+   canonicalMap:effectiveCanonicalMap(snapshot.catalog,terminologyDataset.medications,snapshot.ledger),
    inventoryCount:terminologyDataset.medications.length,patientFacingAuthorized:false},{headers});
  }catch(e){return failure(e);}
 }
@@ -31,7 +32,7 @@ export async function POST(request:NextRequest) {
   const raw=JSON.parse(Buffer.concat(chunks).toString('utf8')) as Record<string,unknown>;
   if(!raw||Array.isArray(raw)||Object.keys(raw).some(k=>!['review','expectedAuditHead'].includes(k))||
    (raw.expectedAuditHead!==null&&(typeof raw.expectedAuditHead!=='string'||!/^[a-f0-9]{40}$/.test(raw.expectedAuditHead))))throw new Error('UNTRUSTED_REVIEW_FIELDS');
-  const store=new ReviewStore(c.storeToken,c.auditKey,terminologyDataset.medications);
+  const store=new ReviewStore(c.storeToken,c.auditKey,terminologyDataset.medications,{reviewGate:sourceGateAllowsReview});
   const result=await store.review(auth.actor,c.allowedIds,raw.review as ReviewRequest,raw.expectedAuditHead as string|null);
   return NextResponse.json({eventId:result.event.eventId,auditHead:result.head,commitUrl:result.commitUrl??null,
    effectiveState:result.effectiveState??'REPLAYED_AUDIT_EVENT',patientFacingAuthorized:false},{headers});

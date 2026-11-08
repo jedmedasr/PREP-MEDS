@@ -6,12 +6,13 @@ export function config(env = process.env) {
   const origin = new URL(env.PREP_MEDS_REVIEW_ORIGIN ?? '');
   if (origin.protocol !== 'https:' || origin.pathname !== '/' || origin.search || origin.hash || origin.username || origin.password) throw new Error('REVIEW_CONFIGURATION_REQUIRED');
   const secret = env.PREP_MEDS_REVIEW_SESSION_KEY ?? '';
-  if (!/^[a-f0-9]{64}$/.test(secret) || !env.PREP_MEDS_REVIEW_CLIENT_ID || !env.PREP_MEDS_REVIEW_CLIENT_SECRET || !env.PREP_MEDS_REVIEW_STORE_TOKEN) throw new Error('REVIEW_CONFIGURATION_REQUIRED');
+  const auditSecret = env.PREP_MEDS_REVIEW_AUDIT_KEY ?? '';
+  if (!/^[a-f0-9]{64}$/.test(secret) || !/^[a-f0-9]{64}$/.test(auditSecret) || secret === auditSecret || !env.PREP_MEDS_REVIEW_CLIENT_ID || !env.PREP_MEDS_REVIEW_CLIENT_SECRET || !env.PREP_MEDS_REVIEW_STORE_TOKEN) throw new Error('REVIEW_CONFIGURATION_REQUIRED');
   const allowedIds = (env.PREP_MEDS_CLINICIAN_GITHUB_IDS ?? '').split(',').map(s => s.trim()).filter(Boolean);
   if (!allowedIds.length || allowedIds.some(x => !/^[1-9]\d*$/.test(x))) throw new Error('CLINICIAN_ALLOWLIST_REQUIRED');
   return { origin: origin.origin, secret, allowedIds, clientId: env.PREP_MEDS_REVIEW_CLIENT_ID,
     clientSecret: env.PREP_MEDS_REVIEW_CLIENT_SECRET, storeToken: env.PREP_MEDS_REVIEW_STORE_TOKEN,
-    auditKey: createHmac('sha256', Buffer.from(secret,'hex')).update('prep-meds-clinical-review-audit-v1').digest('hex') };
+    auditKey: createHmac('sha256', Buffer.from(auditSecret,'hex')).update('prep-meds-clinical-review-audit-v1').digest('hex') };
 }
 export function seal(value, secret) {
   const iv = randomBytes(12); const cipher = createCipheriv('aes-256-gcm', Buffer.from(secret,'hex'), iv);
