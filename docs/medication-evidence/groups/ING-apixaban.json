@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "groupId": "ING-apixaban",
+  "mappedMedicationIds": [
+    "MED-apixaban"
+  ],
+  "formulationAdjudicated": false,
+  "evidenceStatus": "IN_PROGRESS",
+  "clinicianReviewed": false,
+  "patientFacingEnabled": false,
+  "sources": [
+    {
+      "name": "ASGE",
+      "publicationDate": "2016-01",
+      "version": "2016",
+      "section": "Tables 7–9 and Table 13",
+      "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
+      "extraction": "Table 7: CrCl >60 1–2d; 30–59 3d; 15–29 4d"
+    },
+    {
+      "name": "BSG/ESGE",
+      "publicationDate": "2021",
+      "version": "2021",
+      "section": "Elective endoscopy recommendations and Figures 1–2",
+      "url": "https://doi.org/10.1136/gutjnl-2021-325184",
+      "extraction": "Low-risk omit morning dose; high-risk last dose 3d prior"
+    },
+    {
+      "name": "ACG/CAG",
+      "publicationDate": "2022",
+      "version": "2022",
+      "section": "Elective endoscopy recommendations",
+      "url": "https://doi.org/10.14309/ajg.0000000000001627",
+      "extraction": "See agent-class-specific recommendation; not a universal last-dose timestamp"
+    }
+  ],
+  "asge2016": {
+    "status": "COMPARED",
+    "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
+    "section": "Tables 7–9"
+  },
+  "scenarios": [
+    {
+      "risk": "low",
+      "asge": "See ASGE recommendations",
+      "bsg": "See BSG/ESGE recommendations"
+    },
+    {
+      "risk": "high",
+      "asge": "Table 7: CrCl >60 1–2d; 30–59 3d; 15–29 4d",
+      "bsg": "Low-risk omit morning dose; high-risk last dose 3d prior"
+    },
+    {
+      "risk": "high_thrombotic",
+      "action": "Specialist/prescriber decision; do not automatically interrupt"
+    },
+    {
+      "risk": "restart",
+      "action": "Hemostasis and source-specific timing; do not infer universal timestamp"
+    }
+  ],
+  "tests": [],
+  "verification": {
+    "agentA": "NOT_EXECUTED",
+    "agentB": "NOT_EXECUTED",
+    "sourceInspection": "ASGE and BSG/ESGE public primary sources located",
+    "discrepancies": []
+  },
+  "commitSha": null,
+  "notes": "Evidence checkpoint only; source sections and full timing boundaries require further verification. No clinical signoff."
+}
