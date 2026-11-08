@@ -13,9 +13,9 @@
       "name": "ASGE",
       "publicationDate": "2016-01",
       "version": "2016",
-      "section": "Tables 7–9 and Table 13",
+      "section": "Table 2; Table 13",
       "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
-      "extraction": "Named Xa inhibitor; dedicated agent-specific timing not verified"
+      "extraction": "Agent named among factor Xa inhibitors, but no dedicated edoxaban renal interruption table; do not import apixaban/rivaroxaban intervals"
     },
     {
       "name": "BSG/ESGE",
@@ -35,19 +35,21 @@
     }
   ],
   "asge2016": {
-    "status": "IN_PROGRESS",
+    "status": "COMPARED",
     "url": "https://www.asge.org/home/resources/publications/guidelines/2016_antithrombotics",
-    "section": "Tables 7–9"
+    "section": "Table 2; Table 13",
+    "agentSpecific": "Agent named among factor Xa inhibitors, but no dedicated edoxaban renal interruption table; do not import apixaban/rivaroxaban intervals",
+    "limitations": "Named in ASGE 2016, but no dedicated edoxaban renal hold table."
   },
   "scenarios": [
     {
       "risk": "low",
-      "asge": "See ASGE recommendations",
+      "asge": "Continue NOAC for low-risk procedures",
       "bsg": "See BSG/ESGE recommendations"
     },
     {
       "risk": "high",
-      "asge": "Named Xa inhibitor; dedicated agent-specific timing not verified",
+      "asge": "Agent named among factor Xa inhibitors, but no dedicated edoxaban renal interruption table; do not import apixaban/rivaroxaban intervals",
       "bsg": "Low-risk omit morning dose; high-risk last dose 3d prior"
     },
     {
@@ -56,14 +58,15 @@
     },
     {
       "risk": "restart",
-      "action": "Hemostasis and source-specific timing; do not infer universal timestamp"
+      "action": "Hemostasis and source-specific timing; do not infer universal timestamp",
+      "asge": "After adequate hemostasis"
     }
   ],
   "tests": [],
   "verification": {
-    "agentA": "NOT_EXECUTED",
+    "agentA": "SOURCE_EXTRACTION_RECORDED",
     "agentB": "NOT_EXECUTED",
-    "sourceInspection": "ASGE and BSG/ESGE public primary sources located",
+    "sourceInspection": "ASGE 2016 official guideline Tables 2, 7, 8, 9 and 13; cross-check outstanding",
     "discrepancies": []
   },
   "commitSha": null,
