@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "id": "HND-ENG003-20261107-INITIAL-CI",
+  "created_at": "2026-11-07T12:54:35.574Z",
+  "repository": "jedmedasr/PREP-MEDS",
+  "previous_task": "ENG-003",
+  "previous_outcome": "PARTIAL",
+  "latest_verified_state": {
+    "main_sha": "4157f497e7b0ff37f428a44e5caeb2c815544a87",
+    "implementation_sha": "8583544b8af3e54cc42d7cb783c0f3c9e6b4f4ec",
+    "implementation_pr": 41,
+    "sprint_sha_observed_read_only": "b4cbdc651d952c579cef328ac26eb7eaae5e01bd",
+    "graph_digest": "5747155fe00d159dcabcf2d1688157179e23f4bf7cc5787a9ce5958b3c56aade",
+    "ledger_digest": "6adc67fde3935c3a01195f83e236380a73919c3cba9d0fdec475660fd798dc6d",
+    "observed_at": "2026-11-07T12:54:35.574Z"
+  },
+  "tests_executed": [
+    {"command": "node --test scripts/__tests__/graph-orchestrator.test.mjs", "passed": 46, "failed": 0, "workflow_run_id": 42374476114},
+    {"command": "node scripts/verify-engineering-graph.mjs && node --test scripts/__tests__/verify-engineering-graph.test.mjs", "passed": 8, "failed": 0, "workflow_run_id": 42374476040},
+    {"command": "pnpm validate:schemas; pnpm typecheck; isolated regressions; pnpm test; pnpm build:web", "outcome": "all workflow stages successful", "workflow_run_id": 42374476033},
+    {"command": "node scripts/graph/cli.mjs verify --base-ref 4157f497e7b0ff37f428a44e5caeb2c815544a87 --live", "outcome": "report generated successfully; unresolved legacy evidence reported", "workflow_run_id": 42374476114}
+  ],
+  "acceptance_satisfied": ["Executable deterministic CLI and logical role contracts implemented", "All initial-head application, graph and orchestrator checks passed", "Live GitHub reconciliation and artifact handoff executed without mutation", "PR #37 observed but not modified"],
+  "outstanding_blockers": ["Independent non-contributing PR review and adoption remain pending", "Legacy ENG-001/ENG-002 receipts lack stricter Stage 2 independent verification metadata", "Any commits after the cited implementation SHA require their own CI verification", "Owner must configure repository protection"],
+  "next_eligible_task": null,
+  "recommended_action": "Fetch current main and PRs #40/#41/#37, verify the latest exact-head checks, obtain independent review, then adopt through PRs. Reconcile both graph/evidence changes without dropping either PR's records. Do not merge or modify #37. Append verified completion receipts only after implementation review and integration.",
+  "artifact_url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42374476114/artifacts/13575610586",
+  "metrics": {"api_requests": 136, "declared_completions": 2, "verified_under_stage2_receipt_contract": 0, "unresolved_legacy_completions": 2, "duplicate_work_candidates_blocked": 1, "failed_handoffs": 0, "llm_api_calls": 0, "monetary_cost": null},
+  "verification": "Historical observed evidence, not self-approval or clinical sign-off. Next session must revalidate independently. New task-tag parsing and selection fixtures are subsequent refinements not covered by these initial-head counts."
+}

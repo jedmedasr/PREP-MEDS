@@ -1,0 +1,36 @@
+name: integration-verification
+on:
+  pull_request:
+    paths:
+      - 'engineering/integration-manifest.json'
+      - 'engineering/integration.md'
+      - 'scripts/verify-integration.mjs'
+      - 'scripts/__tests__/integration-preservation.test.mjs'
+      - '.github/workflows/integration-verification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preserve-inputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Adversarial preservation tests
+        run: node --test scripts/__tests__/integration-preservation.test.mjs
+      - name: Verify exact source union and unchanged baseline clinical files
+        run: |
+          node scripts/verify-integration.mjs > integration-verification.json
+          cat integration-verification.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: integration-verification-${{ github.run_id }}
+          path: integration-verification.json
+          retention-days: 30
+          if-no-files-found: error

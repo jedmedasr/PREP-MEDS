@@ -1,0 +1,64 @@
+name: sprint-reconciliation
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Read immutable reconciliation pin
+        id: pin
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const pin = JSON.parse(readFileSync('engineering/reconciliation/source-pin.json', 'utf8'));
+          if (!/^[a-f0-9]{40}$/.test(pin.source_sha)) throw new Error('INVALID_SOURCE_PIN');
+          appendFileSync(process.env.GITHUB_OUTPUT, `sha=${pin.source_sha}\n`);
+          JS
+      - name: Read merged medication snapshot without changing its branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pin.outputs.sha }}
+          path: .sprint-snapshot
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install snapshot dependencies
+        working-directory: .sprint-snapshot
+        run: pnpm install --no-frozen-lockfile
+      - name: Recompute exact inventory and export evidence
+        env:
+          SPR001_SOURCE_SHA: ${{ steps.pin.outputs.sha }}
+          SPR001_OUTPUT_DIR: ${{ runner.temp }}/spr001-evidence
+        run: |
+          cp engineering/reconciliation/export-inventory.test.ts .sprint-snapshot/apps/web/tests/spr001-export.test.ts
+          cd .sprint-snapshot
+          pnpm --filter @prep-meds/web exec vitest run tests/medication-inventory-coverage.test.ts tests/medication-validation-manifest.test.ts tests/spr001-export.test.ts lib/medication-audit-ledger.test.ts lib/antithrombotic-audit-queue.test.ts lib/apixaban-high-risk-evidence.test.ts lib/antithrombotic-calendar-research.test.ts
+      - name: Retain exact source, audit implementation and evidence
+        env:
+          SPR001_SOURCE_SHA: ${{ steps.pin.outputs.sha }}
+          SPR001_OUTPUT_DIR: ${{ runner.temp }}/spr001-evidence
+        run: |
+          git -C .sprint-snapshot archive --format=tar.gz --output="$SPR001_OUTPUT_DIR/sprint-source.tar.gz" "$SPR001_SOURCE_SHA"
+          git archive --format=tar.gz --output="$SPR001_OUTPUT_DIR/reconciliation-source.tar.gz" HEAD
+          git rev-parse HEAD > "$SPR001_OUTPUT_DIR/audit-checkout-sha.txt"
+          cat "$SPR001_OUTPUT_DIR/summary.json" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spr001-inventory-${{ steps.pin.outputs.sha }}
+          path: ${{ runner.temp }}/spr001-evidence
+          if-no-files-found: error
+          retention-days: 30

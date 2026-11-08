@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "SPR-001",
+  "status": "needs_review",
+  "observed_at": "2026-11-07T12:57:20.107Z",
+  "main_sha": "4157f497e7b0ff37f428a44e5caeb2c815544a87",
+  "previous_audited_source": "5a4b8cb714f1f2aafa8ce34428514a67d9517fd1",
+  "newly_audited_source": "b4cbdc651d952c579cef328ac26eb7eaae5e01bd",
+  "source_pr": 37,
+  "source_pr_state": "open",
+  "changed_by_this_session": false,
+  "audit_implementation_sha": "4a7ec7e158223eccea0719c78a2de1ce627cf418",
+  "audit_run": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42374711461",
+  "tests": {"files_passed": 7, "passed": 39, "failed": 0},
+  "counts": {"canonical_medication_ids": 436, "provisional_ingredient_sets": 233, "combination_entries": 48, "mapped_ids": 436, "pending_formulation_groups": 233, "documented_adjudicated_groups": 0, "final_formulation_denominator": null, "confirmed_clinically_reviewed_groups": 0, "confirmed_clinically_approved_ID_mappings": 0},
+  "antithrombotic_queue": {"canonical_ids": 17, "provisional_groups": 17, "completed_ASGE_comparisons": 0, "clinically_reviewed_groups": 0, "note": "Actual discovery-queue output, not proof of exhaustive clinically distinct antithrombotic coverage"},
+  "per_id_metadata": {"present_records": 436, "not_started": 436, "populated_review_dates": 0, "populated_review_commits": 0, "populated_source_versions": 0, "populated_test_evidence": 0, "records_with_unresolved_issues": 436},
+  "internal_reference_checks": {"duplicate_medication_ids": 0, "missing_rule_to_atom_versions": 0, "missing_atom_to_source_versions": 0, "note": "Reference resolution is not primary-source appraisal or guideline validation"},
+  "artifact": {"url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42374711461/artifacts/13575206760", "zip_sha256": "c0ddfd0897cdc8b3bbaaa91e48f9caf62c09cfef261143f24724e6c7e074f56e", "manifest_sha256": "c73ef3b597d0c18bc1df9f4c8359ea434108b4db43d24a65ce8c4f844bf768cb", "retention_days": 30, "files": ["manifest.json", "summary.json", "antithrombotic-queue.json", "sprint-source.tar.gz"]},
+  "acceptance_reconciliation": [
+    {"criterion": "Read latest PR #37 head, sprint checklist and CI at reconciliation time", "result": "Read b4cbdc6 head and updated checklist after detecting 16 externally authored commits; no PR-triggered full quality run found for that exact head"},
+    {"criterion": "Reconcile canonical medication IDs and ingredient/formulation grouping", "result": "Recomputed exact inventory and queue counts; all IDs mapped; formulation denominator explicitly unresolved"},
+    {"criterion": "Map each claimed completed item to commit and CI evidence, or mark unresolved", "result": "Pinned-source focused tests and internal reference checks verified; metadata scaffold distinguished from populated clinical reviews; full sprint CI and independent clinical sign-off remain unresolved"}
+  ],
+  "blockers": ["Independent review and acceptance of reconciliation PR #40 remain pending", "Full sprint CI for the b4cbdc6 head remains unverified; source fixes and focused tests are not a full-CI pass", "Formulation adjudication, populated per-ID primary-source review and independent clinical approval remain unfinished clinical milestones, not blockers to isolated synthetic demo engineering"],
+  "history": "verified-report.json and EV-SPR001-20261107-001..003 retain the original 5a4b8cb7 audit. Their absence-of-metadata finding is superseded by the newly present but unpopulated scaffold. Historical failures are never erased."
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "transport": "Versioned repository JSON, feature branches, GitHub PRs and workflow evidence; no deployed agent services",
+  "shared_context": ["task_id", "session_id", "exact_base_sha", "graph_digest", "ledger_digest", "claim_ref", "acceptance_criteria", "scope", "blockers"],
+  "roles": {
+    "planner": {"input": ["live_reconciliation", "policy"], "output": ["deterministically_selected_task", "dependency_blockers"], "authority": "Read only; cannot invent priority or completion"},
+    "implementer": {"input": ["verified_task_claim", "bounded_scope", "acceptance_criteria"], "output": ["isolated_branch", "commit_shas", "PR", "test_results"], "authority": "Explicit authorized code changes; no self-approval or production clinical activation"},
+    "verifier": {"input": ["exact_commit", "workflow_runs", "artifacts", "acceptance_criteria"], "output": ["verification_receipt", "failure_evidence"], "authority": "Independent re-execution/inspection; role label alone is not independence"},
+    "researcher": {"input": ["research_task", "source_requirements"], "output": ["versioned_source_references", "conflicts", "unresolved_questions"], "authority": "Evidence gathering only; no clinical approval"},
+    "reviewer": {"input": ["PR_diff", "verification_receipt", "conflicts"], "output": ["exact_SHA_GitHub_review", "requested_changes"], "authority": "Separate accountable non-contributing reviewer; clinical approval additionally requires designated clinical governance"},
+    "coordinator": {"input": ["live_repository_state", "verified_outputs", "prior_handoff"], "output": ["proposed_graph_update", "append_only_evidence", "structured_handoff"], "authority": "Prepare reviewed PRs, never silently overwrite evidence or bypass failures"}
+  }
+}

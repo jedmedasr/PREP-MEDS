@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_id": "ENG-003",
+  "observed_at": "2026-11-07T13:01:52.316Z",
+  "implementation_sha": "9f6ae0b607b009255cf078fe0f40c4a06cd34606",
+  "main_sha": "4157f497e7b0ff37f428a44e5caeb2c815544a87",
+  "workflow_run": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42375009832",
+  "result": "failed",
+  "test_orchestrator": "SUCCESS; 48 regression tests passed",
+  "reconcile_live": "FAILED; exit code 2; snapshot was not complete and dispatch remained disabled",
+  "reported_error": "LIVE_STATE_UNAVAILABLE",
+  "root_cause": "The underlying collector error was not included in this version's JSON report. A concurrent PR #40 head update occurred during the observation window, but that is a hypothesis rather than a verified cause of this failure.",
+  "artifact_url": "https://github.com/jedmedasr/PREP-MEDS/actions/runs/42375009832/artifacts/13574649255",
+  "artifact_zip_sha256": "bd6979697a198d50634456db46dac52c5ec86dc91f6cb1e3ff249cfc02551e50",
+  "repair": "Preserve collector errors alongside LIVE_STATE_UNAVAILABLE and add a regression test proving the exact recovery blocker is retained. No freshness, evidence, concurrency or fail-closed condition is relaxed.",
+  "recovery": "Run fresh application, graph and orchestrator CI on the repaired exact head. Inspect the actual collector error if reconciliation fails again; do not blindly retry mutations or treat this failed run as successful.",
+  "merge_gate": "Independent non-contributing review remains required after successful exact-head checks. No merge or clinical approval is conveyed."
+}
