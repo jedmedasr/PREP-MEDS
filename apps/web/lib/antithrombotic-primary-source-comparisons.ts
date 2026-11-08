@@ -31,3 +31,21 @@ export const anticoagulantSourceComparisons = [
 export function getResearchOnlyAnticoagulantComparison(ingredientId: string) {
   return anticoagulantSourceComparisons.find(entry => entry.ingredientId === ingredientId) ?? null;
 }
+
+/**
+ * Research-only ASGE table lookup. No patient-facing date/time calculation.
+ * A boundary gap, overlapping stratum, or incomplete evidence MUST remain unresolved.
+ */
+export function findAsge2016ResearchStratum(ingredientId: string, creatinineClearance: number) {
+  if (!Number.isFinite(creatinineClearance) || creatinineClearance <= 0) return null;
+  const comparison = getResearchOnlyAnticoagulantComparison(ingredientId);
+  if (!comparison || comparison.clinicalApproval !== false) return null;
+  const matching = comparison.asge2016.highRiskCrClDays.filter(stratum => {
+    const lower = 'minInclusive' in stratum ? creatinineClearance >= stratum.minInclusive :
+      'minExclusive' in stratum ? creatinineClearance > stratum.minExclusive : false;
+    const upper = stratum.maxInclusive === null || creatinineClearance <= stratum.maxInclusive;
+    return lower && upper;
+  });
+  // Do not infer what the guideline intended at a missing boundary (e.g. apixaban CrCl 60).
+  return matching.length === 1 ? matching[0] : null;
+}
