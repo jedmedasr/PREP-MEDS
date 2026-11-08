@@ -204,3 +204,11 @@ Acceptance: auditable completion report; if incomplete, explicit unfinished grou
 - New commit test execution and CI results are NOT established; no local runner or manifest export execution occurred in this run. Do not mark the new tests as passed or the snapshot as committed.
 - Baseline (last established): 436/436 provisionally mapped canonical IDs, 233 provisional ingredient sets, 48 combination entries, 17 antithrombotic IDs; final clinically distinct formulation groups UNKNOWN; clinically reviewed groups 0, clinically validated IDs 0/436, completed ASGE comparisons 0. New clinical reviews 0, clinical corrections 0.
 - NEXT: execute Vitest and explicit snapshot export in a runner, verify current-head CI, commit actual generated manifest, adjudicate formulation-specific splits and perform source-linked agent comparisons. No merge or patient-facing rule activation.
+
+
+## 2026-11-07 20:38 CT execution — previous Block 1 PARTIAL; deterministic manifest syntax repair
+- FIRST inspected prior 20:26 ET checklist, manifest source, PR #45 (open at e977e53), and combined status for previous commit 74dca71 (Vercel SUCCESS only; application CI not verified).
+- Previous continuation introduced a source syntax defect: literal `\\n` characters outside a string in `medication-validation-manifest.ts` at commit caa8f4b. Corrected to actual line breaks in commit 62cb27dd0505f9dac2188f4e50917fe4ec24589f. Earlier added permutation regression test at 74dca71 remains committed, but execution has not been verified.
+- Block 1 PARTIAL: reproducible group-member sorting implemented, but static export, verified current-head CI, and formulation adjudication remain outstanding. No clinical medication recommendations changed.
+- Counts from prior verified inventory: 436 canonical IDs provisionally mapped / 436 total; 233 provisional ingredient sets, 48 combinations, 17 discovered antithrombotic IDs; final formulation group denominator unknown; 0 clinically completed groups; 0 clinically approved canonical-ID mappings; 0 completed ASGE comparisons.
+- NEXT: verify current-head application CI, generate and commit static manifest, adjudicate clinically distinct formulations, and begin complete ASGE agent comparisons. No clinical signoff or patient-facing activation.
