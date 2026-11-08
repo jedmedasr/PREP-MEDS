@@ -1,0 +1,51 @@
+name: lane-b-bucket04
+on:
+  pull_request:
+    paths:
+      - 'docs/medication-evidence/groups/**'
+      - 'docs/medication-evidence/lane-b/**'
+      - 'scripts/lane-b/bucket04*'
+      - 'scripts/__tests__/lane-b-bucket04*'
+      - 'apps/web/tests/lane-b-bucket04*'
+      - '.github/workflows/lane-b-bucket04.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-bucket04:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - name: Install existing workspace dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Run scoped evidence scenarios
+        run: |
+          mkdir -p "$RUNNER_TEMP/bucket04"
+          set -o pipefail
+          node --test scripts/__tests__/lane-b-bucket04.test.mjs | tee "$RUNNER_TEMP/bucket04/node.tap"
+      - name: Verify all21IDs against the actual assembled terminology
+        working-directory: apps/web
+        run: pnpm exec vitest run tests/lane-b-bucket04-mapping.test.ts --reporter=json --outputFile="$RUNNER_TEMP/bucket04/mapping.json"
+      - name: Bind results to exact evidence and source archive
+        env:
+          B04_OUTPUT: ${{ runner.temp }}/bucket04
+          B04_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          node scripts/lane-b/bucket04-receipt.mjs
+          git archive --format=tar.gz --output="$B04_OUTPUT/source.tar.gz" HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lane-b-bucket04-${{ github.run_id }}
+          path: ${{ runner.temp }}/bucket04
+          retention-days: 30
+          if-no-files-found: error
