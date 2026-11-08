@@ -1,5 +1,6 @@
 import { digest, SHA, TASK, reconcile, freshness } from './core.mjs';
 import { declaredTasks } from './task-tags.mjs';
+import { normalizeHandoff } from './handoffs.mjs';
 
 /** Small REST adapter: fixed host/repository, bounded pagination, no hidden retries or token logging. */
 export class GitHubClient {
@@ -62,33 +63,50 @@ export async function collect(client, graph, ledger, policy) {
     if (!Array.isArray(handoffFiles) || handoffFiles.length > 100) throw new Error('HANDOFF_DIRECTORY_LIMIT');
     for (const file of handoffFiles.filter((f) => f.type === 'file' && f.name.endsWith('.json'))) {
       if (!/^[A-Za-z0-9_.-]+\.json$/.test(file.name)) throw new Error('INVALID_HANDOFF_FILENAME');
-      const h = await contentJSON(`engineering/handoffs/${file.name}`);
-      if (!TASK.test(h.previous_task ?? '') || !['PASS', 'PARTIAL', 'FAIL'].includes(h.previous_outcome) || !Array.isArray(h.outstanding_blockers) || !Number.isFinite(Date.parse(h.created_at))) throw new Error('MALFORMED_HANDOFF');
+      const h = normalizeHandoff(await contentJSON(`engineering/handoffs/${file.name}`));
       state.handoffs.push(h);
     }
     const open = await client.list(`${p}/pulls?state=open`);
+    // The open-PR list already contains every field used by normalizePR.
+    // Reuse within this observation only; the final individual re-read still detects races.
+    const openByNumber = new Map(open.map(pr => [pr.number, pr]));
     const prNumbers = unique([...open.map((v) => v.number), ...(policy.protected_prs ?? []),
       ...graph.tasks.map((t) => prFromURL(t.source_ref)), ...ledger.records.map((r) => r.pr_number ?? prFromURL(r.url))].filter(Boolean));
+    const observedCommits = new Map();
     for (const n of prNumbers) {
-      const raw = await client.request(`${p}/pulls/${n}`);
+      const raw = openByNumber.get(n) ?? await client.request(`${p}/pulls/${n}`);
       const pr = normalizePR(raw);
       pr.task_ids = pr.task_ids.filter((id) => graph.tasks.some((task) => task.id === id));
       pr.files = (await client.list(`${p}/pulls/${n}/files`)).map((f) => f.filename);
       pr.reviews = (await client.list(`${p}/pulls/${n}/reviews`)).map((r) => ({ id: r.id, login: r.user.login, state: r.state, commit_id: r.commit_id, html_url: r.html_url }));
       // A contributor cannot certify independent verification of the same change.
-      pr.contributors = unique((await client.list(`${p}/pulls/${n}/commits`)).map((c) => c.author?.login).filter(Boolean));
+      const commits = await client.list(`${p}/pulls/${n}/commits`);
+      pr.contributors = unique(commits.map(c => c.author?.login).filter(Boolean));
+      // Reuse immutable Git metadata returned with contributor enumeration.
+      // Incomplete summaries fall back to the individual commit endpoint below.
+      for (const c of commits) if (SHA.test(c.sha ?? '') && SHA.test(c.commit?.tree?.sha ?? '') &&
+          Array.isArray(c.parents) && c.parents.every(parent => SHA.test(parent.sha ?? ''))) {
+        const value = { sha: c.sha, tree: c.commit.tree.sha, parents: c.parents.map(parent => parent.sha) };
+        if (observedCommits.has(c.sha) && digest(observedCommits.get(c.sha)) !== digest(value)) throw new Error('INCONSISTENT_COMMIT_METADATA');
+        observedCommits.set(c.sha, value);
+      }
       state.pulls.push(pr);
     }
     for (const sha of unique([state.main_sha, ...state.pulls.map((v) => v.head_sha), ...ledger.records.map((r) => r.commit_sha)])) {
       if (!SHA.test(sha ?? '')) throw new Error('INVALID_EVIDENCE_SHA');
+      if (observedCommits.has(sha)) { state.commits[sha] = observedCommits.get(sha); continue; }
       try { const c = await client.request(`${p}/commits/${sha}`); state.commits[sha] = { sha: c.sha, tree: c.commit.tree.sha, parents: c.parents.map((v) => v.sha) }; }
       catch (e) { if (e.status === 404) state.commits[sha] = null; else throw e; }
     }
     const runs = await client.list(`${p}/actions/runs?head_sha=${state.main_sha}`, 'workflow_runs');
     // Observe current open PR CI as well, but do not confuse sprint failures with main failures.
-    for (const pr of state.pulls.filter((v) => v.state === 'open')) runs.push(...await client.list(`${p}/actions/runs?head_sha=${pr.head_sha}`, 'workflow_runs'));
+    const observedHeads = unique(state.pulls.filter(v => v.state === 'open').map(pr => pr.head_sha)).filter(sha => sha !== state.main_sha);
+    for (const sha of observedHeads) runs.push(...await client.list(`${p}/actions/runs?head_sha=${sha}`, 'workflow_runs'));
+    const observedRunIds = new Set(runs.map(run => run.id));
     const evidenceRuns = unique(ledger.records.flatMap((r) => [...(r.workflow_run_ids ?? []), runFromURL(r.url)]).filter(Boolean));
     for (const id of evidenceRuns) {
+      // Evidence jobs are still fetched below; only the duplicate run-header GET is omitted.
+      if (observedRunIds.has(id)) continue;
       try { runs.push(await client.request(`${p}/actions/runs/${id}`)); }
       catch (e) { if (e.status === 404) state.runs[id] = null; else throw e; }
     }
