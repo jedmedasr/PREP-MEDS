@@ -518,22 +518,24 @@
       "ingredientSetKey": "ING-apixaban",
       "reviewStatus": "IN_PROGRESS",
       "lastReviewedDate": "2026-11-08",
-      "reviewCommit": "904501aedd818016e69380c6c52e57a917d22fa5",
+      "reviewCommit": "399824aa73d7142044ab62aad2df2fc01bf3602e",
       "sourceVersions": [
         "ASGE 2016 Table 7 DOI:10.1016/j.gie.2015.09.035",
         "ACG/CAG 2022 DOI:10.14309/ajg.0000000000001627",
         "BSG/ESGE 2021 DOI:10.1136/gutjnl-2021-325184",
         "CHEST 2022 DOI:10.1016/j.chest.2022.07.025",
         "AHA/ACC 2024 DOI:10.1016/j.jacc.2024.06.013",
-        "FDA Eliquis April 2025 section 2.4 (currentness unverified)"
+        "IDEN 2024 Statements 11–14 https://pmc.ncbi.nlm.nih.gov/articles/PMC11391130/",
+        "ACC/AHA/ACCP/HRS 2023 AF Table 18 DOI:10.1016/j.jacc.2023.08.017"
       ],
       "testEvidence": [],
       "remainingIssues": [
         "Generic MED-apixaban does not specify formulation; pediatric Eliquis presentations not enumerated",
-        "FDA current 2026 SPL not verified",
         "ASGE CrCl 60 and fractional gaps require fail-closed clinical interpretation",
-        "Eight research scenario regression tests not implemented or executed",
-        "No clinician Mark Reviewed approval; no patient-facing activation"
+        "Source-specific apixaban scenario and renal-boundary tests exist in repository but execution and full canonical inheritance verification remain unconfirmed",
+        "No clinician Mark Reviewed approval; no patient-facing activation",
+        "Guideline-based hold-duration research no longer blocked on FDA-label revision checks (clinician decision 2026-11-08)",
+        "Complete apixaban guideline evidence packaging and clinician review gate; adult/pediatric and route-specific applicability must remain distinct"
       ]
     },
     {
