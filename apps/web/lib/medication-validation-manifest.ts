@@ -43,7 +43,9 @@ export function buildMedicationValidationManifest(sourceMedications: typeof term
   // Fail closed before Object.fromEntries can silently overwrite a duplicate ID.
   const canonicalIds = medications.map(m => m.medicationId);
   if (new Set(canonicalIds).size !== canonicalIds.length) throw new Error('DUPLICATE_CANONICAL_MEDICATION_ID');
-  if (medications.some(m => !m.medicationId.trim() || !m.canonicalName.trim() || m.ingredientIds.length === 0 || m.ingredientIds.some(id => !id.trim() || id !== id.trim()) || m.medicationId !== m.medicationId.trim() || new Set(m.ingredientIds).size !== m.ingredientIds.length)) {
+  // Reject invisible control characters before they contaminate immutable audit keys or labels.
+  const containsControl = (value: string) => /[\u0000-\u001f\u007f]/.test(value);
+  if (medications.some(m => !m.medicationId.trim() || !m.canonicalName.trim() || containsControl(m.medicationId) || containsControl(m.canonicalName) || m.ingredientIds.length === 0 || m.ingredientIds.some(id => !id.trim() || id !== id.trim() || containsControl(id)) || m.medicationId !== m.medicationId.trim() || new Set(m.ingredientIds).size !== m.ingredientIds.length)) {
     throw new Error('INVALID_MEDICATION_INGREDIENT_MAPPING');
   }
 
