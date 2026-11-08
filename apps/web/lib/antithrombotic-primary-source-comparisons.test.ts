@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { anticoagulantSourceComparisons, getResearchOnlyAnticoagulantComparison } from './antithrombotic-primary-source-comparisons';
+import { anticoagulantSourceComparisons, getResearchOnlyAnticoagulantComparison, findAsge2016ResearchStratum } from './antithrombotic-primary-source-comparisons';
 
 describe('source-specific anticoagulant research ledger (not prescribing guidance)', () => {
   it('does not silently apply apixaban renal strata to rivaroxaban', () => {
@@ -28,5 +28,27 @@ describe('source-specific anticoagulant research ledger (not prescribing guidanc
     }
     expect(getResearchOnlyAnticoagulantComparison('ING-dabigatran')).toBeNull();
     expect(getResearchOnlyAnticoagulantComparison('ING-warfarin')).toBeNull();
+  });
+});
+
+
+describe('ASGE research renal boundaries fail closed', () => {
+  it('does not invent apixaban timing at the unassigned CrCl 60 boundary', () => {
+    expect(findAsge2016ResearchStratum('ING-apixaban', 60)).toBeNull();
+    expect(findAsge2016ResearchStratum('ING-apixaban', 59)?.days).toEqual([3]);
+    expect(findAsge2016ResearchStratum('ING-apixaban', 61)?.days).toEqual([1, 2]);
+  });
+  it('keeps rivaroxaban renal thresholds independent', () => {
+    expect(findAsge2016ResearchStratum('ING-rivaroxaban', 60)?.days).toEqual([2]);
+    expect(findAsge2016ResearchStratum('ING-rivaroxaban', 90)?.days).toEqual([2]);
+    expect(findAsge2016ResearchStratum('ING-rivaroxaban', 91)?.days).toEqual([1]);
+  });
+  it('rejects missing, nonfinite, out-of-range and unrelated agent data', () => {
+    for (const crcl of [0, -1, NaN, Infinity, -Infinity]) {
+      expect(findAsge2016ResearchStratum('ING-apixaban', crcl)).toBeNull();
+    }
+    expect(findAsge2016ResearchStratum('ING-apixaban', 14)).toBeNull();
+    expect(findAsge2016ResearchStratum('ING-rivaroxaban', 14)).toBeNull();
+    expect(findAsge2016ResearchStratum('ING-warfarin', 80)).toBeNull();
   });
 });
