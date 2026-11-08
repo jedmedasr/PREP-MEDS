@@ -10,7 +10,7 @@ export const anticoagulantSourceComparisons = [
     ], note: 'Table intervals are days; 1 or 2 is a range, not a unique last-dose timestamp.' },
     bsgEsge2021: { doi: '10.1136/gutjnl-2021-325184', highRiskLastDoseDaysBefore: 3, strength: 'strong', certainty: 'low', note: 'Stable renal function assumed; rapidly deteriorating renal function requires specialist assessment.' },
     acgCag2022: { doi: '10.14309/ajg.0000000000001627', action: 'TEMPORARILY_INTERRUPT', strength: 'conditional', certainty: 'very low', exactHighRiskLastDoseDays: null },
-    unresolved: ['ASGE 2016 and BSG/ESGE 2021 high-risk timing differ for preserved renal function', 'Current FDA label, CHEST and ACC/AHA comparison pending', 'Formulation/indication, bleeding and thrombotic risks, restart and governance pending'],
+    unresolved: ['ASGE 2016 and BSG/ESGE 2021 high-risk timing differ for preserved renal function', 'FDA April 2025 label, CHEST 2022 and AHA/ACC 2024 are reconciled in docs/antithrombotic-source-reconciliation.md; current 2026 FDA revision and structured per-scenario extraction pending', 'Formulation/indication, bleeding and thrombotic risks, restart and governance pending'],
   },
   {
     ingredientId: 'ING-rivaroxaban',
@@ -23,7 +23,7 @@ export const anticoagulantSourceComparisons = [
     ], note: 'ASGE >90 stratum is >=1 day, not exactly 1 day.' },
     bsgEsge2021: { doi: '10.1136/gutjnl-2021-325184', highRiskLastDoseDaysBefore: 3, strength: 'strong', certainty: 'low' },
     acgCag2022: { doi: '10.14309/ajg.0000000000001627', action: 'TEMPORARILY_INTERRUPT', strength: 'conditional', certainty: 'very low', exactHighRiskLastDoseDays: null },
-    unresolved: ['ASGE 2016 and BSG/ESGE 2021 differ by renal stratum', 'Current FDA label, CHEST and ACC/AHA comparison pending', 'Regimen, thrombotic risk, restart and clinical approval pending'],
+    unresolved: ['ASGE 2016 and BSG/ESGE 2021 differ by renal stratum', 'FDA labeling and CHEST/AHA/ACC source comparisons documented in clinical ledger; current label revision and structured per-scenario extraction pending', 'Regimen, thrombotic risk, restart and clinical approval pending'],
   },
 ] as const;
 
@@ -48,4 +48,20 @@ export function findAsge2016ResearchStratum(ingredientId: string, creatinineClea
   });
   // Do not infer what the guideline intended at a missing boundary (e.g. apixaban CrCl 60).
   return matching.length === 1 ? matching[0] : null;
+}
+
+/**
+ * Historical ASGE 2016 high-risk endoscopy research lookup.
+ * Intentionally returns null for diagnostic/biopsy-only cases, unknown intervention,
+ * unadjudicated formulation, or any renal gap. Never produces a patient hold order.
+ */
+export function findAsge2016HighRiskEndoscopyEvidence(input: {
+  ingredientId: string;
+  creatinineClearance: number;
+  procedure: 'EGD' | 'COLONOSCOPY' | 'COMBINED';
+  interventionRisk: 'LOW' | 'HIGH' | 'UNKNOWN';
+  formulation: 'ADULT_ORAL' | 'PEDIATRIC_ORAL' | 'UNKNOWN';
+}) {
+  if (input.interventionRisk !== 'HIGH' || input.formulation !== 'ADULT_ORAL') return null;
+  return findAsge2016ResearchStratum(input.ingredientId, input.creatinineClearance);
 }
