@@ -12,7 +12,9 @@ export type AuditStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'NEEDS_CORRECTION' | '
 /** A comparator placeholder is not a completed ASGE 2016 comparison. */
 export function buildAntithromboticAuditQueue() {
   const classHints = /antithrombotic|anticoagulant|antiplatelet|factor-xa|thrombin|heparin|lmwh|p2y12|aspirin/i;
-  // Discovery is deliberately broad: the audit queue is research-only, never a prescribing rule.\n  // Include less common parenteral anticoagulants, P2Y12 agents, and combination constituents.\n  const ingredientHints = /apixaban|rivaroxaban|edoxaban|dabigatran|betrixaban|warfarin|acenocoumarol|phenprocoumon|heparin|enoxaparin|dalteparin|tinzaparin|fondaparinux|argatroban|bivalirudin|desirudin|lepirudin|danaparoid|aspirin|acetylsalicylic|clopidogrel|prasugrel|ticagrelor|ticlopidine|cangrelor|dipyridamole|cilostazol|vorapaxar|abciximab|eptifibatide|tirofiban/i;
+  // Discovery is deliberately broad: the audit queue is research-only, never a prescribing rule.
+  // Include less common parenteral anticoagulants, P2Y12 agents, and combination constituents.
+  const ingredientHints = /apixaban|rivaroxaban|edoxaban|dabigatran|betrixaban|warfarin|acenocoumarol|phenprocoumon|heparin|enoxaparin|dalteparin|tinzaparin|fondaparinux|argatroban|bivalirudin|desirudin|lepirudin|danaparoid|aspirin|acetylsalicylic|clopidogrel|prasugrel|ticagrelor|ticlopidine|cangrelor|dipyridamole|cilostazol|vorapaxar|abciximab|eptifibatide|tirofiban/i;
   const medications = terminologyDataset.medications
     .filter(m => (m.drugClassIds ?? []).some(id => classHints.test(id)) || m.ingredientIds.some(id => ingredientHints.test(id)))
     .map(m => ({
