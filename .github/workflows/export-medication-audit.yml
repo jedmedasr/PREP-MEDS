@@ -36,6 +36,8 @@ jobs:
             git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'audit: commit deterministic canonical medication inventory snapshot'
             # Concurrent sprint commits may advance the branch while this job runs.
             # Rebase the generated snapshot onto the latest head; never force push.
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git fetch origin test/medication-research-regression-20261106
             git rebase origin/test/medication-research-regression-20261106
             git push origin HEAD:test/medication-research-regression-20261106
