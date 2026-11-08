@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { anticoagulantSourceComparisons, getResearchOnlyAnticoagulantComparison, findAsge2016ResearchStratum } from './antithrombotic-primary-source-comparisons';
+import { anticoagulantSourceComparisons, getResearchOnlyAnticoagulantComparison, findAsge2016ResearchStratum, findAsge2016HighRiskEndoscopyEvidence } from './antithrombotic-primary-source-comparisons';
 
 describe('source-specific anticoagulant research ledger (not prescribing guidance)', () => {
   it('does not silently apply apixaban renal strata to rivaroxaban', () => {
@@ -68,5 +68,31 @@ describe('research-only comparator evidence completeness gate', () => {
     expect(findAsge2016ResearchStratum('ING-apixaban', 60)).toBeNull();
     expect(findAsge2016ResearchStratum('ING-warfarin', 60)).toBeNull();
     expect(findAsge2016ResearchStratum('ING-rivaroxaban', Number.NaN)).toBeNull();
+  });
+});
+
+describe('ASGE 2016 apixaban/rivaroxaban endoscopy scenario evidence (research only)', () => {
+  const base = { ingredientId: 'ING-apixaban', creatinineClearance: 61, procedure: 'EGD' as const, interventionRisk: 'HIGH' as const, formulation: 'ADULT_ORAL' as const };
+  it('only returns historical high-risk adult oral evidence when risk is explicit', () => {
+    expect(findAsge2016HighRiskEndoscopyEvidence(base)?.days).toEqual([1, 2]);
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, interventionRisk: 'LOW' })).toBeNull();
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, interventionRisk: 'UNKNOWN' })).toBeNull();
+  });
+  it('never inherits adult evidence into pediatric or unadjudicated formulations', () => {
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, formulation: 'PEDIATRIC_ORAL' })).toBeNull();
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, formulation: 'UNKNOWN' })).toBeNull();
+  });
+  it('does not infer ASGE values at gaps or invalid CrCl, including fractional boundaries', () => {
+    for (const crcl of [60, 59.5, 29.5, 14, 0, NaN, Infinity]) {
+      expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, creatinineClearance: crcl })).toBeNull();
+    }
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, creatinineClearance: 30 })?.days).toEqual([3]);
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, creatinineClearance: 29 })?.days).toEqual([4]);
+  });
+  it('does not conflate diagnostic, combined, or agent-specific high-risk pathways', () => {
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, procedure: 'COMBINED', interventionRisk: 'UNKNOWN' })).toBeNull();
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, procedure: 'COLONOSCOPY', interventionRisk: 'LOW' })).toBeNull();
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, ingredientId: 'ING-rivaroxaban', creatinineClearance: 91 })?.days).toEqual([1]);
+    expect(findAsge2016HighRiskEndoscopyEvidence({ ...base, ingredientId: 'ING-warfarin' })).toBeNull();
   });
 });
