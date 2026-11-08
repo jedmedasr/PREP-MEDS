@@ -1,0 +1,33 @@
+/** Research-only source comparison; never consumed by patient instructions. */
+export const anticoagulantSourceComparisons = [
+  {
+    ingredientId: 'ING-apixaban',
+    status: 'IN_PROGRESS', clinicalApproval: false,
+    asge2016: { doi: '10.1016/j.gie.2015.09.035', table: 'Table 7', highRiskCrClDays: [
+      { minExclusive: 60, maxInclusive: null, days: [1, 2] },
+      { minInclusive: 30, maxInclusive: 59, days: [3] },
+      { minInclusive: 15, maxInclusive: 29, days: [4] },
+    ], note: 'Table intervals are days; 1 or 2 is a range, not a unique last-dose timestamp.' },
+    bsgEsge2021: { doi: '10.1136/gutjnl-2021-325184', highRiskLastDoseDaysBefore: 3, strength: 'strong', certainty: 'low', note: 'Stable renal function assumed; rapidly deteriorating renal function requires specialist assessment.' },
+    acgCag2022: { doi: '10.14309/ajg.0000000000001627', action: 'TEMPORARILY_INTERRUPT', strength: 'conditional', certainty: 'very low', exactHighRiskLastDoseDays: null },
+    unresolved: ['ASGE 2016 and BSG/ESGE 2021 high-risk timing differ for preserved renal function', 'Current FDA label, CHEST and ACC/AHA comparison pending', 'Formulation/indication, bleeding and thrombotic risks, restart and governance pending'],
+  },
+  {
+    ingredientId: 'ING-rivaroxaban',
+    status: 'IN_PROGRESS', clinicalApproval: false,
+    asge2016: { doi: '10.1016/j.gie.2015.09.035', table: 'Table 8', highRiskCrClDays: [
+      { minExclusive: 90, maxInclusive: null, days: [1], minimumDays: true },
+      { minInclusive: 60, maxInclusive: 90, days: [2] },
+      { minInclusive: 30, maxInclusive: 59, days: [3] },
+      { minInclusive: 15, maxInclusive: 29, days: [4] },
+    ], note: 'ASGE >90 stratum is >=1 day, not exactly 1 day.' },
+    bsgEsge2021: { doi: '10.1136/gutjnl-2021-325184', highRiskLastDoseDaysBefore: 3, strength: 'strong', certainty: 'low' },
+    acgCag2022: { doi: '10.14309/ajg.0000000000001627', action: 'TEMPORARILY_INTERRUPT', strength: 'conditional', certainty: 'very low', exactHighRiskLastDoseDays: null },
+    unresolved: ['ASGE 2016 and BSG/ESGE 2021 differ by renal stratum', 'Current FDA label, CHEST and ACC/AHA comparison pending', 'Regimen, thrombotic risk, restart and clinical approval pending'],
+  },
+] as const;
+
+/** Never turn an evidence comparison into a prescribing or timing recommendation. */
+export function getResearchOnlyAnticoagulantComparison(ingredientId: string) {
+  return anticoagulantSourceComparisons.find(entry => entry.ingredientId === ingredientId) ?? null;
+}
