@@ -1,0 +1,35 @@
+name: Export canonical medication audit snapshot
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  export:
+    if: github.ref == 'refs/heads/test/medication-research-regression-20261106'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: pnpm install --no-frozen-lockfile
+      - name: Export or validate deterministic canonical manifest
+        env:
+          EXPORT_MEDICATION_AUDIT: '1'
+        run: pnpm --filter @prep-meds/web exec vitest run lib/medication-audit-snapshot-gate.test.ts
+      - name: Record manifest and source SHA
+        run: |
+          test -s docs/medication-audit-manifest.json
+          git add docs/medication-audit-manifest.json
+          if git diff --cached --quiet; then
+            echo 'Existing manifest verified; no new commit necessary.'
+          else
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'audit: commit deterministic canonical medication inventory snapshot'
+            git push origin HEAD:test/medication-research-regression-20261106
+          fi
