@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
+import { normalizeHandoff } from './graph/handoffs.mjs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -62,6 +63,8 @@ export function verifyIntegration() {
   }));
   const actualGraph = JSON.parse(readFileSync('engineering/task-graph.json', 'utf8'));
   const actualLedger = JSON.parse(readFileSync('engineering/evidence-ledger.json', 'utf8'));
+  const handoffPaths = readdirSync('engineering/handoffs').filter(name => name.endsWith('.json'));
+  for (const name of handoffPaths) normalizeHandoff(JSON.parse(readFileSync(`engineering/handoffs/${name}`, 'utf8')));
   const records = exactUnion(inputs.map(x => x.ledger.records));
   requirePreserved(records, actualLedger.records);
   const tasks = taskUnion(inputs.map(x => ({pr:x.pr,tasks:x.graph.tasks})), manifest.task_resolution);
@@ -94,6 +97,6 @@ export function verifyIntegration() {
   assert.ok(readFileSync('AGENTS.md', 'utf8').includes('## Stage 2 executable orchestration'), 'STAGE2_CONTRACT_LOST');
   assert.equal(readFileSync('engineering/decisions.md','utf8'), git('show',`${source43}:engineering/decisions.md`));
   assert.equal(readFileSync('engineering/decisions-stage2.md','utf8'), git('show',`${source41}:engineering/decisions.md`));
-  return { status:'PASS', mainSha:manifest.main_sha, inputs:manifest.inputs, tasksPreserved:tasks.size, evidenceRecordsPreserved:records.size, baselineClinicalFilesUnchanged:clinicalBaselineFiles, clinicalApproval:false, mergedToMain:false };
+  return { status:'PASS', mainSha:manifest.main_sha, inputs:manifest.inputs, handoffsReadable:handoffPaths.length, tasksPreserved:tasks.size, evidenceRecordsPreserved:records.size, baselineClinicalFilesUnchanged:clinicalBaselineFiles, clinicalApproval:false, mergedToMain:false };
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) console.log(JSON.stringify(verifyIntegration(),null,2));
