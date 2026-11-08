@@ -52,3 +52,21 @@ describe('ASGE research renal boundaries fail closed', () => {
     expect(findAsge2016ResearchStratum('ING-warfarin', 80)).toBeNull();
   });
 });
+
+describe('research-only comparator evidence completeness gate', () => {
+  it('never treats a partial ASGE comparison as clinical completion', () => {
+    for (const entry of anticoagulantSourceComparisons) {
+      expect(entry.status).toBe('IN_PROGRESS');
+      expect(entry.clinicalApproval).toBe(false);
+      expect(entry.unresolved.some(issue => /FDA|CHEST|ACC/i.test(issue))).toBe(true);
+      expect(entry.asge2016.highRiskCrClDays.length).toBeGreaterThan(0);
+      expect(entry.acgCag2022.exactHighRiskLastDoseDays).toBeNull();
+    }
+  });
+  it('does not invent an ASGE dose interval at a gap or for another agent', () => {
+    const { findAsge2016ResearchStratum } = require('./antithrombotic-primary-source-comparisons');
+    expect(findAsge2016ResearchStratum('ING-apixaban', 60)).toBeNull();
+    expect(findAsge2016ResearchStratum('ING-warfarin', 60)).toBeNull();
+    expect(findAsge2016ResearchStratum('ING-rivaroxaban', Number.NaN)).toBeNull();
+  });
+});
