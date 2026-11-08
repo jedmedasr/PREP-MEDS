@@ -516,13 +516,24 @@
         "ING-apixaban"
       ],
       "ingredientSetKey": "ING-apixaban",
-      "reviewStatus": "NOT_STARTED",
-      "lastReviewedDate": null,
-      "reviewCommit": null,
-      "sourceVersions": [],
+      "reviewStatus": "IN_PROGRESS",
+      "lastReviewedDate": "2026-11-08",
+      "reviewCommit": "904501aedd818016e69380c6c52e57a917d22fa5",
+      "sourceVersions": [
+        "ASGE 2016 Table 7 DOI:10.1016/j.gie.2015.09.035",
+        "ACG/CAG 2022 DOI:10.14309/ajg.0000000000001627",
+        "BSG/ESGE 2021 DOI:10.1136/gutjnl-2021-325184",
+        "CHEST 2022 DOI:10.1016/j.chest.2022.07.025",
+        "AHA/ACC 2024 DOI:10.1016/j.jacc.2024.06.013",
+        "FDA Eliquis April 2025 section 2.4 (currentness unverified)"
+      ],
       "testEvidence": [],
       "remainingIssues": [
-        "Formulation/route review and clinical evidence not yet completed"
+        "Generic MED-apixaban does not specify formulation; pediatric Eliquis presentations not enumerated",
+        "FDA current 2026 SPL not verified",
+        "ASGE CrCl 60 and fractional gaps require fail-closed clinical interpretation",
+        "Eight research scenario regression tests not implemented or executed",
+        "No clinician Mark Reviewed approval; no patient-facing activation"
       ]
     },
     {
