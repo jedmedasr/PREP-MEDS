@@ -5365,13 +5365,22 @@
         "ING-rivaroxaban"
       ],
       "ingredientSetKey": "ING-rivaroxaban",
-      "reviewStatus": "NOT_STARTED",
-      "lastReviewedDate": null,
-      "reviewCommit": null,
-      "sourceVersions": [],
+      "reviewStatus": "IN_PROGRESS",
+      "lastReviewedDate": "2026-11-08",
+      "reviewCommit": "37f7422ed62434ececf55ef008c2dce8c4f12d36",
+      "sourceVersions": [
+        "ASGE 2016 Table 8 DOI:10.1016/j.gie.2015.09.035",
+        "BSG/ESGE 2021 DOI:10.1136/gutjnl-2021-325184",
+        "ACG/CAG 2022 DOI:10.14309/ajg.0000000000001627",
+        "IDEN 2024 Statements 11–14 https://pmc.ncbi.nlm.nih.gov/articles/PMC11391130/",
+        "CHEST 2022 DOI:10.1016/j.chest.2022.07.025"
+      ],
       "testEvidence": [],
       "remainingIssues": [
-        "Formulation/route review and clinical evidence not yet completed"
+        "Generic MED-rivaroxaban lacks indication/formulation; AF/VTE/vascular-dose-plus-aspirin and pediatric/enteral scenarios require separate adjudication",
+        "Historical ASGE Table 8 CrCl row edges and fractional gaps must not be interpolated",
+        "Source comparison committed at docs/clinical-evidence/rivaroxaban-guideline-comparison-2026-11-08.md; regression tests not executed",
+        "No clinician authorization for patient-facing activation"
       ]
     },
     {
@@ -9384,7 +9393,7 @@
         "MED-rivaroxaban"
       ],
       "formulationAdjudication": "PENDING",
-      "clinicalStatus": "NOT_STARTED"
+      "clinicalStatus": "IN_PROGRESS"
     },
     {
       "ingredientSetKey": "ING-ropinirole",
