@@ -6813,13 +6813,20 @@
         "ING-warfarin"
       ],
       "ingredientSetKey": "ING-warfarin",
-      "reviewStatus": "NOT_STARTED",
-      "lastReviewedDate": null,
-      "reviewCommit": null,
-      "sourceVersions": [],
+      "reviewStatus": "IN_PROGRESS",
+      "lastReviewedDate": "2026-11-08",
+      "reviewCommit": "babc1c85332b5755d538380001728b24295e6fa0",
+      "sourceVersions": [
+        "ASGE 2016 Tables 2/3/5/11/13 DOI:10.1016/j.gie.2015.09.035",
+        "BSG/ESGE 2021 Warfarin and heparin DOI:10.1136/gutjnl-2021-325184",
+        "ACG/CAG 2022 elective statements DOI:10.14309/ajg.0000000000001627",
+        "CHEST 2022 perioperative VKA DOI:10.1016/j.chest.2022.07.025"
+      ],
       "testEvidence": [],
       "remainingIssues": [
-        "Formulation/route review and clinical evidence not yet completed"
+        "Execute and verify scenario regression tests including INR strict <1.5 boundary and bridging disagreement",
+        "Verify warfarin canonical ID inheritance against updated inventory and formulation-specific distinctions",
+        "Clinician review of competing bridging and resumption guideline pathways; no patient-facing activation"
       ]
     },
     {
