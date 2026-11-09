@@ -55,13 +55,17 @@ for(const key of groupKeys){
  const e=JSON.parse(readFileSync(file,'utf8'));
  const missing=[];
  if(e.groupId!==key) missing.push('groupId');
+ if(e.evidenceStatus!=='EVIDENCE_COMPLETE') missing.push('evidence status');
+ if(e.clinicianReviewed===true || e.patientFacingEnabled===true) missing.push('unexpected clinical activation');
  if(e.formulationAdjudicated!==true) missing.push('formulation adjudication');
  if(!Array.isArray(e.mappedMedicationIds)||e.mappedMedicationIds.length!==byGroup.get(key).length||
     [...e.mappedMedicationIds].sort().join('|')!==[...byGroup.get(key)].sort().join('|')) missing.push('canonical ID inheritance');
  if(!Array.isArray(e.sources)||!e.sources.length||e.sources.some(s=>!s.url||!s.version||!s.section||!s.publicationDate)) missing.push('dated primary passage links');
  if(!Array.isArray(e.scenarios)||!e.scenarios.length) missing.push('scenario matrix');
- if(!Array.isArray(e.tests)||!e.tests.length||e.tests.some(t=>!t.commit||!t.command||t.passed!==true||!t.evidenceUrl)) missing.push('executed test evidence');
- if(!e.commitSha) missing.push('evidence commit');
+ if(Array.isArray(e.sources)&&e.sources.some(s=>!s.extraction||/^(See |Named Xa inhibitor|Renal-stratified)/i.test(s.extraction.trim()))) missing.push('unresolved source extraction');
+ if(Array.isArray(e.scenarios)&&e.scenarios.some(s=>Object.values(s).some(v=>typeof v==='string' && /^See ASGE/i.test(v.trim())))) missing.push('unresolved scenario placeholder');
+ if(!Array.isArray(e.tests)||!e.tests.length||e.tests.some(t=>!/^[0-9a-f]{40}$/i.test(t.commit??'')||!t.command||t.passed!==true||!/^https:\/\//.test(t.evidenceUrl??''))) missing.push('executed test evidence');
+ if(!/^[0-9a-f]{40}$/i.test(e.commitSha??'')) missing.push('evidence commit');
  if(/apixaban|rivaroxaban|dabigatran|edoxaban|warfarin|aspirin|clopidogrel|prasugrel|ticagrelor|enoxaparin|heparin|dipyridamole|ticlopidine/.test(key)&&
  (!e.asge2016||!['COMPARED','NOT_ADDRESSED'].includes(e.asge2016.status)||!e.asge2016.section||!e.asge2016.url)) missing.push('ASGE 2016 comparator');
  if(missing.length) failures.push({group:key,missing}); else complete++;
