@@ -39,7 +39,7 @@ create table if not exists prepmeds_audit.agent_runs (
   check (state <> 'PASS' or (evidence_hash is not null and evidence_commit ~ '^[0-9a-f]{40}$' and finished_at is not null))
 );
 -- Safe to re-run during integration; preserve existing references and rows.
-do $
+do $custody$
 begin
   if not exists (select 1 from pg_constraint where conname='review_groups_latest_a_fk' and conrelid='prepmeds_audit.review_groups'::regclass) then
     alter table prepmeds_audit.review_groups add constraint review_groups_latest_a_fk
