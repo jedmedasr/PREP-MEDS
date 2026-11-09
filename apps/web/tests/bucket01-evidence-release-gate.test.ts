@@ -18,7 +18,10 @@ describe('Bucket 01 source and release integrity', () => {
       expect(e.sources.some((s: {url: string})=>s.url.includes('gutjnl-2021-325184'))).toBe(true);
       expect(e.clinicianReviewed).toBe(false);
       expect(e.patientFacingEnabled).toBe(false);
-      // Evidence cannot be closed with placeholder-only source extraction.\n      if(e.evidenceStatus==='EVIDENCE_COMPLETE') {\n        expect(e.sources.every((source: {extraction?: string}) => !/^(See |Named Xa inhibitor|Renal-stratified)/i.test(source.extraction ?? ''))).toBe(true);\n        expect(e.scenarios.every((scenario: {asge?: string}) => !/^See ASGE/i.test(scenario.asge ?? ''))).toBe(true);
+      // Evidence cannot be closed with placeholder-only source extraction.
+      if(e.evidenceStatus==='EVIDENCE_COMPLETE') {
+        expect(e.sources.every((source: {extraction?: string}) => !/^(See |Named Xa inhibitor|Renal-stratified)/i.test(source.extraction ?? ''))).toBe(true);
+        expect(e.scenarios.every((scenario: {asge?: string}) => !/^See ASGE/i.test(scenario.asge ?? ''))).toBe(true);
         expect(e.formulationAdjudicated).toBe(true);
         // Independent agent signoff is not a clinical-governance prerequisite.
         // Clinician verifies the linked primary passage at Mark Reviewed.
