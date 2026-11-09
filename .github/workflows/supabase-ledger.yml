@@ -5,6 +5,7 @@ on:
       - 'supabase/**'
       - 'scripts/supabase-ledger/**'
       - 'tests/supabase/**'
+      - 'apps/web/app/api/agent-ledger/**'
       - '.github/workflows/supabase-ledger.yml'
   workflow_dispatch:
 permissions:
@@ -37,11 +38,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Backend and schedule adapter tests (mocked transport, not live scheduling)
+        run: |
+          mkdir -p ledger-artifacts
+          set -o pipefail
+          node --test tests/supabase/client.test.mjs 2>&1 | tee ledger-artifacts/client-tests.txt
       - name: Isolated PostgreSQL state-machine and privilege tests
         run: |
           mkdir -p ledger-artifacts
           set -o pipefail
-          python3 tests/supabase/test_ledger.py 2>&1 | tee ledger-artifacts/tests.txt
+          python3 tests/supabase/test_extended.py 2>&1 | tee ledger-artifacts/tests.txt
       - name: Retain exact implementation and query evidence
         if: always()
         run: |
