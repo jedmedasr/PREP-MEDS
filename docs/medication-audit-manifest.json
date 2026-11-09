@@ -2080,13 +2080,23 @@
         "ING-edoxaban"
       ],
       "ingredientSetKey": "ING-edoxaban",
-      "reviewStatus": "NOT_STARTED",
-      "lastReviewedDate": null,
-      "reviewCommit": null,
-      "sourceVersions": [],
+      "reviewStatus": "IN_PROGRESS",
+      "lastReviewedDate": "2026-11-08",
+      "reviewCommit": "cc6106c659e162f0023f78f52e8f3b459a2bd5b3",
+      "sourceVersions": [
+        "ASGE 2016 Table 9 DOI:10.1016/j.gie.2015.09.035",
+        "BSG/ESGE 2021 DOI:10.1136/gutjnl-2021-325184",
+        "ACG/CAG 2022 elective Statement 13",
+        "IDEN 2024 Statements 11-14",
+        "APAGE/APSDE 2018 DOI:10.1136/gutjnl-2017-315131",
+        "CHEST 2022 DOI:10.1016/j.chest.2022.07.025"
+      ],
       "testEvidence": [],
       "remainingIssues": [
-        "Formulation/route review and clinical evidence not yet completed"
+        "Exact CrCl 15 ASGE Table 9 overlapping NO DATA boundary requires clinician interpretation",
+        "Edoxaban renal, procedure, restart and inheritance tests not executed",
+        "Other ACC/AHA indication-specific applicability requires verification",
+        "No clinician signoff or patient-facing activation"
       ]
     },
     {
@@ -7923,7 +7933,7 @@
         "MED-edoxaban"
       ],
       "formulationAdjudication": "PENDING",
-      "clinicalStatus": "NOT_STARTED"
+      "clinicalStatus": "IN_PROGRESS"
     },
     {
       "ingredientSetKey": "ING-empagliflozin",
