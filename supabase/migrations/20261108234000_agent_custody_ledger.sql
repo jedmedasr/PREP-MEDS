@@ -49,7 +49,7 @@ begin
     alter table prepmeds_audit.review_groups add constraint review_groups_latest_b_fk
       foreign key(latest_b_run) references prepmeds_audit.agent_runs(run_id);
   end if;
-end $;
+end $custody$;
 create table if not exists prepmeds_audit.custody_events (
   event_id bigint generated always as identity primary key,
   group_id text not null references prepmeds_audit.review_groups(group_id),
