@@ -36,7 +36,7 @@ create table if not exists prepmeds_audit.agent_runs (
   finished_at timestamptz,
   lease_until timestamptz not null default (now() + interval '45 minutes'),
   unique (group_id,agent,revision),
-  check (state <> 'PASS' or (evidence_hash is not null and evidence_commit ~ '^[0-9a-f]{40}
+  check (state <> 'PASS' or (evidence_hash is not null and evidence_commit ~ '^[0-9a-f]{40}$' and finished_at is not null))
 );
 -- Safe to re-run during integration; preserve existing references and rows.
 do $
@@ -74,45 +74,6 @@ alter table prepmeds_audit.review_groups enable row level security;
 alter table prepmeds_audit.canonical_mapping enable row level security;
 alter table prepmeds_audit.agent_runs enable row level security;
 alter table prepmeds_audit.custody_events enable row level security;
- and finished_at is not null))
-);
--- Safe to re-run during integration; preserve existing references and rows.
-do $
-begin
-  if not exists (select 1 from pg_constraint where conname='review_groups_latest_a_fk' and conrelid='prepmeds_audit.review_groups'::regclass) then
-    alter table prepmeds_audit.review_groups add constraint review_groups_latest_a_fk
-      foreign key(latest_a_run) references prepmeds_audit.agent_runs(run_id);
-  end if;
-  if not exists (select 1 from pg_constraint where conname='review_groups_latest_b_fk' and conrelid='prepmeds_audit.review_groups'::regclass) then
-    alter table prepmeds_audit.review_groups add constraint review_groups_latest_b_fk
-      foreign key(latest_b_run) references prepmeds_audit.agent_runs(run_id);
-  end if;
-end $;
-create table if not exists prepmeds_audit.custody_events (
-  event_id bigint generated always as identity primary key,
-  group_id text not null references prepmeds_audit.review_groups(group_id),
-  run_id uuid references prepmeds_audit.agent_runs(run_id),
-  event_type text not null,
-  details jsonb not null default '{}'::jsonb,
-  occurred_at timestamptz not null default now()
-);
-create or replace function prepmeds_audit.prevent_custody_changes() returns trigger
-language plpgsql set search_path = '' as $$
-begin
-  raise exception 'custody events are append-only';
-end $$;
-drop trigger if exists custody_append_only on prepmeds_audit.custody_events;
-create trigger custody_append_only before update or delete on prepmeds_audit.custody_events
-for each row execute function prepmeds_audit.prevent_custody_changes();
--- No browser/client access to this schema; only privileged backend scheduler.
-revoke all on schema prepmeds_audit from public, anon, authenticated;
-revoke all on all tables in schema prepmeds_audit from public, anon, authenticated;
-revoke all on all functions in schema prepmeds_audit from public, anon, authenticated;
-alter table prepmeds_audit.review_groups enable row level security;
-alter table prepmeds_audit.canonical_mapping enable row level security;
-alter table prepmeds_audit.agent_runs enable row level security;
-alter table prepmeds_audit.custody_events enable row level security;
-
 -- Work selection indexes. An Agent B record is optional under the clinician-review
 -- governance decision; its absence must never block clinician review of source-linked evidence.
 create index if not exists review_groups_lane_queue_idx
