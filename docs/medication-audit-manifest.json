@@ -1534,13 +1534,23 @@
         "ING-dabigatran"
       ],
       "ingredientSetKey": "ING-dabigatran",
-      "reviewStatus": "NOT_STARTED",
-      "lastReviewedDate": null,
-      "reviewCommit": null,
-      "sourceVersions": [],
+      "reviewStatus": "IN_PROGRESS",
+      "lastReviewedDate": "2026-11-08",
+      "reviewCommit": "dba8447faa7305ff0340b127ef004b968bd4df8c",
+      "sourceVersions": [
+        "ASGE 2016 Table 6 DOI:10.1016/j.gie.2015.09.035",
+        "BSG/ESGE 2021 DOI:10.1136/gutjnl-2021-325184",
+        "ACG/CAG 2022 DOI:10.14309/ajg.0000000000001627",
+        "CHEST 2022 Recommendation 23 DOI:10.1016/j.chest.2022.07.025",
+        "IDEN 2024 Statements 11–14 Figure 3 https://pmc.ncbi.nlm.nih.gov/articles/PMC11391130/"
+      ],
       "testEvidence": [],
       "remainingIssues": [
-        "Formulation/route review and clinical evidence not yet completed"
+        "Source-specific CrCl exactly 50 discordance and ASGE fractional gaps",
+        "ACC/AHA AF-specific source table requires extraction where applicable",
+        "Formulation/pediatric/enteral route inheritance unadjudicated",
+        "Scenario and negative cross-medication regression tests not executed",
+        "Clinician has not approved any patient-facing recommendation"
       ]
     },
     {
@@ -7699,7 +7709,7 @@
         "MED-dabigatran"
       ],
       "formulationAdjudication": "PENDING",
-      "clinicalStatus": "NOT_STARTED"
+      "clinicalStatus": "IN_PROGRESS"
     },
     {
       "ingredientSetKey": "ING-dalteparin",
