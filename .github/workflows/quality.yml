@@ -26,6 +26,26 @@ jobs:
         run: pnpm validate:schemas
       - name: Typecheck
         run: pnpm typecheck
+      - name: Export canonical medication inventory
+        run: |
+          set -euo pipefail
+          pnpm dlx tsx@4.20.6 scripts/prepmeds/export-inventory.ts > /tmp/prepmeds-inventory.json
+          test -s /tmp/prepmeds-inventory.json
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+          const payload = JSON.parse(readFileSync('/tmp/prepmeds-inventory.json', 'utf8'));
+          const ingredientSets = new Set(payload.medications.map((medication) => medication.ingredientSetKey));
+          const combinations = payload.medications.filter((medication) => medication.ingredientIds.length > 1).length;
+          const historical = JSON.parse(readFileSync('data/inventory_from_manifest_dbf7ccc.json', 'utf8')).medications;
+          const currentIds = new Set(payload.medications.map((medication) => medication.medicationId));
+          const historicalIds = new Set(historical.map((medication) => medication.medicationId));
+          const added = [...currentIds].filter((id) => !historicalIds.has(id)).sort();
+          const removed = [...historicalIds].filter((id) => !currentIds.has(id)).sort();
+          console.log(`inventory medications=${payload.medications.length} ingredients=${payload.ingredients.length} ingredient_sets=${ingredientSets.size} combinations=${combinations}`);
+          console.log(`historical_inventory medications=${historical.length} id_added=${added.length} id_removed=${removed.length}`);
+          if (added.length) console.log(`historical_inventory_added ${added.join(',')}`);
+          if (removed.length) console.log(`historical_inventory_removed ${removed.join(',')}`);
+          JS
       - name: Record CI source identity
         run: node scripts/ci-source-receipt.mjs
       - name: Isolated inhaled-insulin regression tests
