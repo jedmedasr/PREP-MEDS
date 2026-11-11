@@ -1,5 +1,3 @@
-import { pathToFileURL } from 'node:url';
-import type { TerminologyDataset } from '@prep-meds/terminology';
 import { terminologyDataset } from '../../apps/web/lib/content';
 
 export interface PrepMedsInventoryIngredient {
@@ -22,6 +20,8 @@ export interface PrepMedsInventoryPayload {
   medications: PrepMedsInventoryMedication[];
 }
 
+type InventoryDataset = typeof terminologyDataset;
+
 export function byteOrderCompare(left: string, right: string): number {
   return Buffer.from(left, 'utf8').compare(Buffer.from(right, 'utf8'));
 }
@@ -31,7 +31,7 @@ export function ingredientSetKey(ingredientIds: readonly string[]): string {
 }
 
 export function buildInventoryPayload(
-  dataset: TerminologyDataset = terminologyDataset,
+  dataset: InventoryDataset = terminologyDataset,
 ): PrepMedsInventoryPayload {
   return {
     ingredients: dataset.ingredients
@@ -57,10 +57,6 @@ export function buildInventoryPayload(
   };
 }
 
-function isCliEntry(): boolean {
-  return Boolean(process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href);
-}
-
-if (isCliEntry()) {
+if (process.argv[1]?.endsWith('export-inventory.ts')) {
   process.stdout.write(`${JSON.stringify(buildInventoryPayload(), null, 2)}\n`);
 }
