@@ -1,0 +1,6 @@
+{
+  "request_id": "even-g2-start-001",
+  "op": "start_session",
+  "label": "2026-11-11-agent-2-g2-a",
+  "then": "claim"
+}
