@@ -215,9 +215,15 @@ const crossGroupResolverTerms = new Set([
 
 function removeCrossGroupResolverTerms(medication: MedicationRecord): MedicationRecord {
   const keep = (value: string) => !crossGroupResolverTerms.has(normalizeMedicationText(value));
+  const removed = [
+    ...(medication.brandNames ?? []).filter((value) => !keep(value)),
+    ...(medication.aliases ?? []).filter((value) => !keep(value)),
+  ];
   const sanitized: MedicationRecord = { ...medication };
   if (medication.brandNames) sanitized.brandNames = medication.brandNames.filter(keep);
   if (medication.aliases) sanitized.aliases = medication.aliases.filter(keep);
+  const searchAliases = [...new Set([...(medication.searchAliases ?? []), ...removed])];
+  if (searchAliases.length > 0) sanitized.searchAliases = searchAliases;
   return sanitized;
 }
 
