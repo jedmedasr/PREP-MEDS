@@ -214,18 +214,24 @@ export async function dataApiRpc({
   return parsed;
 }
 
-export function loadRequestFile(laneDir, item) {
-  const requestPath = ensureInside(laneDir, join(laneDir, item.path));
-  const stat = lstatSync(requestPath);
-  if (stat.isSymbolicLink() || !stat.isFile()) {
-    throw new Error('PREPMEDS_RELAY_BAD_REQUEST: request must be a regular file');
+export function loadRequestFile(laneDir, item, gitImpl = git) {
+  ensureInside(laneDir, join(laneDir, item.path));
+
+  const treeLine = gitImpl(laneDir, ['ls-tree', item.commit, '--', item.path]);
+  const mode = treeLine.split(/\\s+/)[0];
+  if (mode !== '100644' && mode !== '100755') {
+    throw new Error('PREPMEDS_RELAY_BAD_REQUEST: request must be a regular committed file');
   }
-  if (stat.size > MAX_REQUEST_BYTES) {
+
+  const size = Number(gitImpl(laneDir, ['cat-file', '-s', `${item.commit}:${item.path}`]));
+  if (!Number.isFinite(size) || size > MAX_REQUEST_BYTES) {
     throw new Error(`PREPMEDS_RELAY_REQUEST_TOO_LARGE: maximum is ${MAX_REQUEST_BYTES} bytes`);
   }
+
+  const committedText = gitImpl(laneDir, ['show', `${item.commit}:${item.path}`], { maxBuffer: MAX_REQUEST_BYTES + 1024 });
   let request;
   try {
-    request = JSON.parse(readFileSync(requestPath, 'utf8'));
+    request = JSON.parse(committedText);
   } catch {
     throw new Error('PREPMEDS_RELAY_BAD_JSON: request is not valid JSON');
   }
