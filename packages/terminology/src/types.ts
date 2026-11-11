@@ -20,6 +20,8 @@ export interface MedicationRecord {
   genericName?: string;
   brandNames?: string[];
   aliases?: string[];
+  /** Resolver-only terms that may intentionally be ambiguous across products/groups. Not exported as canonical inventory aliases. */
+  searchAliases?: string[];
   ingredientIds: string[];
   drugClassIds?: string[];
   externalCodes?: ExternalCode[];
