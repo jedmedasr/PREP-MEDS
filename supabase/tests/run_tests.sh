@@ -71,6 +71,16 @@ FP3=$(psql -q -d "$RACE" -Atc "begin; alter table prepmeds.tasks disable trigger
 psql -q -d "$DB" -c "select pmtest.ok('S01 two databases built from the same migrations have the same schema fingerprint', '$FP1' = '$FP2' and length('$FP1') = 64, '$FP1 vs $FP2')" >/dev/null
 psql -q -d "$DB" -c "select pmtest.ok('S02 disabling a single guard trigger changes the fingerprint (drift is detectable)', '$FP3' <> '$FP1' and length('$FP3') = 64, '$FP3')" >/dev/null
 
+psql -q -d "$DB" -c "select pmtest.ok('S03 security-sensitive helper functions pin their search_path',
+  (select count(*) from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+   where n.nspname = 'prepmeds'
+     and p.proname = any (array['_enter','_exit','_jwt_sub','_new_token','_sha256','_guard','_immutable','_required_source_kind','_events_chain','_event_hash'])
+     and p.proconfig @> array['search_path=prepmeds, pg_catalog']) = 10,
+  (select string_agg(p.proname || ':' || coalesce(array_to_string(p.proconfig, ','), '<null>'), ' | ' order by p.proname)
+   from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+   where n.nspname = 'prepmeds'
+     and p.proname = any (array['_enter','_exit','_jwt_sub','_new_token','_sha256','_guard','_immutable','_required_source_kind','_events_chain','_event_hash'])))" >/dev/null
+
 # ── Report ──────────────────────────────────────────────────────────────────────────
 { psql -q -d "$DB" -Atc "select case when ok then 'ok - ' else 'not ok - ' end || name || coalesce(E'\n      ' || left(detail, 900), '') from pmtest.results order by n"
   psql -q -d "$RACE" -Atc "select case when ok then 'ok - ' else 'not ok - ' end || name || coalesce(E'\n      ' || left(detail, 900), '') from pmtest.results order by n"; } | tee "/tmp/pm_out_$$.txt"
