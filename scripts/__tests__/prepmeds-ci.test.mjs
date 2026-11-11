@@ -76,6 +76,23 @@ test('invalid JSON and oversized files are rejected before any database operatio
   assert.throws(() => loadRequestFile(dir, huge), /PREPMEDS_RELAY_REQUEST_TOO_LARGE/);
 });
 
+test('request content is immutable at the introducing commit even if a later commit edits the path', () => {
+  const dir = makeRepo();
+  const requestId = 'odd-immutable-001';
+  const original = { request_id: requestId, op: 'claim', session_id: 11 };
+  const commit = addRequest(dir, requestId, JSON.stringify(original));
+
+  writeFileSync(
+    join(dir, 'requests', `${requestId}.json`),
+    JSON.stringify({ request_id: requestId, op: 'release', session_id: 999 }),
+  );
+  runGit(dir, 'add', `requests/${requestId}.json`);
+  runGit(dir, 'commit', '-q', '-m', 'attempt to mutate earlier request');
+
+  const item = discoverPendingRequests(dir).find((candidate) => candidate.commit === commit);
+  assert.deepEqual(loadRequestFile(dir, item), original);
+});
+
 test('GitHub pusher identity comes from repository activity, not request-controlled identity fields', async () => {
   const calls = [];
   const result = await relayOne({
