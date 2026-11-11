@@ -218,7 +218,7 @@ export function loadRequestFile(laneDir, item, gitImpl = git) {
   ensureInside(laneDir, join(laneDir, item.path));
 
   const treeLine = gitImpl(laneDir, ['ls-tree', item.commit, '--', item.path]);
-  const mode = treeLine.split(/\\s+/)[0];
+  const mode = treeLine.split(/\s+/)[0];
   if (mode !== '100644' && mode !== '100755') {
     throw new Error('PREPMEDS_RELAY_BAD_REQUEST: request must be a regular committed file');
   }
