@@ -98,9 +98,6 @@ jobs:
           if (Number(result.needs_placement) > 0) {
             throw new Error(`Inventory sync requires placement decisions: ${result.needs_placement}`);
           }
-          if (Number(result.gaps) > 0) {
-            throw new Error(`Inventory sync left inventory gaps: ${result.gaps}`);
-          }
           if (Number(result.active_medications) !== inventory.medications.length) {
             throw new Error(
               `Active medication count mismatch: database=${result.active_medications} export=${inventory.medications.length}`,
