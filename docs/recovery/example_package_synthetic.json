@@ -1,0 +1,112 @@
+{
+    "group_id": "ING-alphaxaban",
+    "passages": [
+        {
+            "key": "p-SOC-A-2016",
+            "page": "4",
+            "quote": "Synthetic test quotation for ING-alphaxaban from SOC-A-2016.",
+            "locator": "Table 1 (ING-alphaxaban)",
+            "deep_link": "https://example.org/soc-a-2016#page=4",
+            "source_id": "SOC-A-2016"
+        },
+        {
+            "key": "p-SOC-B-2021",
+            "page": "4",
+            "quote": "Synthetic test quotation for ING-alphaxaban from SOC-B-2021.",
+            "locator": "Table 1 (ING-alphaxaban)",
+            "deep_link": "https://example.org/soc-b-2021#page=4",
+            "source_id": "SOC-B-2021"
+        }
+    ],
+    "conflicts": [
+    ],
+    "editorial": {
+        "notes": "synthetic"
+    },
+    "components": [
+    ],
+    "comparisons": [
+        {
+            "status": "COMPARED",
+            "source_id": "SOC-A-2016",
+            "checked_locators": "Table 1"
+        },
+        {
+            "status": "COMPARED",
+            "source_id": "SOC-B-2021",
+            "checked_locators": "Table 1"
+        }
+    ],
+    "formulation": {
+        "decision": "single_unit",
+        "rationale": "Synthetic rationale: all mapped products share one recommendation set in this test."
+    },
+    "medication_ids": [
+        "MED-alphaquis-starter",
+        "MED-alphaxaban"
+    ],
+    "open_questions": [
+    ],
+    "schema_version": 1,
+    "recommendations": [
+        {
+            "action": "continue",
+            "passage": "p-SOC-A-2016",
+            "summary": "Synthetic recommendation for high_risk_procedure.",
+            "source_id": "SOC-A-2016",
+            "scenario_key": "high_risk_procedure"
+        },
+        {
+            "action": "continue",
+            "passage": "p-SOC-A-2016",
+            "summary": "Synthetic recommendation for low_risk_procedure.",
+            "source_id": "SOC-A-2016",
+            "scenario_key": "low_risk_procedure"
+        },
+        {
+            "action": "continue",
+            "passage": "p-SOC-A-2016",
+            "summary": "Synthetic recommendation for resumption.",
+            "source_id": "SOC-A-2016",
+            "scenario_key": "resumption"
+        },
+        {
+            "action": "continue",
+            "passage": "p-SOC-B-2021",
+            "summary": "Synthetic recommendation for high_risk_procedure.",
+            "source_id": "SOC-B-2021",
+            "scenario_key": "high_risk_procedure"
+        },
+        {
+            "action": "continue",
+            "passage": "p-SOC-B-2021",
+            "summary": "Synthetic recommendation for low_risk_procedure.",
+            "source_id": "SOC-B-2021",
+            "scenario_key": "low_risk_procedure"
+        },
+        {
+            "action": "continue",
+            "passage": "p-SOC-B-2021",
+            "summary": "Synthetic recommendation for resumption.",
+            "source_id": "SOC-B-2021",
+            "scenario_key": "resumption"
+        }
+    ],
+    "scenario_coverage": [
+        {
+            "status": "ADDRESSED",
+            "scenario_key": "high_risk_procedure"
+        },
+        {
+            "status": "ADDRESSED",
+            "scenario_key": "low_risk_procedure"
+        },
+        {
+            "status": "ADDRESSED",
+            "scenario_key": "resumption"
+        }
+    ],
+    "ingredient_coverage": [
+    ],
+    "based_on_revision_no": 0
+}

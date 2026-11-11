@@ -1,0 +1,61 @@
+name: db-tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  database:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: localhost
+      PGPORT: "5432"
+      PGUSER: postgres
+      PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install PostgreSQL client
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client
+      - name: Run database assertion suite
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          bash supabase/tests/run_tests.sh | tee artifacts/db-tests.txt
+          grep -Fq "# 139 of 139 assertions passed" artifacts/db-tests.txt
+      - name: Dry-run canonical inventory
+        run: |
+          set -euo pipefail
+          bash tools/dry_run_real_inventory.sh | tee artifacts/dry-run-real-inventory.txt
+          grep -Fq "gaps:       0" artifacts/dry-run-real-inventory.txt
+          grep -Fq "even=113 groups" artifacts/dry-run-real-inventory.txt
+          grep -Fq "odd=120 groups" artifacts/dry-run-real-inventory.txt
+      - name: Upload database test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prepmeds-db-tests-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 30
