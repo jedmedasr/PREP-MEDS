@@ -1,0 +1,108 @@
+name: inventory-sync
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/lib/**'
+      - 'packages/terminology/**'
+      - 'scripts/prepmeds/export-inventory.ts'
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: prepmeds
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Export canonical medication inventory
+        run: |
+          set -euo pipefail
+          pnpm dlx tsx@4.20.6 scripts/prepmeds/export-inventory.ts > /tmp/prepmeds-inventory.json
+          test -s /tmp/prepmeds-inventory.json
+
+      - name: Sync inventory to hosted PREP-MEDS database
+        env:
+          PREPMEDS_SUPABASE_URL: ${{ secrets.PREPMEDS_SUPABASE_URL }}
+          PREPMEDS_PUBLISHABLE_KEY: ${{ secrets.PREPMEDS_PUBLISHABLE_KEY }}
+          PREPMEDS_CI_TOKEN: ${{ secrets.PREPMEDS_CI_TOKEN }}
+          PREPMEDS_COMMIT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+
+          const required = [
+            'PREPMEDS_SUPABASE_URL',
+            'PREPMEDS_PUBLISHABLE_KEY',
+            'PREPMEDS_CI_TOKEN',
+            'PREPMEDS_COMMIT_SHA',
+          ];
+          for (const name of required) {
+            if (!process.env[name]) throw new Error(`Missing required environment value: ${name}`);
+          }
+
+          const inventory = JSON.parse(readFileSync('/tmp/prepmeds-inventory.json', 'utf8'));
+          const response = await fetch(
+            `${process.env.PREPMEDS_SUPABASE_URL.replace(/\/$/, '')}/rest/v1/rpc/ci_sync_inventory`,
+            {
+              method: 'POST',
+              headers: {
+                apikey: process.env.PREPMEDS_PUBLISHABLE_KEY,
+                'Content-Type': 'application/json',
+                'Content-Profile': 'prepmeds',
+              },
+              body: JSON.stringify({
+                p_ci_token: process.env.PREPMEDS_CI_TOKEN,
+                p_commit_sha: process.env.PREPMEDS_COMMIT_SHA,
+                p_inventory: inventory,
+              }),
+            },
+          );
+
+          const raw = await response.text();
+          let result;
+          try {
+            result = JSON.parse(raw);
+          } catch {
+            throw new Error(`Inventory sync returned non-JSON HTTP ${response.status}`);
+          }
+
+          if (!response.ok) {
+            console.error(JSON.stringify(result));
+            throw new Error(`Inventory sync failed with HTTP ${response.status}`);
+          }
+
+          console.log(JSON.stringify(result, null, 2));
+
+          if (result.ok !== true) throw new Error('Inventory sync did not return ok=true');
+          if (Number(result.needs_placement) > 0) {
+            throw new Error(`Inventory sync requires placement decisions: ${result.needs_placement}`);
+          }
+          if (Number(result.gaps) > 0) {
+            throw new Error(`Inventory sync left inventory gaps: ${result.gaps}`);
+          }
+          if (Number(result.active_medications) !== inventory.medications.length) {
+            throw new Error(
+              `Active medication count mismatch: database=${result.active_medications} export=${inventory.medications.length}`,
+            );
+          }
+          JS
