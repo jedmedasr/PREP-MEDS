@@ -1,0 +1,117 @@
+name: prepmeds-maintenance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/**'
+      - '.github/workflows/prepmeds-maintenance.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  maintenance:
+    name: prepmeds-maintenance
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: prepmeds
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: localhost
+      PGPORT: "5432"
+      PGUSER: postgres
+      PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Install PostgreSQL client
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client
+
+      - name: Build fresh database from main migrations
+        run: |
+          set -euo pipefail
+          bash supabase/tests/fresh_db.sh prepmeds_maintenance
+          psql -q -d prepmeds_maintenance -Atc 'select prepmeds.schema_fingerprint()' | tee /tmp/prepmeds-local-fingerprint.txt
+          test "$(wc -l < /tmp/prepmeds-local-fingerprint.txt)" -eq 1
+          grep -Eq '^[0-9a-f]{64}$' /tmp/prepmeds-local-fingerprint.txt
+
+      - name: Compare hosted database and verify integrity
+        env:
+          PREPMEDS_SUPABASE_URL: ${{ secrets.PREPMEDS_SUPABASE_URL }}
+          PREPMEDS_PUBLISHABLE_KEY: ${{ secrets.PREPMEDS_PUBLISHABLE_KEY }}
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+
+          const baseUrl = process.env.PREPMEDS_SUPABASE_URL?.replace(/\/$/, '');
+          const apiKey = process.env.PREPMEDS_PUBLISHABLE_KEY;
+          if (!baseUrl || !apiKey) throw new Error('Missing PREPMEDS Supabase environment configuration');
+
+          async function rpc(name) {
+            const response = await fetch(`${baseUrl}/rest/v1/rpc/${name}`, {
+              method: 'POST',
+              headers: {
+                apikey: apiKey,
+                'Content-Type': 'application/json',
+                'Content-Profile': 'prepmeds',
+              },
+              body: '{}',
+            });
+            const raw = await response.text();
+            let parsed;
+            try {
+              parsed = JSON.parse(raw);
+            } catch {
+              throw new Error(`${name} returned non-JSON HTTP ${response.status}`);
+            }
+            if (!response.ok) {
+              console.error(JSON.stringify(parsed));
+              throw new Error(`${name} failed with HTTP ${response.status}`);
+            }
+            return parsed;
+          }
+
+          const localFingerprint = readFileSync('/tmp/prepmeds-local-fingerprint.txt', 'utf8').trim();
+          const hostedFingerprint = await rpc('schema_fingerprint');
+          const integrity = await rpc('verify_integrity');
+          const progress = await rpc('get_progress');
+
+          console.log(`fresh_fingerprint=${localFingerprint}`);
+          console.log(`hosted_fingerprint=${hostedFingerprint}`);
+          console.log(`verify_integrity=${JSON.stringify(integrity)}`);
+          console.log(`get_progress=${JSON.stringify(progress)}`);
+
+          if (hostedFingerprint !== localFingerprint) {
+            throw new Error(`Schema fingerprint mismatch: fresh=${localFingerprint} hosted=${hostedFingerprint}`);
+          }
+          if (integrity?.ok !== true) {
+            throw new Error('Hosted verify_integrity did not return ok=true');
+          }
+          if (Number(progress?.inventory_gaps) !== 0) {
+            throw new Error(`Hosted inventory gaps are nonzero: ${progress?.inventory_gaps}`);
+          }
+          if (Number(progress?.canonical_ids_active) <= 0 || Number(progress?.review_groups) <= 0) {
+            throw new Error('Hosted progress is missing the canonical inventory');
+          }
+          JS
