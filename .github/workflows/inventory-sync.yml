@@ -8,6 +8,7 @@ on:
       - 'apps/web/lib/**'
       - 'packages/terminology/**'
       - 'scripts/prepmeds/export-inventory.ts'
+      - '.github/workflows/inventory-sync.yml'
 
 permissions:
   contents: read
