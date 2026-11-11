@@ -1,0 +1,76 @@
+name: bootstrap-prepmeds-lanes
+
+on:
+  push:
+    branches: [phase-2.1-ci-runner-relay]
+    paths:
+      - '.github/workflows/bootstrap-prepmeds-lanes.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  lanes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Create orphan relay branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          source_branch='phase-2.1-ci-runner-relay'
+
+          create_lane() {
+            lane="$1"
+            if git ls-remote --exit-code --heads origin "refs/heads/lane/$lane" >/dev/null 2>&1; then
+              echo "lane/$lane already exists"
+              return
+            fi
+
+            git switch --orphan "bootstrap-$lane"
+            git rm -rf . >/dev/null 2>&1 || true
+            git clean -fdx >/dev/null 2>&1 || true
+
+            mkdir -p requests responses .github/workflows
+            : > requests/.gitkeep
+            : > responses/.gitkeep
+            printf 'PREP-MEDS relay lane: %s.\nOnly request/response transport files belong on this branch.\n' "$lane" > README.md
+
+            dollar='$'
+            cat > .github/workflows/relay-poke.yml <<YAML
+          name: relay-poke
+
+          on:
+            push:
+              branches: [lane/$lane]
+              paths:
+                - 'requests/*.json'
+
+          permissions:
+            actions: write
+            contents: read
+
+          jobs:
+            poke:
+              runs-on: ubuntu-latest
+              steps:
+                - name: Dispatch trusted main relay
+                  env:
+                    GH_TOKEN: ${dollar}{{ github.token }}
+                  run: gh workflow run prepmeds-ci.yml --repo "${dollar}{{ github.repository }}" --ref main -f lane=$lane
+          YAML
+
+            git add README.md requests/.gitkeep responses/.gitkeep .github/workflows/relay-poke.yml
+            git commit -m "bootstrap: create $lane relay lane"
+            git push origin "HEAD:refs/heads/lane/$lane"
+            git switch -f "$source_branch"
+          }
+
+          create_lane odd
+          create_lane even
