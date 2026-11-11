@@ -16,9 +16,12 @@ Content-Profile: prepmeds
 {"p_token": "<lane token>", ...named arguments}
 ```
 
-The exact header set is to be confirmed in Phase 2.5 with one call to `rpc/get_progress` and
-recorded here. The lane token is created by `admin_create_worker`, shown once, and kept in the
-agent's private instructions. It can be replaced with `admin_rotate_worker_token`.
+Confirmed against the hosted project on 2026-11-11 by the `prepmeds-maintenance` workflow
+(run 42952352040), which called `rpc/get_progress` successfully using exactly the headers above:
+`apikey`, `Content-Type: application/json`, and `Content-Profile: prepmeds`. No
+`Authorization` header is required for this project's publishable-key RPC path. The lane token
+is created by `admin_create_worker`, shown once, and kept in the agent's private instructions.
+It can be replaced with `admin_rotate_worker_token`.
 
 ## Relay
 
