@@ -112,7 +112,7 @@ function isAncestor(laneDir, older, newer, gitImpl = git) {
 }
 
 export function activityContainsCommit(activity, commit, laneDir, gitImpl = git) {
-  if (!activity || activity.activity_type !== 'push') return false;
+  if (!activity || activity.push_type === 'force') return false;
   const after = activity.after;
   const before = activity.before;
   if (typeof after !== 'string' || typeof before !== 'string') return false;
