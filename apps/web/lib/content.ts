@@ -215,11 +215,10 @@ const crossGroupResolverTerms = new Set([
 
 function removeCrossGroupResolverTerms(medication: MedicationRecord): MedicationRecord {
   const keep = (value: string) => !crossGroupResolverTerms.has(normalizeMedicationText(value));
-  return {
-    ...medication,
-    brandNames: medication.brandNames?.filter(keep),
-    aliases: medication.aliases?.filter(keep),
-  };
+  const sanitized: MedicationRecord = { ...medication };
+  if (medication.brandNames) sanitized.brandNames = medication.brandNames.filter(keep);
+  if (medication.aliases) sanitized.aliases = medication.aliases.filter(keep);
+  return sanitized;
 }
 
 export interface UiModifierDefinition {
