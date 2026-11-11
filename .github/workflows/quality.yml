@@ -50,6 +50,8 @@ jobs:
         run: node scripts/ci-source-receipt.mjs
       - name: Isolated inhaled-insulin regression tests
         run: pnpm --filter @prep-meds/web exec vitest run lib/__tests__/diabetes-afrezza.test.ts lib/__tests__/diabetes-afrezza-generic-identity.test.ts
+      - name: PREP-MEDS relay unit tests
+        run: node --test scripts/__tests__/prepmeds-ci.test.mjs
       - name: Unit and regression tests
         run: pnpm test
       - name: Build clinical web application

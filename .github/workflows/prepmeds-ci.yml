@@ -1,0 +1,72 @@
+name: prepmeds-ci
+
+on:
+  workflow_dispatch:
+    inputs:
+      lane:
+        description: Lane to sweep
+        required: true
+        type: choice
+        options:
+          - odd
+          - even
+  schedule:
+    - cron: '*/15 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  relay:
+    strategy:
+      fail-fast: false
+      matrix:
+        lane: ${{ fromJSON(github.event_name == 'schedule' && '["odd","even"]' || format('["{0}"]', inputs.lane)) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: prepmeds
+    concurrency:
+      group: prepmeds-ci-${{ matrix.lane }}
+      cancel-in-progress: false
+    steps:
+      - name: Checkout trusted main code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+          path: main
+          persist-credentials: false
+
+      - name: Checkout lane as untrusted data
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: lane/${{ matrix.lane }}
+          path: lane-data
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Process pending relay requests
+        env:
+          PREPMEDS_SUPABASE_URL: ${{ secrets.PREPMEDS_SUPABASE_URL }}
+          PREPMEDS_PUBLISHABLE_KEY: ${{ secrets.PREPMEDS_PUBLISHABLE_KEY }}
+          PREPMEDS_CI_TOKEN: ${{ secrets.PREPMEDS_CI_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          node main/scripts/prepmeds/ci.mjs relay --lane "${{ matrix.lane }}" --lane-dir lane-data
+
+      - name: Commit relay responses
+        run: |
+          set -euo pipefail
+          if test -n "$(git -C lane-data status --porcelain -- responses)"; then
+            git -C lane-data config user.name 'github-actions[bot]'
+            git -C lane-data config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git -C lane-data add -- responses
+            git -C lane-data commit -m 'relay: write responses'
+            git -C lane-data pull --rebase origin "lane/${{ matrix.lane }}"
+            git -C lane-data push origin "HEAD:lane/${{ matrix.lane }}"
+          fi
