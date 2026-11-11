@@ -1,0 +1,6 @@
+{
+  "request_id": "odd-g2-start-001",
+  "op": "start_session",
+  "label": "2026-11-11-agent-1-g2-a",
+  "then": "claim"
+}
