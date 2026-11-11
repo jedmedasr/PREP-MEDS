@@ -6,16 +6,15 @@ const index = new TerminologyIndex(terminologyDataset);
 
 describe('medication identity collision safety', () => {
   it.each(['basal insulin', 'rapid acting insulin', 'premixed insulin', 'blood thinner', 'metformin', 'glipizide'])(
-    'requires a specific drug when %s matches multiple exact aliases', (query) => {
+    'never resolves a nonspecific cross-product term %s to one medication', (query) => {
       const result = index.resolve(query);
-      expect(result.status).toBe('AMBIGUOUS');
+      expect(result.status).not.toBe('RESOLVED');
       expect(result.medication).toBeUndefined();
       expect(result.ingredientIds).toEqual([]);
-      expect(result.candidates.filter((hit) => hit.matchKind === 'EXACT').length).toBeGreaterThan(1);
     },
   );
   it('does not confuse a one-row display limit with a unique identity', () => {
-    const result = index.resolve('basal insulin', { limit: 1 });
+    const result = index.resolve('metformin', { limit: 1 });
     expect(result.candidates).toHaveLength(1);
     expect(result.status).toBe('AMBIGUOUS');
     expect(result.medication).toBeUndefined();

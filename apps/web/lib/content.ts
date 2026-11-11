@@ -122,7 +122,7 @@ import {
   pulmonaryHypertensionVasodilatorIdentityEvidence,
   pulmonaryHypertensionVasodilatorReviewRules,
 } from '@prep-meds/clinical-content';
-import { assertTerminologyDataset, type TerminologyDataset } from '@prep-meds/terminology';
+import { assertTerminologyDataset, normalizeMedicationText, type MedicationRecord, type TerminologyDataset } from '@prep-meds/terminology';
 import { antithromboticIngredients, antithromboticMedications } from './antithrombotic-terminology';
 import { diabetesCoreIngredients, diabetesSearchMedications, diabetesModifierDefinitions } from './diabetes-workflow-content';
 import { batch03SemaglutideSearchMedications } from './batch03-semaglutide';
@@ -181,6 +181,51 @@ import { pulmonaryControllerCombinationIngredients, pulmonaryControllerCombinati
 import { pulmonaryMethylxanthineIngredients, pulmonaryMethylxanthineMedications } from './pulmonary-methylxanthines';
 import { pulmonaryHypertensionProstacyclinIngredients, pulmonaryHypertensionProstacyclinMedications } from './pulmonary-hypertension-prostacyclins';
 import { pulmonaryHypertensionVasodilatorIngredients, pulmonaryHypertensionVasodilatorMedications } from './pulmonary-hypertension-vasodilators';
+
+const crossGroupResolverTerms = new Set([
+  '70 30',
+  '70 30 insulin',
+  'amiloride',
+  'antiplatelet',
+  'basal insulin',
+  'blood thinner',
+  'buprenorphine',
+  'concentrated insulin',
+  'direct factor xa inhibitor',
+  'doac',
+  'entacapone',
+  'factor xa inhibitor',
+  'gabapentin',
+  'geodon',
+  'levodopa',
+  'lmwh',
+  'low molecular weight heparin',
+  'macitentan',
+  'mycophenolate',
+  'p2y12 inhibitor',
+  'p2y12 receptor inhibitor',
+  'premixed insulin',
+  'rapid acting insulin',
+  'relion',
+  'spironolactone',
+  'tadalafil',
+  'triamterene',
+  'valproate',
+]);
+
+function removeCrossGroupResolverTerms(medication: MedicationRecord): MedicationRecord {
+  const keep = (value: string) => !crossGroupResolverTerms.has(normalizeMedicationText(value));
+  const removed = [
+    ...(medication.brandNames ?? []).filter((value) => !keep(value)),
+    ...(medication.aliases ?? []).filter((value) => !keep(value)),
+  ];
+  const sanitized: MedicationRecord = { ...medication };
+  if (medication.brandNames) sanitized.brandNames = medication.brandNames.filter(keep);
+  if (medication.aliases) sanitized.aliases = medication.aliases.filter(keep);
+  const searchAliases = [...new Set([...(medication.searchAliases ?? []), ...removed])];
+  if (searchAliases.length > 0) sanitized.searchAliases = searchAliases;
+  return sanitized;
+}
 
 export interface UiModifierDefinition {
   id: string;
@@ -367,7 +412,7 @@ export const terminologyDataset: TerminologyDataset = assertTerminologyDataset({
     ...pulmonaryHypertensionVasodilatorMedications,
     { id: 'MED-lisinopril', canonicalName: 'Lisinopril', genericName: 'lisinopril', ingredientIds: ['ING-lisinopril'], drugClassIds: ['CLS-ace-inhibitor'] },
     { id: 'MED-atorvastatin', canonicalName: 'Atorvastatin', ingredientIds: ['ING-atorvastatin'], drugClassIds: ['CLS-statin'] },
-  ],
+  ].map(removeCrossGroupResolverTerms),
 });
 
 // Production remains fail-closed until accountable clinical governance promotes content to ACTIVE.

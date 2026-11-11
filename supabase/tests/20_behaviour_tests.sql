@@ -396,9 +396,21 @@ select pmtest.ok('G02 the sync reports exactly what changed: 4 added, 1 removed,
 select pmtest.ok('G03 re-sending the same inventory is a no-op',
   prepmeds.ci_sync_inventory(pmtest.secret('ci'), repeat('2', 40), (select p from pmtest.inv2))->>'replayed' = 'true'
   and (select count(*) from prepmeds.inventory_syncs) = 2);
-select pmtest.ok('G04 every way the inventory fails to reconcile is listed, none silently',
-  (select array_agg(gap || ':' || subject order by gap, subject) from prepmeds.inventory_gaps) = array[
-    'ALIAS_AMBIGUOUS:alphaquis', 'GROUP_EMPTY:ING-etaprazole', 'GROUP_UNASSIGNED:ING-iotamab', 'MEDICATION_UNMAPPED:MED-epsilon-patch',
+
+-- The next repository snapshot removes the cross-group Alphaquis brand from Iotamab.
+-- Inventory sync must remove the stale database alias rather than append forever.
+create table pmtest.inv3 as
+select jsonb_build_object(
+  'medications',
+  jsonb_agg(case when x->>'medicationId' = 'MED-iotamab' then x - 'brandNames' else x end)
+) as p
+from pmtest.inv2, jsonb_array_elements(p->'medications') x;
+select pmtest.setv('sync3', prepmeds.ci_sync_inventory(pmtest.secret('ci'), repeat('3', 40), (select p from pmtest.inv3)));
+
+select pmtest.ok('G04 stale aliases are removed and every remaining reconciliation gap is listed, none silently',
+  pmtest.v('sync3')->>'aliases_reconciled' = 'true'
+  and (select array_agg(gap || ':' || subject order by gap, subject) from prepmeds.inventory_gaps) = array[
+    'GROUP_EMPTY:ING-etaprazole', 'GROUP_UNASSIGNED:ING-iotamab', 'MEDICATION_UNMAPPED:MED-epsilon-patch',
     'REVISION_MAPPING_STALE:ING-alphaxaban'],
   (select string_agg(gap || ':' || subject, ' | ' order by gap, subject) from prepmeds.inventory_gaps));
 select pmtest.ok('G05 a canonical ID added after approval is not covered by it; the IDs that were approved still are',

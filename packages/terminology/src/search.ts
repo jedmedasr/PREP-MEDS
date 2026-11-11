@@ -82,6 +82,7 @@ export class TerminologyIndex {
       if (medication.genericName) this.addEntry(medication, 'genericName', medication.genericName);
       for (const brand of medication.brandNames ?? []) this.addEntry(medication, 'brandName', brand);
       for (const alias of medication.aliases ?? []) this.addEntry(medication, 'alias', alias);
+      for (const alias of medication.searchAliases ?? []) this.addEntry(medication, 'alias', alias);
       for (const code of medication.externalCodes ?? []) {
         this.addEntry(medication, 'externalCode', `${code.system}:${code.code}`);
         this.addEntry(medication, 'externalCode', code.code);
