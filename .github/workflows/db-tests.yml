@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   database:
+    name: db-tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
     services:
