@@ -18,11 +18,10 @@ permissions:
 
 jobs:
   relay:
-    if: ${{ github.event_name == 'schedule' || github.event.inputs.lane == matrix.lane }}
     strategy:
       fail-fast: false
       matrix:
-        lane: [odd, even]
+        lane: ${{ fromJSON(github.event_name == 'schedule' && '["odd","even"]' || format('["{0}"]', inputs.lane)) }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: prepmeds
