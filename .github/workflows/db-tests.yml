@@ -44,7 +44,7 @@ jobs:
           set -euo pipefail
           mkdir -p artifacts
           bash supabase/tests/run_tests.sh | tee artifacts/db-tests.txt
-          grep -Fq "# 139 of 139 assertions passed" artifacts/db-tests.txt
+          awk '/^# [0-9]+ of [0-9]+ assertions passed$/ { if ($2 == $4 && $2 >= 139) ok=1 } END { exit(ok ? 0 : 1) }' artifacts/db-tests.txt
       - name: Dry-run canonical inventory
         run: |
           set -euo pipefail
