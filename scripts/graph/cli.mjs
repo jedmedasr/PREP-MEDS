@@ -6,6 +6,7 @@ import { parseArgs } from 'node:util';
 import { execFileSync } from 'node:child_process';
 import { validate, validateHistory, completionTransitions, reconcile, handoff, canonical, SHA } from './core.mjs';
 import { GitHubClient, collect, claim } from './github.mjs';
+import { analyzeIncidents } from './improvement.mjs';
 
 export function save(path, value) {
   const body = JSON.stringify(value, null, 2) + '\n';
@@ -28,10 +29,10 @@ export async function main(argv = process.argv.slice(2)) {
       'expect-main': { type: 'string' }, help: { type: 'boolean' } } });
   const command = positionals[0];
   if (opt.help || !command) {
-    console.log('Usage: node scripts/graph/cli.mjs status|next|verify|reconcile|handoff|claim [options]\nRead-only by default. next/reconcile use live GitHub; --offline is explicitly non-executable planning.\nverify --base-ref <40-char-sha> [--live]; handoff --input <json> [--live] [--output <new-json>].\nclaim --task ENG-001 --owner <login> --key <session-key> --expect-main <sha> --write\nGH_TOKEN or GITHUB_TOKEN is required for live reads. Claims require a user token with Contents:write.');
+    console.log('Usage: node scripts/graph/cli.mjs status|next|verify|reconcile|handoff|claim|improve [options]\nRead-only by default. next/reconcile use live GitHub; --offline is explicitly non-executable planning.\nverify --base-ref <40-char-sha> [--live]; handoff --input <json> [--live] [--output <new-json>].\nclaim --task ENG-001 --owner <login> --key <session-key> --expect-main <sha> --write\nGH_TOKEN or GITHUB_TOKEN is required for live reads. Claims require a user token with Contents:write.');
     return 0;
   }
-  if (!['status', 'next', 'verify', 'reconcile', 'handoff', 'claim'].includes(command) || positionals.length !== 1) throw new Error('UNKNOWN_COMMAND');
+  if (!['status', 'next', 'verify', 'reconcile', 'handoff', 'claim', 'improve'].includes(command) || positionals.length !== 1) throw new Error('UNKNOWN_COMMAND');
   if (opt.live && opt.offline) throw new Error('CONFLICTING_MODES');
   if (opt.write && command !== 'claim') throw new Error('WRITE_SUPPORTED_ONLY_FOR_CLAIM');
   if (command === 'claim' && (!opt.write || opt.offline)) throw new Error('CLAIM_REQUIRES_EXPLICIT_LIVE_WRITE');
@@ -56,20 +57,21 @@ export async function main(argv = process.argv.slice(2)) {
   }
   if (previous) errors.push(...completionTransitions(graph, previous, ledger, state, policy));
   const report = reconcile(graph, ledger, policy, state);
-  let result = report;
+  const improvement = analyzeIncidents(root);
+  let result = command === 'improve' ? improvement : { ...report, improvement };
   if (command === 'verify') result = { schema_version: 2, valid: !errors.length, errors,
     structural_verification: !errors.length ? 'PASS' : 'FAIL', history_checked: Boolean(previous),
-    live_verification: live ? report : 'NOT_RUN: structure is not independent evidence or clinical approval' };
+    live_verification: live ? { ...report, improvement } : 'NOT_RUN: structure is not independent evidence or clinical approval', improvement };
   if (command === 'handoff') {
     if (!opt.input) throw new Error('HANDOFF_INPUT_REQUIRED');
-    result = handoff(report, read(root, opt.input));
+    result = handoff({ ...report, improvement }, read(root, opt.input));
   }
   if (command === 'claim') {
     if (execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim()) throw new Error('CLEAN_WORKTREE_REQUIRED');
     if (execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim() !== state?.main_sha) throw new Error('CLAIM_FROM_LATEST_MAIN_REQUIRED');
     result = await claim(client, graph, ledger, policy, state, { taskId: opt.task, owner: opt.owner, key: opt.key, expectedMain: opt['expect-main'], write: opt.write });
   }
-  if (command === 'next' && opt.offline) result = { ...report, dispatch_authorized: false, note: 'Structural planning only. Never claim or start work from this offline result.' };
+  if (command === 'next' && opt.offline) result = { ...report, improvement, dispatch_authorized: false, note: 'Structural planning only. Never claim or start work from this offline result.' };
   if (opt.output) save(resolve(root, opt.output), result);
   console.log(JSON.stringify(result, null, 2));
   return errors.length ? 1 : live && (!state.complete || state.errors.length) ? 2 : 0;
