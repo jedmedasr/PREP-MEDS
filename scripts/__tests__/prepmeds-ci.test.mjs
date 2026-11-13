@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import {
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -242,6 +243,83 @@ test('relay-level competing claims in one push yield CLAIMED then RESUMED for th
   const secondResponse = JSON.parse(readFileSync(join(dir, 'responses', 'odd-claim-002.json'), 'utf8'));
   assert.equal(firstResponse.status, 'CLAIMED');
   assert.equal(secondResponse.status, 'RESUMED');
+});
+
+test('repository PushEvent fallback resolves identity when repository activity has not indexed the push', async () => {
+  const dir = makeRepo();
+  const before = runGit(dir, 'rev-parse', 'HEAD');
+  const commit = addRequest(
+    dir,
+    'even-api-001',
+    JSON.stringify({ request_id: 'even-api-001', op: 'claim', session_id: 12 }),
+  );
+  const calls = [];
+  const result = await processRelay({
+    lane: 'even',
+    laneDir: dir,
+    repository: 'owner/repo',
+    githubToken: 'github-token',
+    ciToken: 'ci-token',
+    baseUrl: 'https://example.invalid',
+    publishableKey: 'publishable',
+    fetchImpl: async (url) => {
+      if (String(url).includes('/activity')) return activityResponse([]);
+      if (String(url).includes('/events')) {
+        return activityResponse([
+          {
+            type: 'PushEvent',
+            actor: { login: 'api-writer' },
+            payload: {
+              ref: 'refs/heads/lane/even',
+              before,
+              head: commit,
+            },
+          },
+        ]);
+      }
+      throw new Error(`unexpected URL: ${url}`);
+    },
+    rpcOverride: async (name, body) => {
+      calls.push({ name, body });
+      return { ok: true, status: 'CLAIMED', task: { task_id: 88 } };
+    },
+  });
+
+  assert.equal(result.processed, 1);
+  assert.equal(result.deferred, 0);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].body.p_github_login, 'api-writer');
+  assert.equal(result.responses[0].response.status, 'CLAIMED');
+});
+
+test('missing GitHub identity is deferred instead of writing an immutable failure response', async () => {
+  const dir = makeRepo();
+  const commit = addRequest(
+    dir,
+    'even-defer-001',
+    JSON.stringify({ request_id: 'even-defer-001', op: 'claim', session_id: 12 }),
+  );
+  let rpcCalls = 0;
+  const result = await processRelay({
+    lane: 'even',
+    laneDir: dir,
+    repository: 'owner/repo',
+    githubToken: 'github-token',
+    ciToken: 'ci-token',
+    baseUrl: 'https://example.invalid',
+    publishableKey: 'publishable',
+    fetchImpl: async () => activityResponse([]),
+    rpcOverride: async () => {
+      rpcCalls += 1;
+      return { ok: true };
+    },
+  });
+
+  assert.equal(result.processed, 0);
+  assert.equal(result.deferred, 1);
+  assert.equal(result.deferred_requests[0].commit, commit);
+  assert.equal(rpcCalls, 0);
+  assert.equal(existsSync(join(dir, 'responses', 'even-defer-001.json')), false);
 });
 
 test('relay errors are always materialized as response JSON instead of aborting the sweep', async () => {
