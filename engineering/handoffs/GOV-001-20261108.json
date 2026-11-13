@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "previous_task": "GOV-001",
+  "previous_outcome": "PARTIAL",
+  "created_at": "2026-11-08T11:38:45.526114Z",
+  "main_observed": "70dc22c693906368ceee0f6966b866bbf65f5451",
+  "authority_commit": "54ba41ff7c68232fb92bb8886a0e73fbfb165a54",
+  "implemented": [
+    "Clinician group review API/UI; GitHub OAuth identity plus explicit clinician allowlist",
+    "Append-only signed evidence-group audit with source/version/mapping snapshots and non-force concurrency",
+    "Material-change invalidation, canonical propagation, immutable package history and READY queue without second AI"
+  ],
+  "local_checks": [
+    {"command":"node --test scripts/__tests__/clinician-review*.test.mjs","passed":56,"failed":0},
+    {"command":"node scripts/verify-engineering-graph.mjs","result":"PASS: 16 tasks and 25 historical records"},
+    {"command":"node scripts/clinician-review/validate-history.mjs","result":"PASS: one group/one snapshot"}
+  ],
+  "outstanding_blockers": [
+    "Live OAuth credentials, authorized clinician ID allowlist and audit-write credential must be configured by owner; no real approval performed",
+    "Initial source-agent apixaban snapshot remains DRAFT: precise excerpts, deep links/currentness and scenario/mapping completeness remain unfinished",
+    "Full application CI must be checked on the published head; local dependency install was unavailable (registry DNS EAI_AGAIN)",
+    "Deployment security, audit retention/rollback controls and live browser/OAuth/write verification remain separate acceptance work"
+  ],
+  "next_eligible_task": null,
+  "recommended_action": "Check current PR CI and configure authenticated review in a controlled environment. Evidence agent completes and imports READY packages and advances independently of review backlog. No patient activation."
+}

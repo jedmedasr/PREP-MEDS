@@ -1,0 +1,36 @@
+name: clinician-review
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Review, authentication, audit and mapping regressions
+        run: node --test scripts/__tests__/clinician-review*.test.mjs
+      - name: Preserve immutable evidence versions and reject review resurrection
+        env:
+          REVIEW_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: node scripts/clinician-review/validate-history.mjs
+      - name: Archive exact implementation for review and reproducibility
+        run: |
+          mkdir review-artifacts
+          git archive --format=tar.gz --output=review-artifacts/source.tar.gz HEAD
+          git rev-parse HEAD > review-artifacts/checkout-sha.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clinician-review-${{ github.run_id }}
+          path: review-artifacts
+          retention-days: 30
