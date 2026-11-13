@@ -1,0 +1,9 @@
+{
+  "request_id": "even-g2fix-release-009",
+  "op": "release",
+  "session_id": 3,
+  "task_id": 12,
+  "claim_token": "2cea608e-13be-439d-8c0d-894212965327",
+  "code": "SESSION_ENDING",
+  "note": "G2 transport proof complete; no clinical research performed."
+}
