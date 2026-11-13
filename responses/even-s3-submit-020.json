@@ -1,0 +1,195 @@
+{
+  "ok": true,
+  "op": "submit",
+  "next": {
+    "ok": true,
+    "op": "claim",
+    "task": {
+      "detail": null,
+      "reason": "initial",
+      "attempt": 1,
+      "task_id": 14,
+      "claim_token": "9641254d-0ca5-44ef-beb0-93b9f8487a5f",
+      "saved_progress": null,
+      "last_error_code": null,
+      "lease_expires_at": "2026-11-13T23:20:20.837041+00:00",
+      "saved_progress_at": null
+    },
+    "group": {
+      "kind": "single",
+      "lane": "even",
+      "class": null,
+      "bucket": 2,
+      "domain": "general",
+      "group_id": "ING-insulin-degludec",
+      "ingredients": [
+        "ING-insulin-degludec"
+      ],
+      "medications": [
+        {
+          "name": "Insulin degludec (concentration unspecified)",
+          "route": null,
+          "brand_names": [],
+          "dosage_form": null,
+          "generic_name": "insulin degludec",
+          "release_type": null,
+          "medication_id": "MED-insulin-degludec"
+        },
+        {
+          "name": "Insulin degludec U-100 (Tresiba)",
+          "route": null,
+          "brand_names": [
+            "Tresiba"
+          ],
+          "dosage_form": null,
+          "generic_name": "insulin degludec U-100",
+          "release_type": null,
+          "medication_id": "MED-insulin-degludec-u100"
+        },
+        {
+          "name": "Insulin degludec U-200 (Tresiba)",
+          "route": null,
+          "brand_names": [
+            "Tresiba"
+          ],
+          "dosage_form": null,
+          "generic_name": "insulin degludec U-200",
+          "release_type": null,
+          "medication_id": "MED-insulin-degludec-u200"
+        }
+      ]
+    },
+    "status": "CLAIMED",
+    "scenarios": [
+      {
+        "label": "After the procedure",
+        "required": true,
+        "description": "When and how to resume.",
+        "scenario_key": "after_procedure"
+      },
+      {
+        "label": "Before the procedure",
+        "required": true,
+        "description": "Holding, continuing or adjusting in the days before the procedure, including the bowel-preparation day.",
+        "scenario_key": "before_procedure"
+      },
+      {
+        "label": "Day of the procedure",
+        "required": true,
+        "description": "What to do on the morning or day of the procedure, including fasting and sedation considerations.",
+        "scenario_key": "day_of_procedure"
+      }
+    ],
+    "worker_id": "agent-2",
+    "components": [],
+    "known_passages": [
+      {
+        "locator": "Table 2, row UFH",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 1,
+        "quote_start": "UFH | IV 2-6 hours / SQ 12-24 hours | Hold | Protamine sulfate (partial)"
+      },
+      {
+        "locator": "Parenteral and subcutaneously administered anticoagulants",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 2,
+        "quote_start": "UFH administered intravenously has a half-life of 60 to 90 minutes, and anticoagulant effects dissipate 3 to 4 hours after discontinuation."
+      },
+      {
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 3,
+        "quote_start": "There is consensus that antithrombotic therapy should be resumed upon completion of the procedure."
+      },
+      {
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 4,
+        "quote_start": "UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+      },
+      {
+        "locator": "Recommendations 4.3.1-4.3.4, Remarks",
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "last_check": null,
+        "passage_id": 9,
+        "quote_start": "In patients who are NPO or unable to eat, bolus insulin must be held until nutrition is resumed; however, doses of correction insulin can be"
+      },
+      {
+        "locator": "Recommendation 4.3.3",
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "last_check": null,
+        "passage_id": 10,
+        "quote_start": "We recommend that scheduled sc insulin therapy consist of basal or intermediate-acting insulin given once or twice a day in combination with"
+      },
+      {
+        "locator": "Recommendation 4.3.3",
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "last_check": null,
+        "passage_id": 13,
+        "quote_start": "We recommend that scheduled sc insulin therapy consist of basal or intermediate-acting insulin given once or twice a day in combination with"
+      },
+      {
+        "locator": "Recommendation 10.3",
+        "source_id": "ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA",
+        "last_check": null,
+        "passage_id": 11,
+        "quote_start": "In adults with insulin-treated diabetes prior to admission who are hospitalized for noncritical illness, we recommend continuation of the sc"
+      },
+      {
+        "locator": "Recommendation 10.3",
+        "source_id": "ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA",
+        "last_check": null,
+        "passage_id": 14,
+        "quote_start": "In adults with insulin-treated diabetes prior to admission who are hospitalized for noncritical illness, we recommend continuation of the sc"
+      },
+      {
+        "locator": "Insulintherapie",
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "last_check": null,
+        "passage_id": 5,
+        "quote_start": "Patient:innen unter konventioneller Insulintherapie mit einem Mischinsulin sollen bei Routineoperationen auf ein langwirksames Insulin (1 od"
+      },
+      {
+        "locator": "Insulintherapie",
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "last_check": null,
+        "passage_id": 12,
+        "quote_start": "Engmaschige Blutglukose-Kontrollen perioperativ sind erforderlich, um allfällige Korrekturen mittels i.v. Glukoseinfusion bzw. subkutaner zu"
+      },
+      {
+        "locator": "Management of insulin",
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "last_check": null,
+        "passage_id": 6,
+        "quote_start": "It is not necessary to change the dose on the day before surgery. However, on the day of surgery, they should be replaced by those of interm"
+      },
+      {
+        "locator": "Management of insulin",
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "last_check": null,
+        "passage_id": 7,
+        "quote_start": "As for the intermediate-acting component, it is recommended to proportionally reduce the morning dose by 25–50%."
+      },
+      {
+        "locator": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "last_check": null,
+        "passage_id": 8,
+        "quote_start": "The management of anti-hyperglycemic and anti-hypertensive agents should be individualized with the assistance of the prescribing clinician "
+      }
+    ],
+    "required_sources": [],
+    "comparators_pinned": false,
+    "based_on_revision_no": 0,
+    "package_schema_version": 1
+  },
+  "accepted": true,
+  "worker_id": "agent-2",
+  "revision_id": 4,
+  "revision_no": 1,
+  "content_sha256": "640046ffa185534328f8c6186ce6118153abd87a391bae383c0557aff486c2a5"
+}
