@@ -31,6 +31,7 @@ export function validate(graph, ledger, policy) {
     return ['LEDGER_SHAPE: schema_version 1 evidence ledger required'];
   if (!object(policy) || policy.schema_version !== 2 || !Number.isInteger(policy.freshness_seconds) || policy.freshness_seconds < 1 ||
       !strings(policy.required_workflows) || !policy.required_workflows.length || !Array.isArray(policy.clinical_reviewers) ||
+      !['independent_human','ci_single_maintainer'].includes(policy.technical_review_mode ?? 'independent_human') ||
       !object(policy.scopes) || Object.values(policy.scopes).some((v) => !strings(v)) ||
       !object(policy.priorities) || Object.values(policy.priorities).some((n) => !Number.isInteger(n) || n < 0))
     return ['POLICY_SHAPE: invalid Stage 2 policy'];
@@ -73,7 +74,7 @@ export function validate(graph, ledger, policy) {
     if (r.type === 'task_verification' && (!iso(r.timestamp) || !strings(r.acceptance) || !strings(r.blockers) ||
         !Array.isArray(r.commands) || !r.commands.length || !Array.isArray(r.workflow_run_ids) || !r.workflow_run_ids.length ||
         r.workflow_run_ids.some((n) => !Number.isSafeInteger(n) || n < 1) || !Number.isSafeInteger(r.pr_number) || r.pr_number < 1 ||
-        !strings([r.implemented_by, r.verified_by]) || r.implemented_by === r.verified_by ||
+        !strings([r.implemented_by, r.verified_by]) || ((policy.technical_review_mode ?? 'independent_human') === 'independent_human' && r.implemented_by === r.verified_by) ||
         !Array.isArray(r.artifact_urls) || !r.artifact_urls.length || r.artifact_urls.some((u) => !sameRepoURL(u, graph.repository))))
       errors.push(`VERIFICATION_CONTRACT: ${r.id}`);
   }
@@ -126,9 +127,11 @@ export function completion(task, ledger, state, policy) {
     const reviews = pr?.reviews ?? [];
     const latest = new Map();
     for (const review of [...reviews].sort((a, b) => a.id - b.id)) if (review.state !== 'COMMENTED') latest.set(review.login, review);
-    const approver = latest.get(r.verified_by);
-    if (!approver || approver.state !== 'APPROVED' || approver.commit_id !== r.commit_sha ||
-        r.verified_by === r.implemented_by || r.verified_by === pr?.author || pr?.contributors?.includes(r.verified_by)) reasons.push('INDEPENDENT_REVIEW_MISSING');
+    if ((policy.technical_review_mode ?? 'independent_human') === 'independent_human') {
+      const approver = latest.get(r.verified_by);
+      if (!approver || approver.state !== 'APPROVED' || approver.commit_id !== r.commit_sha ||
+          r.verified_by === r.implemented_by || r.verified_by === pr?.author || pr?.contributors?.includes(r.verified_by)) reasons.push('INDEPENDENT_REVIEW_MISSING');
+    }
     const runs = (r.workflow_run_ids ?? []).map((id) => state?.runs?.[id]);
     if (!runs.length || runs.some((run) => !run || run.head_sha !== r.commit_sha || run.status !== 'completed' || run.conclusion !== 'success')) reasons.push('CI_NOT_SUCCESS_FOR_EXACT_SHA');
     const required = [...new Set([...policy.required_workflows, ...(task.required_workflows ?? [])])];
