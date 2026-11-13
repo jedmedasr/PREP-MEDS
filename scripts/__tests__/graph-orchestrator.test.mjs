@@ -96,3 +96,29 @@ test('incomplete prior handoff is detected before selecting its task again', () 
 test('unmerged local graph changes cannot authorize task dispatch', () => { const f = fixture(); f.state.main_graph_digest = 'other'; f.state.main_ledger_digest = digest(f.ledger); assert.equal(plan(f).next, null); assert.equal(plan(f).graph_matches_main, false); });
 
 test('per-task workflow requirements can add but never remove baseline checks', () => { const f = fixture(); f.graph.tasks[0].required_workflows = []; f.ledger.records[0].workflow_run_ids = [1]; assert.match(proof(f).reasons.join(), /WORKFLOW_MISSING: engineering-graph/); });
+
+
+test('single-maintainer CI mode does not require a second human code reviewer', () => {
+  const f = fixture();
+  f.policy.technical_review_mode = 'ci_single_maintainer';
+  f.state.pulls[0].reviews = [];
+  f.ledger.records[0].verified_by = 'alice';
+  assert.deepEqual(validate(f.graph, f.ledger, f.policy), []);
+  assert.equal(proof(f).verified, true);
+});
+
+test('single-maintainer CI mode never bypasses clinical approval', () => {
+  const f = fixture();
+  f.policy.technical_review_mode = 'ci_single_maintainer';
+  f.state.pulls[0].reviews = [];
+  f.ledger.records[0].verified_by = 'alice';
+  f.graph.tasks[0].clinical_gate = true;
+  assert.equal(proof(f).verified, false);
+  assert.match(proof(f).reasons.join(), /AUTHENTICATED_CLINICAL_APPROVAL_MISSING/);
+});
+
+test('unknown technical review mode fails policy validation', () => {
+  const f = fixture();
+  f.policy.technical_review_mode = 'trust_me';
+  assert.match(validate(f.graph, f.ledger, f.policy).join(), /POLICY_SHAPE/);
+});
