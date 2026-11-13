@@ -1,0 +1,47 @@
+{
+  "request_id": "even-s3-save-035",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 238,
+  "claim_token": "0fc35469-3b19-461a-856a-0eba985de134",
+  "progress": {
+    "sources_read": [
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "status": "COMPARED",
+        "society": "American Diabetes Association",
+        "checked_locators": [
+          "Perioperative Care, insulin therapy adjustments",
+          "Insulin Therapy Recommendations 16.8 and 16.9"
+        ]
+      },
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "status": "NOT_SPECIFIED",
+        "society": "Brazilian Diabetes Society / Brazilian Society of Anesthesiology / Brazilian Association for the Study of Obesity and Metabolic Syndrome",
+        "checked_locators": [
+          "Table 2, Basal insulin (long-acting insulin analog: Glargine)",
+          "Summary of evidence before Important note 11"
+        ],
+        "note": "The source separates standard glargine from glargine U-300 and gives different preprocedure timing; the concentration-unspecified canonical medication cannot be assigned to either instruction."
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+        "checked_locators": [
+          "Recommendations Before Colonoscopy > Patient Education and Navigation"
+        ]
+      }
+    ],
+    "decisions": {
+      "formulation": "single canonical medication with unresolved concentration; no further split is possible because the canonical ID itself does not identify U-100 versus U-300",
+      "evidence_boundary": "ADA class-level long-acting basal guidance can be recorded, but concentration-specific SBD timing cannot be selected without identifying the actual product",
+      "research_started": true
+    },
+    "remains": [
+      "Submit package using known ADA passage IDs 18-20.",
+      "Record SBD/SBA/ABESO as NOT_SPECIFIED for the concentration-unspecified product and flag concentration identification as an open question."
+    ]
+  }
+}
