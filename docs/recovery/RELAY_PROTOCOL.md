@@ -84,7 +84,11 @@ A claim result carries the whole brief:
 3. A request is pending while its response file does not exist. Pending requests are processed
    in commit order. Ordinary errors produce a response. If GitHub has not yet exposed any trusted
    push identity for a request commit, the relay leaves that request pending instead of writing an
-   immutable identity error; a later scheduled sweep retries it. Ambiguous identities still fail.
+   immutable identity error; a later scheduled sweep retries it. Workers must not infer failure
+   from repeated immediate 404 reads: a request remains pending while its relay-poke or trusted
+   prepmeds-ci run is queued or running. RELAY_NO_RESPONSE is only appropriate after the trusted
+   relay run has completed without materializing the response, or after the scheduled fallback
+   also fails to process a request for which no relay run appeared. Ambiguous identities still fail.
 4. A file that is not valid JSON, or is larger than 1 MB, gets an error response and no database
    call.
 5. `git_commit` passed with a submit is the SHA of the request commit.
@@ -94,7 +98,7 @@ A claim result carries the whole brief:
    protected environment `prepmeds`. It checks out `main` for code and fetches the lane branch as
    data. It never executes anything from a lane branch.
 9. `relay-poke.yml` on each lane branch only dispatches `prepmeds-ci.yml` on `main` with the lane
-   as input. It holds no secret. A 15-minute schedule on `main` sweeps both lanes if the poke
+   as input. It holds no secret. A 5-minute schedule on `main` sweeps both lanes if the poke
    fails.
 
 ### Idempotency and recovery

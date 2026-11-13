@@ -44,8 +44,14 @@ RELAY
   request_id: letters, digits and hyphens, never reused, for example even-boot-001, then
   even-s<session_id>-002, even-s<session_id>-003.
   The answer appears as responses/<request_id>.json on the same branch, usually within a few
-  minutes. Read it before you do anything else. If it is not there after five checks, stop and
-  report RELAY_NO_RESPONSE with the request_id. Do not resend the request under a new id.
+  minutes. Read it before you do anything else. A missing response is not a failure while the
+  matching relay-poke or prepmeds-ci workflow is queued or running. Never count back-to-back
+  404 reads as separate failure checks. If the response is absent, inspect GitHub Actions for
+  the request commit: while the matching relay workflow is queued or in progress, keep the
+  request pending and re-check only after a fresh workflow-state observation. After the trusted
+  prepmeds-ci run has completed, read the response again. Report RELAY_NO_RESPONSE only if that
+  completed run produced no response, or if no relay run appears and the scheduled fallback
+  sweep also fails to process the request. Do not resend the request under a new id.
   Ops and fields:
     start_session  label, then: "claim"
     claim          session_id
