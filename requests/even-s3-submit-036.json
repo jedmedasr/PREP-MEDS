@@ -1,0 +1,133 @@
+{
+  "request_id": "even-s3-submit-036",
+  "op": "submit",
+  "session_id": 3,
+  "task_id": 238,
+  "claim_token": "0fc35469-3b19-461a-856a-0eba985de134",
+  "submission_id": "ING-insulin-glargine-unspecified-r0-1",
+  "package": {
+    "schema_version": 1,
+    "group_id": "ING-insulin-glargine|unspecified",
+    "based_on_revision_no": 0,
+    "medication_ids": [
+      "MED-insulin-glargine"
+    ],
+    "formulation": {
+      "decision": "single_unit",
+      "rationale": "This child contains the single canonical insulin glargine record whose concentration/product is unspecified. No further split is possible without changing the canonical medication identity; concentration-specific U-100 versus U-300 timing is therefore not selected."
+    },
+    "comparisons": [
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "status": "COMPARED",
+        "checked_locators": "Perioperative Care, insulin therapy adjustments; Insulin Therapy Recommendations 16.8 and 16.9",
+        "note": "ADA provides class-level long-acting basal-insulin guidance that remains applicable even when the glargine concentration is not identified."
+      },
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "status": "NOT_SPECIFIED",
+        "checked_locators": "Table 2, Basal insulin (long-acting insulin analog: Glargine); Summary of evidence before Important note 11",
+        "note": "The joint statement distinguishes standard glargine from glargine U-300 and gives different preprocedure timing. Because the canonical medication does not identify concentration, the source does not yield one unambiguous concentration-specific instruction for this record."
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "checked_locators": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "note": "USMSTF does not provide a product-specific insulin-glargine dose and directs individualized antihyperglycemic medication planning with the prescribing clinician."
+      }
+    ],
+    "recommendations": [
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 18,
+        "scenario_key": "before_procedure",
+        "qualifier": "long-acting basal insulin analogue; concentration unspecified",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "On the evening before surgery, reduce long-acting basal insulin analogs to 75–80% of the usual dose",
+        "bridging": "not_applicable",
+        "strength": "not separately graded in this narrative instruction",
+        "certainty": "not separately graded in this narrative instruction",
+        "applicability": "Long-acting basal insulin analogue before surgery when the exact glargine concentration has not been identified.",
+        "exceptions": "Current SBD/SBA/ABESO guidance gives a longer adjustment window for glargine U-300, so identifying the actual product/concentration remains clinically important.",
+        "summary": "ADA recommends reducing long-acting basal insulin analogues to 75–80% of the usual dose on the evening before surgery."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 19,
+        "scenario_key": "day_of_procedure",
+        "qualifier": "poor oral intake or NPO",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "Basal insulin or a basal plus bolus correction insulin plan is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Noncritically ill patient with poor oral intake or taking nothing by mouth.",
+        "exceptions": "The passage does not identify a concentration-specific glargine dose.",
+        "summary": "ADA retains basal insulin as part of the preferred insulin plan during poor oral intake or NPO status."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 19,
+        "scenario_key": "after_procedure",
+        "qualifier": "postprocedure poor oral intake or NPO",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "Basal insulin or a basal plus bolus correction insulin plan is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Postprocedure patient with poor oral intake or still NPO.",
+        "exceptions": "No fixed glargine restart time or concentration-specific dose is stated.",
+        "summary": "When oral intake remains poor or the patient remains NPO, ADA retains basal insulin in the preferred insulin plan."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 20,
+        "scenario_key": "after_procedure",
+        "qualifier": "adequate nutritional intake",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "an insulin plan with basal, prandial, and correction components is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Postprocedure patient with adequate nutritional intake.",
+        "exceptions": "No fixed glargine restart time or concentration-specific dose is stated.",
+        "summary": "With adequate nutritional intake, ADA includes basal insulin as part of the preferred insulin plan."
+      }
+    ],
+    "scenario_coverage": [
+      {
+        "scenario_key": "before_procedure",
+        "status": "ADDRESSED",
+        "reason": "ADA provides a class-level long-acting basal-insulin adjustment that does not require knowing glargine concentration."
+      },
+      {
+        "scenario_key": "day_of_procedure",
+        "status": "ADDRESSED",
+        "reason": "ADA retains basal insulin during NPO or poor oral intake."
+      },
+      {
+        "scenario_key": "after_procedure",
+        "status": "ADDRESSED",
+        "reason": "ADA includes basal insulin in preferred regimens for poor/NPO and adequate nutritional intake states."
+      }
+    ],
+    "open_questions": [
+      {
+        "text": "The actual insulin glargine product and concentration must be identified before applying concentration-specific guidance because SBD/SBA/ABESO recommends a longer 48–72-hour adjustment window for U-300 than for standard glargine.",
+        "blocking": false
+      },
+      {
+        "text": "USMSTF does not provide a colonoscopy-specific glargine dose and directs individualized antihyperglycemic management with the prescribing clinician.",
+        "blocking": false
+      }
+    ],
+    "editorial": {
+      "notes": "Unreviewed evidence package for a concentration-unspecified canonical glargine record. Only concentration-agnostic society guidance is converted into recommendations; concentration-specific SBD guidance is intentionally not selected."
+    }
+  },
+  "then": "claim"
+}
