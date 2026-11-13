@@ -1,0 +1,318 @@
+{
+  "ok": true,
+  "op": "claim",
+  "task": {
+    "detail": null,
+    "reason": "initial",
+    "attempt": 1,
+    "task_id": 15,
+    "claim_token": "cec6661a-aa6c-45a8-bec3-2dd6af79cf00",
+    "saved_progress": {
+      "remains": [
+        "Submit schema_version 1 package with explicit before_procedure conflict.",
+        "Use existing ADA passage IDs 18-20 and USMSTF passage ID 8 instead of duplicating them."
+      ],
+      "decisions": {
+        "conflict": "Endocrine Society suggests 25–50% reduction for glargine/detemir, while ADA 2026 recommends 75–80% of usual long-acting basal analogue dose on the evening before surgery. Preserve both.",
+        "formulation": "single_unit across concentration-unspecified insulin detemir and Levemir U-100 because the society perioperative guidance names detemir or long-acting basal analogues and does not distinguish a brand-specific fasting instruction",
+        "research_started": true,
+        "colonoscopy_context": "USMSTF does not specify a detemir dose and directs individualized antihyperglycemic management with the prescribing clinician"
+      },
+      "sources_read": [
+        {
+          "doi": "10.1210/jc.2011-2098",
+          "title": "Management of hyperglycemia in hospitalized patients in non-critical care setting: an Endocrine Society clinical practice guideline",
+          "status": "COMPARED",
+          "society": "Endocrine Society",
+          "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+          "checked_locators": [
+            "5.3 Perioperative BG control, Recommendations 5.3.1-5.3.3",
+            "5.3.1-5.3.3 Evidence"
+          ]
+        },
+        {
+          "doi": "10.2337/dc26-S016",
+          "title": "16. Diabetes Care in the Hospital: Standards of Care in Diabetes—2026",
+          "status": "COMPARED",
+          "society": "American Diabetes Association",
+          "source_id": "ADA-2026-HOSPITAL",
+          "checked_locators": [
+            "Perioperative Care",
+            "Insulin Therapy, Recommendations 16.8 and 16.9"
+          ]
+        },
+        {
+          "status": "NOT_SPECIFIED",
+          "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+          "source_id": "USMSTF-2025-BOWEL-PREP",
+          "checked_locators": [
+            "Recommendations Before Colonoscopy > Patient Education and Navigation"
+          ]
+        }
+      ],
+      "passages_extracted": [
+        {
+          "key": "p1",
+          "page": "not exposed in HTML; article pp. 16-38",
+          "quote": "All patients receiving insulin before admission require insulin during the perioperative period (112, 113). For most patients, this requirement includes administration of a percentage of the usual basal insulin (NPH, detemir, glargine) in combination with correction doses of regular insulin or rapid-acting insulin analogs for glucose levels from 8.3 to 11.1 mmol/liter (150 to 200 mg/dl).",
+          "locator": "5.3.1-5.3.3 Evidence",
+          "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA"
+        },
+        {
+          "key": "p2",
+          "page": "not exposed in HTML; article pp. 16-38",
+          "quote": "Because the pharmacokinetic properties of NPH insulin differ from those of glargine and detemir, dose reductions of 25–50% are suggested, together with the administration of short- or rapid-acting insulin for BG > 8.3 mmol/liter (150 mg/dl) (Table 3).",
+          "locator": "5.3.1-5.3.3 Evidence",
+          "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA"
+        },
+        {
+          "key": "p3",
+          "page": "not exposed in HTML; article pp. 16-38",
+          "quote": "We recommend that all patients with type 1 diabetes who undergo minor or major surgical procedures receive either CII or sc basal insulin with bolus insulin as required to prevent hyperglycemia during the perioperative period. (1|⊕⊕⊕⊕)",
+          "locator": "Recommendation 5.3.1",
+          "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA"
+        },
+        {
+          "key": "p4",
+          "page": "not exposed in HTML; article pp. 16-38",
+          "quote": "When instituting sc insulin therapy in the postsurgical setting, we recommend that basal (for patients who are NPO) or basal bolus (for patients who are eating) insulin therapy be instituted as the preferred approach. (1|⊕⊕⊕○)",
+          "locator": "Recommendation 5.3.3",
+          "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA"
+        }
+      ]
+    },
+    "last_error_code": "SUBMISSION_REJECTED",
+    "lease_expires_at": "2026-11-13T23:27:06.29448+00:00",
+    "saved_progress_at": "2026-11-13T21:55:39.909478+00:00"
+  },
+  "group": {
+    "kind": "single",
+    "lane": "even",
+    "class": null,
+    "bucket": 2,
+    "domain": "general",
+    "group_id": "ING-insulin-detemir",
+    "ingredients": [
+      "ING-insulin-detemir"
+    ],
+    "medications": [
+      {
+        "name": "Insulin detemir (product/concentration unspecified)",
+        "route": null,
+        "brand_names": [],
+        "dosage_form": null,
+        "generic_name": "insulin detemir",
+        "release_type": null,
+        "medication_id": "MED-insulin-detemir"
+      },
+      {
+        "name": "Levemir U-100 (insulin detemir)",
+        "route": null,
+        "brand_names": [
+          "Levemir"
+        ],
+        "dosage_form": null,
+        "generic_name": "insulin detemir U-100",
+        "release_type": null,
+        "medication_id": "MED-insulin-detemir-levemir-u100"
+      }
+    ]
+  },
+  "status": "RESUMED",
+  "scenarios": [
+    {
+      "label": "After the procedure",
+      "required": true,
+      "description": "When and how to resume.",
+      "scenario_key": "after_procedure"
+    },
+    {
+      "label": "Before the procedure",
+      "required": true,
+      "description": "Holding, continuing or adjusting in the days before the procedure, including the bowel-preparation day.",
+      "scenario_key": "before_procedure"
+    },
+    {
+      "label": "Day of the procedure",
+      "required": true,
+      "description": "What to do on the morning or day of the procedure, including fasting and sedation considerations.",
+      "scenario_key": "day_of_procedure"
+    }
+  ],
+  "worker_id": "agent-2",
+  "components": [],
+  "known_passages": [
+    {
+      "locator": "Perioperative Care, insulin therapy adjustments",
+      "source_id": "ADA-2026-HOSPITAL",
+      "last_check": null,
+      "passage_id": 18,
+      "quote_start": "On the evening before surgery, reduce NPH insulin to one-half the usual dose and long-acting basal insulin analogs to 75–80% of the usual do"
+    },
+    {
+      "locator": "Insulin Therapy, Recommendation 16.8",
+      "source_id": "ADA-2026-HOSPITAL",
+      "last_check": null,
+      "passage_id": 19,
+      "quote_start": "16.8 Basal insulin or a basal plus bolus correction insulin plan is the preferred treatment for noncritically ill hospitalized individuals w"
+    },
+    {
+      "locator": "Insulin Therapy, Recommendation 16.9",
+      "source_id": "ADA-2026-HOSPITAL",
+      "last_check": null,
+      "passage_id": 20,
+      "quote_start": "16.9 An insulin plan with basal, prandial, and correction components is the preferred treatment for most noncritically ill hospitalized indi"
+    },
+    {
+      "locator": "Table 2, row UFH",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 1,
+      "quote_start": "UFH | IV 2-6 hours / SQ 12-24 hours | Hold | Protamine sulfate (partial)"
+    },
+    {
+      "locator": "Parenteral and subcutaneously administered anticoagulants",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 2,
+      "quote_start": "UFH administered intravenously has a half-life of 60 to 90 minutes, and anticoagulant effects dissipate 3 to 4 hours after discontinuation."
+    },
+    {
+      "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 3,
+      "quote_start": "There is consensus that antithrombotic therapy should be resumed upon completion of the procedure."
+    },
+    {
+      "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 4,
+      "quote_start": "UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+    },
+    {
+      "locator": "Recommendations 4.3.1-4.3.4, Remarks",
+      "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 9,
+      "quote_start": "In patients who are NPO or unable to eat, bolus insulin must be held until nutrition is resumed; however, doses of correction insulin can be"
+    },
+    {
+      "locator": "Recommendation 4.3.3",
+      "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 10,
+      "quote_start": "We recommend that scheduled sc insulin therapy consist of basal or intermediate-acting insulin given once or twice a day in combination with"
+    },
+    {
+      "locator": "Recommendation 4.3.3",
+      "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 13,
+      "quote_start": "We recommend that scheduled sc insulin therapy consist of basal or intermediate-acting insulin given once or twice a day in combination with"
+    },
+    {
+      "locator": "5.3.1-5.3.3 Evidence",
+      "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 21,
+      "quote_start": "All patients receiving insulin before admission require insulin during the perioperative period (112, 113). For most patients, this requirem"
+    },
+    {
+      "locator": "5.3.1-5.3.3 Evidence",
+      "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 22,
+      "quote_start": "Because the pharmacokinetic properties of NPH insulin differ from those of glargine and detemir, dose reductions of 25–50% are suggested, to"
+    },
+    {
+      "locator": "Recommendation 5.3.1",
+      "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 23,
+      "quote_start": "We recommend that all patients with type 1 diabetes who undergo minor or major surgical procedures receive either CII or sc basal insulin wi"
+    },
+    {
+      "locator": "Recommendation 5.3.3",
+      "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 24,
+      "quote_start": "When instituting sc insulin therapy in the postsurgical setting, we recommend that basal (for patients who are NPO) or basal bolus (for pati"
+    },
+    {
+      "locator": "Recommendation 10.3",
+      "source_id": "ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 11,
+      "quote_start": "In adults with insulin-treated diabetes prior to admission who are hospitalized for noncritical illness, we recommend continuation of the sc"
+    },
+    {
+      "locator": "Recommendation 10.3",
+      "source_id": "ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA",
+      "last_check": null,
+      "passage_id": 14,
+      "quote_start": "In adults with insulin-treated diabetes prior to admission who are hospitalized for noncritical illness, we recommend continuation of the sc"
+    },
+    {
+      "locator": "Insulintherapie",
+      "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+      "last_check": null,
+      "passage_id": 5,
+      "quote_start": "Patient:innen unter konventioneller Insulintherapie mit einem Mischinsulin sollen bei Routineoperationen auf ein langwirksames Insulin (1 od"
+    },
+    {
+      "locator": "Insulintherapie",
+      "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+      "last_check": null,
+      "passage_id": 12,
+      "quote_start": "Engmaschige Blutglukose-Kontrollen perioperativ sind erforderlich, um allfällige Korrekturen mittels i.v. Glukoseinfusion bzw. subkutaner zu"
+    },
+    {
+      "locator": "Management of insulin",
+      "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+      "last_check": null,
+      "passage_id": 6,
+      "quote_start": "It is not necessary to change the dose on the day before surgery. However, on the day of surgery, they should be replaced by those of interm"
+    },
+    {
+      "locator": "Management of insulin",
+      "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+      "last_check": null,
+      "passage_id": 7,
+      "quote_start": "As for the intermediate-acting component, it is recommended to proportionally reduce the morning dose by 25–50%."
+    },
+    {
+      "locator": "Table 2, Basal insulin (ultra-long-acting insulin analog: Degludec)",
+      "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+      "last_check": null,
+      "passage_id": 15,
+      "quote_start": "Reducing the dose 20%-30%, starting 72 h before the procedure, with the following precaution: In patients receiving a high proportion of bas"
+    },
+    {
+      "locator": "Table 2, Basal insulin (ultra-long-acting insulin analog: Degludec)",
+      "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+      "last_check": null,
+      "passage_id": 16,
+      "quote_start": "In basal–bolus regimens with < 50% of total daily insulin as basal, dose reduction may not be necessary. Maintaining the usual basal dose in"
+    },
+    {
+      "locator": "Important note 11",
+      "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+      "last_check": null,
+      "passage_id": 17,
+      "quote_start": "These patients must never have basal insulin omitted, except when receiving: continuous intravenous insulin infusion, or a fully functional "
+    },
+    {
+      "locator": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+      "source_id": "USMSTF-2025-BOWEL-PREP",
+      "last_check": null,
+      "passage_id": 8,
+      "quote_start": "The management of anti-hyperglycemic and anti-hypertensive agents should be individualized with the assistance of the prescribing clinician "
+    }
+  ],
+  "required_sources": [],
+  "comparators_pinned": false,
+  "based_on_revision_no": 0,
+  "package_schema_version": 1
+}
