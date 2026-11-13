@@ -1,0 +1,52 @@
+{
+  "request_id": "even-s3-save-011",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 12,
+  "claim_token": "5ffa69a6-bf0d-484e-84af-0d6c526c4575",
+  "progress": {
+    "sources_read": [
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "status": "COMPARED",
+        "title": "The management of antithrombotic agents for patients undergoing GI endoscopy",
+        "society": "American Society for Gastrointestinal Endoscopy",
+        "doi": "10.1016/j.gie.2015.09.035",
+        "checked_locators": [
+          "Table 2: Antithrombotic drugs: duration of action and approach to reversal when indicated",
+          "Parenteral and subcutaneously administered anticoagulants",
+          "Reinitiation of antithrombotic agents after elective endoscopy"
+        ]
+      }
+    ],
+    "passages_extracted": [
+      {
+        "key": "p1",
+        "locator": "Table 2, row UFH",
+        "page": "4",
+        "quote": "UFH | IV 2-6 hours / SQ 12-24 hours | Hold | Protamine sulfate (partial)"
+      },
+      {
+        "key": "p2",
+        "locator": "Parenteral and subcutaneously administered anticoagulants",
+        "page": "8",
+        "quote": "UFH administered intravenously has a half-life of 60 to 90 minutes, and anticoagulant effects dissipate 3 to 4 hours after discontinuation."
+      },
+      {
+        "key": "p3",
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "page": "pending_exact_page_verification",
+        "quote": "UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+      }
+    ],
+    "decisions": {
+      "formulation": "single canonical medication; preserve ASGE route-specific IV versus SQ qualifiers rather than collapsing timing",
+      "renal": "no UFH renal bands stated in the compared ASGE passages",
+      "research_started": true
+    },
+    "remains": [
+      "Verify the exact printed page for the UFH restart passage.",
+      "Build and submit schema_version 1 package with route-specific qualifiers and all three required scenarios."
+    ]
+  }
+}
