@@ -1,0 +1,6 @@
+{
+  "request_id": "even-g2fix-resume-008",
+  "op": "start_session",
+  "label": "2026-11-13-agent-2-g2-fix-b",
+  "then": "claim"
+}
