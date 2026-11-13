@@ -1,0 +1,189 @@
+{
+  "request_id": "even-s3-submit-032",
+  "op": "submit",
+  "session_id": 3,
+  "task_id": 236,
+  "claim_token": "e2650351-3d4e-4ba5-9127-12d13bea3796",
+  "submission_id": "ING-insulin-glargine-u100-r0-1",
+  "package": {
+    "schema_version": 1,
+    "group_id": "ING-insulin-glargine|u100",
+    "based_on_revision_no": 0,
+    "medication_ids": [
+      "MED-insulin-glargine-basaglar-u100",
+      "MED-insulin-glargine-semglee-u100",
+      "MED-insulin-glargine-u100"
+    ],
+    "formulation": {
+      "decision": "single_unit",
+      "rationale": "All mapped products are U-100 insulin glargine products (Lantus, Basaglar, or Semglee/insulin glargine-yfgn). The compared perioperative society guidance addresses standard long-acting glargine without distinguishing these U-100 brands."
+    },
+    "passages": [
+      {
+        "key": "p1",
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "locator": "Table 2, Basal insulin (long-acting insulin analog: Glargine)",
+        "page": "not exposed in HTML",
+        "deep_link": "https://doi.org/10.1186/s13098-025-02060-5",
+        "quote": "Reducing the dose 20%-30% starting the night before the procedure, with the following precaution: In patients receiving a high proportion of basal insulin (> 50% of total daily insulin), consider reducing the dose by up to 50%."
+      },
+      {
+        "key": "p2",
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "locator": "Table 2, Basal insulin (long-acting insulin analog: Glargine)",
+        "page": "not exposed in HTML",
+        "deep_link": "https://doi.org/10.1186/s13098-025-02060-5",
+        "quote": "In patients on a basal–bolus regimen with < 50% of total daily insulin as basal, dose reduction may not be necessary. In such cases, maintaining the usual basal dose may minimize hyperglycemia and glycemic variability"
+      }
+    ],
+    "comparisons": [
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "status": "COMPARED",
+        "checked_locators": "Table 2, Basal insulin (long-acting insulin analog: Glargine)",
+        "note": "The 2026 joint statement gives a glargine-specific night-before reduction with conditional larger reduction for high basal proportions and possible no reduction when basal is less than 50% of total daily insulin."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "status": "COMPARED",
+        "checked_locators": "Perioperative Care, insulin therapy adjustments; Insulin Therapy Recommendations 16.8 and 16.9",
+        "note": "ADA provides a current long-acting basal-insulin adjustment before surgery and retains basal insulin across NPO/poor-intake and adequate-intake states."
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "checked_locators": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "note": "USMSTF does not provide a glargine-specific dose and directs individualized antihyperglycemic medication planning with the prescribing clinician."
+      }
+    ],
+    "recommendations": [
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "passage": "p1",
+        "scenario_key": "before_procedure",
+        "qualifier": "standard long-acting insulin glargine",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "Reducing the dose 20%-30% starting the night before the procedure",
+        "bridging": "not_applicable",
+        "strength": "not separately stated in table row",
+        "certainty": "not separately stated in table row",
+        "applicability": "Elective procedure in a patient receiving standard long-acting insulin glargine.",
+        "exceptions": "For basal insulin exceeding 50% of total daily insulin, the same passage permits reduction up to 50%.",
+        "summary": "The Brazilian joint statement recommends reducing standard glargine by 20%-30% starting the night before the procedure."
+      },
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "passage": "p2",
+        "scenario_key": "before_procedure",
+        "qualifier": "basal-bolus regimen with basal under 50% of total daily insulin",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "dose reduction may not be necessary",
+        "bridging": "not_applicable",
+        "strength": "not separately stated in table row",
+        "certainty": "not separately stated in table row",
+        "applicability": "Glargine used in a basal-bolus regimen where basal is less than 50% of total daily insulin.",
+        "exceptions": "",
+        "summary": "When basal insulin is less than 50% of total daily insulin, the Brazilian joint statement says glargine dose reduction may not be necessary."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 18,
+        "scenario_key": "before_procedure",
+        "qualifier": "long-acting basal insulin analogue",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "On the evening before surgery, reduce long-acting basal insulin analogs to 75–80% of the usual dose",
+        "bridging": "not_applicable",
+        "strength": "not separately graded in this narrative instruction",
+        "certainty": "not separately graded in this narrative instruction",
+        "applicability": "Long-acting basal insulin analogue use before surgery, including glargine U-100.",
+        "exceptions": "ADA states that adjustment depends on diabetes type and clinical judgment.",
+        "summary": "ADA recommends reducing long-acting basal insulin analogues to 75–80% of the usual dose on the evening before surgery."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 19,
+        "scenario_key": "day_of_procedure",
+        "qualifier": "poor oral intake or NPO",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "Basal insulin or a basal plus bolus correction insulin plan is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Noncritically ill patient with poor oral intake or taking nothing by mouth.",
+        "exceptions": "This establishes continuation of a basal component but does not specify a product-specific glargine U-100 dose.",
+        "summary": "ADA retains basal insulin as part of the preferred insulin plan during poor oral intake or NPO status."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 19,
+        "scenario_key": "after_procedure",
+        "qualifier": "postprocedure poor oral intake or NPO",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "Basal insulin or a basal plus bolus correction insulin plan is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Postprocedure patient with poor oral intake or still NPO.",
+        "exceptions": "No fixed glargine restart time is stated.",
+        "summary": "When oral intake remains poor or the patient remains NPO, ADA retains basal insulin in the preferred insulin plan."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 20,
+        "scenario_key": "after_procedure",
+        "qualifier": "adequate nutritional intake",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "an insulin plan with basal, prandial, and correction components is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Postprocedure patient with adequate nutritional intake.",
+        "exceptions": "No fixed glargine restart time is stated.",
+        "summary": "With adequate nutritional intake, ADA includes basal insulin as part of the preferred insulin plan."
+      }
+    ],
+    "scenario_coverage": [
+      {
+        "scenario_key": "before_procedure",
+        "status": "ADDRESSED",
+        "reason": "SBD/SBA/ABESO and ADA both provide preprocedure basal-insulin dose adjustment frameworks."
+      },
+      {
+        "scenario_key": "day_of_procedure",
+        "status": "ADDRESSED",
+        "reason": "ADA retains basal insulin during poor oral intake or NPO status."
+      },
+      {
+        "scenario_key": "after_procedure",
+        "status": "ADDRESSED",
+        "reason": "ADA includes basal insulin in preferred regimens for both poor/NPO and adequate nutritional intake states."
+      }
+    ],
+    "conflicts": [
+      {
+        "scenario_key": "before_procedure",
+        "source_ids": [
+          "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+          "ADA-2026-HOSPITAL"
+        ],
+        "description": "SBD/SBA/ABESO recommends a 20%-30% glargine reduction starting the night before the procedure with conditional alternatives based on basal proportion, whereas ADA recommends 75–80% of the usual long-acting basal dose on the evening before surgery. The frameworks overlap but are not identical and are preserved separately."
+      }
+    ],
+    "open_questions": [
+      {
+        "text": "USMSTF does not provide a colonoscopy-specific U-100 glargine dose and directs individualized antihyperglycemic management with the prescribing clinician.",
+        "blocking": false
+      }
+    ],
+    "editorial": {
+      "notes": "Unreviewed evidence package for U-100 glargine only. U-300 glargine was split because current society guidance treats its prolonged pharmacokinetics differently."
+    }
+  },
+  "then": "claim"
+}
