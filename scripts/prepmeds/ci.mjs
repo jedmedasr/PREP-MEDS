@@ -187,7 +187,7 @@ export async function fetchRepositoryPushEvents({
   githubToken,
   fetchImpl = fetch,
 }) {
-  if (!repository || !/^[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+$/.test(repository)) {
+  if (!repository || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repository)) {
     throw new Error('PREPMEDS_RELAY_CONFIG: GITHUB_REPOSITORY must be owner/repo');
   }
   validateLane(lane);
