@@ -1,0 +1,182 @@
+{
+  "request_id": "even-s3-submit-028",
+  "op": "submit",
+  "session_id": 3,
+  "task_id": 15,
+  "claim_token": "cec6661a-aa6c-45a8-bec3-2dd6af79cf00",
+  "submission_id": "ING-insulin-detemir-r0-2",
+  "package": {
+    "schema_version": 1,
+    "group_id": "ING-insulin-detemir",
+    "based_on_revision_no": 0,
+    "medication_ids": [
+      "MED-insulin-detemir",
+      "MED-insulin-detemir-levemir-u100"
+    ],
+    "formulation": {
+      "decision": "single_unit",
+      "rationale": "Both mapped products are insulin detemir, with one concentration-unspecified entry and one Levemir U-100 entry. The compared society guidance names detemir or long-acting basal insulin analogues and does not provide a brand- or U-100-specific fasting instruction."
+    },
+    "comparisons": [
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "status": "COMPARED",
+        "checked_locators": "5.3 Perioperative BG control, Recommendations 5.3.1-5.3.3 and evidence",
+        "note": "The Endocrine Society guideline explicitly names detemir in perioperative basal-insulin management, suggests a 25–50% dose reduction for glargine/detemir, and recommends basal insulin through the perioperative and postsurgical periods."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "status": "COMPARED",
+        "checked_locators": "Perioperative Care; Insulin Therapy Recommendations 16.8 and 16.9",
+        "note": "ADA provides a current long-acting basal-insulin adjustment before surgery and retains basal insulin in NPO/poor-intake and adequate-intake regimens."
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "checked_locators": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "note": "USMSTF states that antihyperglycemic management around colonoscopy should be individualized with the prescribing clinician and does not provide a detemir-specific dose."
+      }
+    ],
+    "recommendations": [
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "passage": 22,
+        "scenario_key": "before_procedure",
+        "qualifier": "insulin detemir or glargine",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "dose reductions of 25–50% are suggested",
+        "bridging": "not_applicable",
+        "strength": "not separately graded for this evidence statement",
+        "certainty": "not separately graded for this evidence statement",
+        "applicability": "Perioperative basal insulin in patients receiving detemir or glargine.",
+        "exceptions": "The statement also describes correction insulin for hyperglycemia; it does not specify a distinct Levemir U-100 adjustment.",
+        "summary": "The Endocrine Society guideline suggests a 25–50% dose reduction for glargine or detemir in the perioperative setting."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 18,
+        "scenario_key": "before_procedure",
+        "qualifier": "long-acting basal insulin analogue",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "On the evening before surgery, reduce long-acting basal insulin analogs to 75–80% of the usual dose",
+        "bridging": "not_applicable",
+        "strength": "not separately graded in this narrative instruction",
+        "certainty": "not separately graded in this narrative instruction",
+        "applicability": "Long-acting basal insulin analogue use before surgery, including insulin detemir.",
+        "exceptions": "ADA states that adjustment depends on diabetes type and clinical judgment.",
+        "summary": "ADA recommends 75–80% of the usual long-acting basal-insulin dose on the evening before surgery."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 19,
+        "scenario_key": "day_of_procedure",
+        "qualifier": "poor oral intake or NPO",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "Basal insulin or a basal plus bolus correction insulin plan is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Noncritically ill patient with poor oral intake or taking nothing by mouth.",
+        "exceptions": "This establishes continuation of a basal component but does not specify a detemir dose.",
+        "summary": "ADA retains basal insulin as part of the preferred insulin plan during poor oral intake or NPO status."
+      },
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "passage": 23,
+        "scenario_key": "day_of_procedure",
+        "qualifier": "type 1 diabetes",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "receive either CII or sc basal insulin with bolus insulin as required",
+        "bridging": "not_applicable",
+        "strength": "1",
+        "certainty": "high",
+        "applicability": "Patient with type 1 diabetes undergoing a minor or major procedure.",
+        "exceptions": "The recommendation allows either continuous insulin infusion or subcutaneous basal insulin with bolus insulin as required.",
+        "summary": "For type 1 diabetes, the Endocrine Society recommends continued insulin coverage with CII or subcutaneous basal insulin during the perioperative period."
+      },
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "passage": 24,
+        "scenario_key": "after_procedure",
+        "qualifier": "postoperative patient who is NPO",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "basal (for patients who are NPO)",
+        "bridging": "not_applicable",
+        "strength": "1",
+        "certainty": "moderate",
+        "applicability": "Postsurgical patient who remains NPO.",
+        "exceptions": "No fixed detemir restart time or patient-specific dose is stated.",
+        "summary": "The Endocrine Society recommends basal insulin as the preferred postsurgical approach for patients who remain NPO."
+      },
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "passage": 24,
+        "scenario_key": "after_procedure",
+        "qualifier": "postoperative patient who is eating",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "basal bolus (for patients who are eating)",
+        "bridging": "not_applicable",
+        "strength": "1",
+        "certainty": "moderate",
+        "applicability": "Postsurgical patient who is eating.",
+        "exceptions": "No fixed detemir restart time or patient-specific dose is stated.",
+        "summary": "The Endocrine Society recommends a basal-bolus insulin approach after surgery when the patient is eating."
+      }
+    ],
+    "scenario_coverage": [
+      {
+        "scenario_key": "before_procedure",
+        "status": "ADDRESSED",
+        "reason": "Endocrine Society provides detemir-specific dose-reduction guidance and ADA provides a current long-acting basal-insulin adjustment."
+      },
+      {
+        "scenario_key": "day_of_procedure",
+        "status": "ADDRESSED",
+        "reason": "ADA retains basal insulin during NPO/poor intake; Endocrine Society explicitly requires basal insulin coverage for type 1 diabetes."
+      },
+      {
+        "scenario_key": "after_procedure",
+        "status": "ADDRESSED",
+        "reason": "Endocrine Society provides postsurgical basal or basal-bolus guidance based on whether the patient remains NPO or is eating."
+      }
+    ],
+    "conflicts": [
+      {
+        "scenario_key": "before_procedure",
+        "source_ids": [
+          "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+          "ADA-2026-HOSPITAL"
+        ],
+        "description": "The Endocrine Society suggests a 25–50% reduction for glargine/detemir, whereas ADA 2026 recommends reducing long-acting basal insulin analogues to 75–80% of the usual dose on the evening before surgery. These numeric frameworks are preserved separately."
+      },
+      {
+        "scenario_key": "day_of_procedure",
+        "source_ids": [
+          "ADA-2026-HOSPITAL",
+          "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA"
+        ],
+        "description": "ADA broadly recommends retaining basal insulin during poor oral intake or NPO status, whereas the Endocrine Society gives a type-1-diabetes-specific requirement for continued insulin coverage with CII or subcutaneous basal insulin plus bolus as required. These differently qualified day-of recommendations are preserved separately."
+      }
+    ],
+    "open_questions": [
+      {
+        "text": "USMSTF does not provide a colonoscopy-specific insulin detemir dose and explicitly directs individualized antihyperglycemic medication management with the prescribing clinician.",
+        "blocking": false
+      },
+      {
+        "text": "The compared society sources do not identify a separate perioperative fasting instruction for Levemir U-100 versus concentration-unspecified insulin detemir.",
+        "blocking": false
+      }
+    ],
+    "editorial": {
+      "notes": "Unreviewed evidence package. The ADA and Endocrine Society preprocedure dose frameworks are not numerically identical and are intentionally preserved as a conflict. No patient-specific insulin dose is calculated."
+    }
+  },
+  "then": "claim"
+}
