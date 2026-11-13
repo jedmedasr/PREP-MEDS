@@ -1,0 +1,13 @@
+{
+  "request_id": "even-s3-save-043",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 239,
+  "claim_token": "23a3fb3d-f3c8-49ec-9860-6a42671bb65e",
+  "progress": {
+    "session_handoff": {
+      "research_started": false,
+      "reason": "Session target of 10 accepted groups reached before research began on this task."
+    }
+  }
+}
