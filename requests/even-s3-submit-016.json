@@ -1,0 +1,224 @@
+{
+  "request_id": "even-s3-submit-016",
+  "op": "submit",
+  "session_id": 3,
+  "task_id": 235,
+  "claim_token": "ad0b4756-00ce-4e7c-823c-b6b0f874076d",
+  "submission_id": "ING-insulin-aspart-premix-70-30-r0-1",
+  "package": {
+    "schema_version": 1,
+    "group_id": "ING-insulin-aspart|premix-70-30",
+    "based_on_revision_no": 0,
+    "medication_ids": [
+      "MED-insulin-aspart-70-30"
+    ],
+    "formulation": {
+      "decision": "single_unit",
+      "rationale": "This split child contains only the fixed 70/30 insulin aspart protamine/insulin aspart premix. The parent group was split because rapid-acting aspart products and this premix require different fasting-management logic."
+    },
+    "sources": [
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "kind": "consensus_statement",
+        "society": "Austrian Diabetes Association",
+        "title": "Position statement: surgery and diabetes mellitus (Update 2023)",
+        "publication_date": "2023-04-20",
+        "version_label": "Update 2023",
+        "doi": "10.1007/s00508-022-02121-z",
+        "url": "https://doi.org/10.1007/s00508-022-02121-z"
+      },
+      {
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "kind": "review",
+        "society": "Sociedade Brasileira de Anestesiologia",
+        "title": "Evaluation and perioperative management of patients with diabetes mellitus. A challenge for the anesthesiologist",
+        "publication_date": "2017-09-15",
+        "version_label": "English full text; Braz J Anesthesiol 2018;68(1):75-86",
+        "doi": "10.1016/j.bjane.2017.06.002",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9391782/"
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "kind": "consensus_statement",
+        "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+        "title": "Optimizing bowel preparation quality for colonoscopy: consensus recommendations by the US Multi-Society Task Force on Colorectal Cancer",
+        "publication_date": "2025-03-04",
+        "version_label": "Gastrointest Endosc 2025;101(4):702-732",
+        "doi": "10.1016/j.gie.2025.02.010",
+        "url": "https://doi.org/10.1016/j.gie.2025.02.010"
+      }
+    ],
+    "passages": [
+      {
+        "key": "p1",
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "locator": "Insulintherapie",
+        "page": "not exposed in HTML; article pp. 256-271",
+        "deep_link": "https://doi.org/10.1007/s00508-022-02121-z",
+        "quote": "Patient:innen unter konventioneller Insulintherapie mit einem Mischinsulin sollen bei Routineoperationen auf ein langwirksames Insulin (1 oder 2 × täglich gespritzt) umgestellt werden, wobei die zu veranschlagende Insulindosis des langwirksamen Insulins etwa zwei Drittel der Standarddosis des ursprünglichen Mischinsulins betragen soll."
+      },
+      {
+        "key": "p2",
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "locator": "Management of insulin",
+        "page": "not exposed in HTML; article pp. 75-86",
+        "deep_link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9391782/",
+        "quote": "It is not necessary to change the dose on the day before surgery. However, on the day of surgery, they should be replaced by those of intermediate and fast action. To minimize the risk of hypoglycemia caused by the fast-acting component, the dose of each type of insulin should be given independently."
+      },
+      {
+        "key": "p3",
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "locator": "Management of insulin",
+        "page": "not exposed in HTML; article pp. 75-86",
+        "deep_link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9391782/",
+        "quote": "As for the intermediate-acting component, it is recommended to proportionally reduce the morning dose by 25–50%."
+      },
+      {
+        "key": "p4",
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "locator": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "page": "not exposed in HTML; GIE 2025;101:702-732",
+        "deep_link": "https://doi.org/10.1016/j.gie.2025.02.010",
+        "quote": "The management of anti-hyperglycemic and anti-hypertensive agents should be individualized with the assistance of the prescribing clinician based on the timing of the colonoscopy and is beyond the scope of this document."
+      }
+    ],
+    "comparisons": [
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "checked_locators": "Insulintherapie",
+        "note": "The Austrian Diabetes Association position statement directly addresses patients using mixed insulin for routine operations and recommends conversion to long-acting insulin at approximately two-thirds of the original mixed-insulin standard dose."
+      },
+      {
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "checked_locators": "Management of insulin; perioperative insulin discussion",
+        "note": "The Brazilian anesthesiology society review directly addresses premixed insulin, including the day before surgery and day-of-surgery separation into intermediate and fast components."
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "checked_locators": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "note": "The current US colonoscopy consensus explicitly states that antihyperglycemic management should be individualized with the prescribing clinician and is beyond this bowel-preparation document's scope; it gives no premixed-insulin dose instruction."
+      }
+    ],
+    "recommendations": [
+      {
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "passage": "p2",
+        "scenario_key": "before_procedure",
+        "qualifier": "day before surgery",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "It is not necessary to change the dose on the day before surgery.",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "General perioperative management of a patient using premixed insulin when the fasting period is limited.",
+        "exceptions": "This is perioperative surgery guidance rather than a colonoscopy-specific premix protocol; the USMSTF states that antihyperglycemic management around colonoscopy should be individualized.",
+        "summary": "The Brazilian anesthesiology society review states that premixed-insulin dose change is not necessary on the day before surgery."
+      },
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "passage": "p1",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "mixed insulin; routine operation",
+        "renal": null,
+        "action": "switch",
+        "timing_text": "auf ein langwirksames Insulin (1 oder 2 × täglich gespritzt) umgestellt werden",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Patient using conventional mixed-insulin therapy for a routine operation.",
+        "exceptions": "The position statement is general perioperative guidance and does not specifically name colonoscopy. USMSTF requires individualized prescriber-assisted antihyperglycemic management for colonoscopy.",
+        "summary": "The Austrian Diabetes Association recommends switching mixed insulin to long-acting insulin for routine operations."
+      },
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "passage": "p1",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "dose after switch to long-acting insulin",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "etwa zwei Drittel der Standarddosis des ursprünglichen Mischinsulins",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Dose of the long-acting insulin used after conversion from mixed insulin for a routine operation.",
+        "exceptions": "This is a source-quoted proportional framework, not a patient-specific calculated dose.",
+        "summary": "The Austrian position statement describes the long-acting replacement dose as approximately two-thirds of the original mixed-insulin standard dose."
+      },
+      {
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "passage": "p2",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "premixed insulin",
+        "renal": null,
+        "action": "switch",
+        "timing_text": "on the day of surgery, they should be replaced by those of intermediate and fast action",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Patient using premixed insulin on the day of surgery.",
+        "exceptions": "The source advises administering the intermediate and fast components independently to reduce fasting hypoglycemia risk from the fast-acting component.",
+        "summary": "The Brazilian anesthesiology society review recommends replacing premixed insulin with separate intermediate- and fast-acting components on the day of surgery."
+      },
+      {
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "passage": "p3",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "intermediate-acting component after premix separation",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "proportionally reduce the morning dose by 25–50%",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Morning intermediate-acting component after the premixed preparation has been separated for the day of surgery.",
+        "exceptions": "The recommendation applies to the intermediate-acting component after separation; it is not a 25–50% reduction of the entire fixed premix.",
+        "summary": "The Brazilian review recommends reducing the morning intermediate-acting component by 25–50%."
+      }
+    ],
+    "scenario_coverage": [
+      {
+        "scenario_key": "before_procedure",
+        "status": "ADDRESSED",
+        "reason": "The Brazilian anesthesiology society review explicitly addresses the day before surgery for premixed insulin."
+      },
+      {
+        "scenario_key": "day_of_procedure",
+        "status": "ADDRESSED",
+        "reason": "The Austrian Diabetes Association and Brazilian anesthesiology society sources both address mixed/premixed insulin on the day of a routine operation, but recommend different conversion strategies."
+      },
+      {
+        "scenario_key": "after_procedure",
+        "status": "NO_SOURCE_GUIDANCE",
+        "reason": "The compared primary society sources did not provide a sufficiently specific post-procedure instruction for restarting this fixed 70/30 premix, and USMSTF leaves antihyperglycemic medication management around colonoscopy to individualized prescribing-clinician guidance."
+      }
+    ],
+    "conflicts": [
+      {
+        "scenario_key": "day_of_procedure",
+        "source_ids": [
+          "ODG-2023-PERIOPERATIVE-DIABETES",
+          "SBA-2018-PERIOPERATIVE-DIABETES"
+        ],
+        "description": "The Austrian Diabetes Association recommends converting mixed insulin to long-acting insulin at approximately two-thirds of the original mixed-insulin standard dose for routine operations, whereas the Brazilian anesthesiology society review recommends replacing premixed insulin with separately administered intermediate- and fast-acting components and reducing the intermediate morning component by 25–50%. These strategies are preserved separately and not averaged."
+      }
+    ],
+    "open_questions": [
+      {
+        "text": "For colonoscopy specifically, the USMSTF states that antihyperglycemic management should be individualized with the prescribing clinician; the clinician reviewer should determine which perioperative premix strategy is appropriate for local practice and the patient's fasting schedule.",
+        "blocking": false
+      },
+      {
+        "text": "No compared primary society source supplied a sufficiently specific post-procedure restart instruction for the fixed NovoLog Mix 70/30 product, so no restart dose or timing was inferred.",
+        "blocking": false
+      }
+    ],
+    "editorial": {
+      "notes": "Unreviewed evidence package. The fixed premix was split from rapid-acting insulin aspart products before research. Day-of-procedure society recommendations conflict and are intentionally preserved without synthesis into a single unsupported regimen."
+    }
+  },
+  "then": "claim"
+}
