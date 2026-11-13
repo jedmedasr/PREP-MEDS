@@ -26,11 +26,12 @@ jobs:
         run: |
           node scripts/verify-engineering-graph.mjs
           node --test scripts/__tests__/verify-engineering-graph.test.mjs
-      - name: Offline graph CLI
+      - name: Offline graph CLI and bounded learning loop
         run: |
           node scripts/graph/cli.mjs verify
           node scripts/graph/cli.mjs status
           node scripts/graph/cli.mjs next --offline
+          node scripts/graph/cli.mjs improve
 
   reconcile-live:
     needs: test-orchestrator
@@ -70,8 +71,9 @@ jobs:
           const input = JSON.parse(readFileSync('engineering/stage2-handoff-input.json', 'utf8'));
           input.session_id = `ci-${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT}`;
           save(`${process.env.REPORT_DIR}/reconciliation.json`, report);
+          save(`${process.env.REPORT_DIR}/improvement.json`, report.improvement);
           save(`${process.env.REPORT_DIR}/handoff.json`, handoff(report, input));
-          console.log(JSON.stringify({main_sha:report.main_sha, next:report.next, metrics:report.metrics, unresolved:report.tasks.filter(t=>t.unresolved.length).map(t=>({id:t.id,reasons:t.unresolved}))}, null, 2));
+          console.log(JSON.stringify({main_sha:report.main_sha, next:report.next, metrics:report.metrics, improvement:report.improvement?.metrics, learning_loop_status:report.improvement?.learning_loop_status, unresolved:report.tasks.filter(t=>t.unresolved.length).map(t=>({id:t.id,reasons:t.unresolved}))}, null, 2));
           JS
       - uses: actions/upload-artifact@v4
         if: always()
