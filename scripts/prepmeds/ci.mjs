@@ -181,6 +181,51 @@ export async function fetchLaneActivities({
   return activities;
 }
 
+export async function fetchRepositoryPushEvents({
+  repository,
+  lane,
+  githubToken,
+  fetchImpl = fetch,
+}) {
+  if (!repository || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repository)) {
+    throw new Error('PREPMEDS_RELAY_CONFIG: GITHUB_REPOSITORY must be owner/repo');
+  }
+  validateLane(lane);
+  const laneRef = `refs/heads/lane/${lane}`;
+  let url = `https://api.github.com/repos/${repository}/events?per_page=100`;
+  const activities = [];
+  for (let page = 0; url && page < 10; page += 1) {
+    const response = await fetchImpl(url, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        ...(githubToken ? { Authorization: `Bearer ${githubToken}` } : {}),
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`PREPMEDS_RELAY_GITHUB_EVENTS: HTTP ${response.status}`);
+    }
+    const body = await response.json();
+    if (!Array.isArray(body)) throw new Error('PREPMEDS_RELAY_GITHUB_EVENTS: response is not an array');
+    for (const event of body) {
+      if (event?.type !== 'PushEvent' || event?.payload?.ref !== laneRef) continue;
+      const before = event.payload.before;
+      const after = event.payload.head;
+      const login = event.actor?.login;
+      if (typeof before !== 'string' || typeof after !== 'string' || typeof login !== 'string') continue;
+      activities.push({
+        before,
+        after,
+        ref: laneRef,
+        push_type: 'normal',
+        pusher: { login },
+      });
+    }
+    url = nextLink(response.headers.get('link'));
+  }
+  return activities;
+}
+
 export async function dataApiRpc({
   baseUrl,
   publishableKey,
@@ -307,12 +352,20 @@ export async function processRelay({
   const pending = discoverPendingRequests(laneDir, gitImpl);
   if (pending.length === 0) return { processed: 0, responses: [] };
 
-  const activities = await fetchLaneActivities({
-    repository,
-    lane,
-    githubToken,
-    fetchImpl,
-  });
+  const identitySources = await Promise.allSettled([
+    fetchLaneActivities({ repository, lane, githubToken, fetchImpl }),
+    fetchRepositoryPushEvents({ repository, lane, githubToken, fetchImpl }),
+  ]);
+  const activities = identitySources
+    .filter((result) => result.status === 'fulfilled')
+    .flatMap((result) => result.value);
+  if (identitySources.every((result) => result.status === 'rejected')) {
+    const details = identitySources
+      .map((result) => (result.status === 'rejected' ? String(result.reason) : ''))
+      .filter(Boolean)
+      .join('; ');
+    throw new Error(`PREPMEDS_RELAY_GITHUB_IDENTITY_SOURCES: ${details}`);
+  }
 
   const rpc =
     rpcOverride ||
@@ -327,6 +380,7 @@ export async function processRelay({
 
   mkdirSync(join(laneDir, 'responses'), { recursive: true });
   const results = [];
+  const deferredRequests = [];
   for (const item of pending) {
     let responseBody;
     try {
@@ -341,6 +395,17 @@ export async function processRelay({
         rpc,
       });
     } catch (error) {
+      if (
+        error instanceof Error &&
+        error.message.startsWith('PREPMEDS_RELAY_IDENTITY_NOT_FOUND:')
+      ) {
+        deferredRequests.push({
+          request_id: item.requestId,
+          commit: item.commit,
+          reason: error.message,
+        });
+        continue;
+      }
       responseBody = errorResponse(error);
     }
     const responsePath = ensureInside(laneDir, item.responsePath);
@@ -351,7 +416,12 @@ export async function processRelay({
     });
     results.push({ request_id: item.requestId, commit: item.commit, response: responseBody });
   }
-  return { processed: results.length, responses: results };
+  return {
+    processed: results.length,
+    deferred: deferredRequests.length,
+    deferred_requests: deferredRequests,
+    responses: results,
+  };
 }
 
 async function listPendingTests({ ciToken, baseUrl, publishableKey, fetchImpl = fetch }) {

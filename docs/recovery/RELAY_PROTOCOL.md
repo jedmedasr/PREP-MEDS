@@ -74,11 +74,15 @@ A claim result carries the whole brief:
 
 ### Rules the relay must follow
 
-1. Identity is the GitHub login that pushed the commit introducing the request, read from the
-   repository activity API. Never a field of the request. Never the git author.
+1. Identity is the GitHub login that pushed the commit introducing the request, read from
+   GitHub-controlled push metadata. The relay checks the repository activity API first and also
+   accepts the actor on the repository's PushEvent stream for the same branch and commit range.
+   Never use a field of the request and never use the git author/committer as identity.
 2. Lane is the branch name. The database refuses a login that does not own that lane.
 3. A request is pending while its response file does not exist. Pending requests are processed
-   in commit order. A response is always written, including for errors.
+   in commit order. Ordinary errors produce a response. If GitHub has not yet exposed any trusted
+   push identity for a request commit, the relay leaves that request pending instead of writing an
+   immutable identity error; a later scheduled sweep retries it. Ambiguous identities still fail.
 4. A file that is not valid JSON, or is larger than 1 MB, gets an error response and no database
    call.
 5. `git_commit` passed with a submit is the SHA of the request commit.
