@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "op": "submit",
+  "hint": "Fix every deficiency and submit again with a new submission_id. Nothing was stored except sources and passages.",
+  "task_id": 14,
+  "accepted": false,
+  "worker_id": "agent-2",
+  "claim_token": "9641254d-0ca5-44ef-beb0-93b9f8487a5f",
+  "deficiencies": [
+    "UNDECLARED_CONFLICT:day_of_procedure: sources {ADA-2026-HOSPITAL,SBD-SBA-ABESO-2026-PERIOPERATIVE} do not give the same recommendation; add conflicts entries for this scenario that together name every one of them"
+  ],
+  "deficiency_count": 1
+}
