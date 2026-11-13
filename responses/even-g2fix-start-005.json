@@ -1,0 +1,81 @@
+{
+  "ok": true,
+  "op": "start_session",
+  "lane": "even",
+  "worker_id": "agent-2",
+  "session_id": 1,
+  "lane_counts": {
+    "done": 0,
+    "blocked": 0,
+    "claimed": 0,
+    "available": 113,
+    "awaiting_ci": 0,
+    "available_but_waiting_for_component": 12
+  },
+  "target_ready_groups": 10,
+  "next": {
+    "ok": true,
+    "op": "claim",
+    "task": {
+      "detail": null,
+      "reason": "initial",
+      "attempt": 1,
+      "task_id": 12,
+      "claim_token": "2cea608e-13be-439d-8c0d-894212965327",
+      "saved_progress": null,
+      "last_error_code": null,
+      "lease_expires_at": "2026-11-13T22:39:27.424297+00:00",
+      "saved_progress_at": null
+    },
+    "group": {
+      "kind": "single",
+      "lane": "even",
+      "class": null,
+      "bucket": 2,
+      "domain": "general",
+      "group_id": "ING-heparin",
+      "ingredients": [
+        "ING-heparin"
+      ],
+      "medications": [
+        {
+          "name": "Heparin",
+          "route": null,
+          "brand_names": [],
+          "dosage_form": null,
+          "generic_name": "heparin sodium",
+          "release_type": null,
+          "medication_id": "MED-heparin"
+        }
+      ]
+    },
+    "status": "CLAIMED",
+    "scenarios": [
+      {
+        "label": "After the procedure",
+        "required": true,
+        "description": "When and how to resume.",
+        "scenario_key": "after_procedure"
+      },
+      {
+        "label": "Before the procedure",
+        "required": true,
+        "description": "Holding, continuing or adjusting in the days before the procedure, including the bowel-preparation day.",
+        "scenario_key": "before_procedure"
+      },
+      {
+        "label": "Day of the procedure",
+        "required": true,
+        "description": "What to do on the morning or day of the procedure, including fasting and sedation considerations.",
+        "scenario_key": "day_of_procedure"
+      }
+    ],
+    "worker_id": "agent-2",
+    "components": [],
+    "known_passages": [],
+    "required_sources": [],
+    "comparators_pinned": false,
+    "based_on_revision_no": 0,
+    "package_schema_version": 1
+  }
+}

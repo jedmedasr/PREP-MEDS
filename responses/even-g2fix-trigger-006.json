@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "op": "start_session",
+  "lane": "even",
+  "worker_id": "agent-2",
+  "session_id": 2,
+  "lane_counts": {
+    "done": 0,
+    "blocked": 0,
+    "claimed": 1,
+    "available": 112,
+    "awaiting_ci": 0,
+    "available_but_waiting_for_component": 12
+  },
+  "target_ready_groups": 10
+}
