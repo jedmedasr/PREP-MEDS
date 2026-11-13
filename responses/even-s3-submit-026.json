@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "op": "submit",
+  "hint": "Fix every deficiency and submit again with a new submission_id. Nothing was stored except sources and passages.",
+  "task_id": 15,
+  "accepted": false,
+  "worker_id": "agent-2",
+  "claim_token": "cec6661a-aa6c-45a8-bec3-2dd6af79cf00",
+  "deficiencies": [
+    "UNDECLARED_CONFLICT:day_of_procedure: sources {ADA-2026-HOSPITAL,ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA} do not give the same recommendation; add conflicts entries for this scenario that together name every one of them"
+  ],
+  "deficiency_count": 1
+}
