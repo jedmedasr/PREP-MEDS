@@ -1,0 +1,242 @@
+{
+  "request_id": "even-s3-submit-018",
+  "op": "submit",
+  "session_id": 3,
+  "task_id": 234,
+  "claim_token": "236719f2-5d89-40b9-a66e-cd76550282a2",
+  "submission_id": "ING-insulin-aspart-rapid-r0-1",
+  "package": {
+    "schema_version": 1,
+    "group_id": "ING-insulin-aspart|rapid",
+    "based_on_revision_no": 0,
+    "medication_ids": [
+      "MED-insulin-aspart",
+      "MED-insulin-aspart-fiasp-u100",
+      "MED-insulin-aspart-novolog-u100"
+    ],
+    "formulation": {
+      "decision": "single_unit",
+      "rationale": "All three mapped products are rapid or ultra-rapid insulin aspart products used for prandial or correctional dosing. The compared society guidance addresses rapid-acting insulin/insulin analogues as a class and does not give different fasting instructions for generic aspart, NovoLog U100, or Fiasp U100."
+    },
+    "sources": [
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "kind": "society_guideline",
+        "society": "Endocrine Society",
+        "title": "Management of hyperglycemia in hospitalized patients in non-critical care setting: an Endocrine Society clinical practice guideline",
+        "publication_date": "2012-01-01",
+        "version_label": "J Clin Endocrinol Metab 2012;97(1):16-38",
+        "doi": "10.1210/jc.2011-2098",
+        "url": "https://doi.org/10.1210/jc.2011-2098"
+      },
+      {
+        "source_id": "ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA",
+        "kind": "society_guideline",
+        "society": "Endocrine Society",
+        "title": "Management of Hyperglycemia in Hospitalized Adult Patients in Non-Critical Care Settings: An Endocrine Society Clinical Practice Guideline",
+        "publication_date": "2022-06-12",
+        "version_label": "2022 update",
+        "doi": "10.1210/clinem/dgac278",
+        "url": "https://doi.org/10.1210/clinem/dgac278"
+      }
+    ],
+    "passages": [
+      {
+        "key": "p1",
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "locator": "Recommendations 4.3.1-4.3.4, Remarks",
+        "page": "not exposed in HTML; article pp. 16-38",
+        "deep_link": "https://doi.org/10.1210/jc.2011-2098",
+        "quote": "In patients who are NPO or unable to eat, bolus insulin must be held until nutrition is resumed; however, doses of correction insulin can be continued to treat BG above the desired range."
+      },
+      {
+        "key": "p2",
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "locator": "Recommendation 4.3.3",
+        "page": "not exposed in HTML; article pp. 16-38",
+        "deep_link": "https://doi.org/10.1210/jc.2011-2098",
+        "quote": "We recommend that scheduled sc insulin therapy consist of basal or intermediate-acting insulin given once or twice a day in combination with rapid- or short-acting insulin administered before meals in patients who are eating."
+      },
+      {
+        "key": "p3",
+        "source_id": "ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA",
+        "locator": "Recommendation 10.3",
+        "page": "not exposed in HTML; article pp. 2101-2128",
+        "deep_link": "https://doi.org/10.1210/clinem/dgac278",
+        "quote": "In adults with insulin-treated diabetes prior to admission who are hospitalized for noncritical illness, we recommend continuation of the scheduled insulin regimen modified for nutritional status and severity of illness to maintain glucose targets in the range of 100 to 180 mg/dL (5.6 to 10.0 mmol/L)."
+      },
+      {
+        "key": "p4",
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "locator": "Insulintherapie",
+        "page": "not exposed in HTML; article pp. 256-271",
+        "deep_link": "https://doi.org/10.1007/s00508-022-02121-z",
+        "quote": "Engmaschige Blutglukose-Kontrollen perioperativ sind erforderlich, um allfällige Korrekturen mittels i.v. Glukoseinfusion bzw. subkutaner zusätzlicher Gabe von raschwirksamem Insulin bzw. Insulinanaloga zu gewährleisten."
+      }
+    ],
+    "comparisons": [
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "status": "COMPARED",
+        "checked_locators": "Recommendations 4.3.1-4.3.4 and Remarks; Recommendation 4.3.3",
+        "note": "The guideline explicitly distinguishes nutritional/bolus rapid-acting insulin from correction insulin during NPO status and links rapid-acting insulin to meals when patients are eating."
+      },
+      {
+        "source_id": "ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA",
+        "status": "COMPARED",
+        "checked_locators": "Recommendation 10.3",
+        "note": "The updated Endocrine Society guideline recommends continuing scheduled insulin in insulin-treated adults with modification for nutritional status and severity of illness."
+      },
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "checked_locators": "Insulintherapie",
+        "note": "The Austrian Diabetes Association position statement supports perioperative use of rapid-acting insulin/analogues as correction therapy based on close glucose monitoring."
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "checked_locators": "Supplementary material, Patients prescribed antihyperglycemic agents; Recommendation 2",
+        "note": "The current US colonoscopy consensus states that antihyperglycemic management should be individualized with the prescribing clinician based on colonoscopy timing and is beyond this bowel-preparation document's scope."
+      }
+    ],
+    "recommendations": [
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "passage": "p1",
+        "scenario_key": "before_procedure",
+        "qualifier": "once NPO or unable to eat",
+        "renal": null,
+        "action": "hold",
+        "timing_text": "bolus insulin must be held until nutrition is resumed",
+        "bridging": "not_applicable",
+        "strength": "remark accompanying guideline recommendations",
+        "certainty": "not separately graded for this remark",
+        "applicability": "Rapid/prandial insulin aspart when the patient has entered the fasting/NPO period.",
+        "exceptions": "This instruction applies to bolus/nutritional insulin; the same source explicitly allows correction insulin to continue when needed for hyperglycemia.",
+        "summary": "The Endocrine Society states that bolus insulin must be held while the patient is NPO or unable to eat until nutrition resumes."
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "passage": 8,
+        "scenario_key": "before_procedure",
+        "qualifier": "colonoscopy-specific medication planning",
+        "renal": null,
+        "action": "individualize",
+        "timing_text": "individualized with the assistance of the prescribing clinician based on the timing of the colonoscopy",
+        "bridging": "not_applicable",
+        "strength": "consensus recommendation context",
+        "certainty": "not specified for medication-management statement",
+        "applicability": "Antihyperglycemic medication management during colonoscopy preparation.",
+        "exceptions": "USMSTF explicitly states that drug-specific antihyperglycemic management is beyond the scope of the bowel-preparation document.",
+        "summary": "USMSTF directs antihyperglycemic management around colonoscopy to individualized planning with the prescribing clinician."
+      },
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "passage": "p1",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "routine prandial/bolus dose while fasting",
+        "renal": null,
+        "action": "hold",
+        "timing_text": "bolus insulin must be held until nutrition is resumed",
+        "bridging": "not_applicable",
+        "strength": "remark accompanying guideline recommendations",
+        "certainty": "not separately graded for this remark",
+        "applicability": "Rapid/prandial insulin aspart while the patient remains NPO on the procedure day.",
+        "exceptions": "Do not interpret this as a prohibition on correction insulin; the same passage permits correction insulin for glucose above the desired range.",
+        "summary": "Routine bolus insulin remains held while NPO until nutrition resumes."
+      },
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "passage": "p1",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "correction insulin while NPO",
+        "renal": null,
+        "action": "individualize",
+        "timing_text": "doses of correction insulin can be continued to treat BG above the desired range",
+        "bridging": "not_applicable",
+        "strength": "remark accompanying guideline recommendations",
+        "certainty": "not separately graded for this remark",
+        "applicability": "Correctional rapid-acting insulin during fasting when glucose is above the desired range.",
+        "exceptions": "The passage supports correction insulin, not routine meal bolus dosing while NPO.",
+        "summary": "The Endocrine Society allows correction insulin to continue while NPO for glucose above the desired range."
+      },
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "passage": "p4",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "perioperative correction with rapid-acting insulin",
+        "renal": null,
+        "action": "individualize",
+        "timing_text": "subkutaner zusätzlicher Gabe von raschwirksamem Insulin bzw. Insulinanaloga",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Perioperative correctional use of rapid-acting insulin/analogues based on close blood-glucose monitoring.",
+        "exceptions": "This is correctional therapy tied to monitoring, not a recommendation to administer a routine prandial dose while fasting.",
+        "summary": "The Austrian Diabetes Association supports additional subcutaneous rapid-acting insulin/analogues for perioperative correction based on close glucose monitoring."
+      },
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "passage": "p2",
+        "scenario_key": "after_procedure",
+        "qualifier": "when eating has resumed",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "rapid- or short-acting insulin administered before meals in patients who are eating",
+        "bridging": "not_applicable",
+        "strength": "1",
+        "certainty": "moderate (⊕⊕⊕○)",
+        "applicability": "Rapid/prandial insulin aspart after oral intake has resumed.",
+        "exceptions": "The guideline ties nutritional rapid-acting insulin to eating; patient-specific dose still depends on the established insulin regimen and intake.",
+        "summary": "The Endocrine Society recommends rapid- or short-acting insulin before meals in patients who are eating."
+      },
+      {
+        "source_id": "ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA",
+        "passage": "p3",
+        "scenario_key": "after_procedure",
+        "qualifier": "insulin-treated patient after procedure",
+        "renal": null,
+        "action": "individualize",
+        "timing_text": "continuation of the scheduled insulin regimen modified for nutritional status and severity of illness",
+        "bridging": "not_applicable",
+        "strength": "1",
+        "certainty": "low (⊕⊕○○)",
+        "applicability": "Insulin-treated adult whose post-procedure nutritional status may differ from baseline.",
+        "exceptions": "This is not a fixed dose or fixed restart time; modification depends on nutritional status and illness severity.",
+        "summary": "The 2022 Endocrine Society guideline recommends continuing scheduled insulin with modification for nutritional status and severity of illness."
+      }
+    ],
+    "scenario_coverage": [
+      {
+        "scenario_key": "before_procedure",
+        "status": "ADDRESSED",
+        "reason": "Endocrine Society guidance explicitly holds bolus insulin once NPO, while USMSTF requires individualized colonoscopy-specific antihyperglycemic planning."
+      },
+      {
+        "scenario_key": "day_of_procedure",
+        "status": "ADDRESSED",
+        "reason": "Society guidance distinguishes holding routine bolus insulin while NPO from allowing correctional rapid-acting insulin based on glucose monitoring."
+      },
+      {
+        "scenario_key": "after_procedure",
+        "status": "ADDRESSED",
+        "reason": "Endocrine Society guidance links rapid-acting nutritional insulin to resumed eating and recommends scheduled insulin be modified for nutritional status."
+      }
+    ],
+    "open_questions": [
+      {
+        "text": "The actual rapid-insulin dose depends on diabetes type, basal-insulin coverage, carbohydrate intake, glucose, and the patient's established correction plan; no patient-specific dose is inferred in this package.",
+        "blocking": false
+      },
+      {
+        "text": "USMSTF does not provide a colonoscopy-specific insulin-aspart dose and explicitly directs individualized medication management with the prescribing clinician.",
+        "blocking": false
+      }
+    ],
+    "editorial": {
+      "notes": "Unreviewed evidence package. The key safety distinction is preserved: routine prandial/bolus insulin is held while NPO, whereas correctional rapid-acting insulin may still be used based on glucose monitoring. No brand-specific fasting difference was identified among generic insulin aspart, NovoLog U100, and Fiasp U100."
+    }
+  },
+  "then": "claim"
+}
