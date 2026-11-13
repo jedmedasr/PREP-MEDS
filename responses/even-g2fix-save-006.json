@@ -1,0 +1,4 @@
+{
+  "ok": false,
+  "error": "PREPMEDS_SESSION_NOT_CURRENT: session 1 is not the open session of agent-2; call start_session and use the id it returns"
+}
