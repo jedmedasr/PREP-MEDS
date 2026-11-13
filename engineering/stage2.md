@@ -33,9 +33,9 @@ Every new transition to `complete` is checked against live GitHub. A `task_verif
 - stable unique ID, task ID, exact implementation **PR head SHA**, PR number, result, date/timestamp and summary;
 - exact acceptance strings, empty completion blockers, actual workflow run IDs and artifact/run URLs;
 - `commands`: objects with `command`, `run_id`, exact successful step name in `step`, and `outcome: success`;
-- `implemented_by` and `verified_by`, with an actual approved review on the exact SHA by a non-author/non-contributor.
+- `implemented_by` and `verified_by`. In `independent_human` mode, `verified_by` must map to an approved exact-SHA review by a non-author/non-contributor. In `ci_single_maintainer` mode, technical verification is supplied by exact-head required CI plus immutable evidence; a second human code reviewer is not required.
 
-All configured baseline workflow paths must succeed for that SHA. A task may add workflows but cannot remove baseline requirements. Tests must map to successful steps in the cited runs; a receipt alone is not proof. Artifact references are checked for their run, SHA and expiry. Human review must still evaluate whether the listed acceptance criteria are substantively satisfied: code cannot establish medical correctness or the truth of prose by itself.
+All configured baseline workflow paths must succeed for that SHA. A task may add workflows but cannot remove baseline requirements. Tests must map to successful steps in the cited runs; a receipt alone is not proof. Artifact references are checked for their run, SHA and expiry. Technical CI can establish engineering checks, not medical correctness or product acceptance. Clinical-gated tasks still require authenticated human clinical approval under the separate clinical governance path, and user-facing/product acceptance remains a separate owner decision.
 
 Completion is deliberately two-phase: merge the reviewed implementation PR after successful CI, then submit an evidence/state PR referencing that immutable reviewed head and its runs. This avoids self-referential commit hashes and unmerged completion claims. The state PR goes through the same checks. Do not put fake SHAs, reviewer identities, or workflow IDs in receipts.
 
@@ -75,9 +75,9 @@ Success measures: no unsupported completion accepted by adversarial fixtures, de
 
 ## Adoption and owner actions
 
-SPR-001 reconciliation is independently reviewable in PR #40. Stage 2 must pass full application CI, graph CI, orchestrator tests/live reconciliation, and independent review before merging. Its implementation task remains `needs_review`, not complete by assertion.
+SPR-001 reconciliation is independently reviewable in PR #40. Stage 2 must pass full application CI, graph CI, and orchestrator tests/live reconciliation before merging. When `technical_review_mode` is `independent_human`, an independent code review is also required; when it is `ci_single_maintainer`, exact-head CI is the technical gate. Its implementation task remains `needs_review`, not complete by assertion.
 
-Configure main protections at https://github.com/jedmedasr/PREP-MEDS/settings/branches: PR required, one independent approving review, dismiss stale approvals, successful `quality`, `validate-graph`, `test-orchestrator` and `reconcile-live` checks, no force pushes/deletion or routine bypass. Check actual job names in GitHub before selecting them. The connected GitHub App cannot administer branch protection, and private-repository protection may require an owner plan upgrade. Do not make the repository public as a workaround.
+Configure main protections at https://github.com/jedmedasr/PREP-MEDS/settings/branches: PR required, successful `quality`, `validate-graph`, `test-orchestrator` and `reconcile-live` checks, no force pushes/deletion or routine bypass. Require an approving code review only when the repository has an actually available independent technical reviewer; do not substitute product/clinical acceptance for code review. Check actual job names in GitHub before selecting them. The connected GitHub App cannot administer branch protection, and private-repository protection may require an owner plan upgrade. Do not make the repository public as a workaround.
 
 
 ## Bounded self-improvement loop
@@ -94,3 +94,10 @@ This is deliberately bounded self-improvement:
 - a candidate is not a completed repair. Reviewed implementation, applicable tests, exact-head CI and later non-recurrence evidence are still required.
 
 This keeps the feedback cycle explicit: **observe failure -> persist incident -> derive candidate -> implement under normal graph controls -> verify exact head -> observe recurrence/non-recurrence**. Clinical-content mutation remains governed separately by the safety and clinical-governance controls.
+
+
+## Single-maintainer technical review mode
+
+This repository currently has no independent technical reviewer. In `ci_single_maintainer` mode, engineering completion is therefore gated by deterministic exact-head CI, immutable evidence, merged-PR/SHA binding, required workflow success, command/step verification, and artifact provenance. The owner is not expected to pretend to perform code review.
+
+This does **not** weaken clinical governance. Any task with `clinical_gate: true` still requires authenticated human clinical approval from the configured clinical-reviewer path before it can be treated as complete or active. Product/front-end acceptance by the owner is a separate acceptance layer and should evaluate visible behavior, usability, and intended workflow rather than source code.
