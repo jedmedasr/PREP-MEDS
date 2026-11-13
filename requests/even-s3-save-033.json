@@ -1,0 +1,55 @@
+{
+  "request_id": "even-s3-save-033",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 237,
+  "claim_token": "65b85ee3-80ee-46ad-ae8d-35e474f7413d",
+  "progress": {
+    "sources_read": [
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "status": "COMPARED",
+        "society": "Brazilian Diabetes Society / Brazilian Society of Anesthesiology / Brazilian Association for the Study of Obesity and Metabolic Syndrome",
+        "checked_locators": [
+          "Summary of evidence before Important note 11",
+          "Important note 11"
+        ]
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "status": "COMPARED",
+        "society": "American Diabetes Association",
+        "checked_locators": [
+          "Perioperative Care, insulin therapy adjustments",
+          "Insulin Therapy Recommendations 16.8 and 16.9"
+        ]
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+        "checked_locators": [
+          "Recommendations Before Colonoscopy > Patient Education and Navigation"
+        ]
+      }
+    ],
+    "passages_extracted": [
+      {
+        "key": "p1",
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "locator": "Summary of evidence before Important note 11",
+        "page": "not exposed in HTML",
+        "quote": "For patients using ultra-long-acting basal insulins (e.g. glargine U300, degludec), dose adjustments should begin 48 to 72 h before surgery, due to their prolonged pharmacokinetics profiles."
+      }
+    ],
+    "decisions": {
+      "formulation": "single_unit because this child contains only Toujeo insulin glargine U-300",
+      "conflict": "SBD/SBA/ABESO starts U-300 glargine adjustment 48-72 hours before surgery, while ADA gives a generic long-acting basal analogue reduction on the evening before surgery; preserve the timing conflict",
+      "research_started": true
+    },
+    "remains": [
+      "Submit U-300 package using new SBD timing passage and known ADA passages 18-20.",
+      "Do not infer a numeric SBD U-300 reduction that is not present in the quoted U-300 passage."
+    ]
+  }
+}
