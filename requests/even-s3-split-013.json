@@ -1,0 +1,24 @@
+{
+  "request_id": "even-s3-split-013",
+  "op": "split",
+  "session_id": 3,
+  "task_id": 13,
+  "claim_token": "6e993fe9-4f15-4a48-bdfb-0ec3fa47f3a9",
+  "parts": [
+    {
+      "suffix": "rapid",
+      "medication_ids": [
+        "MED-insulin-aspart",
+        "MED-insulin-aspart-fiasp-u100",
+        "MED-insulin-aspart-novolog-u100"
+      ]
+    },
+    {
+      "suffix": "premix-70-30",
+      "medication_ids": [
+        "MED-insulin-aspart-70-30"
+      ]
+    }
+  ],
+  "rationale": "The mapped group combines rapid-acting insulin aspart products with a 70/30 insulin aspart protamine/insulin aspart premix. Fasting and procedure-day dose management differs by those formulation components, so a single package would erase a clinically meaningful formulation distinction."
+}
