@@ -53,6 +53,23 @@ describe('machine-readable medication validation manifest', () => {
     expect(candidate.medications.every(m => m.reviewStatus === 'NOT_STARTED' && m.lastReviewedDate === null && m.sourceVersions.length === 0)).toBe(true);
     expect(candidate.groups.every(g => g.formulationAdjudication === 'PENDING' && g.clinicalStatus === 'NOT_STARTED')).toBe(true);
   });
+  it('produces the same canonical audit manifest regardless of terminology input ordering', () => {
+    const source = terminologyDataset.medications;
+    const forward = buildMedicationValidationManifest(source);
+    const reverse = buildMedicationValidationManifest([...source].reverse());
+    expect(reverse).toEqual(forward);
+  });
+  it('preserves all combination members and group inheritance under shuffled inputs', () => {
+    const source = terminologyDataset.medications;
+    const rotated = [...source.slice(Math.floor(source.length / 2)), ...source.slice(0, Math.floor(source.length / 2))];
+    const manifest = buildMedicationValidationManifest(rotated);
+    for (const medication of manifest.medications) {
+      const group = manifest.groups.find(g => g.ingredientSetKey === medication.ingredientSetKey);
+      expect(group?.medicationIds).toContain(medication.medicationId);
+      expect(group?.ingredientIds).toEqual(medication.ingredientIds);
+      expect(medication.reviewStatus).toBe('NOT_STARTED');
+    }
+  });
   it('exports a deterministic, version-controlled audit snapshot only on explicit request', () => {
     if (process.env.EXPORT_MEDICATION_AUDIT !== '1') return;
     const output = resolve(process.cwd(), '../../docs/medication-audit-manifest.json');

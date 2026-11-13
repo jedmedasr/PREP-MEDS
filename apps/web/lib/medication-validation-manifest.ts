@@ -60,6 +60,8 @@ export function buildMedicationValidationManifest(sourceMedications: typeof term
     });
   }
   const groups = [...grouped.values()].sort((a, b) => a.ingredientSetKey.localeCompare(b.ingredientSetKey));
+  // Canonicalize member order independently of source dataset iteration order.
+  for (const group of groups) group.medicationIds.sort((a, b) => a.localeCompare(b));
   // Each canonical ID must belong to exactly one provisional group; mapping is not clinical validation.
   const groupMembers = groups.flatMap(group => group.medicationIds);
   if (groupMembers.length !== medications.length || new Set(groupMembers).size !== medications.length ||
