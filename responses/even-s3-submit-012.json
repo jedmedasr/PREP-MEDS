@@ -1,0 +1,136 @@
+{
+  "ok": true,
+  "op": "submit",
+  "next": {
+    "ok": true,
+    "op": "claim",
+    "task": {
+      "detail": null,
+      "reason": "initial",
+      "attempt": 1,
+      "task_id": 13,
+      "claim_token": "6e993fe9-4f15-4a48-bdfb-0ec3fa47f3a9",
+      "saved_progress": null,
+      "last_error_code": null,
+      "lease_expires_at": "2026-11-13T23:07:26.508691+00:00",
+      "saved_progress_at": null
+    },
+    "group": {
+      "kind": "single",
+      "lane": "even",
+      "class": null,
+      "bucket": 2,
+      "domain": "general",
+      "group_id": "ING-insulin-aspart",
+      "ingredients": [
+        "ING-insulin-aspart"
+      ],
+      "medications": [
+        {
+          "name": "Insulin aspart (product/concentration unspecified)",
+          "route": null,
+          "brand_names": [],
+          "dosage_form": null,
+          "generic_name": "insulin aspart",
+          "release_type": null,
+          "medication_id": "MED-insulin-aspart"
+        },
+        {
+          "name": "Insulin aspart mix 70/30 U-100",
+          "route": null,
+          "brand_names": [
+            "NovoLog Mix 70/30"
+          ],
+          "dosage_form": null,
+          "generic_name": "insulin aspart protamine and insulin aspart",
+          "release_type": null,
+          "medication_id": "MED-insulin-aspart-70-30"
+        },
+        {
+          "name": "Fiasp U-100 (insulin aspart)",
+          "route": null,
+          "brand_names": [
+            "Fiasp"
+          ],
+          "dosage_form": null,
+          "generic_name": "insulin aspart U-100",
+          "release_type": null,
+          "medication_id": "MED-insulin-aspart-fiasp-u100"
+        },
+        {
+          "name": "NovoLog U-100 (insulin aspart)",
+          "route": null,
+          "brand_names": [
+            "NovoLog"
+          ],
+          "dosage_form": null,
+          "generic_name": "insulin aspart U-100",
+          "release_type": null,
+          "medication_id": "MED-insulin-aspart-novolog-u100"
+        }
+      ]
+    },
+    "status": "CLAIMED",
+    "scenarios": [
+      {
+        "label": "After the procedure",
+        "required": true,
+        "description": "When and how to resume.",
+        "scenario_key": "after_procedure"
+      },
+      {
+        "label": "Before the procedure",
+        "required": true,
+        "description": "Holding, continuing or adjusting in the days before the procedure, including the bowel-preparation day.",
+        "scenario_key": "before_procedure"
+      },
+      {
+        "label": "Day of the procedure",
+        "required": true,
+        "description": "What to do on the morning or day of the procedure, including fasting and sedation considerations.",
+        "scenario_key": "day_of_procedure"
+      }
+    ],
+    "worker_id": "agent-2",
+    "components": [],
+    "known_passages": [
+      {
+        "locator": "Table 2, row UFH",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 1,
+        "quote_start": "UFH | IV 2-6 hours / SQ 12-24 hours | Hold | Protamine sulfate (partial)"
+      },
+      {
+        "locator": "Parenteral and subcutaneously administered anticoagulants",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 2,
+        "quote_start": "UFH administered intravenously has a half-life of 60 to 90 minutes, and anticoagulant effects dissipate 3 to 4 hours after discontinuation."
+      },
+      {
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 3,
+        "quote_start": "There is consensus that antithrombotic therapy should be resumed upon completion of the procedure."
+      },
+      {
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 4,
+        "quote_start": "UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+      }
+    ],
+    "required_sources": [],
+    "comparators_pinned": false,
+    "based_on_revision_no": 0,
+    "package_schema_version": 1
+  },
+  "accepted": true,
+  "worker_id": "agent-2",
+  "revision_id": 1,
+  "revision_no": 1,
+  "content_sha256": "4367ab258ff25d87a90b592396e0715a482e5acc76e8a9b01a90bae473e9b26a"
+}
