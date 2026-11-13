@@ -1,0 +1,46 @@
+{
+  "request_id": "even-s3-save-037",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 17,
+  "claim_token": "40caee65-c335-4ce8-ba68-d7b5fc4f3baa",
+  "progress": {
+    "sources_read": [
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "status": "COMPARED",
+        "society": "Endocrine Society",
+        "checked_locators": [
+          "Recommendations 4.3.1-4.3.4, Remarks",
+          "Recommendation 4.3.3"
+        ]
+      },
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "society": "Austrian Diabetes Association",
+        "checked_locators": [
+          "Insulintherapie"
+        ]
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+        "checked_locators": [
+          "Recommendations Before Colonoscopy > Patient Education and Navigation"
+        ]
+      }
+    ],
+    "decisions": {
+      "formulation": "single_unit across concentration-unspecified insulin glulisine and Apidra U-100 because the compared society guidance treats rapid-acting insulin analogues as a class and does not distinguish Apidra U-100 for fasting management",
+      "fasting_distinction": "routine bolus/prandial insulin is held while NPO, while correctional rapid-acting insulin may still be used based on glucose monitoring",
+      "passages": "reuse known passage IDs 9, 10, and 12 rather than extracting duplicates",
+      "research_started": true
+    },
+    "remains": [
+      "Submit package with before/day bolus-hold versus correction distinction.",
+      "Declare the day-of source distinction between Endocrine Society and Austrian Diabetes Association explicitly."
+    ]
+  }
+}
