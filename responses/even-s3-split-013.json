@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "op": "split",
+  "note": "The children stay in the same bucket and lane. Call claim_next to continue.",
+  "retired": "ING-insulin-aspart",
+  "children": [
+    "ING-insulin-aspart|rapid",
+    "ING-insulin-aspart|premix-70-30"
+  ],
+  "worker_id": "agent-2"
+}
