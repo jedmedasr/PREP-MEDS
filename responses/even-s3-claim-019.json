@@ -1,0 +1,254 @@
+{
+  "ok": true,
+  "op": "claim",
+  "task": {
+    "detail": {
+      "split_from": "ING-insulin-aspart"
+    },
+    "reason": "initial",
+    "attempt": 1,
+    "task_id": 234,
+    "claim_token": "236719f2-5d89-40b9-a66e-cd76550282a2",
+    "saved_progress": {
+      "remains": [
+        "Submit schema_version 1 package preserving prandial-hold versus correction-insulin distinction.",
+        "Use known USMSTF passage_id 8 rather than duplicating it."
+      ],
+      "decisions": {
+        "formulation": "single_unit across generic insulin aspart, NovoLog U100, and Fiasp U100 because the compared perioperative guidance treats them as rapid/prandial insulin analogs and provides no brand-specific fasting instruction",
+        "research_started": true,
+        "colonoscopy_context": "USMSTF passage_id 8 explicitly leaves antihyperglycemic management individualized with the prescribing clinician",
+        "fasting_distinction": "routine prandial insulin is stopped when fasting begins, but rapid-acting insulin may still be used as correctional therapy based on glucose monitoring"
+      },
+      "sources_read": [
+        {
+          "doi": "10.1210/jc.2011-2098",
+          "title": "Management of hyperglycemia in hospitalized patients in non-critical care setting: an Endocrine Society clinical practice guideline",
+          "status": "COMPARED",
+          "society": "Endocrine Society",
+          "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+          "checked_locators": [
+            "4.3 Pharmacological therapy",
+            "5.3 Perioperative BG control",
+            "4.4 Transition from hospital to home"
+          ]
+        },
+        {
+          "doi": "10.1007/s00508-022-02121-z",
+          "title": "Position statement: surgery and diabetes mellitus (Update 2023)",
+          "status": "COMPARED",
+          "society": "Austrian Diabetes Association",
+          "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+          "checked_locators": [
+            "Insulintherapie"
+          ]
+        },
+        {
+          "doi": "10.1097/ALN.0000000000001515",
+          "title": "Perioperative Hyperglycemia Management: An Update",
+          "status": "COMPARED",
+          "society": "",
+          "source_id": "DUGGAN-2017-PERIOPERATIVE-HYPERGLYCEMIA",
+          "checked_locators": [
+            "Preoperative management of insulin therapy",
+            "Day before surgery insulin regimens based on oral intake status",
+            "Day of surgery insulin regimens",
+            "Postoperative management"
+          ]
+        },
+        {
+          "status": "NOT_SPECIFIED",
+          "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+          "source_id": "USMSTF-2025-BOWEL-PREP",
+          "checked_locators": [
+            "Supplementary material, Patients prescribed antihyperglycemic agents",
+            "Recommendation 2"
+          ]
+        }
+      ],
+      "passages_extracted": [
+        {
+          "key": "p1",
+          "page": "not exposed in HTML; article pp. 16-38",
+          "quote": "We recommend that scheduled sc insulin therapy consist of basal or intermediate-acting insulin given once or twice a day in combination with rapid- or short-acting insulin administered before meals in patients who are eating.",
+          "locator": "Recommendation 4.3.3",
+          "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA"
+        },
+        {
+          "key": "p2",
+          "page": "not exposed in HTML; article pp. 16-38",
+          "quote": "When instituting sc insulin therapy in the postsurgical setting, we recommend that basal (for patients who are NPO) or basal bolus (for patients who are eating) insulin therapy be instituted as the preferred approach.",
+          "locator": "Recommendation 5.3.3",
+          "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA"
+        },
+        {
+          "key": "p3",
+          "page": "not exposed in HTML; article pp. 256-271",
+          "quote": "Korrekturen der Blutglukosewertewerte erfolgen in Abhängigkeit von engmaschig durchgeführten Kontrollen mittels Glukoseinfusion oder kurzwirksamen Insulins",
+          "locator": "Insulintherapie",
+          "source_id": "ODG-2023-PERIOPERATIVE-DIABETES"
+        },
+        {
+          "key": "p4",
+          "page": "not exposed in HTML; article pp. 256-271",
+          "quote": "Engmaschige Blutglukose-Kontrollen perioperativ sind erforderlich, um allfällige Korrekturen mittels i.v. Glukoseinfusion bzw. subkutaner zusätzlicher Gabe von raschwirksamem Insulin bzw. Insulinanaloga zu gewährleisten.",
+          "locator": "Insulintherapie",
+          "source_id": "ODG-2023-PERIOPERATIVE-DIABETES"
+        },
+        {
+          "key": "p5",
+          "page": "not exposed in HTML; article pp. 547-560",
+          "quote": "Prandial insulin is stopped when the fasting state begins.",
+          "locator": "Preoperative management of insulin therapy",
+          "source_id": "DUGGAN-2017-PERIOPERATIVE-HYPERGLYCEMIA"
+        },
+        {
+          "key": "p6",
+          "page": "not exposed in HTML; article pp. 547-560",
+          "quote": "For same-day surgery, the patient may resume their home medication regimen when he/she leaves the hospital.",
+          "locator": "Postoperative management",
+          "source_id": "DUGGAN-2017-PERIOPERATIVE-HYPERGLYCEMIA"
+        }
+      ]
+    },
+    "last_error_code": "SUBMISSION_REJECTED",
+    "lease_expires_at": "2026-11-13T23:18:43.183799+00:00",
+    "saved_progress_at": "2026-11-13T21:46:48.882321+00:00"
+  },
+  "group": {
+    "kind": "single",
+    "lane": "even",
+    "class": null,
+    "bucket": 2,
+    "domain": "general",
+    "group_id": "ING-insulin-aspart|rapid",
+    "ingredients": [
+      "ING-insulin-aspart"
+    ],
+    "medications": [
+      {
+        "name": "Insulin aspart (product/concentration unspecified)",
+        "route": null,
+        "brand_names": [],
+        "dosage_form": null,
+        "generic_name": "insulin aspart",
+        "release_type": null,
+        "medication_id": "MED-insulin-aspart"
+      },
+      {
+        "name": "Fiasp U-100 (insulin aspart)",
+        "route": null,
+        "brand_names": [
+          "Fiasp"
+        ],
+        "dosage_form": null,
+        "generic_name": "insulin aspart U-100",
+        "release_type": null,
+        "medication_id": "MED-insulin-aspart-fiasp-u100"
+      },
+      {
+        "name": "NovoLog U-100 (insulin aspart)",
+        "route": null,
+        "brand_names": [
+          "NovoLog"
+        ],
+        "dosage_form": null,
+        "generic_name": "insulin aspart U-100",
+        "release_type": null,
+        "medication_id": "MED-insulin-aspart-novolog-u100"
+      }
+    ]
+  },
+  "status": "RESUMED",
+  "scenarios": [
+    {
+      "label": "After the procedure",
+      "required": true,
+      "description": "When and how to resume.",
+      "scenario_key": "after_procedure"
+    },
+    {
+      "label": "Before the procedure",
+      "required": true,
+      "description": "Holding, continuing or adjusting in the days before the procedure, including the bowel-preparation day.",
+      "scenario_key": "before_procedure"
+    },
+    {
+      "label": "Day of the procedure",
+      "required": true,
+      "description": "What to do on the morning or day of the procedure, including fasting and sedation considerations.",
+      "scenario_key": "day_of_procedure"
+    }
+  ],
+  "worker_id": "agent-2",
+  "components": [],
+  "known_passages": [
+    {
+      "locator": "Table 2, row UFH",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 1,
+      "quote_start": "UFH | IV 2-6 hours / SQ 12-24 hours | Hold | Protamine sulfate (partial)"
+    },
+    {
+      "locator": "Parenteral and subcutaneously administered anticoagulants",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 2,
+      "quote_start": "UFH administered intravenously has a half-life of 60 to 90 minutes, and anticoagulant effects dissipate 3 to 4 hours after discontinuation."
+    },
+    {
+      "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 3,
+      "quote_start": "There is consensus that antithrombotic therapy should be resumed upon completion of the procedure."
+    },
+    {
+      "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 4,
+      "quote_start": "UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+    },
+    {
+      "locator": "Insulintherapie",
+      "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+      "last_check": null,
+      "passage_id": 5,
+      "quote_start": "Patient:innen unter konventioneller Insulintherapie mit einem Mischinsulin sollen bei Routineoperationen auf ein langwirksames Insulin (1 od"
+    },
+    {
+      "locator": "Insulintherapie",
+      "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+      "last_check": null,
+      "passage_id": 12,
+      "quote_start": "Engmaschige Blutglukose-Kontrollen perioperativ sind erforderlich, um allfällige Korrekturen mittels i.v. Glukoseinfusion bzw. subkutaner zu"
+    },
+    {
+      "locator": "Management of insulin",
+      "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+      "last_check": null,
+      "passage_id": 6,
+      "quote_start": "It is not necessary to change the dose on the day before surgery. However, on the day of surgery, they should be replaced by those of interm"
+    },
+    {
+      "locator": "Management of insulin",
+      "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+      "last_check": null,
+      "passage_id": 7,
+      "quote_start": "As for the intermediate-acting component, it is recommended to proportionally reduce the morning dose by 25–50%."
+    },
+    {
+      "locator": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+      "source_id": "USMSTF-2025-BOWEL-PREP",
+      "last_check": null,
+      "passage_id": 8,
+      "quote_start": "The management of anti-hyperglycemic and anti-hypertensive agents should be individualized with the assistance of the prescribing clinician "
+    }
+  ],
+  "required_sources": [],
+  "comparators_pinned": false,
+  "based_on_revision_no": 0,
+  "package_schema_version": 1
+}
