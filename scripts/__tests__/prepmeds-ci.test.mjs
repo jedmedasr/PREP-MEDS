@@ -292,6 +292,52 @@ test('repository PushEvent fallback resolves identity when repository activity h
   assert.equal(result.responses[0].response.status, 'CLAIMED');
 });
 
+test('relay-poke workflow run actor resolves identity before activity APIs index the push', async () => {
+  const dir = makeRepo();
+  const commit = addRequest(
+    dir,
+    'even-actions-001',
+    JSON.stringify({ request_id: 'even-actions-001', op: 'claim', session_id: 12 }),
+  );
+  const calls = [];
+  const result = await processRelay({
+    lane: 'even',
+    laneDir: dir,
+    repository: 'owner/repo',
+    githubToken: 'github-token',
+    ciToken: 'ci-token',
+    baseUrl: 'https://example.invalid',
+    publishableKey: 'publishable',
+    fetchImpl: async (url) => {
+      const value = String(url);
+      if (value.includes('/activity')) return activityResponse([]);
+      if (value.includes('/events')) return activityResponse([]);
+      if (value.includes('/actions/runs')) {
+        return new Response(JSON.stringify({
+          workflow_runs: [{
+            event: 'push',
+            head_branch: 'lane/even',
+            head_sha: commit,
+            path: '.github/workflows/relay-poke.yml',
+            actor: { login: 'api-writer' },
+          }],
+        }), { status: 200, headers: { 'content-type': 'application/json' } });
+      }
+      throw new Error(`unexpected URL: ${url}`);
+    },
+    rpcOverride: async (name, body) => {
+      calls.push({ name, body });
+      return { ok: true, status: 'CLAIMED', task: { task_id: 89 } };
+    },
+  });
+
+  assert.equal(result.processed, 1);
+  assert.equal(result.deferred, 0);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].body.p_github_login, 'api-writer');
+  assert.equal(result.responses[0].response.status, 'CLAIMED');
+});
+
 test('missing GitHub identity is deferred instead of writing an immutable failure response', async () => {
   const dir = makeRepo();
   const commit = addRequest(

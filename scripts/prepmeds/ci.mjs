@@ -226,6 +226,58 @@ export async function fetchRepositoryPushEvents({
   return activities;
 }
 
+export async function fetchRelayWorkflowActors({
+  repository,
+  lane,
+  githubToken,
+  fetchImpl = fetch,
+}) {
+  if (!repository || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repository)) {
+    throw new Error('PREPMEDS_RELAY_CONFIG: GITHUB_REPOSITORY must be owner/repo');
+  }
+  validateLane(lane);
+  const branch = `lane/${lane}`;
+  let url =
+    `https://api.github.com/repos/${repository}/actions/runs` +
+    `?branch=${encodeURIComponent(branch)}&event=push&per_page=100`;
+  const activities = [];
+  for (let page = 0; url && page < 10; page += 1) {
+    const response = await fetchImpl(url, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        ...(githubToken ? { Authorization: `Bearer ${githubToken}` } : {}),
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`PREPMEDS_RELAY_GITHUB_ACTIONS: HTTP ${response.status}`);
+    }
+    const body = await response.json();
+    if (!body || !Array.isArray(body.workflow_runs)) {
+      throw new Error('PREPMEDS_RELAY_GITHUB_ACTIONS: response missing workflow_runs');
+    }
+    for (const run of body.workflow_runs) {
+      if (
+        run?.event !== 'push' ||
+        run?.head_branch !== branch ||
+        run?.path !== '.github/workflows/relay-poke.yml'
+      ) continue;
+      const after = run.head_sha;
+      const login = run.actor?.login;
+      if (typeof after !== 'string' || typeof login !== 'string') continue;
+      activities.push({
+        before: after,
+        after,
+        ref: `refs/heads/${branch}`,
+        push_type: 'normal',
+        pusher: { login },
+      });
+    }
+    url = nextLink(response.headers.get('link'));
+  }
+  return activities;
+}
+
 export async function dataApiRpc({
   baseUrl,
   publishableKey,
@@ -355,6 +407,7 @@ export async function processRelay({
   const identitySources = await Promise.allSettled([
     fetchLaneActivities({ repository, lane, githubToken, fetchImpl }),
     fetchRepositoryPushEvents({ repository, lane, githubToken, fetchImpl }),
+    fetchRelayWorkflowActors({ repository, lane, githubToken, fetchImpl }),
   ]);
   const activities = identitySources
     .filter((result) => result.status === 'fulfilled')

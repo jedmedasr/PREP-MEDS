@@ -75,9 +75,11 @@ A claim result carries the whole brief:
 ### Rules the relay must follow
 
 1. Identity is the GitHub login that pushed the commit introducing the request, read from
-   GitHub-controlled push metadata. The relay checks the repository activity API first and also
-   accepts the actor on the repository's PushEvent stream for the same branch and commit range.
-   Never use a field of the request and never use the git author/committer as identity.
+   GitHub-controlled push metadata. The relay checks repository activity, the repository
+   PushEvent stream, and the actor of the branch-local relay-poke workflow run tied to the exact
+   request commit. These are independent GitHub-controlled metadata paths; disagreement is
+   rejected as ambiguous. Never use a field of the request and never use the git author/committer
+   as identity.
 2. Lane is the branch name. The database refuses a login that does not own that lane.
 3. A request is pending while its response file does not exist. Pending requests are processed
    in commit order. Ordinary errors produce a response. If GitHub has not yet exposed any trusted
