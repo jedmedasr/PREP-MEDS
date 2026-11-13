@@ -1,0 +1,28 @@
+{
+  "request_id": "even-s3-split-039",
+  "op": "split",
+  "session_id": 3,
+  "task_id": 18,
+  "claim_token": "5adf3061-09dc-452f-83db-1e2fe3fd12a8",
+  "parts": [
+    {
+      "suffix": "rapid",
+      "medication_ids": [
+        "MED-insulin-lispro",
+        "MED-insulin-lispro-admelog-u100",
+        "MED-insulin-lispro-humalog-u100",
+        "MED-insulin-lispro-humalog-u200",
+        "MED-insulin-lispro-lyumjev-u100",
+        "MED-insulin-lispro-lyumjev-u200"
+      ]
+    },
+    {
+      "suffix": "premix",
+      "medication_ids": [
+        "MED-insulin-lispro-50-50",
+        "MED-insulin-lispro-75-25"
+      ]
+    }
+  ],
+  "rationale": "The mapped group combines rapid insulin lispro products with fixed insulin lispro protamine/insulin lispro premixes (50/50 and 75/25). Fasting and procedure-day management differs between rapid prandial insulin and premixed insulin, so a single evidence package would erase a clinically meaningful formulation distinction."
+}
