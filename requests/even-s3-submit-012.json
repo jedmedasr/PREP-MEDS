@@ -1,0 +1,202 @@
+{
+  "request_id": "even-s3-submit-012",
+  "op": "submit",
+  "session_id": 3,
+  "task_id": 12,
+  "claim_token": "5ffa69a6-bf0d-484e-84af-0d6c526c4575",
+  "submission_id": "ING-heparin-r0-1",
+  "package": {
+    "schema_version": 1,
+    "group_id": "ING-heparin",
+    "based_on_revision_no": 0,
+    "medication_ids": [
+      "MED-heparin"
+    ],
+    "formulation": {
+      "decision": "single_unit",
+      "rationale": "The group contains one canonical heparin product. ASGE distinguishes intravenous from subcutaneous UFH timing, so those distinctions are preserved as recommendation qualifiers rather than collapsed."
+    },
+    "sources": [
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "kind": "society_guideline",
+        "society": "American Society for Gastrointestinal Endoscopy",
+        "title": "The management of antithrombotic agents for patients undergoing GI endoscopy",
+        "publication_date": "2015-11-24",
+        "version_label": "Epub 2015-11-24; print Gastrointest Endosc 2016;83(1):3-16",
+        "doi": "10.1016/j.gie.2015.09.035",
+        "url": "https://doi.org/10.1016/j.gie.2015.09.035"
+      }
+    ],
+    "passages": [
+      {
+        "key": "p1",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "locator": "Table 2, row UFH",
+        "page": "4",
+        "deep_link": "https://doi.org/10.1016/j.gie.2015.09.035",
+        "quote": "UFH | IV 2-6 hours / SQ 12-24 hours | Hold | Protamine sulfate (partial)"
+      },
+      {
+        "key": "p2",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "locator": "Parenteral and subcutaneously administered anticoagulants",
+        "page": "8",
+        "deep_link": "https://doi.org/10.1016/j.gie.2015.09.035",
+        "quote": "UFH administered intravenously has a half-life of 60 to 90 minutes, and anticoagulant effects dissipate 3 to 4 hours after discontinuation."
+      },
+      {
+        "key": "p3",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "page": "not exposed in ASGE HTML",
+        "deep_link": "https://doi.org/10.1016/j.gie.2015.09.035",
+        "quote": "There is consensus that antithrombotic therapy should be resumed upon completion of the procedure."
+      },
+      {
+        "key": "p4",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "page": "not exposed in ASGE HTML",
+        "deep_link": "https://doi.org/10.1016/j.gie.2015.09.035",
+        "quote": "UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+      }
+    ],
+    "comparisons": [
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "status": "COMPARED",
+        "checked_locators": "Table 2; Parenteral and subcutaneously administered anticoagulants; Reinitiation of antithrombotic agents after elective endoscopy",
+        "note": "ASGE explicitly addresses elective UFH holding, preserves different IV and SQ durations of action, and provides a UFH restart interval after therapeutic procedures."
+      }
+    ],
+    "recommendations": [
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "passage": "p1",
+        "scenario_key": "before_procedure",
+        "qualifier": "intravenous unfractionated heparin",
+        "renal": null,
+        "action": "hold",
+        "timing_text": "IV 2-6 hours; Hold",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Elective GI endoscopy in a patient receiving intravenous UFH.",
+        "exceptions": "Table 2 labels 2-6 hours as duration of action; this package does not reinterpret that number as a separately stated mandatory interruption interval.",
+        "summary": "ASGE Table 2 says to hold elective intravenous UFH and lists an IV duration of action of 2-6 hours."
+      },
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "passage": "p1",
+        "scenario_key": "before_procedure",
+        "qualifier": "subcutaneous unfractionated heparin",
+        "renal": null,
+        "action": "hold",
+        "timing_text": "SQ 12-24 hours; Hold",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Elective GI endoscopy in a patient receiving subcutaneous UFH.",
+        "exceptions": "Table 2 labels 12-24 hours as duration of action; this package does not reinterpret that number as a separately stated mandatory interruption interval.",
+        "summary": "ASGE Table 2 says to hold elective subcutaneous UFH and lists an SQ duration of action of 12-24 hours."
+      },
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "passage": "p1",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "intravenous unfractionated heparin",
+        "renal": null,
+        "action": "hold",
+        "timing_text": "IV 2-6 hours; Hold",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Day of elective GI endoscopy when the patient is receiving intravenous UFH.",
+        "exceptions": "Route must be known because ASGE lists different IV and SQ durations.",
+        "summary": "ASGE identifies elective intravenous UFH as a drug to hold and lists an IV duration of action of 2-6 hours."
+      },
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "passage": "p1",
+        "scenario_key": "day_of_procedure",
+        "qualifier": "subcutaneous unfractionated heparin",
+        "renal": null,
+        "action": "hold",
+        "timing_text": "SQ 12-24 hours; Hold",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "Day of elective GI endoscopy when the patient is receiving subcutaneous UFH.",
+        "exceptions": "Route must be known because ASGE lists different IV and SQ durations.",
+        "summary": "ASGE identifies elective subcutaneous UFH as a drug to hold and lists an SQ duration of action of 12-24 hours."
+      },
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "passage": "p3",
+        "scenario_key": "after_procedure",
+        "qualifier": "general post-endoscopy antithrombotic resumption",
+        "renal": null,
+        "action": "individualize",
+        "timing_text": "resumed upon completion of the procedure",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "General ASGE statement for resumption of antithrombotic therapy after elective endoscopy.",
+        "exceptions": "Immediate reinitiation must be balanced against agent- and procedure-specific hemorrhage risk; ASGE separately specifies UFH after therapeutic procedures.",
+        "summary": "ASGE states that antithrombotic therapy should be resumed upon completion of the procedure."
+      },
+      {
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "passage": "p4",
+        "scenario_key": "after_procedure",
+        "qualifier": "after a therapeutic procedure",
+        "renal": null,
+        "action": "individualize",
+        "resume": {
+          "min": 2,
+          "max": 6,
+          "unit": "hours"
+        },
+        "resume_text": "UFH may be restarted 2 to 6 hours after a therapeutic procedure.",
+        "bridging": "not_applicable",
+        "strength": "not stated",
+        "certainty": "not stated",
+        "applicability": "UFH after a therapeutic GI endoscopic procedure.",
+        "exceptions": "The statement is specific to therapeutic procedures and uses 'may be restarted'; adequate hemostasis and procedure-specific bleeding risk remain relevant.",
+        "summary": "ASGE says UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+      }
+    ],
+    "scenario_coverage": [
+      {
+        "scenario_key": "before_procedure",
+        "status": "ADDRESSED",
+        "reason": "ASGE Table 2 addresses elective UFH holding with separate IV and SQ durations."
+      },
+      {
+        "scenario_key": "day_of_procedure",
+        "status": "ADDRESSED",
+        "reason": "ASGE Table 2 identifies elective UFH as Hold, with route-specific duration-of-action information."
+      },
+      {
+        "scenario_key": "after_procedure",
+        "status": "ADDRESSED",
+        "reason": "ASGE provides a general resumption statement and a UFH-specific 2-6 hour restart statement after therapeutic procedures."
+      }
+    ],
+    "open_questions": [
+      {
+        "text": "The canonical MED-heparin record does not specify route, while ASGE distinguishes IV from SQ UFH. The clinician should apply the qualifier matching the actual product/route.",
+        "blocking": false
+      },
+      {
+        "text": "The ASGE HTML exposes the exact restart-section quotes but not their print page number; the package therefore records the section locator and flags the page field rather than guessing a page.",
+        "blocking": false
+      }
+    ],
+    "editorial": {
+      "notes": "Unreviewed evidence package. Route-specific distinctions are intentionally preserved; Table 2 duration-of-action values are not presented as if ASGE explicitly labeled them mandatory hold intervals."
+    }
+  },
+  "then": "claim"
+}
