@@ -6,6 +6,7 @@ Stage 2 is executable Node.js 22 tooling, not a continuously running AI service.
 
 ```sh
 pnpm graph status
+pnpm graph improve
 pnpm graph next --offline
 pnpm graph verify
 GH_TOKEN=... pnpm graph reconcile
@@ -77,3 +78,19 @@ Success measures: no unsupported completion accepted by adversarial fixtures, de
 SPR-001 reconciliation is independently reviewable in PR #40. Stage 2 must pass full application CI, graph CI, orchestrator tests/live reconciliation, and independent review before merging. Its implementation task remains `needs_review`, not complete by assertion.
 
 Configure main protections at https://github.com/jedmedasr/PREP-MEDS/settings/branches: PR required, one independent approving review, dismiss stale approvals, successful `quality`, `validate-graph`, `test-orchestrator` and `reconcile-live` checks, no force pushes/deletion or routine bypass. Check actual job names in GitHub before selecting them. The connected GitHub App cannot administer branch protection, and private-repository protection may require an owner plan upgrade. Do not make the repository public as a workaround.
+
+
+## Bounded self-improvement loop
+
+Graph engineering now includes a deterministic learning pass over durable incident records in `engineering/incidents/*.json`. The loop groups stable failure codes, counts recurrence and unrecovered observations, and emits deterministic `engineering_reliability` improvement candidates with regression-test and exact-head verification criteria.
+
+This is deliberately bounded self-improvement:
+
+- it may propose engineering reliability work from observed operational failures;
+- it does not edit the task graph, ledger, code, clinical evidence, medication rules, approvals or deployment state by itself;
+- malformed incident evidence blocks the learning report instead of being silently discarded;
+- candidate IDs are content-derived and stable, so repeated runs do not create duplicate pseudo-work;
+- recurrent failures must have a corresponding candidate, and CI archives the improvement observation with reconciliation artifacts;
+- a candidate is not a completed repair. Reviewed implementation, applicable tests, exact-head CI and later non-recurrence evidence are still required.
+
+This keeps the feedback cycle explicit: **observe failure -> persist incident -> derive candidate -> implement under normal graph controls -> verify exact head -> observe recurrence/non-recurrence**. Clinical-content mutation remains governed separately by the safety and clinical-governance controls.
