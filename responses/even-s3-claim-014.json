@@ -1,0 +1,98 @@
+{
+  "ok": true,
+  "op": "claim",
+  "task": {
+    "detail": {
+      "split_from": "ING-insulin-aspart"
+    },
+    "reason": "initial",
+    "attempt": 1,
+    "task_id": 235,
+    "claim_token": "ad0b4756-00ce-4e7c-823c-b6b0f874076d",
+    "saved_progress": null,
+    "last_error_code": null,
+    "lease_expires_at": "2026-11-13T23:08:45.88385+00:00",
+    "saved_progress_at": null
+  },
+  "group": {
+    "kind": "single",
+    "lane": "even",
+    "class": null,
+    "bucket": 2,
+    "domain": "general",
+    "group_id": "ING-insulin-aspart|premix-70-30",
+    "ingredients": [
+      "ING-insulin-aspart"
+    ],
+    "medications": [
+      {
+        "name": "Insulin aspart mix 70/30 U-100",
+        "route": null,
+        "brand_names": [
+          "NovoLog Mix 70/30"
+        ],
+        "dosage_form": null,
+        "generic_name": "insulin aspart protamine and insulin aspart",
+        "release_type": null,
+        "medication_id": "MED-insulin-aspart-70-30"
+      }
+    ]
+  },
+  "status": "CLAIMED",
+  "scenarios": [
+    {
+      "label": "After the procedure",
+      "required": true,
+      "description": "When and how to resume.",
+      "scenario_key": "after_procedure"
+    },
+    {
+      "label": "Before the procedure",
+      "required": true,
+      "description": "Holding, continuing or adjusting in the days before the procedure, including the bowel-preparation day.",
+      "scenario_key": "before_procedure"
+    },
+    {
+      "label": "Day of the procedure",
+      "required": true,
+      "description": "What to do on the morning or day of the procedure, including fasting and sedation considerations.",
+      "scenario_key": "day_of_procedure"
+    }
+  ],
+  "worker_id": "agent-2",
+  "components": [],
+  "known_passages": [
+    {
+      "locator": "Table 2, row UFH",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 1,
+      "quote_start": "UFH | IV 2-6 hours / SQ 12-24 hours | Hold | Protamine sulfate (partial)"
+    },
+    {
+      "locator": "Parenteral and subcutaneously administered anticoagulants",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 2,
+      "quote_start": "UFH administered intravenously has a half-life of 60 to 90 minutes, and anticoagulant effects dissipate 3 to 4 hours after discontinuation."
+    },
+    {
+      "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 3,
+      "quote_start": "There is consensus that antithrombotic therapy should be resumed upon completion of the procedure."
+    },
+    {
+      "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+      "source_id": "ASGE-2016-ANTITHROMBOTIC",
+      "last_check": null,
+      "passage_id": 4,
+      "quote_start": "UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+    }
+  ],
+  "required_sources": [],
+  "comparators_pinned": false,
+  "based_on_revision_no": 0,
+  "package_schema_version": 1
+}
