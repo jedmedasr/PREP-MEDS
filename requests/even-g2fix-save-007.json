@@ -1,0 +1,16 @@
+{
+  "request_id": "even-g2fix-save-007",
+  "op": "save_progress",
+  "session_id": 2,
+  "task_id": 12,
+  "claim_token": "2cea608e-13be-439d-8c0d-894212965327",
+  "progress": {
+    "transport_proof": {
+      "gate": "G2",
+      "worker": "agent-2",
+      "lane": "even",
+      "marker": "even-g2-persist",
+      "research_started": false
+    }
+  }
+}
