@@ -1,0 +1,55 @@
+{
+  "request_id": "even-s3-save-041",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 240,
+  "claim_token": "2587e159-f15b-459a-a82b-ecb1baaa3fd3",
+  "progress": {
+    "sources_read": [
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "society": "Austrian Diabetes Association",
+        "checked_locators": [
+          "Insulintherapie"
+        ],
+        "passage_ids": [
+          5
+        ]
+      },
+      {
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "society": "Sociedade Brasileira de Anestesiologia",
+        "checked_locators": [
+          "Management of insulin"
+        ],
+        "passage_ids": [
+          6,
+          7
+        ]
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+        "checked_locators": [
+          "Recommendations Before Colonoscopy > Patient Education and Navigation"
+        ],
+        "passage_ids": [
+          8
+        ]
+      }
+    ],
+    "decisions": {
+      "formulation": "single_unit across Humalog Mix 50/50 U-100 and Humalog Mix 75/25 U-100 because both are fixed insulin lispro protamine/insulin lispro premixes and the compared perioperative guidance applies to premixed insulin without distinguishing the mixture ratio",
+      "conflict": "Austrian Diabetes Association recommends converting mixed insulin to long-acting insulin at about two-thirds of the original mixed-insulin standard dose for routine operations, while the Brazilian anesthesiology society review recommends separating premix into intermediate and fast components and reducing the intermediate morning component by 25–50%; preserve both",
+      "after_procedure": "no sufficiently specific primary-society restart instruction for fixed lispro premix was identified; do not infer one from class-level eating guidance",
+      "research_started": true
+    },
+    "remains": [
+      "Submit schema_version 1 package using known passage IDs 5, 6, 7 and comparison-only passage 8.",
+      "Record after_procedure as NO_SOURCE_GUIDANCE rather than infer a fixed-premix restart regimen."
+    ]
+  }
+}
