@@ -1,0 +1,155 @@
+{
+  "ok": true,
+  "op": "submit",
+  "next": {
+    "ok": true,
+    "op": "claim",
+    "task": {
+      "detail": {
+        "split_from": "ING-insulin-aspart"
+      },
+      "reason": "initial",
+      "attempt": 1,
+      "task_id": 234,
+      "claim_token": "236719f2-5d89-40b9-a66e-cd76550282a2",
+      "saved_progress": null,
+      "last_error_code": null,
+      "lease_expires_at": "2026-11-13T23:14:14.801925+00:00",
+      "saved_progress_at": null
+    },
+    "group": {
+      "kind": "single",
+      "lane": "even",
+      "class": null,
+      "bucket": 2,
+      "domain": "general",
+      "group_id": "ING-insulin-aspart|rapid",
+      "ingredients": [
+        "ING-insulin-aspart"
+      ],
+      "medications": [
+        {
+          "name": "Insulin aspart (product/concentration unspecified)",
+          "route": null,
+          "brand_names": [],
+          "dosage_form": null,
+          "generic_name": "insulin aspart",
+          "release_type": null,
+          "medication_id": "MED-insulin-aspart"
+        },
+        {
+          "name": "Fiasp U-100 (insulin aspart)",
+          "route": null,
+          "brand_names": [
+            "Fiasp"
+          ],
+          "dosage_form": null,
+          "generic_name": "insulin aspart U-100",
+          "release_type": null,
+          "medication_id": "MED-insulin-aspart-fiasp-u100"
+        },
+        {
+          "name": "NovoLog U-100 (insulin aspart)",
+          "route": null,
+          "brand_names": [
+            "NovoLog"
+          ],
+          "dosage_form": null,
+          "generic_name": "insulin aspart U-100",
+          "release_type": null,
+          "medication_id": "MED-insulin-aspart-novolog-u100"
+        }
+      ]
+    },
+    "status": "CLAIMED",
+    "scenarios": [
+      {
+        "label": "After the procedure",
+        "required": true,
+        "description": "When and how to resume.",
+        "scenario_key": "after_procedure"
+      },
+      {
+        "label": "Before the procedure",
+        "required": true,
+        "description": "Holding, continuing or adjusting in the days before the procedure, including the bowel-preparation day.",
+        "scenario_key": "before_procedure"
+      },
+      {
+        "label": "Day of the procedure",
+        "required": true,
+        "description": "What to do on the morning or day of the procedure, including fasting and sedation considerations.",
+        "scenario_key": "day_of_procedure"
+      }
+    ],
+    "worker_id": "agent-2",
+    "components": [],
+    "known_passages": [
+      {
+        "locator": "Table 2, row UFH",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 1,
+        "quote_start": "UFH | IV 2-6 hours / SQ 12-24 hours | Hold | Protamine sulfate (partial)"
+      },
+      {
+        "locator": "Parenteral and subcutaneously administered anticoagulants",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 2,
+        "quote_start": "UFH administered intravenously has a half-life of 60 to 90 minutes, and anticoagulant effects dissipate 3 to 4 hours after discontinuation."
+      },
+      {
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 3,
+        "quote_start": "There is consensus that antithrombotic therapy should be resumed upon completion of the procedure."
+      },
+      {
+        "locator": "Reinitiation of antithrombotic agents after elective endoscopy",
+        "source_id": "ASGE-2016-ANTITHROMBOTIC",
+        "last_check": null,
+        "passage_id": 4,
+        "quote_start": "UFH may be restarted 2 to 6 hours after a therapeutic procedure."
+      },
+      {
+        "locator": "Insulintherapie",
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "last_check": null,
+        "passage_id": 5,
+        "quote_start": "Patient:innen unter konventioneller Insulintherapie mit einem Mischinsulin sollen bei Routineoperationen auf ein langwirksames Insulin (1 od"
+      },
+      {
+        "locator": "Management of insulin",
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "last_check": null,
+        "passage_id": 6,
+        "quote_start": "It is not necessary to change the dose on the day before surgery. However, on the day of surgery, they should be replaced by those of interm"
+      },
+      {
+        "locator": "Management of insulin",
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "last_check": null,
+        "passage_id": 7,
+        "quote_start": "As for the intermediate-acting component, it is recommended to proportionally reduce the morning dose by 25–50%."
+      },
+      {
+        "locator": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "last_check": null,
+        "passage_id": 8,
+        "quote_start": "The management of anti-hyperglycemic and anti-hypertensive agents should be individualized with the assistance of the prescribing clinician "
+      }
+    ],
+    "required_sources": [],
+    "comparators_pinned": false,
+    "based_on_revision_no": 0,
+    "package_schema_version": 1
+  },
+  "accepted": true,
+  "worker_id": "agent-2",
+  "revision_id": 2,
+  "revision_no": 1,
+  "content_sha256": "f72c2f3979c3a9f30687170df289afdc9b617e7ecf9784b5605a75df8ec75f5e"
+}
