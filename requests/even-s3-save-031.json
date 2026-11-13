@@ -1,0 +1,61 @@
+{
+  "request_id": "even-s3-save-031",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 236,
+  "claim_token": "e2650351-3d4e-4ba5-9127-12d13bea3796",
+  "progress": {
+    "sources_read": [
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "status": "COMPARED",
+        "society": "Brazilian Diabetes Society / Brazilian Society of Anesthesiology / Brazilian Association for the Study of Obesity and Metabolic Syndrome",
+        "checked_locators": [
+          "Table 2, Basal insulin (long-acting insulin analog: Glargine)"
+        ]
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "status": "COMPARED",
+        "society": "American Diabetes Association",
+        "checked_locators": [
+          "Perioperative Care, insulin therapy adjustments",
+          "Insulin Therapy, Recommendations 16.8 and 16.9"
+        ]
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+        "checked_locators": [
+          "Recommendations Before Colonoscopy > Patient Education and Navigation"
+        ]
+      }
+    ],
+    "passages_extracted": [
+      {
+        "key": "p1",
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "locator": "Table 2, Basal insulin (long-acting insulin analog: Glargine)",
+        "page": "not exposed in HTML",
+        "quote": "Reducing the dose 20%-30% starting the night before the procedure, with the following precaution: In patients receiving a high proportion of basal insulin (> 50% of total daily insulin), consider reducing the dose by up to 50%."
+      },
+      {
+        "key": "p2",
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "locator": "Table 2, Basal insulin (long-acting insulin analog: Glargine)",
+        "page": "not exposed in HTML",
+        "quote": "In patients on a basal–bolus regimen with < 50% of total daily insulin as basal, dose reduction may not be necessary. In such cases, maintaining the usual basal dose may minimize hyperglycemia and glycemic variability"
+      }
+    ],
+    "decisions": {
+      "formulation": "single_unit across Lantus U-100, Basaglar U-100, and Semglee U-100 because the compared perioperative guidance addresses glargine U-100 as standard long-acting glargine and does not distinguish these brands",
+      "conflict": "SBD/SBA/ABESO recommends a 20%-30% reduction starting the night before for glargine, while ADA recommends 75%-80% of usual long-acting basal dose on the evening before surgery; preserve both",
+      "research_started": true
+    },
+    "remains": [
+      "Submit package using new SBD glargine passages plus known ADA passage IDs 18-20.",
+      "Do not cite USMSTF as a recommendation because it is NOT_SPECIFIED."
+    ]
+  }
+}
