@@ -1,0 +1,168 @@
+{
+  "request_id": "even-s3-submit-034",
+  "op": "submit",
+  "session_id": 3,
+  "task_id": 237,
+  "claim_token": "65b85ee3-80ee-46ad-ae8d-35e474f7413d",
+  "submission_id": "ING-insulin-glargine-u300-r0-1",
+  "package": {
+    "schema_version": 1,
+    "group_id": "ING-insulin-glargine|u300",
+    "based_on_revision_no": 0,
+    "medication_ids": [
+      "MED-insulin-glargine-u300"
+    ],
+    "formulation": {
+      "decision": "single_unit",
+      "rationale": "This split child contains only Toujeo insulin glargine U-300, which current society guidance treats as an ultra-long-acting basal insulin with a longer preprocedure adjustment window than standard U-100 glargine."
+    },
+    "passages": [
+      {
+        "key": "p1",
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "locator": "Summary of evidence before Important note 11",
+        "page": "not exposed in HTML",
+        "deep_link": "https://doi.org/10.1186/s13098-025-02060-5",
+        "quote": "For patients using ultra-long-acting basal insulins (e.g. glargine U300, degludec), dose adjustments should begin 48 to 72 h before surgery, due to their prolonged pharmacokinetics profiles."
+      }
+    ],
+    "comparisons": [
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "status": "COMPARED",
+        "checked_locators": "Summary of evidence before Important note 11",
+        "note": "The 2026 joint statement explicitly names glargine U-300 as ultra-long-acting and states that dose adjustments should begin 48-72 hours before surgery."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "status": "COMPARED",
+        "checked_locators": "Perioperative Care, insulin therapy adjustments; Insulin Therapy Recommendations 16.8 and 16.9",
+        "note": "ADA provides a current class-level long-acting basal-insulin reduction on the evening before surgery and retains basal insulin through NPO and adequate-intake states."
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "checked_locators": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "note": "USMSTF does not provide a Toujeo-specific dose and directs individualized antihyperglycemic medication planning with the prescribing clinician."
+      }
+    ],
+    "recommendations": [
+      {
+        "source_id": "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+        "passage": "p1",
+        "scenario_key": "before_procedure",
+        "qualifier": "insulin glargine U-300",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "dose adjustments should begin 48 to 72 h before surgery",
+        "bridging": "not_applicable",
+        "strength": "not separately stated in this evidence statement",
+        "certainty": "not separately stated in this evidence statement",
+        "applicability": "Elective surgery or procedure in a patient receiving insulin glargine U-300.",
+        "exceptions": "The quoted passage specifies the start of adjustment but not the numeric magnitude of U-300 dose reduction; no numeric SBD reduction is inferred.",
+        "summary": "The Brazilian joint statement says glargine U-300 dose adjustments should begin 48-72 hours before surgery."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 18,
+        "scenario_key": "before_procedure",
+        "qualifier": "long-acting basal insulin analogue",
+        "renal": null,
+        "action": "adjust_dose",
+        "timing_text": "On the evening before surgery, reduce long-acting basal insulin analogs to 75–80% of the usual dose",
+        "bridging": "not_applicable",
+        "strength": "not separately graded in this narrative instruction",
+        "certainty": "not separately graded in this narrative instruction",
+        "applicability": "Long-acting basal insulin analogue use before surgery, including glargine U-300 at the class level.",
+        "exceptions": "ADA states that adjustment depends on diabetes type and clinical judgment and does not separately specify U-300 timing.",
+        "summary": "ADA recommends reducing long-acting basal insulin analogues to 75–80% of the usual dose on the evening before surgery."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 19,
+        "scenario_key": "day_of_procedure",
+        "qualifier": "poor oral intake or NPO",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "Basal insulin or a basal plus bolus correction insulin plan is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Noncritically ill patient with poor oral intake or taking nothing by mouth.",
+        "exceptions": "This supports retention of basal insulin but does not specify a Toujeo U-300 dose.",
+        "summary": "ADA retains basal insulin as part of the preferred insulin plan during poor oral intake or NPO status."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 19,
+        "scenario_key": "after_procedure",
+        "qualifier": "postprocedure poor oral intake or NPO",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "Basal insulin or a basal plus bolus correction insulin plan is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Postprocedure patient with poor oral intake or still NPO.",
+        "exceptions": "No fixed Toujeo restart time is stated.",
+        "summary": "When oral intake remains poor or the patient remains NPO, ADA retains basal insulin in the preferred insulin plan."
+      },
+      {
+        "source_id": "ADA-2026-HOSPITAL",
+        "passage": 20,
+        "scenario_key": "after_procedure",
+        "qualifier": "adequate nutritional intake",
+        "renal": null,
+        "action": "continue",
+        "timing_text": "an insulin plan with basal, prandial, and correction components is the preferred treatment",
+        "bridging": "not_applicable",
+        "strength": "A",
+        "certainty": "not separately stated",
+        "applicability": "Postprocedure patient with adequate nutritional intake.",
+        "exceptions": "No fixed Toujeo restart time is stated.",
+        "summary": "With adequate nutritional intake, ADA includes basal insulin as part of the preferred insulin plan."
+      }
+    ],
+    "scenario_coverage": [
+      {
+        "scenario_key": "before_procedure",
+        "status": "ADDRESSED",
+        "reason": "SBD/SBA/ABESO provides U-300-specific adjustment timing and ADA provides a class-level basal-insulin dose reduction."
+      },
+      {
+        "scenario_key": "day_of_procedure",
+        "status": "ADDRESSED",
+        "reason": "ADA retains basal insulin during NPO or poor oral intake."
+      },
+      {
+        "scenario_key": "after_procedure",
+        "status": "ADDRESSED",
+        "reason": "ADA includes basal insulin in preferred regimens for poor/NPO and adequate nutritional intake states."
+      }
+    ],
+    "conflicts": [
+      {
+        "scenario_key": "before_procedure",
+        "source_ids": [
+          "SBD-SBA-ABESO-2026-PERIOPERATIVE",
+          "ADA-2026-HOSPITAL"
+        ],
+        "description": "SBD/SBA/ABESO explicitly says glargine U-300 adjustment should begin 48-72 hours before surgery because of prolonged pharmacokinetics, whereas ADA gives a generic long-acting basal analogue reduction on the evening before surgery. The timing frameworks are preserved separately."
+      }
+    ],
+    "open_questions": [
+      {
+        "text": "The SBD/SBA/ABESO U-300 passage specifies when adjustment should begin but not a numeric U-300 reduction; the clinician reviewer must not infer a dose percentage from the standard glargine row.",
+        "blocking": false
+      },
+      {
+        "text": "USMSTF does not provide a colonoscopy-specific Toujeo dose and directs individualized antihyperglycemic management with the prescribing clinician.",
+        "blocking": false
+      }
+    ],
+    "editorial": {
+      "notes": "Unreviewed evidence package for insulin glargine U-300 only. The concentration-specific longer adjustment window is preserved; no unsupported numeric SBD U-300 reduction is inferred."
+    }
+  },
+  "then": "claim"
+}
