@@ -1,0 +1,32 @@
+name: relay-poke
+
+on:
+  push:
+    branches:
+      - lane/odd
+      - lane/even
+    paths:
+      - 'requests/*.json'
+      - '.github/workflows/relay-poke.yml'
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  poke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select lane
+        id: lane
+        shell: bash
+        run: |
+          case "$GITHUB_REF_NAME" in
+            lane/odd) echo "lane=odd" >> "$GITHUB_OUTPUT" ;;
+            lane/even) echo "lane=even" >> "$GITHUB_OUTPUT" ;;
+            *) echo "unexpected ref: $GITHUB_REF_NAME" >&2; exit 64 ;;
+          esac
+      - name: Dispatch trusted main relay
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run prepmeds-ci.yml --repo "${{ github.repository }}" --ref main -f lane="${{ steps.lane.outputs.lane }}"
