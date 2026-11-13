@@ -1,0 +1,127 @@
+{
+  "ok": true,
+  "op": "report",
+  "lane": "even",
+  "groups": [
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-heparin",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-aspart|premix-70-30",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-aspart|rapid",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-degludec",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-detemir",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-glargine|u100",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-glargine|u300",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-glargine|unspecified",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-glulisine",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    },
+    {
+      "blockers": [
+        "MAPPING_TESTS_NOT_PASSED",
+        "EVIDENCE_TESTS_NOT_PASSED"
+      ],
+      "group_id": "ING-insulin-lispro|premix",
+      "revision_no": 1,
+      "is_current_revision": true,
+      "ready_for_clinician_review": false
+    }
+  ],
+  "ended_at": null,
+  "shortfall": 10,
+  "worker_id": "agent-2",
+  "session_id": 3,
+  "started_at": "2026-11-13T21:10:54.689322+00:00",
+  "lane_counts": {
+    "done": 0,
+    "blocked": 0,
+    "claimed": 0,
+    "available": 107,
+    "awaiting_ci": 10,
+    "available_but_waiting_for_component": 12
+  },
+  "still_claimed": [],
+  "tasks_blocked": 0,
+  "revisions_accepted": 10,
+  "target_ready_groups": 10,
+  "submissions_rejected": 3,
+  "revisions_awaiting_ci": 10,
+  "groups_ready_for_clinician_review": 0
+}
