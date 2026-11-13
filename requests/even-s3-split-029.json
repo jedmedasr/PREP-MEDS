@@ -1,0 +1,30 @@
+{
+  "request_id": "even-s3-split-029",
+  "op": "split",
+  "session_id": 3,
+  "task_id": 16,
+  "claim_token": "ad3abb4e-aed1-4599-aaf7-8cb3142d6e5e",
+  "parts": [
+    {
+      "suffix": "u100",
+      "medication_ids": [
+        "MED-insulin-glargine-basaglar-u100",
+        "MED-insulin-glargine-semglee-u100",
+        "MED-insulin-glargine-u100"
+      ]
+    },
+    {
+      "suffix": "u300",
+      "medication_ids": [
+        "MED-insulin-glargine-u300"
+      ]
+    },
+    {
+      "suffix": "unspecified",
+      "medication_ids": [
+        "MED-insulin-glargine"
+      ]
+    }
+  ],
+  "rationale": "Current perioperative society guidance distinguishes standard insulin glargine from ultra-long-acting glargine U-300: the standard glargine adjustment starts the night before the procedure, while glargine U-300 may require adjustment 48 to 72 hours before surgery. The concentration-unspecified canonical entry cannot safely inherit either timing without knowing the actual formulation."
+}
