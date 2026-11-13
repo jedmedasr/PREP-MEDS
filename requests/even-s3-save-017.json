@@ -1,0 +1,109 @@
+{
+  "request_id": "even-s3-save-017",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 234,
+  "claim_token": "236719f2-5d89-40b9-a66e-cd76550282a2",
+  "progress": {
+    "sources_read": [
+      {
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "status": "COMPARED",
+        "society": "Endocrine Society",
+        "title": "Management of hyperglycemia in hospitalized patients in non-critical care setting: an Endocrine Society clinical practice guideline",
+        "doi": "10.1210/jc.2011-2098",
+        "checked_locators": [
+          "4.3 Pharmacological therapy",
+          "5.3 Perioperative BG control",
+          "4.4 Transition from hospital to home"
+        ]
+      },
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "society": "Austrian Diabetes Association",
+        "title": "Position statement: surgery and diabetes mellitus (Update 2023)",
+        "doi": "10.1007/s00508-022-02121-z",
+        "checked_locators": [
+          "Insulintherapie"
+        ]
+      },
+      {
+        "source_id": "DUGGAN-2017-PERIOPERATIVE-HYPERGLYCEMIA",
+        "status": "COMPARED",
+        "society": "",
+        "title": "Perioperative Hyperglycemia Management: An Update",
+        "doi": "10.1097/ALN.0000000000001515",
+        "checked_locators": [
+          "Preoperative management of insulin therapy",
+          "Day before surgery insulin regimens based on oral intake status",
+          "Day of surgery insulin regimens",
+          "Postoperative management"
+        ]
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+        "checked_locators": [
+          "Supplementary material, Patients prescribed antihyperglycemic agents",
+          "Recommendation 2"
+        ]
+      }
+    ],
+    "passages_extracted": [
+      {
+        "key": "p1",
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "locator": "Recommendation 4.3.3",
+        "page": "not exposed in HTML; article pp. 16-38",
+        "quote": "We recommend that scheduled sc insulin therapy consist of basal or intermediate-acting insulin given once or twice a day in combination with rapid- or short-acting insulin administered before meals in patients who are eating."
+      },
+      {
+        "key": "p2",
+        "source_id": "ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA",
+        "locator": "Recommendation 5.3.3",
+        "page": "not exposed in HTML; article pp. 16-38",
+        "quote": "When instituting sc insulin therapy in the postsurgical setting, we recommend that basal (for patients who are NPO) or basal bolus (for patients who are eating) insulin therapy be instituted as the preferred approach."
+      },
+      {
+        "key": "p3",
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "locator": "Insulintherapie",
+        "page": "not exposed in HTML; article pp. 256-271",
+        "quote": "Korrekturen der Blutglukosewertewerte erfolgen in Abhängigkeit von engmaschig durchgeführten Kontrollen mittels Glukoseinfusion oder kurzwirksamen Insulins"
+      },
+      {
+        "key": "p4",
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "locator": "Insulintherapie",
+        "page": "not exposed in HTML; article pp. 256-271",
+        "quote": "Engmaschige Blutglukose-Kontrollen perioperativ sind erforderlich, um allfällige Korrekturen mittels i.v. Glukoseinfusion bzw. subkutaner zusätzlicher Gabe von raschwirksamem Insulin bzw. Insulinanaloga zu gewährleisten."
+      },
+      {
+        "key": "p5",
+        "source_id": "DUGGAN-2017-PERIOPERATIVE-HYPERGLYCEMIA",
+        "locator": "Preoperative management of insulin therapy",
+        "page": "not exposed in HTML; article pp. 547-560",
+        "quote": "Prandial insulin is stopped when the fasting state begins."
+      },
+      {
+        "key": "p6",
+        "source_id": "DUGGAN-2017-PERIOPERATIVE-HYPERGLYCEMIA",
+        "locator": "Postoperative management",
+        "page": "not exposed in HTML; article pp. 547-560",
+        "quote": "For same-day surgery, the patient may resume their home medication regimen when he/she leaves the hospital."
+      }
+    ],
+    "decisions": {
+      "formulation": "single_unit across generic insulin aspart, NovoLog U100, and Fiasp U100 because the compared perioperative guidance treats them as rapid/prandial insulin analogs and provides no brand-specific fasting instruction",
+      "fasting_distinction": "routine prandial insulin is stopped when fasting begins, but rapid-acting insulin may still be used as correctional therapy based on glucose monitoring",
+      "colonoscopy_context": "USMSTF passage_id 8 explicitly leaves antihyperglycemic management individualized with the prescribing clinician",
+      "research_started": true
+    },
+    "remains": [
+      "Submit schema_version 1 package preserving prandial-hold versus correction-insulin distinction.",
+      "Use known USMSTF passage_id 8 rather than duplicating it."
+    ]
+  }
+}
