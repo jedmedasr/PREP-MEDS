@@ -1,0 +1,6 @@
+{
+  "ok": true,
+  "op": "save_progress",
+  "worker_id": "agent-2",
+  "lease_expires_at": "2026-11-13T23:31:53.388931+00:00"
+}
