@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "op": "submit",
+  "hint": "Fix every deficiency and submit again with a new submission_id. Nothing was stored except sources and passages.",
+  "task_id": 234,
+  "accepted": false,
+  "worker_id": "agent-2",
+  "claim_token": "236719f2-5d89-40b9-a66e-cd76550282a2",
+  "deficiencies": [
+    "COMPARISON_CONTRADICTION:USMSTF-2025-BOWEL-PREP: recommendations cite this source but its comparison status is not COMPARED",
+    "UNDECLARED_CONFLICT:after_procedure: sources {ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA,ENDOCRINE-2022-HOSPITAL-HYPERGLYCEMIA} do not give the same recommendation; add conflicts entries for this scenario that together name every one of them",
+    "UNDECLARED_CONFLICT:before_procedure: sources {ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA,USMSTF-2025-BOWEL-PREP} do not give the same recommendation; add conflicts entries for this scenario that together name every one of them",
+    "UNDECLARED_CONFLICT:day_of_procedure: sources {ENDOCRINE-2012-HOSPITAL-HYPERGLYCEMIA,ODG-2023-PERIOPERATIVE-DIABETES} do not give the same recommendation; add conflicts entries for this scenario that together name every one of them"
+  ],
+  "deficiency_count": 4
+}
