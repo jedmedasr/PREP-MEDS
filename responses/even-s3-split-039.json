@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "op": "split",
+  "note": "The children stay in the same bucket and lane. Call claim_next to continue.",
+  "retired": "ING-insulin-lispro",
+  "children": [
+    "ING-insulin-lispro|rapid",
+    "ING-insulin-lispro|premix"
+  ],
+  "worker_id": "agent-2"
+}
