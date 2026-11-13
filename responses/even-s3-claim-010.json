@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "op": "claim",
+  "task": {
+    "detail": null,
+    "reason": "initial",
+    "attempt": 2,
+    "task_id": 12,
+    "claim_token": "5ffa69a6-bf0d-484e-84af-0d6c526c4575",
+    "saved_progress": {
+      "transport_proof": {
+        "gate": "G2",
+        "lane": "even",
+        "marker": "even-g2-persist",
+        "worker": "agent-2",
+        "research_started": false
+      }
+    },
+    "last_error_code": "SESSION_ENDING",
+    "lease_expires_at": "2026-11-13T22:49:12.184841+00:00",
+    "saved_progress_at": "2026-11-13T21:10:15.701485+00:00"
+  },
+  "group": {
+    "kind": "single",
+    "lane": "even",
+    "class": null,
+    "bucket": 2,
+    "domain": "general",
+    "group_id": "ING-heparin",
+    "ingredients": [
+      "ING-heparin"
+    ],
+    "medications": [
+      {
+        "name": "Heparin",
+        "route": null,
+        "brand_names": [],
+        "dosage_form": null,
+        "generic_name": "heparin sodium",
+        "release_type": null,
+        "medication_id": "MED-heparin"
+      }
+    ]
+  },
+  "status": "CLAIMED",
+  "scenarios": [
+    {
+      "label": "After the procedure",
+      "required": true,
+      "description": "When and how to resume.",
+      "scenario_key": "after_procedure"
+    },
+    {
+      "label": "Before the procedure",
+      "required": true,
+      "description": "Holding, continuing or adjusting in the days before the procedure, including the bowel-preparation day.",
+      "scenario_key": "before_procedure"
+    },
+    {
+      "label": "Day of the procedure",
+      "required": true,
+      "description": "What to do on the morning or day of the procedure, including fasting and sedation considerations.",
+      "scenario_key": "day_of_procedure"
+    }
+  ],
+  "worker_id": "agent-2",
+  "components": [],
+  "known_passages": [],
+  "required_sources": [],
+  "comparators_pinned": false,
+  "based_on_revision_no": 0,
+  "package_schema_version": 1
+}
