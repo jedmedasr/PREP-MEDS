@@ -1,0 +1,82 @@
+{
+  "request_id": "even-s3-save-015",
+  "op": "save_progress",
+  "session_id": 3,
+  "task_id": 235,
+  "claim_token": "ad0b4756-00ce-4e7c-823c-b6b0f874076d",
+  "progress": {
+    "sources_read": [
+      {
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "society": "Austrian Diabetes Association",
+        "title": "Position statement: surgery and diabetes mellitus (Update 2023)",
+        "doi": "10.1007/s00508-022-02121-z",
+        "checked_locators": [
+          "Insulintherapie"
+        ]
+      },
+      {
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "status": "COMPARED",
+        "society": "Sociedade Brasileira de Anestesiologia",
+        "title": "Evaluation and perioperative management of patients with diabetes mellitus. A challenge for the anesthesiologist",
+        "doi": "10.1016/j.bjane.2017.06.002",
+        "checked_locators": [
+          "Management of insulin",
+          "Table 5"
+        ]
+      },
+      {
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "status": "NOT_SPECIFIED",
+        "society": "U.S. Multi-Society Task Force on Colorectal Cancer (ACG/AGA/ASGE)",
+        "title": "Optimizing bowel preparation quality for colonoscopy: consensus recommendations by the US Multi-Society Task Force on Colorectal Cancer",
+        "doi": "10.1016/j.gie.2025.02.010",
+        "checked_locators": [
+          "Recommendations Before Colonoscopy > Patient Education and Navigation"
+        ]
+      }
+    ],
+    "passages_extracted": [
+      {
+        "key": "p1",
+        "source_id": "ODG-2023-PERIOPERATIVE-DIABETES",
+        "locator": "Insulintherapie",
+        "page": "not exposed in HTML; article pp. 256-271",
+        "quote": "Patient:innen unter konventioneller Insulintherapie mit einem Mischinsulin sollen bei Routineoperationen auf ein langwirksames Insulin (1 oder 2 × täglich gespritzt) umgestellt werden, wobei die zu veranschlagende Insulindosis des langwirksamen Insulins etwa zwei Drittel der Standarddosis des ursprünglichen Mischinsulins betragen soll."
+      },
+      {
+        "key": "p2",
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "locator": "Management of insulin",
+        "page": "not exposed in HTML; article pp. 75-86",
+        "quote": "It is not necessary to change the dose on the day before surgery. However, on the day of surgery, they should be replaced by those of intermediate and fast action. To minimize the risk of hypoglycemia caused by the fast-acting component, the dose of each type of insulin should be given independently."
+      },
+      {
+        "key": "p3",
+        "source_id": "SBA-2018-PERIOPERATIVE-DIABETES",
+        "locator": "Management of insulin",
+        "page": "not exposed in HTML; article pp. 75-86",
+        "quote": "As for the intermediate-acting component, it is recommended to proportionally reduce the morning dose by 25–50%."
+      },
+      {
+        "key": "p4",
+        "source_id": "USMSTF-2025-BOWEL-PREP",
+        "locator": "Recommendations Before Colonoscopy > Patient Education and Navigation",
+        "page": "not exposed in HTML; GIE 2025;101:702-732",
+        "quote": "The management of anti-hyperglycemic and anti-hypertensive agents should be individualized with the assistance of the prescribing clinician based on the timing of the colonoscopy and is beyond the scope of this document."
+      }
+    ],
+    "decisions": {
+      "formulation": "single child group for the fixed 70/30 protamine/aspart premix after the parent insulin-aspart group was split",
+      "conflict": "Austrian Diabetes Association recommends conversion from mixed insulin to long-acting insulin at about two-thirds of the original mixed-insulin dose for routine operations; the Brazilian anesthesiology review instead separates the premix into intermediate and fast components and reduces the intermediate component. Preserve both strategies without averaging.",
+      "colonoscopy_context": "USMSTF explicitly leaves antihyperglycemic management to individualized prescriber-assisted planning.",
+      "research_started": true
+    },
+    "remains": [
+      "Submit schema_version 1 package with explicit day-of-procedure conflict.",
+      "Do not invent a colonoscopy-specific premix dose because USMSTF states this is outside scope."
+    ]
+  }
+}
