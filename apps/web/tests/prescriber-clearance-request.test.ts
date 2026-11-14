@@ -4,6 +4,7 @@ import {
   generateClearanceRequest,
   inferAgentClass,
   inferMedicationIngredient,
+  shouldShowManualHoldConfirmation,
   type ClearanceRequest,
 } from '../components/PrescriberClearanceRequest';
 
@@ -68,5 +69,55 @@ describe('clearance consult field persistence', () => {
       procedure: false,
       procedureDate: true,
     });
+  });
+});
+
+
+describe('clearance hold interval visibility', () => {
+  it('shows a manual hold field when a selected reference cannot derive an interval', () => {
+    expect(shouldShowManualHoldConfirmation({
+      referenceSelected: true,
+      medicationSelected: true,
+      derivedHoldInterval: '',
+      needsAsgeInputs: false,
+      asgeInputsComplete: true,
+    })).toBe(true);
+  });
+
+  it('does not hide the blocker when medication mapping is unknown', () => {
+    expect(shouldShowManualHoldConfirmation({
+      referenceSelected: true,
+      medicationSelected: true,
+      derivedHoldInterval: '',
+      needsAsgeInputs: false,
+      asgeInputsComplete: true,
+    })).toBe(true);
+  });
+
+  it('waits for required ASGE apixaban inputs before offering manual confirmation', () => {
+    expect(shouldShowManualHoldConfirmation({
+      referenceSelected: true,
+      medicationSelected: true,
+      derivedHoldInterval: '',
+      needsAsgeInputs: true,
+      asgeInputsComplete: false,
+    })).toBe(false);
+    expect(shouldShowManualHoldConfirmation({
+      referenceSelected: true,
+      medicationSelected: true,
+      derivedHoldInterval: '',
+      needsAsgeInputs: true,
+      asgeInputsComplete: true,
+    })).toBe(true);
+  });
+
+  it('does not show manual confirmation when a hold interval was derived', () => {
+    expect(shouldShowManualHoldConfirmation({
+      referenceSelected: true,
+      medicationSelected: true,
+      derivedHoldInterval: '2 days',
+      needsAsgeInputs: true,
+      asgeInputsComplete: true,
+    })).toBe(false);
   });
 });
