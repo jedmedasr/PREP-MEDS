@@ -104,6 +104,18 @@ export function consultFieldVisibility(procedureName: string) {
   };
 }
 
+export function shouldShowManualHoldConfirmation(input: {
+  referenceSelected: boolean;
+  medicationSelected: boolean;
+  derivedHoldInterval: string;
+  needsAsgeInputs: boolean;
+  asgeInputsComplete: boolean;
+}) {
+  if (!input.referenceSelected || !input.medicationSelected || input.derivedHoldInterval) return false;
+  if (input.needsAsgeInputs && !input.asgeInputsComplete) return false;
+  return true;
+}
+
 export function PrescriberClearanceRequest({ medicationName = '', procedureName = '' }: { medicationName?: string; procedureName?: string }) {
   const [referenceSource, setReferenceSource] = useState<ReferenceSource | ''>('');
   const [medication, setMedication] = useState(medicationName);
@@ -117,6 +129,7 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
   const [stableKidneyFunction, setStableKidneyFunction] = useState(false);
   const [confirmedHoldDays, setConfirmedHoldDays] = useState('');
   const [copied, setCopied] = useState(false);
+  const [showDraft, setShowDraft] = useState(false);
 
   const ingredient = useMemo(() => inferMedicationIngredient(medication), [medication]);
   const agentClass = useMemo(() => inferAgentClass(medication), [medication]);
@@ -152,9 +165,17 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
   );
 
   const needsAsgeInputs = referenceSource === 'ASGE_2016' && ingredient === 'apixaban';
-  const selectedSourceNeedsManualInterval =
-    referenceSource === 'ACG_CAG_2022' ||
-    (referenceSource === 'ASGE_2016' && ingredient !== '' && ingredient !== 'apixaban');
+  const asgeInputsComplete =
+    !needsAsgeInputs ||
+    (risk !== 'UNKNOWN' && numericCrCl !== null && stableKidneyFunction);
+
+  const showManualHoldConfirmation = shouldShowManualHoldConfirmation({
+    referenceSelected: referenceSource !== '',
+    medicationSelected: medication.trim() !== '',
+    derivedHoldInterval,
+    needsAsgeInputs,
+    asgeInputsComplete,
+  });
 
   const consultFields = consultFieldVisibility(procedureName);
   const missingConsultDetails = [
@@ -181,6 +202,7 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
           <select aria-label="Reference used for hold interval" value={referenceSource} onChange={(event) => {
             setReferenceSource(event.target.value as ReferenceSource | '');
             setConfirmedHoldDays('');
+            setShowDraft(false);
           }}>
             <option value="">Select reference</option>
             <option value="ASGE_2016">ASGE 2016</option>
@@ -196,6 +218,7 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
             onChange={(event) => {
               setMedication(event.target.value);
               setConfirmedHoldDays('');
+              setShowDraft(false);
             }}
             placeholder="Select or enter medication"
           />
@@ -237,13 +260,13 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
         </div>
       ) : null}
 
-      {selectedSourceNeedsManualInterval && !derivedHoldInterval ? (
+      {showManualHoldConfirmation ? (
         <div className="planner-note">
           <strong>Hold interval still needs confirmation</strong>
-          <p>The selected reference does not provide a deterministic interval for this medication in the currently implemented rule set. Enter an interval only if it has been independently established for this patient.</p>
+          <p>PREP-MEDS could not derive a deterministic hold interval from the selected reference and current inputs. Enter the interval only if it has been independently established for this patient.</p>
           <label className="question-field">
             Confirmed hold interval
-            <input aria-label="Confirmed hold interval" type="number" min="0" step="1" value={confirmedHoldDays} onChange={(event) => setConfirmedHoldDays(event.target.value)} placeholder="Days" />
+            <input aria-label="Confirmed hold interval" type="number" min="0" step="1" value={confirmedHoldDays} onChange={(event) => { setConfirmedHoldDays(event.target.value); setShowDraft(false); }} placeholder="Days" />
           </label>
         </div>
       ) : null}
@@ -269,7 +292,24 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
         </div>
       </div>
 
-      {draft ? (
+      <div className="planner-note" aria-live="polite">
+        <strong>{draft ? 'Ready to generate' : 'Clearance request is not ready yet'}</strong>
+        {missingConsultDetails.length ? (
+          <p><strong>Still needed:</strong> {missingConsultDetails.join(', ')}.</p>
+        ) : (
+          <p>All required information is complete.</p>
+        )}
+        <button
+          className="primary-button"
+          type="button"
+          disabled={!draft}
+          onClick={() => { setShowDraft(true); setCopied(false); }}
+        >
+          Generate clearance request
+        </button>
+      </div>
+
+      {showDraft && draft ? (
         <>
           <label className="question-field">
             Pre-op clearance request
@@ -286,12 +326,7 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
             }}>{copied ? 'Copied' : 'Copy request for secure messaging'}</button>
           </div>
         </>
-      ) : (
-        <div className="planner-note">
-          <strong>Clearance request will appear when ready</strong>
-          <p>PREP-MEDS will not generate a message with blank placeholders. Complete only the unresolved items above.</p>
-        </div>
-      )}
+      ) : null}
 
       <p className="empty-copy">Generating this request does not constitute clearance. The prescriber or cardiology team must confirm the hold and pre-operative optimization before patient-facing interruption instructions are issued.</p>
     </section>
