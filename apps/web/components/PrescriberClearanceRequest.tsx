@@ -1,83 +1,287 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { asge2016ApixabanHighRiskTiming } from '../lib/antithrombotic-timing';
 
-export type AgentClass = 'anticoagulant' | 'p2y12' | 'other-antiplatelet';
+export type AgentClass = 'anticoagulant' | 'p2y12' | 'other-antiplatelet' | 'unknown';
+export type ReferenceSource = 'ASGE_2016' | 'ACG_CAG_2022';
+
 export interface ClearanceRequest {
-  clinicianName: string; patientReference: string; medication: string;
-  agentClass: AgentClass; indication: string; procedure: string; procedureDate: string;
-  interventionRisk: string; holdDays: string; renalClearance: string;
-  resumptionPlan: string; sourceNote: string;
+  clinicianName: string;
+  patientReference: string;
+  medication: string;
+  indication: string;
+  procedure: string;
+  procedureDate: string;
+  holdInterval: string;
 }
+
+function required(value: string) {
+  return value.trim();
+}
+
+function displayDate(value: string) {
+  if (!value) return '';
+  const date = new Date(`${value}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
 export function generateClearanceRequest(input: ClearanceRequest): string {
-  const value = (s: string) => s.trim() || '[not provided]';
-  const hold = input.holdDays.trim()
-    ? `We propose withholding ${value(input.medication)} for ${input.holdDays.trim()} day(s) before the procedure, subject to your approval. This interval has NOT been automatically validated.`
-    : `Please advise whether ${value(input.medication)} may be interrupted and, if so, for how long before the procedure. No interruption interval has been established.`;
-  const aspirin = input.agentClass === 'p2y12' || input.agentClass === 'other-antiplatelet'
-    ? 'From a GI endoscopy standpoint, continuing low-dose aspirin is generally acceptable when clinically indicated. If interruption of the P2Y12 inhibitor or other antiplatelet is appropriate, continuation or initiation of aspirin during the interruption may be considered ONLY if you approve it for this patient; aspirin is not a universally equivalent substitute. Please account for coronary stents, recent acute coronary syndrome, stroke and other thrombotic risks.'
-    : 'From a GI endoscopy standpoint, continuing low-dose aspirin is generally acceptable when clinically indicated. This statement does not imply that aspirin replaces therapeutic anticoagulation.';
-  return `Subject: Prescriber approval requested — ${value(input.medication)} — endoscopy ${value(input.procedureDate)}
+  const clinicianName = required(input.clinicianName);
+  const patientReference = required(input.patientReference);
+  const medication = required(input.medication);
+  const indication = required(input.indication);
+  const procedure = required(input.procedure);
+  const procedureDate = required(input.procedureDate);
+  const holdInterval = required(input.holdInterval);
 
-Dear ${value(input.clinicianName)},
+  if (!clinicianName || !patientReference || !medication || !indication || !procedure || !procedureDate || !holdInterval) {
+    return '';
+  }
 
-Our GI team is planning ${value(input.procedure)} on ${value(input.procedureDate)} for patient ${value(input.patientReference)}. Your office manages ${value(input.medication)} for ${value(input.indication)}.
+  return `Hi ${clinicianName},
 
-Anticipated intervention/bleeding risk: ${value(input.interventionRisk)}.
-Cockcroft–Gault creatinine clearance: ${value(input.renalClearance)} mL/min (if applicable; verify current kidney function and weight basis).
-Guideline/policy basis for proposed interval: ${value(input.sourceNote)}.
+We are requesting your pre-operative clearance for ${patientReference}, who is scheduled for ${procedure} on ${displayDate(procedureDate)}.
 
-${hold}
+The patient is currently taking ${medication} for ${indication}. We are requesting clearance to hold this medication for ${holdInterval} before the procedure and would also appreciate confirmation that the patient is otherwise optimized to proceed from your standpoint.
 
-${aspirin}
+If you feel the patient should be seen in clinic before providing clearance, please arrange an expedited appointment if possible so the procedure is not unnecessarily delayed.
 
-Please provide documented approval or an alternative plan, including:
-1. Whether interruption is safe given the patient's indication, recent events and thrombotic risk.
-2. Approved last-dose date/time and interruption duration (or instructions to continue).
-3. Whether bridging or additional specialist coordination is necessary; routine DOAC bridging is generally not recommended.
-4. When and under whose direction therapy should be restarted after adequate procedural hemostasis. Proposed plan: ${value(input.resumptionPlan)}.
-5. Any contraindications to the proposed aspirin strategy, if relevant.
+Thank you.`;
+}
 
-Please reply through an approved clinical communication channel. We will not instruct the patient to stop or substitute therapy until the plan is confirmed and documented.
+export function inferMedicationIngredient(name: string): string {
+  const value = name.toLowerCase();
+  const known = [
+    'apixaban',
+    'rivaroxaban',
+    'dabigatran',
+    'edoxaban',
+    'warfarin',
+    'heparin',
+    'enoxaparin',
+    'dalteparin',
+    'fondaparinux',
+    'clopidogrel',
+    'prasugrel',
+    'ticagrelor',
+    'cangrelor',
+    'aspirin',
+  ];
+  return known.find((ingredient) => value.includes(ingredient)) ?? '';
+}
 
-Thank you,
-Gastroenterology Team`;
+export function inferAgentClass(name: string): AgentClass {
+  const ingredient = inferMedicationIngredient(name);
+  if (['apixaban','rivaroxaban','dabigatran','edoxaban','warfarin','heparin','enoxaparin','dalteparin','fondaparinux'].includes(ingredient)) {
+    return 'anticoagulant';
+  }
+  if (['clopidogrel','prasugrel','ticagrelor','cangrelor'].includes(ingredient)) return 'p2y12';
+  if (ingredient === 'aspirin') return 'other-antiplatelet';
+  return 'unknown';
+}
+
+function classLabel(value: AgentClass) {
+  if (value === 'anticoagulant') return 'Anticoagulant';
+  if (value === 'p2y12') return 'P2Y12 inhibitor';
+  if (value === 'other-antiplatelet') return 'Antiplatelet';
+  return 'Not yet derived';
+}
+
+function holdLabel(days: readonly number[]) {
+  if (days.length === 1) return `${days[0]} day${days[0] === 1 ? '' : 's'}`;
+  return `${Math.min(...days)}–${Math.max(...days)} days`;
 }
 
 export function PrescriberClearanceRequest({ medicationName = '', procedureName = '' }: { medicationName?: string; procedureName?: string }) {
+  const [referenceSource, setReferenceSource] = useState<ReferenceSource | ''>('');
+  const [medication, setMedication] = useState(medicationName);
+  const [procedure, setProcedure] = useState(procedureName);
   const [clinicianName, setClinicianName] = useState('');
   const [patientReference, setPatientReference] = useState('');
-  const [medication, setMedication] = useState(medicationName);
-  const [agentClass, setAgentClass] = useState<AgentClass>('anticoagulant');
   const [indication, setIndication] = useState('');
-  const [procedure, setProcedure] = useState(procedureName);
   const [procedureDate, setProcedureDate] = useState('');
-  const [interventionRisk, setInterventionRisk] = useState('');
-  const [holdDays, setHoldDays] = useState('');
+  const [risk, setRisk] = useState<'LOW'|'HIGH'|'UNKNOWN'>('UNKNOWN');
   const [renalClearance, setRenalClearance] = useState('');
-  const [sourceNote, setSourceNote] = useState('');
-  const [resumptionPlan, setResumptionPlan] = useState('');
+  const [stableKidneyFunction, setStableKidneyFunction] = useState(false);
+  const [confirmedHoldDays, setConfirmedHoldDays] = useState('');
   const [copied, setCopied] = useState(false);
-  const draft = useMemo(() => generateClearanceRequest({clinicianName,patientReference,medication,agentClass,indication,procedure,procedureDate,interventionRisk,holdDays,renalClearance,resumptionPlan,sourceNote}),[clinicianName,patientReference,medication,agentClass,indication,procedure,procedureDate,interventionRisk,holdDays,renalClearance,resumptionPlan,sourceNote]);
-  return <section className="panel" aria-label="Prescriber clearance request">
-    <div className="section-heading"><div><h2>Antithrombotic prescriber clearance request</h2><p>Editable provider communication; requires documented prescriber response.</p></div></div>
-    <p className="empty-copy">Enter only the minimum patient identifiers needed, and transmit through an approved secure clinical channel. This form does not send messages or store approvals. Do not enter a patient identifier into an unapproved external email system.</p>
-    <div className="question-grid">
-      <label className="question-field">Managing clinician<input aria-label="Managing clinician" value={clinicianName} onChange={e=>setClinicianName(e.target.value)} placeholder="Dr. ..." /></label>
-      <label className="question-field">Patient reference<input aria-label="Patient reference" value={patientReference} onChange={e=>setPatientReference(e.target.value)} placeholder="Secure internal identifier" /></label>
-      <label className="question-field">Medication<input aria-label="Medication for clearance" value={medication} onChange={e=>setMedication(e.target.value)} /></label>
-      <label className="question-field">Medication class<select aria-label="Antithrombotic class" value={agentClass} onChange={e=>setAgentClass(e.target.value as AgentClass)}><option value="anticoagulant">Anticoagulant</option><option value="p2y12">P2Y12 inhibitor</option><option value="other-antiplatelet">Other antiplatelet</option></select></label>
-      <label className="question-field">Indication<input aria-label="Antithrombotic indication" value={indication} onChange={e=>setIndication(e.target.value)} placeholder="AF, VTE, coronary stent..." /></label>
-      <label className="question-field">Procedure<input aria-label="Planned procedure" value={procedure} onChange={e=>setProcedure(e.target.value)} /></label>
-      <label className="question-field">Procedure date<input aria-label="Procedure date" type="date" value={procedureDate} onChange={e=>setProcedureDate(e.target.value)} /></label>
-      <label className="question-field">Anticipated intervention / bleeding risk<input aria-label="Procedure bleeding risk" value={interventionRisk} onChange={e=>setInterventionRisk(e.target.value)} placeholder="Diagnostic, possible polypectomy, EMR..." /></label>
-      <label className="question-field">Cockcroft–Gault CrCl (mL/min)<input aria-label="Creatinine clearance for request" type="number" min="0" step="0.1" value={renalClearance} onChange={e=>setRenalClearance(e.target.value)} placeholder="Enter calculated value" /></label>
-      <label className="question-field">Proposed hold (days; optional)<input aria-label="Proposed interruption days" type="number" min="0" step="1" value={holdDays} onChange={e=>setHoldDays(e.target.value)} placeholder="Leave blank to request guidance" /></label>
-      <label className="question-field">Guideline / facility policy basis<input aria-label="Guideline basis" value={sourceNote} onChange={e=>setSourceNote(e.target.value)} placeholder="ASGE 2016 vs ACG/CAG 2022..." /></label>
-      <label className="question-field">Proposed resumption plan<input aria-label="Proposed resumption plan" value={resumptionPlan} onChange={e=>setResumptionPlan(e.target.value)} placeholder="Prescriber to confirm" /></label>
-    </div>
-    <label className="question-field">Generated provider message<textarea aria-label="Generated provider clearance message" value={draft} readOnly rows={17} style={{width:'100%'}} /></label>
-    <div className="action-row"><button className="primary-button" type="button" onClick={async()=>{try {await navigator.clipboard.writeText(draft);setCopied(true);}catch{setCopied(false);}}}>{copied?'Copied':'Copy request for secure messaging'}</button></div>
-    <p className="empty-copy">No clearance is implied by generating or copying this message. Obtain and document the prescriber's response before issuing patient-facing interruption instructions.</p>
-  </section>;
+
+  const ingredient = useMemo(() => inferMedicationIngredient(medication), [medication]);
+  const agentClass = useMemo(() => inferAgentClass(medication), [medication]);
+  const numericCrCl = renalClearance.trim() !== '' && Number.isFinite(Number(renalClearance)) ? Number(renalClearance) : null;
+
+  const timing = useMemo(() => {
+    if (referenceSource !== 'ASGE_2016') return null;
+    return asge2016ApixabanHighRiskTiming({
+      medicationIngredient: ingredient,
+      creatinineClearanceMlMin: numericCrCl,
+      procedureBleedingRisk: risk,
+      kidneyFunctionStable: stableKidneyFunction,
+    });
+  }, [referenceSource, ingredient, numericCrCl, risk, stableKidneyFunction]);
+
+  const derivedHoldInterval = timing?.status === 'MATCHED' ? holdLabel(timing.holdDays) : '';
+  const fallbackHoldInterval = confirmedHoldDays.trim()
+    ? `${confirmedHoldDays.trim()} day${confirmedHoldDays.trim() === '1' ? '' : 's'}`
+    : '';
+  const holdInterval = derivedHoldInterval || fallbackHoldInterval;
+
+  const draft = useMemo(
+    () => generateClearanceRequest({
+      clinicianName,
+      patientReference,
+      medication,
+      indication,
+      procedure,
+      procedureDate,
+      holdInterval,
+    }),
+    [clinicianName, patientReference, medication, indication, procedure, procedureDate, holdInterval],
+  );
+
+  const needsAsgeInputs = referenceSource === 'ASGE_2016' && ingredient === 'apixaban';
+  const selectedSourceNeedsManualInterval =
+    referenceSource === 'ACG_CAG_2022' ||
+    (referenceSource === 'ASGE_2016' && ingredient !== '' && ingredient !== 'apixaban');
+
+  const missingConsultDetails = [
+    !clinicianName.trim() ? 'managing clinician' : '',
+    !patientReference.trim() ? 'patient reference' : '',
+    !indication.trim() ? 'medication indication' : '',
+    !procedure.trim() ? 'procedure' : '',
+    !procedureDate.trim() ? 'procedure date' : '',
+    !holdInterval ? 'hold interval' : '',
+  ].filter(Boolean);
+
+  return (
+    <section className="panel" aria-label="Prescriber clearance request">
+      <div className="section-heading">
+        <div>
+          <h2>Antithrombotic pre-op clearance</h2>
+          <p>Select the reference and medication. PREP-MEDS derives what it can and asks only for missing information that is needed to complete the request.</p>
+        </div>
+      </div>
+
+      <div className="question-grid">
+        <label className="question-field">
+          1 · Reference used for hold interval
+          <select aria-label="Reference used for hold interval" value={referenceSource} onChange={(event) => {
+            setReferenceSource(event.target.value as ReferenceSource | '');
+            setConfirmedHoldDays('');
+          }}>
+            <option value="">Select reference</option>
+            <option value="ASGE_2016">ASGE 2016</option>
+            <option value="ACG_CAG_2022">ACG–CAG 2022</option>
+          </select>
+        </label>
+
+        <label className="question-field">
+          2 · Medication for clearance
+          <input
+            aria-label="Medication for clearance"
+            value={medication}
+            onChange={(event) => {
+              setMedication(event.target.value);
+              setConfirmedHoldDays('');
+            }}
+            placeholder="Select or enter medication"
+          />
+        </label>
+      </div>
+
+      <div className="research-rule" aria-live="polite">
+        <h3>Auto-populated</h3>
+        <p><strong>Medication class:</strong> {classLabel(agentClass)}</p>
+        <p><strong>Procedure:</strong> {procedure.trim() || 'Not available from the current workspace'}</p>
+        <p><strong>Hold interval:</strong> {holdInterval || 'Not yet resolved'}</p>
+        {timing?.status === 'MATCHED' ? (
+          <p><strong>Matched renal bracket:</strong> {timing.renalBracket}. The source interval is preserved as written rather than reduced to a single day.</p>
+        ) : null}
+      </div>
+
+      {needsAsgeInputs && timing?.status !== 'MATCHED' ? (
+        <div className="planner-note">
+          <strong>Only the missing inputs for this timing rule</strong>
+          <div className="question-grid" style={{marginTop:12}}>
+            <label className="question-field">
+              Procedure bleeding risk
+              <select aria-label="Procedure bleeding risk for clearance" value={risk} onChange={(event) => setRisk(event.target.value as typeof risk)}>
+                <option value="UNKNOWN">Select</option>
+                <option value="LOW">Low</option>
+                <option value="HIGH">High</option>
+              </select>
+            </label>
+            <label className="question-field">
+              Cockcroft–Gault CrCl
+              <input aria-label="Creatinine clearance for clearance" type="number" min="0" step="0.1" value={renalClearance} onChange={(event) => setRenalClearance(event.target.value)} placeholder="mL/min" />
+            </label>
+            <label className="planner-check">
+              <input type="checkbox" checked={stableKidneyFunction} onChange={(event) => setStableKidneyFunction(event.target.checked)} />
+              Kidney function assessed as stable
+            </label>
+          </div>
+          <p className="planner-muted">{timing?.status === 'REQUIRES_REVIEW' ? timing.reason : 'Complete the required inputs to derive the source-specific interval.'}</p>
+        </div>
+      ) : null}
+
+      {selectedSourceNeedsManualInterval && !derivedHoldInterval ? (
+        <div className="planner-note">
+          <strong>Hold interval still needs confirmation</strong>
+          <p>The selected reference does not provide a deterministic interval for this medication in the currently implemented rule set. Enter an interval only if it has been independently established for this patient.</p>
+          <label className="question-field">
+            Confirmed hold interval
+            <input aria-label="Confirmed hold interval" type="number" min="0" step="1" value={confirmedHoldDays} onChange={(event) => setConfirmedHoldDays(event.target.value)} placeholder="Days" />
+          </label>
+        </div>
+      ) : null}
+
+      <details className="planner-settings" open={missingConsultDetails.length > 0}>
+        <summary>
+          <span>
+            <strong>Missing details for the consult</strong>
+            <small>{missingConsultDetails.length ? `${missingConsultDetails.length} item${missingConsultDetails.length === 1 ? '' : 's'} needed` : 'Complete'}</small>
+          </span>
+          <span aria-hidden="true">⌄</span>
+        </summary>
+        <div className="planner-settings-body">
+          <div className="question-grid">
+            {!clinicianName.trim() ? <label className="question-field">Managing clinician<input aria-label="Managing clinician" value={clinicianName} onChange={(event) => setClinicianName(event.target.value)} placeholder="Dr. ..." /></label> : null}
+            {!patientReference.trim() ? <label className="question-field">Patient reference<input aria-label="Patient reference" value={patientReference} onChange={(event) => setPatientReference(event.target.value)} placeholder="Patient name or approved internal reference" /></label> : null}
+            {!indication.trim() ? <label className="question-field">Medication indication<input aria-label="Medication indication" value={indication} onChange={(event) => setIndication(event.target.value)} placeholder="AF, VTE, coronary stent..." /></label> : null}
+            {!procedure.trim() ? <label className="question-field">Procedure<input aria-label="Planned procedure" value={procedure} onChange={(event) => setProcedure(event.target.value)} placeholder="Procedure" /></label> : null}
+            {!procedureDate.trim() ? <label className="question-field">Procedure date<input aria-label="Procedure date" type="date" value={procedureDate} onChange={(event) => setProcedureDate(event.target.value)} /></label> : null}
+          </div>
+          {procedure.trim() ? <p className="planner-muted">Procedure was carried forward from the current workspace. Only change it upstream if it is incorrect.</p> : null}
+        </div>
+      </details>
+
+      {draft ? (
+        <>
+          <label className="question-field">
+            Pre-op clearance request
+            <textarea aria-label="Generated provider clearance message" value={draft} readOnly rows={10} style={{width:'100%'}} />
+          </label>
+          <div className="action-row">
+            <button className="primary-button" type="button" onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(draft);
+                setCopied(true);
+              } catch {
+                setCopied(false);
+              }
+            }}>{copied ? 'Copied' : 'Copy request for secure messaging'}</button>
+          </div>
+        </>
+      ) : (
+        <div className="planner-note">
+          <strong>Clearance request will appear when ready</strong>
+          <p>PREP-MEDS will not generate a message with blank placeholders. Complete only the unresolved items above.</p>
+        </div>
+      )}
+
+      <p className="empty-copy">Generating this request does not constitute clearance. The prescriber or cardiology team must confirm the hold and pre-operative optimization before patient-facing interruption instructions are issued.</p>
+    </section>
+  );
 }
