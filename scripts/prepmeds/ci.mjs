@@ -672,7 +672,9 @@ export async function runPendingTests(config, metadata, rpcOverride) {
   if (!Number.isSafeInteger(Number(metadata?.ciRunId)) || Number(metadata.ciRunId) < 1) {
     throw new Error('PREPMEDS_CI_CONFIG: positive GITHUB_RUN_ID is required');
   }
-  const pending = await listPendingTests(config);
+  const pending = rpcOverride
+    ? await rpcOverride('ci_pending_tests', { p_ci_token: config.ciToken, p_limit: 100 })
+    : await listPendingTests(config);
   if (!Array.isArray(pending)) throw new Error('PREPMEDS_CI_PENDING_SHAPE: expected an array');
   const recorded = [];
   for (const item of pending) {
