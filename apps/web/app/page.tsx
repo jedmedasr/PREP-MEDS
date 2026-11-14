@@ -6,6 +6,9 @@ export default function HomePage() {
 
   return (
     <>
+      <div style={{ maxWidth: '1120px', margin: '18px auto 0', padding: '0 18px', textAlign: 'right' }}>
+        <a href="/owner" style={{ fontWeight: 700 }}>Owner Dashboard →</a>
+      </div>
       {shadowMode ? (
         <div
           role="alert"

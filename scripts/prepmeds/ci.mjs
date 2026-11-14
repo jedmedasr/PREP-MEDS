@@ -487,9 +487,241 @@ async function listPendingTests({ ciToken, baseUrl, publishableKey, fetchImpl = 
   });
 }
 
+function textValue(value) {
+  return typeof value === 'string' && value.trim().length > 0;
+}
+
+function normalizedIds(values) {
+  return [...new Set((Array.isArray(values) ? values : []).filter(textValue))].sort();
+}
+
+function suiteResult(suite, checks) {
+  const failedChecks = checks.filter((item) => item.passed !== true);
+  return {
+    suite,
+    passed: failedChecks.length === 0,
+    total: checks.length,
+    failed: failedChecks.length,
+    report: {
+      checks,
+      failed_checks: failedChecks.map((item) => item.name),
+    },
+  };
+}
+
+export function runMappingSuite(item) {
+  const revision = item?.revision;
+  const medications = Array.isArray(revision?.medications) ? revision.medications : [];
+  const revisionIdsRaw = medications.map((medication) => medication?.medication_id);
+  const currentIdsRaw = Array.isArray(item?.current_medication_ids) ? item.current_medication_ids : [];
+  const revisionIds = normalizedIds(revisionIdsRaw);
+  const currentIds = normalizedIds(currentIdsRaw);
+  const checks = [
+    {
+      name: 'revision_identity_matches_queue_item',
+      passed:
+        Number(revision?.revision_id) === Number(item?.revision_id) &&
+        revision?.group_id === item?.group_id &&
+        revision?.content_sha256 === item?.content_sha256,
+    },
+    {
+      name: 'current_canonical_mapping_is_nonempty',
+      passed: currentIds.length > 0 && currentIds.length === currentIdsRaw.length,
+    },
+    {
+      name: 'revision_medication_mapping_is_well_formed',
+      passed:
+        revisionIds.length > 0 &&
+        revisionIds.length === revisionIdsRaw.length &&
+        medications.every((medication) => textValue(medication?.medication_id)),
+    },
+    {
+      name: 'revision_mapping_matches_current_canonical_mapping',
+      passed: JSON.stringify(revisionIds) === JSON.stringify(currentIds),
+      detail: { revision_medication_ids: revisionIds, current_medication_ids: currentIds },
+    },
+  ];
+  return suiteResult('mapping', checks);
+}
+
+export function runEvidenceSuite(item) {
+  const revision = item?.revision;
+  const sources = Array.isArray(revision?.sources) ? revision.sources : [];
+  const passages = Array.isArray(revision?.passages) ? revision.passages : [];
+  const recommendations = Array.isArray(revision?.recommendations) ? revision.recommendations : [];
+  const coverage = Array.isArray(revision?.scenario_coverage) ? revision.scenario_coverage : [];
+  const questions = Array.isArray(revision?.open_questions) ? revision.open_questions : [];
+  const components = Array.isArray(revision?.components) ? revision.components : [];
+  const sourceById = new Map(sources.map((source) => [source?.source_id, source]));
+  const passageById = new Map(passages.map((passage) => [Number(passage?.passage_id), passage]));
+  const comparedSources = sources.filter((source) => source?.comparison?.status === 'COMPARED');
+
+  const recommendationSourcesValid = recommendations.every((recommendation) => {
+    const source = sourceById.get(recommendation?.source_id);
+    return (
+      source &&
+      source?.comparison?.status === 'COMPARED' &&
+      textValue(recommendation?.scenario_key) &&
+      textValue(recommendation?.action) &&
+      textValue(recommendation?.summary)
+    );
+  });
+  const recommendationPassagesValid = recommendations.every((recommendation) => {
+    const passage = passageById.get(Number(recommendation?.passage_id));
+    return (
+      Number.isSafeInteger(Number(recommendation?.passage_id)) &&
+      passage &&
+      passage?.source_id === recommendation?.source_id &&
+      textValue(passage?.locator) &&
+      textValue(passage?.quote)
+    );
+  });
+  const noGuidancePackageIsExplicit =
+    recommendations.length > 0 || (sources.length > 0 && comparedSources.length === 0);
+
+  const checks = [
+    {
+      name: 'revision_identity_matches_queue_item',
+      passed:
+        Number(revision?.revision_id) === Number(item?.revision_id) &&
+        revision?.group_id === item?.group_id &&
+        revision?.content_sha256 === item?.content_sha256,
+    },
+    {
+      name: 'formulation_decision_is_documented',
+      passed:
+        textValue(revision?.formulation?.decision) &&
+        textValue(revision?.formulation?.rationale),
+    },
+    {
+      name: 'source_comparison_is_documented',
+      passed:
+        sources.length > 0 &&
+        sources.every(
+          (source) =>
+            textValue(source?.source_id) &&
+            textValue(source?.comparison?.status) &&
+            textValue(source?.comparison?.checked_locators),
+        ),
+    },
+    {
+      name: 'scenario_coverage_is_documented',
+      passed:
+        coverage.length > 0 &&
+        coverage.every(
+          (scenario) =>
+            textValue(scenario?.scenario_key) &&
+            textValue(scenario?.status) &&
+            textValue(scenario?.reason),
+        ),
+    },
+    {
+      name: 'blocking_questions_are_absent',
+      passed: questions.every((question) => question?.blocking !== true),
+    },
+    {
+      name: 'component_revisions_are_current',
+      passed: components.every((component) => component?.is_current === true),
+    },
+    {
+      name: 'recommendations_or_explicit_no_guidance_are_present',
+      passed: noGuidancePackageIsExplicit,
+    },
+    {
+      name: 'recommendations_reference_compared_sources',
+      passed: recommendationSourcesValid,
+    },
+    {
+      name: 'recommendations_reference_exact_source_passages',
+      passed: recommendationPassagesValid,
+    },
+  ];
+  return suiteResult('evidence', checks);
+}
+
+async function recordTestRun(config, item, result, metadata, rpcOverride) {
+  const rpc =
+    rpcOverride ||
+    ((name, body) =>
+      dataApiRpc({
+        baseUrl: config.baseUrl,
+        publishableKey: config.publishableKey,
+        functionName: name,
+        body,
+      }));
+  return rpc('ci_record_test_run', {
+    p_ci_token: config.ciToken,
+    p_revision_id: Number(item.revision_id),
+    p_content_sha256: item.content_sha256,
+    p_suite: result.suite,
+    p_suite_version: Number(item.min_suite_version),
+    p_passed: result.passed,
+    p_total: result.total,
+    p_failed: result.failed,
+    p_commit_sha: metadata.commitSha,
+    p_ci_run_id: metadata.ciRunId,
+    p_ci_run_attempt: metadata.ciRunAttempt,
+    p_report: result.report,
+  });
+}
+
+export async function runPendingTests(config, metadata, rpcOverride) {
+  if (!textValue(metadata?.commitSha) || !/^[0-9a-f]{40}$/i.test(metadata.commitSha)) {
+    throw new Error('PREPMEDS_CI_CONFIG: exact GITHUB_SHA is required');
+  }
+  if (!Number.isSafeInteger(Number(metadata?.ciRunId)) || Number(metadata.ciRunId) < 1) {
+    throw new Error('PREPMEDS_CI_CONFIG: positive GITHUB_RUN_ID is required');
+  }
+  const pending = rpcOverride
+    ? await rpcOverride('ci_pending_tests', { p_ci_token: config.ciToken, p_limit: 100 })
+    : await listPendingTests(config);
+  if (!Array.isArray(pending)) throw new Error('PREPMEDS_CI_PENDING_SHAPE: expected an array');
+  const recorded = [];
+  for (const item of pending) {
+    const needs = Array.isArray(item?.needs) ? item.needs : [];
+    for (const suite of needs) {
+      let result;
+      if (suite === 'mapping') result = runMappingSuite(item);
+      else if (suite === 'evidence') result = runEvidenceSuite(item);
+      else throw new Error(`PREPMEDS_CI_UNKNOWN_SUITE: ${suite}`);
+      const database = await recordTestRun(
+        config,
+        item,
+        result,
+        {
+          commitSha: metadata.commitSha,
+          ciRunId: Number(metadata.ciRunId),
+          ciRunAttempt: Number(metadata.ciRunAttempt || 1),
+        },
+        rpcOverride,
+      );
+      recorded.push({
+        revision_id: Number(item.revision_id),
+        group_id: item.group_id,
+        suite,
+        passed: result.passed,
+        total: result.total,
+        failed: result.failed,
+        database,
+      });
+    }
+  }
+  return { pending_revisions: pending.length, recorded_runs: recorded.length, results: recorded };
+}
+
 async function commandTestPending(config) {
   const pending = await listPendingTests(config);
   process.stdout.write(`${JSON.stringify(pending, null, 2)}\n`);
+}
+
+async function commandRunTests(config) {
+  const result = await runPendingTests(config, {
+    commitSha: process.env.GITHUB_SHA,
+    ciRunId: Number(process.env.GITHUB_RUN_ID),
+    ciRunAttempt: Number(process.env.GITHUB_RUN_ATTEMPT || 1),
+  });
+  process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+  if (result.results.some((item) => item.passed !== true)) process.exitCode = 1;
 }
 
 async function commandRecheckPassages(config) {
@@ -530,11 +762,15 @@ export async function main(argv = process.argv.slice(2)) {
     await commandTestPending(envConfig());
     return;
   }
+  if (command === 'run-tests') {
+    await commandRunTests(envConfig());
+    return;
+  }
   if (command === 'recheck-passages') {
     await commandRecheckPassages(envConfig());
     return;
   }
-  throw new Error('usage: ci.mjs relay --lane odd|even --lane-dir <path> | test-pending | recheck-passages');
+  throw new Error('usage: ci.mjs relay --lane odd|even --lane-dir <path> | test-pending | run-tests | recheck-passages');
 }
 
 const invokedPath = process.argv[1] ? pathToFileURL(resolve(process.argv[1])).href : null;

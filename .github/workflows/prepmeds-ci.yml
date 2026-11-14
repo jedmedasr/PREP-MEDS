@@ -71,3 +71,32 @@ jobs:
             git -C lane-data pull --rebase origin "lane/${{ matrix.lane }}"
             git -C lane-data push origin "HEAD:lane/${{ matrix.lane }}"
           fi
+
+
+  technical-tests:
+    name: technical-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: prepmeds
+    concurrency:
+      group: prepmeds-technical-tests
+      cancel-in-progress: false
+    steps:
+      - name: Checkout trusted main code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run pending evidence and mapping suites
+        env:
+          PREPMEDS_SUPABASE_URL: ${{ secrets.PREPMEDS_SUPABASE_URL }}
+          PREPMEDS_PUBLISHABLE_KEY: ${{ secrets.PREPMEDS_PUBLISHABLE_KEY }}
+          PREPMEDS_CI_TOKEN: ${{ secrets.PREPMEDS_CI_TOKEN }}
+        run: |
+          set -euo pipefail
+          node scripts/prepmeds/ci.mjs run-tests
