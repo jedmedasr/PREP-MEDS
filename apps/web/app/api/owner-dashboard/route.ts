@@ -6,7 +6,8 @@ export const revalidate = 0;
 export async function GET() {
   const baseUrl = process.env.PREPMEDS_SUPABASE_URL?.replace(/\/$/, '');
   const apiKey = process.env.PREPMEDS_PUBLISHABLE_KEY;
-  if (!baseUrl || !apiKey) {
+  const dashboardToken = process.env.PREPMEDS_OWNER_DASHBOARD_TOKEN;
+  if (!baseUrl || !apiKey || !dashboardToken) {
     return NextResponse.json(
       { error: 'Owner dashboard is not configured.' },
       { status: 503, headers: { 'Cache-Control': 'no-store' } },
@@ -21,7 +22,7 @@ export async function GET() {
       'Content-Profile': 'prepmeds',
       'Accept-Profile': 'prepmeds',
     },
-    body: '{}',
+    body: JSON.stringify({ p_token: dashboardToken }),
     cache: 'no-store',
   });
 
