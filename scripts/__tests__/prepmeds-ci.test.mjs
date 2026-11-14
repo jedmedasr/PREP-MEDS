@@ -18,6 +18,9 @@ import {
   processRelay,
   relayOne,
   resolvePusherForCommit,
+  runEvidenceSuite,
+  runMappingSuite,
+  runPendingTests,
 } from '../prepmeds/ci.mjs';
 
 function runGit(cwd, ...args) {
@@ -397,4 +400,133 @@ test('relay errors are always materialized as response JSON instead of aborting 
   assert.match(result.responses[0].response.error, /PREPMEDS_DATABASE_REJECTED/);
   const stored = JSON.parse(readFileSync(join(dir, 'responses', 'odd-error-001.json'), 'utf8'));
   assert.equal(stored.ok, false);
+});
+
+
+function pendingFixture() {
+  return {
+    revision_id: 41,
+    group_id: 'ING-test-drug',
+    content_sha256: 'a'.repeat(64),
+    min_suite_version: 1,
+    needs: ['evidence', 'mapping'],
+    current_medication_ids: ['MED-test-b', 'MED-test-a'],
+    revision: {
+      revision_id: 41,
+      group_id: 'ING-test-drug',
+      content_sha256: 'a'.repeat(64),
+      formulation: {
+        decision: 'single_unit',
+        rationale: 'The source guidance does not distinguish these mapped formulations.',
+      },
+      open_questions: [{ text: 'Nonblocking clarification', blocking: false }],
+      medications: [
+        { medication_id: 'MED-test-a' },
+        { medication_id: 'MED-test-b' },
+      ],
+      sources: [
+        {
+          source_id: 'SRC-1',
+          comparison: {
+            status: 'COMPARED',
+            checked_locators: 'Section 1',
+          },
+        },
+      ],
+      passages: [
+        {
+          passage_id: 7,
+          source_id: 'SRC-1',
+          locator: 'Section 1, paragraph 2',
+          quote: 'Synthetic source passage used only for structural CI testing.',
+        },
+      ],
+      recommendations: [
+        {
+          source_id: 'SRC-1',
+          passage_id: 7,
+          scenario_key: 'before_procedure',
+          action: 'continue',
+          summary: 'Synthetic recommendation fixture.',
+        },
+      ],
+      scenario_coverage: [
+        {
+          scenario_key: 'before_procedure',
+          status: 'ADDRESSED',
+          reason: 'Synthetic source addresses the scenario.',
+        },
+      ],
+      components: [],
+    },
+  };
+}
+
+test('mapping suite passes exact canonical membership regardless of ordering', () => {
+  const result = runMappingSuite(pendingFixture());
+  assert.equal(result.passed, true);
+  assert.equal(result.failed, 0);
+});
+
+test('mapping suite fails closed when revision medications diverge from current canonical mapping', () => {
+  const item = pendingFixture();
+  item.current_medication_ids = ['MED-test-a', 'MED-test-c'];
+  const result = runMappingSuite(item);
+  assert.equal(result.passed, false);
+  assert.ok(result.report.failed_checks.includes('revision_mapping_matches_current_canonical_mapping'));
+});
+
+test('evidence suite passes a structurally complete source-linked technical package', () => {
+  const result = runEvidenceSuite(pendingFixture());
+  assert.equal(result.passed, true);
+  assert.equal(result.failed, 0);
+});
+
+test('evidence suite rejects blocking questions, stale components and source/passage mismatches', () => {
+  const item = pendingFixture();
+  item.revision.open_questions = [{ text: 'Needs resolution', blocking: true }];
+  item.revision.components = [{ group_id: 'ING-component', is_current: false }];
+  item.revision.passages[0].source_id = 'SRC-WRONG';
+  const result = runEvidenceSuite(item);
+  assert.equal(result.passed, false);
+  assert.ok(result.report.failed_checks.includes('blocking_questions_are_absent'));
+  assert.ok(result.report.failed_checks.includes('component_revisions_are_current'));
+  assert.ok(result.report.failed_checks.includes('recommendations_reference_exact_source_passages'));
+});
+
+test('pending-suite executor records exact-SHA evidence and mapping results through CI RPC', async () => {
+  const calls = [];
+  const item = pendingFixture();
+  const result = await runPendingTests(
+    { ciToken: 'ci-token' },
+    { commitSha: 'b'.repeat(40), ciRunId: 1234, ciRunAttempt: 2 },
+    async (name, body) => {
+      calls.push({ name, body });
+      if (name === 'ci_pending_tests') return [item];
+      if (name === 'ci_record_test_run') return { ok: true, outcome: 'recorded' };
+      throw new Error(`unexpected RPC: ${name}`);
+    },
+  );
+
+  assert.equal(result.pending_revisions, 1);
+  assert.equal(result.recorded_runs, 2);
+  assert.equal(result.results.every((entry) => entry.passed), true);
+  assert.equal(calls[0].name, 'ci_pending_tests');
+  const records = calls.filter((call) => call.name === 'ci_record_test_run');
+  assert.deepEqual(records.map((call) => call.body.p_suite).sort(), ['evidence', 'mapping']);
+  assert.equal(records.every((call) => call.body.p_commit_sha === 'b'.repeat(40)), true);
+  assert.equal(records.every((call) => call.body.p_ci_run_id === 1234), true);
+  assert.equal(records.every((call) => call.body.p_ci_run_attempt === 2), true);
+  assert.equal(records.every((call) => call.body.p_passed === true), true);
+});
+
+test('pending-suite executor refuses missing immutable GitHub run provenance', async () => {
+  await assert.rejects(
+    runPendingTests({ ciToken: 'ci-token' }, { commitSha: 'not-a-sha', ciRunId: 1 }, async () => []),
+    /exact GITHUB_SHA/,
+  );
+  await assert.rejects(
+    runPendingTests({ ciToken: 'ci-token' }, { commitSha: 'c'.repeat(40), ciRunId: 0 }, async () => []),
+    /positive GITHUB_RUN_ID/,
+  );
 });
