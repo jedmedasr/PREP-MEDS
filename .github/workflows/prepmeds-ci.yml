@@ -1,6 +1,9 @@
 name: prepmeds-ci
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       lane:
@@ -19,6 +22,7 @@ permissions:
 
 jobs:
   relay:
+    if: github.event_name != 'push'
     strategy:
       fail-fast: false
       matrix:
