@@ -94,6 +94,16 @@ function holdLabel(days: readonly number[]) {
   return `${Math.min(...days)}–${Math.max(...days)} days`;
 }
 
+export function consultFieldVisibility(procedureName: string) {
+  return {
+    clinicianName: true,
+    patientReference: true,
+    indication: true,
+    procedure: procedureName.trim() === '',
+    procedureDate: true,
+  };
+}
+
 export function PrescriberClearanceRequest({ medicationName = '', procedureName = '' }: { medicationName?: string; procedureName?: string }) {
   const [referenceSource, setReferenceSource] = useState<ReferenceSource | ''>('');
   const [medication, setMedication] = useState(medicationName);
@@ -146,6 +156,7 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
     referenceSource === 'ACG_CAG_2022' ||
     (referenceSource === 'ASGE_2016' && ingredient !== '' && ingredient !== 'apixaban');
 
+  const consultFields = consultFieldVisibility(procedureName);
   const missingConsultDetails = [
     !clinicianName.trim() ? 'managing clinician' : '',
     !patientReference.trim() ? 'patient reference' : '',
@@ -237,25 +248,26 @@ export function PrescriberClearanceRequest({ medicationName = '', procedureName 
         </div>
       ) : null}
 
-      <details className="planner-settings" open={missingConsultDetails.length > 0}>
-        <summary>
-          <span>
-            <strong>Missing details for the consult</strong>
-            <small>{missingConsultDetails.length ? `${missingConsultDetails.length} item${missingConsultDetails.length === 1 ? '' : 's'} needed` : 'Complete'}</small>
-          </span>
-          <span aria-hidden="true">⌄</span>
-        </summary>
+      <div className="planner-settings">
         <div className="planner-settings-body">
-          <div className="question-grid">
-            {!clinicianName.trim() ? <label className="question-field">Managing clinician<input aria-label="Managing clinician" value={clinicianName} onChange={(event) => setClinicianName(event.target.value)} placeholder="Dr. ..." /></label> : null}
-            {!patientReference.trim() ? <label className="question-field">Patient reference<input aria-label="Patient reference" value={patientReference} onChange={(event) => setPatientReference(event.target.value)} placeholder="Patient name or approved internal reference" /></label> : null}
-            {!indication.trim() ? <label className="question-field">Medication indication<input aria-label="Medication indication" value={indication} onChange={(event) => setIndication(event.target.value)} placeholder="AF, VTE, coronary stent..." /></label> : null}
-            {!procedure.trim() ? <label className="question-field">Procedure<input aria-label="Planned procedure" value={procedure} onChange={(event) => setProcedure(event.target.value)} placeholder="Procedure" /></label> : null}
-            {!procedureDate.trim() ? <label className="question-field">Procedure date<input aria-label="Procedure date" type="date" value={procedureDate} onChange={(event) => setProcedureDate(event.target.value)} /></label> : null}
+          <div className="planner-row">
+            <div>
+              <strong>Consult details</strong>
+              <p className="planner-muted" style={{margin:'4px 0 0'}}>
+                {missingConsultDetails.length ? `${missingConsultDetails.length} item${missingConsultDetails.length === 1 ? '' : 's'} still needed` : 'Complete — you can still edit these fields.'}
+              </p>
+            </div>
           </div>
-          {procedure.trim() ? <p className="planner-muted">Procedure was carried forward from the current workspace. Only change it upstream if it is incorrect.</p> : null}
+          <div className="question-grid" style={{marginTop:12}}>
+            {consultFields.clinicianName ? <label className="question-field">Managing clinician<input aria-label="Managing clinician" value={clinicianName} onChange={(event) => setClinicianName(event.target.value)} placeholder="Dr. ..." /></label> : null}
+            {consultFields.patientReference ? <label className="question-field">Patient reference<input aria-label="Patient reference" value={patientReference} onChange={(event) => setPatientReference(event.target.value)} placeholder="Patient name or approved internal reference" /></label> : null}
+            {consultFields.indication ? <label className="question-field">Medication indication<input aria-label="Medication indication" value={indication} onChange={(event) => setIndication(event.target.value)} placeholder="AF, VTE, coronary stent..." /></label> : null}
+            {consultFields.procedure ? <label className="question-field">Procedure<input aria-label="Planned procedure" value={procedure} onChange={(event) => setProcedure(event.target.value)} placeholder="Procedure" /></label> : null}
+            {consultFields.procedureDate ? <label className="question-field">Procedure date<input aria-label="Procedure date" type="date" value={procedureDate} onChange={(event) => setProcedureDate(event.target.value)} /></label> : null}
+          </div>
+          {!consultFields.procedure ? <p className="planner-muted">Procedure was carried forward from the current workspace. Only change it upstream if it is incorrect.</p> : null}
         </div>
-      </details>
+      </div>
 
       {draft ? (
         <>
