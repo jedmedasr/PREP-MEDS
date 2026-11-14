@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  consultFieldVisibility,
   generateClearanceRequest,
   inferAgentClass,
   inferMedicationIngredient,
@@ -44,5 +45,28 @@ describe('provider antithrombotic clearance draft', () => {
     expect(inferAgentClass('ELIQUIS apixaban 5 mg tablet')).toBe('anticoagulant');
     expect(inferAgentClass('clopidogrel 75 mg tablet')).toBe('p2y12');
     expect(inferAgentClass('aspirin 81 mg tablet')).toBe('other-antiplatelet');
+  });
+});
+
+
+describe('clearance consult field persistence', () => {
+  it('keeps manually entered consult fields mounted while the user types', () => {
+    expect(consultFieldVisibility('')).toEqual({
+      clinicianName: true,
+      patientReference: true,
+      indication: true,
+      procedure: true,
+      procedureDate: true,
+    });
+  });
+
+  it('hides only the procedure field when it was actually supplied upstream', () => {
+    expect(consultFieldVisibility('Colonoscopy')).toEqual({
+      clinicianName: true,
+      patientReference: true,
+      indication: true,
+      procedure: false,
+      procedureDate: true,
+    });
   });
 });
